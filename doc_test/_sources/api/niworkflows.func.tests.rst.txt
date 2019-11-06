@@ -1,0 +1,14 @@
+niworkflows.func.tests package
+==============================
+
+.. automodule:: niworkflows.func.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   niworkflows.func.tests.test_util

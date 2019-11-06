@@ -1,0 +1,14 @@
+niworkflows.common package
+==========================
+
+.. automodule:: niworkflows.common
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   niworkflows.common.orient

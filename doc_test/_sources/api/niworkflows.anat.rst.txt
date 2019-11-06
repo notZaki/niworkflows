@@ -1,0 +1,16 @@
+niworkflows.anat package
+========================
+
+.. automodule:: niworkflows.anat
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   niworkflows.anat.ants
+   niworkflows.anat.freesurfer
+   niworkflows.anat.skullstrip

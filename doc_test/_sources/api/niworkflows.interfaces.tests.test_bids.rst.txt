@@ -1,0 +1,7 @@
+niworkflows.interfaces.tests.test\_bids module
+==============================================
+
+.. automodule:: niworkflows.interfaces.tests.test_bids
+   :members:
+   :undoc-members:
+   :show-inheritance:

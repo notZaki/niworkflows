@@ -1,0 +1,7 @@
+niworkflows.data.utils module
+=============================
+
+.. automodule:: niworkflows.data.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

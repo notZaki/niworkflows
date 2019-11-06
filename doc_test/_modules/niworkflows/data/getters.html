@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>niworkflows.data.getters &mdash; niworkflows 0.10.4+21.g74b22f3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> niworkflows
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/niworkflows.html">niworkflows package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">niworkflows</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>niworkflows.data.getters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+
+
+    
+    
+
+
+
+    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
+<h1>Source code for niworkflows.data.getters</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
+<span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Data grabbers</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">..data.utils</span> <span class="k">import</span> <span class="n">fetch_file</span>
+
+<span class="n">DEPRECATION_MSG</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">Module ``niworkflows.data.getters`` has been deprecated in 0.7.1, </span><span class="se">\</span>
+<span class="s2">and will be removed in 0.8.&quot;&quot;&quot;</span>
+
+<span class="n">OSF_PROJECT_URL</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://files.osf.io/v1/resources/fvuh8/providers/osfstorage/&#39;</span><span class="p">)</span>
+<span class="n">OSF_RESOURCES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;brainweb&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;57f32b96b83f6901f194c3ca&#39;</span><span class="p">,</span> <span class="s1">&#39;384263fbeadc8e2cca92ced98f224c4b&#39;</span><span class="p">),</span>
+    <span class="c1"># Conte69-atlas meshes in 32k resolution</span>
+    <span class="s1">&#39;conte69&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;5b198ec5ec24e20011b48548&#39;</span><span class="p">,</span> <span class="s1">&#39;bd944e3f9f343e0e51e562b440960529&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;ds003_downsampled&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;57f328f6b83f6901ef94cf70&#39;</span><span class="p">,</span> <span class="s1">&#39;5a558961c1eb5e5f162696d8afa956e8&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;fMRIPrep&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;5bc12155ac011000176bff82&#39;</span><span class="p">,</span> <span class="s1">&#39;1aec4d286bd89f4f90316ce2cde63218&#39;</span><span class="p">),</span>
+    <span class="c1"># conversion between fsaverage5/6 and fs_LR(32k)</span>
+    <span class="s1">&#39;hcpLR32k&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;5b198ec6b796ba000f3e4858&#39;</span><span class="p">,</span> <span class="s1">&#39;0ba9adcaa42fa88616a4cea5a1ce0c5a&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;MNI152Lin&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;5bc984f8ccdb6b0018abb993&#39;</span><span class="p">,</span> <span class="s1">&#39;a1eb0a121d2aa68fc8a6e75ab148f1db&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;5b0dbce20f461a000db8fa3d&#39;</span><span class="p">,</span> <span class="s1">&#39;5d386d7db9c1dec30230623db25e05e1&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;NKI&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;5bc3fad82aa873001bc5a553&#39;</span><span class="p">,</span> <span class="s1">&#39;092e56fb3700f9f57b8917a0db887db6&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;OASIS30ANTs&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;5b0dbce34c28ef0012c7f788&#39;</span><span class="p">,</span> <span class="s1">&#39;f625a0390eb32a7852c7b0d71ac428cd&#39;</span><span class="p">),</span>
+    <span class="c1"># Mindboggle DKT31 label atlas in MNI152NLin2009cAsym space</span>
+    <span class="s1">&#39;OASISTRT20&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;5b16f17aeca4a80012bd7542&#39;</span><span class="p">,</span> <span class="s1">&#39;1b5389bc3a895b2bd5c0d47401107176&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">BIDS_EXAMPLES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;BIDS-examples-1-1.0.0-rc3u5&#39;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s1">&#39;https://github.com/chrisfilo/BIDS-examples-1/archive/1.0.0-rc3u5.tar.gz&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;035fe54445c56eff5bd845ef3795fd56&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;BIDS-examples-1-enh-ds054&#39;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s1">&#39;http://github.com/chrisfilo/BIDS-examples-1/archive/enh/ds054.zip&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;56cee272860624924bc23efbe868acb7&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="c1"># Map names of templates to OSF_RESOURCES keys</span>
+<span class="n">TEMPLATE_ALIASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;MNI152Lin&#39;</span><span class="p">:</span> <span class="s1">&#39;MNI152Lin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">:</span> <span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;OASIS&#39;</span><span class="p">:</span> <span class="s1">&#39;OASIS30ANTs&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NKI&#39;</span><span class="p">:</span> <span class="s1">&#39;NKI&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="get_dataset"><a class="viewcode-back" href="../../../api/niworkflows.data.getters.html#niworkflows.data.getters.get_dataset">[docs]</a><span class="k">def</span> <span class="nf">get_dataset</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">dataset_prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download and load the BIDS-fied brainweb 1mm normal</span>
+
+<span class="sd">    :param str data_dir: path of the data directory. Used to force data storage</span>
+<span class="sd">        in a non-standard location.</span>
+<span class="sd">    :param str url: download URL of the dataset. Overwrite the default URL.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="n">DEPRECATION_MSG</span><span class="p">)</span>
+    <span class="n">file_id</span><span class="p">,</span> <span class="n">md5</span> <span class="o">=</span> <span class="n">OSF_RESOURCES</span><span class="p">[</span><span class="n">dataset_name</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">OSF_PROJECT_URL</span><span class="p">,</span> <span class="n">file_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fetch_file</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">dataset_prefix</span><span class="o">=</span><span class="n">dataset_prefix</span><span class="p">,</span>
+                      <span class="n">filetype</span><span class="o">=</span><span class="s1">&#39;tar&#39;</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="n">resume</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span> <span class="n">md5sum</span><span class="o">=</span><span class="n">md5</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_template"><a class="viewcode-back" href="../../../api/niworkflows.data.getters.html#niworkflows.data.getters.get_template">[docs]</a><span class="k">def</span> <span class="nf">get_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download and load a template&quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="n">DEPRECATION_MSG</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">template_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;tpl-&#39;</span><span class="p">):</span>
+        <span class="n">template_name</span> <span class="o">=</span> <span class="n">template_name</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+
+    <span class="c1"># An aliasing mechanism. Please avoid</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="n">TEMPLATE_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="n">template_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">get_dataset</span><span class="p">(</span><span class="n">template_name</span><span class="p">,</span> <span class="n">dataset_prefix</span><span class="o">=</span><span class="s1">&#39;tpl-&#39;</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="n">data_dir</span><span class="p">,</span>
+                       <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="n">resume</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_brainweb_1mm_normal"><a class="viewcode-back" href="../../../api/niworkflows.data.getters.html#niworkflows.data.getters.get_brainweb_1mm_normal">[docs]</a><span class="k">def</span> <span class="nf">get_brainweb_1mm_normal</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download and load the BIDS-fied brainweb 1mm normal</span>
+
+<span class="sd">    :param str data_dir: path of the data directory. Used to force data storage</span>
+<span class="sd">        in a non-standard location.</span>
+<span class="sd">    :param str url: download URL of the dataset. Overwrite the default URL.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="n">DEPRECATION_MSG</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">get_dataset</span><span class="p">(</span><span class="s1">&#39;brainweb&#39;</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+                       <span class="n">resume</span><span class="o">=</span><span class="n">resume</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_ds003_downsampled"><a class="viewcode-back" href="../../../api/niworkflows.data.getters.html#niworkflows.data.getters.get_ds003_downsampled">[docs]</a><span class="k">def</span> <span class="nf">get_ds003_downsampled</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download and load the BIDS-fied ds003_downsampled</span>
+
+<span class="sd">    :param str data_dir: path of the data directory. Used to force data storage</span>
+<span class="sd">        in a non-standard location.</span>
+<span class="sd">    :param str url: download URL of the dataset. Overwrite the default URL.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="n">DEPRECATION_MSG</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">get_dataset</span><span class="p">(</span><span class="s1">&#39;ds003_downsampled&#39;</span><span class="p">,</span> <span class="n">data_dir</span><span class="o">=</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+                       <span class="n">resume</span><span class="o">=</span><span class="n">resume</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_bids_examples"><a class="viewcode-back" href="../../../api/niworkflows.data.getters.html#niworkflows.data.getters.get_bids_examples">[docs]</a><span class="k">def</span> <span class="nf">get_bids_examples</span><span class="p">(</span><span class="n">data_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">variant</span><span class="o">=</span><span class="s1">&#39;BIDS-examples-1-1.0.0-rc3u5&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download BIDS-examples-1&quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="n">DEPRECATION_MSG</span><span class="p">)</span>
+    <span class="n">variant</span> <span class="o">=</span> <span class="s1">&#39;BIDS-examples-1-1.0.0-rc3u5&#39;</span> <span class="k">if</span> <span class="n">variant</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">BIDS_EXAMPLES</span> <span class="k">else</span> <span class="n">variant</span>
+    <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">BIDS_EXAMPLES</span><span class="p">[</span><span class="n">variant</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">md5</span> <span class="o">=</span> <span class="n">BIDS_EXAMPLES</span><span class="p">[</span><span class="n">variant</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">fetch_file</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">data_dir</span><span class="p">,</span> <span class="n">resume</span><span class="o">=</span><span class="n">resume</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+                      <span class="n">md5sum</span><span class="o">=</span><span class="n">md5</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright 2019, Center for Reproducible Neuroscience, Stanford University
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: doc_test
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="getters.html">doc_test</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../../fix_gh_pages_ssh_key/index.html">fix_gh_pages_ssh_key</a></dd>
+            <dd><a href="../../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

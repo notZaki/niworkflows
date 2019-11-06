@@ -1,0 +1,23 @@
+niworkflows.utils package
+=========================
+
+.. automodule:: niworkflows.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+   niworkflows.utils.tests
+
+Submodules
+----------
+
+.. toctree::
+
+   niworkflows.utils.bids
+   niworkflows.utils.images
+   niworkflows.utils.misc
