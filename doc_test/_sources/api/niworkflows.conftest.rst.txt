@@ -1,7 +1,0 @@
-niworkflows.conftest module
-===========================
-
-.. automodule:: niworkflows.conftest
-   :members:
-   :undoc-members:
-   :show-inheritance:

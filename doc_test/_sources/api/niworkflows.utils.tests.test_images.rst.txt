@@ -1,7 +1,0 @@
-niworkflows.utils.tests.test\_images module
-===========================================
-
-.. automodule:: niworkflows.utils.tests.test_images
-   :members:
-   :undoc-members:
-   :show-inheritance:

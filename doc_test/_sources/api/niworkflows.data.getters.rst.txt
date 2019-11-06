@@ -1,7 +1,0 @@
-niworkflows.data.getters module
-===============================
-
-.. automodule:: niworkflows.data.getters
-   :members:
-   :undoc-members:
-   :show-inheritance:

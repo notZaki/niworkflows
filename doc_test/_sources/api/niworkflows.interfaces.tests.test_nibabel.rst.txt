@@ -1,7 +1,0 @@
-niworkflows.interfaces.tests.test\_nibabel module
-=================================================
-
-.. automodule:: niworkflows.interfaces.tests.test_nibabel
-   :members:
-   :undoc-members:
-   :show-inheritance:

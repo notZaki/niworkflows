@@ -1,7 +1,0 @@
-niworkflows.due module
-======================
-
-.. automodule:: niworkflows.due
-   :members:
-   :undoc-members:
-   :show-inheritance:

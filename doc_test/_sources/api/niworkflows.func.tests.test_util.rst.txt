@@ -1,7 +1,0 @@
-niworkflows.func.tests.test\_util module
-========================================
-
-.. automodule:: niworkflows.func.tests.test_util
-   :members:
-   :undoc-members:
-   :show-inheritance:
