@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.freesurfer &mdash; niworkflows 1.0.0rc1+7.g68bb0c2 documentation</title>
+  <title>niworkflows.interfaces.freesurfer &mdash; niworkflows 1.0.0rc1+12.gdda0b5f documentation</title>
   
 
   
@@ -439,9 +439,11 @@
 
         <span class="n">anatnii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_anat</span><span class="p">)</span>
         <span class="n">msknii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span>
-            <span class="n">grow_mask</span><span class="p">(</span><span class="n">anatnii</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span>
-                      <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_aseg</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span>
-                      <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_ants</span><span class="p">)</span><span class="o">.</span><span class="n">get_data</span><span class="p">()),</span>
+            <span class="n">grow_mask</span><span class="p">(</span><span class="n">anatnii</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span>
+                          <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_aseg</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int16&#39;</span><span class="p">),</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span>
+                          <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_ants</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int16&#39;</span><span class="p">)),</span>
             <span class="n">anatnii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
             <span class="n">anatnii</span><span class="o">.</span><span class="n">header</span>
         <span class="p">)</span>
@@ -532,9 +534,9 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bm_auto</span><span class="p">):</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">skullstripped</span><span class="p">)</span>
-        <span class="n">bmask</span> <span class="o">=</span> <span class="n">new_img_like</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">mask</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bmask</span> <span class="o">=</span> <span class="n">new_img_like</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">resampled_mask</span> <span class="o">=</span> <span class="n">resample_to_img</span><span class="p">(</span><span class="n">bmask</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-        <span class="n">masked_image</span> <span class="o">=</span> <span class="n">new_img_like</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span> <span class="o">*</span> <span class="n">resampled_mask</span><span class="o">.</span><span class="n">get_data</span><span class="p">())</span>
+        <span class="n">masked_image</span> <span class="o">=</span> <span class="n">new_img_like</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span> <span class="o">*</span> <span class="n">resampled_mask</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
         <span class="n">masked_image</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">bm_auto</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bm</span><span class="p">):</span>

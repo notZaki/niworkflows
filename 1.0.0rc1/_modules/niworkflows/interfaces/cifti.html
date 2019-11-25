@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.0.0rc1+7.g68bb0c2 documentation</title>
+  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.0.0rc1+12.gdda0b5f documentation</title>
   
 
   
@@ -321,9 +321,9 @@
         <span class="n">label_img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">label_file</span><span class="p">)</span>
         <span class="n">bold_img</span> <span class="o">=</span> <span class="n">resample_to_img</span><span class="p">(</span><span class="n">bold_file</span><span class="p">,</span> <span class="n">label_img</span><span class="p">)</span>
 
-        <span class="n">bold_data</span> <span class="o">=</span> <span class="n">bold_img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="n">bold_data</span> <span class="o">=</span> <span class="n">bold_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
         <span class="n">timepoints</span> <span class="o">=</span> <span class="n">bold_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-        <span class="n">label_data</span> <span class="o">=</span> <span class="n">label_img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="n">label_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">label_img</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int16&#39;</span><span class="p">)</span>
 
         <span class="c1"># set up CIFTI information</span>
         <span class="n">series_map</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">Cifti2MatrixIndicesMap</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="p">),</span>

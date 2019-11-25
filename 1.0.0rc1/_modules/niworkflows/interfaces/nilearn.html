@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.nilearn &mdash; niworkflows 1.0.0rc1+7.g68bb0c2 documentation</title>
+  <title>niworkflows.interfaces.nilearn &mdash; niworkflows 1.0.0rc1+12.gdda0b5f documentation</title>
   
 
   
@@ -232,13 +232,13 @@
         <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">closing</span><span class="p">:</span>
-            <span class="n">closed</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">binary_closing</span><span class="p">(</span><span class="n">masknii</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+            <span class="n">closed</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">binary_closing</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">masknii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="n">sim</span><span class="o">.</span><span class="n">ball</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
             <span class="n">masknii</span> <span class="o">=</span> <span class="n">masknii</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">closed</span><span class="p">,</span> <span class="n">masknii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
                                         <span class="n">masknii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fill_holes</span><span class="p">:</span>
-            <span class="n">filled</span> <span class="o">=</span> <span class="n">binary_fill_holes</span><span class="p">(</span><span class="n">masknii</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+            <span class="n">filled</span> <span class="o">=</span> <span class="n">binary_fill_holes</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">masknii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="n">sim</span><span class="o">.</span><span class="n">ball</span><span class="p">(</span><span class="mi">6</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
             <span class="n">masknii</span> <span class="o">=</span> <span class="n">masknii</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">filled</span><span class="p">,</span> <span class="n">masknii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
                                         <span class="n">masknii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
@@ -305,7 +305,7 @@
     <span class="n">out_file</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_t1enh&#39;</span><span class="p">,</span>
                                <span class="n">newpath</span><span class="o">=</span><span class="n">newpath</span><span class="p">)</span>
     <span class="n">nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_file</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">nii</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">nii</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
     <span class="n">maxd</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">newdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">data</span> <span class="o">/</span> <span class="n">maxd</span><span class="p">)</span>
     <span class="n">newdata</span> <span class="o">-=</span> <span class="n">newdata</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>

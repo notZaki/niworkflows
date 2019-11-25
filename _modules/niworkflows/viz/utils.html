@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.utils &mdash; niworkflows 1.0.0rc1+7.g68bb0c2 documentation</title>
+  <title>niworkflows.viz.utils &mdash; niworkflows 1.0.0rc1+12.gdda0b5f documentation</title>
   
 
   
@@ -357,7 +357,7 @@
     <span class="sd">&quot;&quot;&quot;Finds equi-spaced cuts for presenting images&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">nibabel.affines</span> <span class="k">import</span> <span class="n">apply_affine</span>
 
-    <span class="n">mask_data</span> <span class="o">=</span> <span class="n">mask_nii</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.0</span>
+    <span class="n">mask_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">mask_nii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0</span>
 
     <span class="c1"># First, project the number of masked voxels on each axes</span>
     <span class="n">ijk_counts</span> <span class="o">=</span> <span class="p">[</span>
@@ -419,7 +419,7 @@
     <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
         <span class="n">in_file</span> <span class="o">=</span> <span class="n">in_file</span>
 
-    <span class="k">if</span> <span class="n">in_file</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_file</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">in_file</span>
 
     <span class="k">return</span> <span class="n">nlimage</span><span class="o">.</span><span class="n">index_img</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -435,7 +435,7 @@
     <span class="n">plot_params</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">plot_params</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">plot_params</span>
 
     <span class="n">image_nii</span> <span class="o">=</span> <span class="n">_3d_in_file</span><span class="p">(</span><span class="n">image_nii</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">image_nii</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">image_nii</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
 
     <span class="n">plot_params</span> <span class="o">=</span> <span class="n">robust_set_limits</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">plot_params</span><span class="p">)</span>
 
@@ -520,15 +520,15 @@
 
     <span class="n">out_files</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="n">estimate_brightness</span><span class="p">:</span>
-        <span class="n">plot_params</span> <span class="o">=</span> <span class="n">robust_set_limits</span><span class="p">(</span><span class="n">anat_nii</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">plot_params</span> <span class="o">=</span> <span class="n">robust_set_limits</span><span class="p">(</span><span class="n">anat_nii</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
                                         <span class="n">plot_params</span><span class="p">)</span>
 
     <span class="c1"># FreeSurfer ribbon.mgz</span>
     <span class="n">ribbon</span> <span class="o">=</span> <span class="n">contour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">contour</span><span class="o">.</span><span class="n">get_data</span><span class="p">()),</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">42</span><span class="p">])</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">contour</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()),</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">42</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">ribbon</span><span class="p">:</span>
-        <span class="n">contour_data</span> <span class="o">=</span> <span class="n">contour</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span> <span class="o">%</span> <span class="mi">39</span>
+        <span class="n">contour_data</span> <span class="o">=</span> <span class="n">contour</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span> <span class="o">%</span> <span class="mi">39</span>
         <span class="n">white</span> <span class="o">=</span> <span class="n">nlimage</span><span class="o">.</span><span class="n">new_img_like</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="n">contour_data</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">pial</span> <span class="o">=</span> <span class="n">nlimage</span><span class="o">.</span><span class="n">new_img_like</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="n">contour_data</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
 
@@ -746,7 +746,7 @@
 
     <span class="n">mask_sl</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-        <span class="n">mask_sl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transform_to_2d</span><span class="p">(</span><span class="n">mask_img</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span> <span class="n">j</span><span class="p">))</span>
+        <span class="n">mask_sl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transform_to_2d</span><span class="p">(</span><span class="n">mask_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(),</span> <span class="n">j</span><span class="p">))</span>
 
     <span class="n">timeseries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">melodic_dir</span><span class="p">,</span> <span class="s2">&quot;melodic_mix&quot;</span><span class="p">))</span>
     <span class="n">power</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">melodic_dir</span><span class="p">,</span> <span class="s2">&quot;melodic_FTmix&quot;</span><span class="p">))</span>
@@ -809,7 +809,7 @@
             <span class="n">is_noise</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">noise_components</span>
             <span class="n">color_title</span> <span class="o">=</span> <span class="n">color_time</span> <span class="o">=</span> <span class="n">color_power</span> <span class="o">=</span> <span class="n">classified_colors</span><span class="p">[</span><span class="n">is_noise</span><span class="p">]</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
             <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">l_row</span><span class="p">:</span><span class="n">l_row</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">col</span> <span class="o">*</span> <span class="mi">5</span><span class="p">])</span>
             <span class="n">sl</span> <span class="o">=</span> <span class="n">transform_to_2d</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>

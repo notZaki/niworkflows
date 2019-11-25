@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.registration &mdash; niworkflows 1.0.0rc1+7.g68bb0c2 documentation</title>
+  <title>niworkflows.interfaces.registration &mdash; niworkflows 1.0.0rc1+12.gdda0b5f documentation</title>
   
 
   
@@ -569,7 +569,7 @@
                                   <span class="n">ref_vol</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;sinc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
             <span class="n">mc_slice_nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span><span class="p">)</span>
 
-            <span class="n">median_image_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">mc_slice_nii</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">median_image_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">mc_slice_nii</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">median_image_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span>
                 <span class="n">ref_nii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:</span><span class="n">n_volumes_to_discard</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
