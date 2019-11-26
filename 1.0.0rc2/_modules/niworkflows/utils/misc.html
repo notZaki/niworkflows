@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>niworkflows.utils.misc &mdash; niworkflows 1.0.0rc1+14.gbc6f416 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> niworkflows
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Library API (application program interface)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">What’s new?</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">niworkflows</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>niworkflows.utils.misc</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+
+
+    
+    
+
+
+
+    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
+<h1>Source code for niworkflows.utils.misc</h1><div class="highlight"><pre>
+<span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
+<span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Miscellaneous utilities</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;get_template_specs&#39;</span><span class="p">,</span> <span class="s1">&#39;fix_multi_T1w_source_name&#39;</span><span class="p">,</span> <span class="s1">&#39;add_suffix&#39;</span><span class="p">,</span> <span class="s1">&#39;read_crashfile&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;splitext&#39;</span><span class="p">,</span> <span class="s1">&#39;_copy_any&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="get_template_specs"><a class="viewcode-back" href="../../../api/niworkflows.utils.misc.html#niworkflows.utils.misc.get_template_specs">[docs]</a><span class="k">def</span> <span class="nf">get_template_specs</span><span class="p">(</span><span class="n">in_template</span><span class="p">,</span> <span class="n">template_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">default_resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse template specifications</span>
+
+<span class="sd">    &gt;&gt;&gt; get_template_specs(&#39;MNI152NLin2009cAsym&#39;, {&#39;suffix&#39;: &#39;T1w&#39;})[1]</span>
+<span class="sd">    {&#39;resolution&#39;: 1}</span>
+
+<span class="sd">    &gt;&gt;&gt; get_template_specs(&#39;MNI152NLin2009cAsym&#39;, {&#39;res&#39;: &#39;2&#39;, &#39;suffix&#39;: &#39;T1w&#39;})[1]</span>
+<span class="sd">    {&#39;resolution&#39;: &#39;2&#39;}</span>
+
+<span class="sd">    &gt;&gt;&gt; specs = get_template_specs(&#39;MNIInfant&#39;, {&#39;res&#39;: &#39;2&#39;, &#39;cohort&#39;: &#39;10&#39;, &#39;suffix&#39;: &#39;T1w&#39;})[1]</span>
+<span class="sd">    &gt;&gt;&gt; sorted(specs.items())</span>
+<span class="sd">    [(&#39;cohort&#39;, &#39;10&#39;), (&#39;resolution&#39;, &#39;2&#39;)]</span>
+
+<span class="sd">    &gt;&gt;&gt; get_template_specs(&#39;MNI152NLin2009cAsym&#39;,</span>
+<span class="sd">    ...                    {&#39;suffix&#39;: &#39;T1w&#39;, &#39;cohort&#39;: 1})[1] # doctest: +IGNORE_EXCEPTION_DETAIL</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    RuntimeError:</span>
+<span class="sd">    ...</span>
+
+<span class="sd">    &gt;&gt;&gt; get_template_specs(&#39;MNI152NLin2009cAsym&#39;,</span>
+<span class="sd">    ...                    {&#39;suffix&#39;: &#39;T1w&#39;, &#39;res&#39;: &#39;1|2&#39;})[1] # doctest: +IGNORE_EXCEPTION_DETAIL</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    RuntimeError:</span>
+<span class="sd">    ...</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">templateflow.api</span> <span class="k">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">get_template</span>
+    <span class="c1"># Massage spec (start creating if None)</span>
+    <span class="n">template_spec</span> <span class="o">=</span> <span class="n">template_spec</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="n">template_spec</span><span class="p">[</span><span class="s1">&#39;desc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;desc&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">template_spec</span><span class="p">[</span><span class="s1">&#39;atlas&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;atlas&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">template_spec</span><span class="p">[</span><span class="s1">&#39;resolution&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_spec</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span>
+        <span class="s1">&#39;res&#39;</span><span class="p">,</span> <span class="n">template_spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;resolution&#39;</span><span class="p">,</span> <span class="n">default_resolution</span><span class="p">))</span>
+
+    <span class="n">common_spec</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;resolution&#39;</span><span class="p">:</span> <span class="n">template_spec</span><span class="p">[</span><span class="s1">&#39;resolution&#39;</span><span class="p">]}</span>
+    <span class="k">if</span> <span class="s1">&#39;cohort&#39;</span> <span class="ow">in</span> <span class="n">template_spec</span><span class="p">:</span>
+        <span class="n">common_spec</span><span class="p">[</span><span class="s1">&#39;cohort&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_spec</span><span class="p">[</span><span class="s1">&#39;cohort&#39;</span><span class="p">]</span>
+
+    <span class="n">tpl_target_path</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span><span class="n">in_template</span><span class="p">,</span> <span class="o">**</span><span class="n">template_spec</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tpl_target_path</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">Could not find template &quot;</span><span class="si">{0}</span><span class="s2">&quot; with specs=</span><span class="si">{1}</span><span class="s2">. Please revise your template </span><span class="se">\</span>
+<span class="s2">argument.&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">in_template</span><span class="p">,</span> <span class="n">template_spec</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tpl_target_path</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">The available template modifiers (</span><span class="si">{0}</span><span class="s2">) did not select a unique template </span><span class="se">\</span>
+<span class="s2">(got &quot;</span><span class="si">{1}</span><span class="s2">&quot;). Please revise your template argument.&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">template_spec</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">tpl_target_path</span><span class="p">])))</span>
+
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">tpl_target_path</span><span class="p">),</span> <span class="n">common_spec</span></div>
+
+
+<div class="viewcode-block" id="fix_multi_T1w_source_name"><a class="viewcode-back" href="../../../api/niworkflows.utils.misc.html#niworkflows.utils.misc.fix_multi_T1w_source_name">[docs]</a><span class="k">def</span> <span class="nf">fix_multi_T1w_source_name</span><span class="p">(</span><span class="n">in_files</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make up a generic source name when there are multiple T1s</span>
+
+<span class="sd">    &gt;&gt;&gt; fix_multi_T1w_source_name([</span>
+<span class="sd">    ...     &#39;/path/to/sub-045_ses-test_T1w.nii.gz&#39;,</span>
+<span class="sd">    ...     &#39;/path/to/sub-045_ses-retest_T1w.nii.gz&#39;])</span>
+<span class="sd">    &#39;/path/to/sub-045_T1w.nii.gz&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">filename_to_list</span>
+    <span class="n">base</span><span class="p">,</span> <span class="n">in_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename_to_list</span><span class="p">(</span><span class="n">in_files</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">subject_label</span> <span class="o">=</span> <span class="n">in_file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="s2">&quot;sub-</span><span class="si">%s</span><span class="s2">_T1w.nii.gz&quot;</span> <span class="o">%</span> <span class="n">subject_label</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="add_suffix"><a class="viewcode-back" href="../../../api/niworkflows.utils.misc.html#niworkflows.utils.misc.add_suffix">[docs]</a><span class="k">def</span> <span class="nf">add_suffix</span><span class="p">(</span><span class="n">in_files</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrap nipype&#39;s fname_presuffix to conveniently just add a prefix</span>
+
+<span class="sd">    &gt;&gt;&gt; add_suffix([</span>
+<span class="sd">    ...     &#39;/path/to/sub-045_ses-test_T1w.nii.gz&#39;,</span>
+<span class="sd">    ...     &#39;/path/to/sub-045_ses-retest_T1w.nii.gz&#39;], &#39;_test&#39;)</span>
+<span class="sd">    &#39;sub-045_ses-test_T1w_test.nii.gz&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">fname_presuffix</span><span class="p">,</span> <span class="n">filename_to_list</span>
+    <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fname_presuffix</span><span class="p">(</span><span class="n">filename_to_list</span><span class="p">(</span><span class="n">in_files</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                                       <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="read_crashfile"><a class="viewcode-back" href="../../../api/niworkflows.utils.misc.html#niworkflows.utils.misc.read_crashfile">[docs]</a><span class="k">def</span> <span class="nf">read_crashfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pklz&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_read_pkl</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_read_txt</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;unknown crashfile format&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_read_pkl</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">loadcrash</span>
+    <span class="n">crash_data</span> <span class="o">=</span> <span class="n">loadcrash</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span>
+            <span class="s1">&#39;traceback&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">crash_data</span><span class="p">[</span><span class="s1">&#39;traceback&#39;</span><span class="p">])}</span>
+    <span class="k">if</span> <span class="s1">&#39;node&#39;</span> <span class="ow">in</span> <span class="n">crash_data</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crash_data</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">base_dir</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;node_dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">output_dir</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;node_dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Node crashed before execution&quot;</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">trait_get</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+
+<span class="k">def</span> <span class="nf">_read_txt</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Read a txt crashfile</span>
+
+<span class="sd">    &gt;&gt;&gt; new_path = Path(__file__).resolve().parent.parent</span>
+<span class="sd">    &gt;&gt;&gt; test_data_path = new_path / &#39;data&#39; / &#39;tests&#39;</span>
+<span class="sd">    &gt;&gt;&gt; info = _read_txt(test_data_path / &#39;crashfile.txt&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; info[&#39;node&#39;]  # doctest: +ELLIPSIS</span>
+<span class="sd">    &#39;...func_preproc_task_machinegame_run_02_wf.carpetplot_wf.conf_plot&#39;</span>
+<span class="sd">    &gt;&gt;&gt; info[&#39;traceback&#39;]  # doctest: +ELLIPSIS</span>
+<span class="sd">    &#39;...ValueError: zero-size array to reduction operation minimum which has no identity&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)}</span>
+    <span class="n">traceback_start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Node&#39;</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;node_dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">cur_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">cur_val</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">5</span><span class="p">:]):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isspace</span><span class="p">():</span>
+                <span class="n">cur_val</span> <span class="o">+=</span> <span class="n">line</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">cur_val</span><span class="p">:</span>
+                <span class="n">inputs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cur_key</span><span class="p">,</span> <span class="n">cur_val</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Traceback (&quot;</span><span class="p">):</span>
+                <span class="n">traceback_start</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">5</span>
+                <span class="k">break</span>
+
+            <span class="n">cur_key</span><span class="p">,</span> <span class="n">cur_val</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; = &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;node_dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Node crashed before execution&quot;</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;traceback&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">traceback_start</span><span class="p">:])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+
+<div class="viewcode-block" id="splitext"><a class="viewcode-back" href="../../../api/niworkflows.utils.misc.html#niworkflows.utils.misc.splitext">[docs]</a><span class="k">def</span> <span class="nf">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Splits filename and extension (.gz safe)</span>
+
+<span class="sd">    &gt;&gt;&gt; splitext(&#39;some/file.nii.gz&#39;)</span>
+<span class="sd">    (&#39;file&#39;, &#39;.nii.gz&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; splitext(&#39;some/other/file.nii&#39;)</span>
+<span class="sd">    (&#39;file&#39;, &#39;.nii&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; splitext(&#39;otherext.tar.gz&#39;)</span>
+<span class="sd">    (&#39;otherext&#39;, &#39;.tar.gz&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; splitext(&#39;text.txt&#39;)</span>
+<span class="sd">    (&#39;text&#39;, &#39;.txt&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+    <span class="n">basename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">stem</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">basename</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">stem</span>
+    <span class="k">return</span> <span class="n">stem</span><span class="p">,</span> <span class="n">basename</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">stem</span><span class="p">):]</span></div>
+
+
+<span class="k">def</span> <span class="nf">_copy_any</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span> <span class="nn">gzip</span>
+    <span class="kn">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="n">copyfileobj</span>
+    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">copyfile</span>
+
+    <span class="n">src_isgz</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">)</span>
+    <span class="n">dst_isgz</span> <span class="o">=</span> <span class="n">dst</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">src_isgz</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">dst_isgz</span><span class="p">:</span>
+        <span class="n">copyfile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_hardlink</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># Make sure we do not reuse the hardlink later</span>
+
+    <span class="c1"># Unlink target (should not exist)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dst</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">dst</span><span class="p">)</span>
+
+    <span class="n">src_open</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span> <span class="k">if</span> <span class="n">src_isgz</span> <span class="k">else</span> <span class="nb">open</span>
+    <span class="k">with</span> <span class="n">src_open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_in</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_out</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dst_isgz</span><span class="p">:</span>
+                <span class="c1"># Remove FNAME header from gzip (poldracklab/fmriprep#1480)</span>
+                <span class="n">gz_out</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">f_out</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+                <span class="n">copyfileobj</span><span class="p">(</span><span class="n">f_in</span><span class="p">,</span> <span class="n">gz_out</span><span class="p">)</span>
+                <span class="n">gz_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">copyfileobj</span><span class="p">(</span><span class="n">f_in</span><span class="p">,</span> <span class="n">f_out</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright 2019, Center for Reproducible Neuroscience, Stanford University
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 1.0.0rc2
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0rc1/index.html">1.0.0rc1</a></dd>
+            <dd><a href="misc.html">1.0.0rc2</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
