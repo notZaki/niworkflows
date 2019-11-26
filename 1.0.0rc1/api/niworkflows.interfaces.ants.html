@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.ants module &mdash; niworkflows 1.0.0rc1+14.gbc6f416 documentation</title>
+  <title>niworkflows.interfaces.ants module &mdash; niworkflows 1.0.0rc1+18.g2278f75 documentation</title>
   
 
   
@@ -190,7 +190,6 @@
 <em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.ants.</code><code class="sig-name descname">AI</code><span class="sig-paren">(</span><em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/ants.html#AI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.ants.AI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.ants.base.ANTSCommand</span></code></p>
 <p>Replaces <code class="docutils literal notranslate"><span class="pre">AffineInitializer</span></code>.</p>
-<p class="rubric">Examples</p>
 <dl class="attribute">
 <dt id="niworkflows.interfaces.ants.AI.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.ants.AI.input_spec" title="Permalink to this definition">¶</a></dt>
@@ -209,7 +208,7 @@
 <dt id="niworkflows.interfaces.ants.AntsJointFusion">
 <em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.ants.</code><code class="sig-name descname">AntsJointFusion</code><span class="sig-paren">(</span><em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/ants.html#AntsJointFusion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.ants.AntsJointFusion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.ants.base.ANTSCommand</span></code></p>
-<p>Run <code class="docutils literal notranslate"><span class="pre">antsJoinFusion</span></code>.</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">antsJoinFusion</span></code> (finds the consensus segmentation).</p>
 <dl class="attribute">
 <dt id="niworkflows.interfaces.ants.AntsJointFusion.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.ants.AntsJointFusion.input_spec" title="Permalink to this definition">¶</a></dt>
@@ -230,6 +229,13 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.ants.base.ANTSCommand</span></code></p>
 <p>Operations over images.</p>
 <p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maths</span> <span class="o">=</span> <span class="n">ImageMath</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">op1</span><span class="o">=</span><span class="n">nifti_fname</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">op2</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">maths</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">output_image</span><span class="p">)</span><span class="o">.</span><span class="n">get_sform</span><span class="p">()</span> <span class="o">==</span>
+<span class="gp">... </span>       <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">nifti_fname</span><span class="p">)</span><span class="o">.</span><span class="n">get_sform</span><span class="p">())</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 <dl class="attribute">
 <dt id="niworkflows.interfaces.ants.ImageMath.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.ants.ImageMath.input_spec" title="Permalink to this definition">¶</a></dt>
@@ -298,23 +304,28 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.ants.base.ANTSCommand</span></code></p>
 <p>Apply thresholds on images.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ThresholdImage</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">th_low</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">th_high</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">inside_value</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">outside_value</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">cmdline</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span> <span class="o">=</span> <span class="n">ThresholdImage</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">th_low</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">th_high</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">inside_value</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">outside_value</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">cmdline</span>  
 <span class="go">&#39;ThresholdImage 3 .../test.nii.gz output.nii.gz 0.500000 1.000000 1.000000 0.000000&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ThresholdImage</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Kmeans&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">num_thresholds</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">cmdline</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">thres</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">output_image</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span> <span class="o">=</span> <span class="n">ThresholdImage</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Kmeans&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">num_thresholds</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">cmdline</span>  
 <span class="go">&#39;ThresholdImage 3 .../test.nii.gz output.nii.gz Kmeans 4&#39;</span>
 </pre></div>
 </div>
