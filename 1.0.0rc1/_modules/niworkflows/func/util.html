@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.func.util &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.func.util &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -161,25 +161,25 @@
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;Utility workflows.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="k">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">parseversion</span><span class="p">,</span> <span class="n">Version</span>
-<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">resource_filename</span> <span class="k">as</span> <span class="n">pkgr_fn</span>
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">parseversion</span><span class="p">,</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_filename</span> <span class="k">as</span> <span class="n">pkgr_fn</span>
 
-<span class="kn">from</span> <span class="nn">nipype.pipeline</span> <span class="k">import</span> <span class="n">engine</span> <span class="k">as</span> <span class="n">pe</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="k">import</span> <span class="n">utility</span> <span class="k">as</span> <span class="n">niu</span><span class="p">,</span> <span class="n">fsl</span><span class="p">,</span> <span class="n">afni</span>
+<span class="kn">from</span> <span class="nn">nipype.pipeline</span> <span class="kn">import</span> <span class="n">engine</span> <span class="k">as</span> <span class="n">pe</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">utility</span> <span class="k">as</span> <span class="n">niu</span><span class="p">,</span> <span class="n">fsl</span><span class="p">,</span> <span class="n">afni</span>
 
-<span class="kn">from</span> <span class="nn">templateflow.api</span> <span class="k">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">get_template</span>
+<span class="kn">from</span> <span class="nn">templateflow.api</span> <span class="kn">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">get_template</span>
 
-<span class="kn">from</span> <span class="nn">..engine.workflows</span> <span class="k">import</span> <span class="n">LiterateWorkflow</span> <span class="k">as</span> <span class="n">Workflow</span>
-<span class="kn">from</span> <span class="nn">..interfaces.ants</span> <span class="k">import</span> <span class="n">AI</span>
-<span class="kn">from</span> <span class="nn">..interfaces.fixes</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..engine.workflows</span> <span class="kn">import</span> <span class="n">LiterateWorkflow</span> <span class="k">as</span> <span class="n">Workflow</span>
+<span class="kn">from</span> <span class="nn">..interfaces.ants</span> <span class="kn">import</span> <span class="n">AI</span>
+<span class="kn">from</span> <span class="nn">..interfaces.fixes</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">FixHeaderRegistration</span> <span class="k">as</span> <span class="n">Registration</span><span class="p">,</span>
     <span class="n">FixHeaderApplyTransforms</span> <span class="k">as</span> <span class="n">ApplyTransforms</span><span class="p">,</span>
     <span class="n">FixN4BiasFieldCorrection</span> <span class="k">as</span> <span class="n">N4BiasFieldCorrection</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..interfaces.images</span> <span class="k">import</span> <span class="n">ValidateImage</span><span class="p">,</span> <span class="n">MatchHeader</span>
-<span class="kn">from</span> <span class="nn">..interfaces.masks</span> <span class="k">import</span> <span class="n">SimpleShowMaskRPT</span>
-<span class="kn">from</span> <span class="nn">..interfaces.registration</span> <span class="k">import</span> <span class="n">EstimateReferenceImage</span>
-<span class="kn">from</span> <span class="nn">..interfaces.utils</span> <span class="k">import</span> <span class="n">CopyXForm</span>
+<span class="kn">from</span> <span class="nn">..interfaces.images</span> <span class="kn">import</span> <span class="n">ValidateImage</span><span class="p">,</span> <span class="n">MatchHeader</span>
+<span class="kn">from</span> <span class="nn">..interfaces.masks</span> <span class="kn">import</span> <span class="n">SimpleShowMaskRPT</span>
+<span class="kn">from</span> <span class="nn">..interfaces.registration</span> <span class="kn">import</span> <span class="n">EstimateReferenceImage</span>
+<span class="kn">from</span> <span class="nn">..interfaces.utils</span> <span class="kn">import</span> <span class="n">CopyXForm</span>
 
 
 <span class="n">DEFAULT_MEMORY_MIN_GB</span> <span class="o">=</span> <span class="mf">0.01</span>
@@ -641,6 +641,7 @@
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0/index.html">1.0.0</a></dd>
             <dd><a href="util.html">1.0.0rc1</a></dd>
             <dd><a href="../../../../1.0.0rc2/index.html">1.0.0rc2</a></dd>
         </dl>

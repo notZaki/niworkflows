@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.freesurfer &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.interfaces.freesurfer &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -162,23 +162,23 @@
 <span class="sd">&quot;&quot;&quot;FreeSurfer tools interfaces.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">skimage</span> <span class="k">import</span> <span class="n">morphology</span> <span class="k">as</span> <span class="n">sim</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage.morphology</span> <span class="k">import</span> <span class="n">binary_fill_holes</span>
-<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="k">import</span> <span class="n">resample_to_img</span><span class="p">,</span> <span class="n">new_img_like</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">morphology</span> <span class="k">as</span> <span class="n">sim</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage.morphology</span> <span class="kn">import</span> <span class="n">binary_fill_holes</span>
+<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="kn">import</span> <span class="n">resample_to_img</span><span class="p">,</span> <span class="n">new_img_like</span>
 
-<span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">copyfile</span><span class="p">,</span> <span class="n">filename_to_list</span><span class="p">,</span> <span class="n">fname_presuffix</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">copyfile</span><span class="p">,</span> <span class="n">filename_to_list</span><span class="p">,</span> <span class="n">fname_presuffix</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">isdefined</span><span class="p">,</span> <span class="n">InputMultiPath</span><span class="p">,</span> <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span> <span class="n">TraitedSpec</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">traits</span><span class="p">,</span> <span class="n">Directory</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="k">import</span> <span class="n">freesurfer</span> <span class="k">as</span> <span class="n">fs</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="k">import</span> <span class="n">SimpleInterface</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.freesurfer.preprocess</span> <span class="k">import</span> <span class="n">ConcatenateLTA</span><span class="p">,</span> <span class="n">RobustRegister</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.freesurfer.utils</span> <span class="k">import</span> <span class="n">LTAConvert</span>
-<span class="kn">from</span> <span class="nn">.registration</span> <span class="k">import</span> <span class="n">BBRegisterRPT</span><span class="p">,</span> <span class="n">MRICoregRPT</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">freesurfer</span> <span class="k">as</span> <span class="n">fs</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="n">SimpleInterface</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.freesurfer.preprocess</span> <span class="kn">import</span> <span class="n">ConcatenateLTA</span><span class="p">,</span> <span class="n">RobustRegister</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.freesurfer.utils</span> <span class="kn">import</span> <span class="n">LTAConvert</span>
+<span class="kn">from</span> <span class="nn">.registration</span> <span class="kn">import</span> <span class="n">BBRegisterRPT</span><span class="p">,</span> <span class="n">MRICoregRPT</span>
 
 
 <div class="viewcode-block" id="StructuralReference"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.freesurfer.html#niworkflows.interfaces.freesurfer.StructuralReference">[docs]</a><span class="k">class</span> <span class="nc">StructuralReference</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">RobustTemplate</span><span class="p">):</span>
@@ -707,6 +707,7 @@
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0/index.html">1.0.0</a></dd>
             <dd><a href="../../../../1.0.0rc1/index.html">1.0.0rc1</a></dd>
             <dd><a href="../../../../1.0.0rc2/index.html">1.0.0rc2</a></dd>
         </dl>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -161,20 +161,20 @@
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;Handling connectivity: combines FreeSurfer surfaces with subcortical volumes.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
-<span class="kn">from</span> <span class="nn">nibabel</span> <span class="k">import</span> <span class="n">cifti2</span> <span class="k">as</span> <span class="n">ci</span>
+<span class="kn">from</span> <span class="nn">nibabel</span> <span class="kn">import</span> <span class="n">cifti2</span> <span class="k">as</span> <span class="n">ci</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="k">import</span> <span class="n">resample_to_img</span>
+<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="kn">import</span> <span class="n">resample_to_img</span>
 
-<span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">split_filename</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">split_filename</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span> <span class="n">TraitedSpec</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">traits</span><span class="p">,</span>
     <span class="n">SimpleInterface</span><span class="p">,</span> <span class="n">Directory</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">templateflow.api</span> <span class="k">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">get_template</span>
+<span class="kn">from</span> <span class="nn">templateflow.api</span> <span class="kn">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">get_template</span>
 
 <span class="c1"># CITFI structures with corresponding FS labels</span>
 <span class="n">CIFTI_STRUCT_WITH_LABELS</span> <span class="o">=</span> <span class="p">{</span>
@@ -471,6 +471,7 @@
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0/index.html">1.0.0</a></dd>
             <dd><a href="../../../../1.0.0rc1/index.html">1.0.0rc1</a></dd>
             <dd><a href="../../../../1.0.0rc2/index.html">1.0.0rc2</a></dd>
         </dl>

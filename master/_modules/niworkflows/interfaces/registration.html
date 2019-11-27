@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.registration &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.interfaces.registration &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -161,27 +161,27 @@
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;ReportCapableInterfaces for registration tools.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">distutils.version</span> <span class="k">import</span> <span class="n">LooseVersion</span>
+<span class="kn">from</span> <span class="nn">distutils.version</span> <span class="kn">import</span> <span class="n">LooseVersion</span>
 
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">nilearn</span> <span class="k">import</span> <span class="n">image</span> <span class="k">as</span> <span class="n">nli</span>
-<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="k">import</span> <span class="n">index_img</span>
-<span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">fname_presuffix</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">nilearn</span> <span class="kn">import</span> <span class="n">image</span> <span class="k">as</span> <span class="n">nli</span>
+<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="kn">import</span> <span class="n">index_img</span>
+<span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">fname_presuffix</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">traits</span><span class="p">,</span> <span class="n">isdefined</span><span class="p">,</span> <span class="n">TraitedSpec</span><span class="p">,</span> <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">SimpleInterface</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.mixins</span> <span class="k">import</span> <span class="n">reporting</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="k">import</span> <span class="n">freesurfer</span> <span class="k">as</span> <span class="n">fs</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="k">import</span> <span class="n">fsl</span><span class="p">,</span> <span class="n">ants</span><span class="p">,</span> <span class="n">afni</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.mixins</span> <span class="kn">import</span> <span class="n">reporting</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">freesurfer</span> <span class="k">as</span> <span class="n">fs</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">fsl</span><span class="p">,</span> <span class="n">ants</span><span class="p">,</span> <span class="n">afni</span>
 
-<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">NIWORKFLOWS_LOG</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">report_base</span> <span class="k">as</span> <span class="n">nrc</span>
-<span class="kn">from</span> <span class="nn">.mni</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">NIWORKFLOWS_LOG</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">report_base</span> <span class="k">as</span> <span class="n">nrc</span>
+<span class="kn">from</span> <span class="nn">.mni</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_RobustMNINormalizationInputSpec</span><span class="p">,</span>
     <span class="n">_RobustMNINormalizationOutputSpec</span><span class="p">,</span>
     <span class="n">RobustMNINormalization</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.fixes</span> <span class="k">import</span> <span class="p">(</span><span class="n">FixHeaderApplyTransforms</span> <span class="k">as</span> <span class="n">ApplyTransforms</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">.fixes</span> <span class="kn">import</span> <span class="p">(</span><span class="n">FixHeaderApplyTransforms</span> <span class="k">as</span> <span class="n">ApplyTransforms</span><span class="p">,</span>
                     <span class="n">FixHeaderRegistration</span> <span class="k">as</span> <span class="n">Registration</span><span class="p">)</span>
 
 
@@ -582,7 +582,7 @@
 
 
 <span class="k">def</span> <span class="nf">_get_vols_to_discard</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">nipype.algorithms.confounds</span> <span class="k">import</span> <span class="n">is_outlier</span>
+    <span class="kn">from</span> <span class="nn">nipype.algorithms.confounds</span> <span class="kn">import</span> <span class="n">is_outlier</span>
     <span class="n">data_slice</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">dataobj</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:</span><span class="mi">50</span><span class="p">]</span>
     <span class="n">global_signal</span> <span class="o">=</span> <span class="n">data_slice</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">is_outlier</span><span class="p">(</span><span class="n">global_signal</span><span class="p">)</span>
@@ -622,6 +622,7 @@
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0/index.html">1.0.0</a></dd>
             <dd><a href="../../../../1.0.0rc1/index.html">1.0.0rc1</a></dd>
             <dd><a href="../../../../1.0.0rc2/index.html">1.0.0rc2</a></dd>
         </dl>

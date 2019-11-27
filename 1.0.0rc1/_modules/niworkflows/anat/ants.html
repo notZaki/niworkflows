@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.anat.ants &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.anat.ants &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -163,31 +163,31 @@
 <span class="sd">&quot;&quot;&quot;Nipype translation of ANTs&#39; workflows.&quot;&quot;&quot;</span>
 
 <span class="c1"># general purpose</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="k">import</span> <span class="n">cpu_count</span>
-<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">resource_filename</span> <span class="k">as</span> <span class="n">pkgr_fn</span>
-<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="k">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">parseversion</span><span class="p">,</span> <span class="n">Version</span>
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_filename</span> <span class="k">as</span> <span class="n">pkgr_fn</span>
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">parse</span> <span class="k">as</span> <span class="n">parseversion</span><span class="p">,</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
 <span class="c1"># nipype</span>
-<span class="kn">from</span> <span class="nn">nipype.pipeline</span> <span class="k">import</span> <span class="n">engine</span> <span class="k">as</span> <span class="n">pe</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="k">import</span> <span class="n">utility</span> <span class="k">as</span> <span class="n">niu</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.fsl.maths</span> <span class="k">import</span> <span class="n">ApplyMask</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.ants</span> <span class="k">import</span> <span class="n">N4BiasFieldCorrection</span><span class="p">,</span> <span class="n">Atropos</span><span class="p">,</span> <span class="n">MultiplyImages</span>
+<span class="kn">from</span> <span class="nn">nipype.pipeline</span> <span class="kn">import</span> <span class="n">engine</span> <span class="k">as</span> <span class="n">pe</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">utility</span> <span class="k">as</span> <span class="n">niu</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.fsl.maths</span> <span class="kn">import</span> <span class="n">ApplyMask</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.ants</span> <span class="kn">import</span> <span class="n">N4BiasFieldCorrection</span><span class="p">,</span> <span class="n">Atropos</span><span class="p">,</span> <span class="n">MultiplyImages</span>
 
-<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="k">import</span> <span class="n">get_template_specs</span>
+<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">get_template_specs</span>
 <span class="c1"># niworkflows</span>
-<span class="kn">from</span> <span class="nn">..interfaces.ants</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..interfaces.ants</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ImageMath</span><span class="p">,</span>
     <span class="n">ResampleImageBySpacing</span><span class="p">,</span>
     <span class="n">AI</span><span class="p">,</span>
     <span class="n">ThresholdImage</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..interfaces.fixes</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..interfaces.fixes</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">FixHeaderRegistration</span> <span class="k">as</span> <span class="n">Registration</span><span class="p">,</span>
     <span class="n">FixHeaderApplyTransforms</span> <span class="k">as</span> <span class="n">ApplyTransforms</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..interfaces.utils</span> <span class="k">import</span> <span class="n">CopyXForm</span>
+<span class="kn">from</span> <span class="nn">..interfaces.utils</span> <span class="kn">import</span> <span class="n">CopyXForm</span>
 
 
 <span class="n">ATROPOS_MODELS</span> <span class="o">=</span> <span class="p">{</span>
@@ -325,7 +325,7 @@
 <span class="sd">        Output :abbr:`TPMs (tissue probability maps)` by ATROPOS</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">templateflow.api</span> <span class="k">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">get_template</span>
+    <span class="kn">from</span> <span class="nn">templateflow.api</span> <span class="kn">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">get_template</span>
     <span class="n">wf</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
     <span class="n">template_spec</span> <span class="o">=</span> <span class="n">template_spec</span> <span class="ow">or</span> <span class="p">{}</span>
@@ -780,10 +780,10 @@
 
 
 <span class="k">def</span> <span class="nf">_select_labels</span><span class="p">(</span><span class="n">in_segm</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">getcwd</span>
+    <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span>
     <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
     <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
-    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">fname_presuffix</span>
+    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">fname_presuffix</span>
 
     <span class="n">out_files</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -802,10 +802,10 @@
 
 <span class="k">def</span> <span class="nf">_conform_mask</span><span class="p">(</span><span class="n">in_mask</span><span class="p">,</span> <span class="n">in_reference</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Ensures the mask headers make sense and match those of the T1w&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
     <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
     <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
-    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">fname_presuffix</span>
+    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">fname_presuffix</span>
 
     <span class="n">ref</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_reference</span><span class="p">)</span>
     <span class="n">nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_mask</span><span class="p">)</span>
@@ -867,6 +867,7 @@
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0/index.html">1.0.0</a></dd>
             <dd><a href="ants.html">1.0.0rc1</a></dd>
             <dd><a href="../../../../1.0.0rc2/index.html">1.0.0rc2</a></dd>
         </dl>

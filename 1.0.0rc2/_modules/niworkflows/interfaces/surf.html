@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.surf &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.interfaces.surf &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -165,13 +165,13 @@
 <span class="sd">&quot;&quot;&quot;Handling surfaces.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
 
-<span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="k">import</span> <span class="n">fname_presuffix</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">fname_presuffix</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span> <span class="n">TraitedSpec</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">traits</span><span class="p">,</span> <span class="n">isdefined</span><span class="p">,</span>
     <span class="n">SimpleInterface</span><span class="p">,</span> <span class="n">CommandLine</span><span class="p">,</span> <span class="n">CommandLineInputSpec</span><span class="p">,</span>
     <span class="n">InputMultiPath</span><span class="p">,</span> <span class="n">OutputMultiPath</span><span class="p">,</span>
@@ -451,7 +451,7 @@
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_SurfacesToPointCloudOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+        <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
         <span class="n">giis</span> <span class="o">=</span> <span class="p">[</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_files</span><span class="p">]</span>
         <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">g</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">giis</span><span class="p">])</span>
@@ -500,7 +500,7 @@
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_PLYtoGiftiOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+        <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
         <span class="n">meta</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;GeometricType&#39;</span><span class="p">:</span> <span class="s1">&#39;Anatomical&#39;</span><span class="p">,</span>
             <span class="s1">&#39;VolGeomWidth&#39;</span><span class="p">:</span> <span class="s1">&#39;256&#39;</span><span class="p">,</span>
@@ -553,7 +553,7 @@
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_UnzipJoinedSurfacesOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+        <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
         <span class="n">in_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">it</span> <span class="k">for</span> <span class="n">items</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_files</span> <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
 
@@ -668,9 +668,9 @@
 
 <div class="viewcode-block" id="pointcloud2ply"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.surf.html#niworkflows.interfaces.surf.pointcloud2ply">[docs]</a><span class="k">def</span> <span class="nf">pointcloud2ply</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">normals</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts the file to PLY format&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
     <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-    <span class="kn">from</span> <span class="nn">pyntcloud</span> <span class="k">import</span> <span class="n">PyntCloud</span>
+    <span class="kn">from</span> <span class="nn">pyntcloud</span> <span class="kn">import</span> <span class="n">PyntCloud</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">vertices</span><span class="p">,</span> <span class="n">normals</span><span class="p">)))</span>
     <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;nx&#39;</span><span class="p">,</span> <span class="s1">&#39;ny&#39;</span><span class="p">,</span> <span class="s1">&#39;nz&#39;</span><span class="p">]</span>
     <span class="n">cloud</span> <span class="o">=</span> <span class="n">PyntCloud</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -684,12 +684,12 @@
 
 <div class="viewcode-block" id="ply2gii"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.surf.html#niworkflows.interfaces.surf.ply2gii">[docs]</a><span class="k">def</span> <span class="nf">ply2gii</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert from ply to GIfTI&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
-    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">eye</span>
-    <span class="kn">from</span> <span class="nn">nibabel.gifti</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">eye</span>
+    <span class="kn">from</span> <span class="nn">nibabel.gifti</span> <span class="kn">import</span> <span class="p">(</span>
         <span class="n">GiftiMetaData</span><span class="p">,</span> <span class="n">GiftiCoordSystem</span><span class="p">,</span> <span class="n">GiftiImage</span><span class="p">,</span> <span class="n">GiftiDataArray</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">pyntcloud</span> <span class="k">import</span> <span class="n">PyntCloud</span>
+    <span class="kn">from</span> <span class="nn">pyntcloud</span> <span class="kn">import</span> <span class="n">PyntCloud</span>
 
     <span class="n">in_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">in_file</span><span class="p">)</span>
     <span class="n">surf</span> <span class="o">=</span> <span class="n">PyntCloud</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">in_file</span><span class="p">))</span>
@@ -724,7 +724,7 @@
 
 
 <div class="viewcode-block" id="get_gii_meta"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.surf.html#niworkflows.interfaces.surf.get_gii_meta">[docs]</a><span class="k">def</span> <span class="nf">get_gii_meta</span><span class="p">(</span><span class="n">in_file</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">nibabel</span> <span class="k">import</span> <span class="n">load</span>
+    <span class="kn">from</span> <span class="nn">nibabel</span> <span class="kn">import</span> <span class="n">load</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">in_file</span> <span class="o">=</span> <span class="n">in_file</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -766,6 +766,7 @@
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0/index.html">1.0.0</a></dd>
             <dd><a href="../../../../1.0.0rc1/index.html">1.0.0rc1</a></dd>
             <dd><a href="surf.html">1.0.0rc2</a></dd>
         </dl>

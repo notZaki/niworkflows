@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.report_base &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.interfaces.report_base &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -163,13 +163,13 @@
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;class mixin and utilities for enabling reports for nipype interfaces.&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">nilearn.masking</span> <span class="k">import</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="n">unmask</span>
-<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="k">import</span> <span class="n">threshold_img</span><span class="p">,</span> <span class="n">load_img</span>
+<span class="kn">from</span> <span class="nn">nilearn.masking</span> <span class="kn">import</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="n">unmask</span>
+<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="kn">import</span> <span class="n">threshold_img</span><span class="p">,</span> <span class="n">load_img</span>
 
-<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="k">import</span> <span class="n">File</span><span class="p">,</span> <span class="n">traits</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.mixins</span> <span class="k">import</span> <span class="n">reporting</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">NIWORKFLOWS_LOG</span>
-<span class="kn">from</span> <span class="nn">..viz.utils</span> <span class="k">import</span> <span class="n">cuts_from_bbox</span><span class="p">,</span> <span class="n">compose_view</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="n">File</span><span class="p">,</span> <span class="n">traits</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.mixins</span> <span class="kn">import</span> <span class="n">reporting</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">NIWORKFLOWS_LOG</span>
+<span class="kn">from</span> <span class="nn">..viz.utils</span> <span class="kn">import</span> <span class="n">cuts_from_bbox</span><span class="p">,</span> <span class="n">compose_view</span>
 
 
 <span class="k">class</span> <span class="nc">_SVGReportCapableInputSpec</span><span class="p">(</span><span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableInputSpec</span><span class="p">):</span>
@@ -193,7 +193,7 @@
 
     <span class="k">def</span> <span class="nf">_generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generates the visual report.&quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="k">import</span> <span class="n">plot_registration</span>
+        <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="kn">import</span> <span class="n">plot_registration</span>
         <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating visual report&#39;</span><span class="p">)</span>
 
         <span class="n">fixed_image_nii</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image</span><span class="p">)</span>
@@ -241,7 +241,7 @@
     <span class="sd">&quot;&quot;&quot;An abstract mixin to segmentation nipype interfaces.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="k">import</span> <span class="n">plot_segs</span>
+        <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="kn">import</span> <span class="n">plot_segs</span>
         <span class="n">compose_view</span><span class="p">(</span>
             <span class="n">plot_segs</span><span class="p">(</span>
                 <span class="n">image_nii</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">,</span>
@@ -264,7 +264,7 @@
 
     <span class="k">def</span> <span class="nf">_generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generates the visual report.&quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="k">import</span> <span class="n">plot_registration</span>
+        <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="kn">import</span> <span class="n">plot_registration</span>
         <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating visual report&#39;</span><span class="p">)</span>
 
         <span class="n">anat</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">)</span>
@@ -303,7 +303,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generate_report</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generate_report</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ReportingInterface</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">generate_report</span><span class="o">=</span><span class="n">generate_report</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
@@ -338,14 +338,15 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.0.0rc2
+        v: 1.0.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../1.0.0/_modules/niworkflows/interfaces/report_base.html">1.0.0</a></dd>
             <dd><a href="../../../1.0.0rc1/index.html">1.0.0rc1</a></dd>
-            <dd><a href="../../../1.0.0rc2/_modules/niworkflows/interfaces/report_base.html">1.0.0rc2</a></dd>
+            <dd><a href="../../../1.0.0rc2/index.html">1.0.0rc2</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

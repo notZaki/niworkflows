@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.anat.freesurfer &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.anat.freesurfer &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -161,15 +161,15 @@
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;FreeSurfer-related workflows.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">getenv</span>
-<span class="kn">from</span> <span class="nn">nipype.pipeline</span> <span class="k">import</span> <span class="n">engine</span> <span class="k">as</span> <span class="n">pe</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="k">import</span> <span class="n">utility</span> <span class="k">as</span> <span class="n">niu</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="k">import</span> <span class="n">io</span> <span class="k">as</span> <span class="n">nio</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="k">import</span> <span class="n">freesurfer</span> <span class="k">as</span> <span class="n">fs</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getenv</span>
+<span class="kn">from</span> <span class="nn">nipype.pipeline</span> <span class="kn">import</span> <span class="n">engine</span> <span class="k">as</span> <span class="n">pe</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">utility</span> <span class="k">as</span> <span class="n">niu</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">io</span> <span class="k">as</span> <span class="n">nio</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">freesurfer</span> <span class="k">as</span> <span class="n">fs</span>
 
-<span class="kn">from</span> <span class="nn">..interfaces.freesurfer</span> <span class="k">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">..interfaces.freesurfer</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">MakeMidthickness</span><span class="p">,</span> <span class="n">PatchedRobustRegister</span> <span class="k">as</span> <span class="n">RobustRegister</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..interfaces.surf</span> <span class="k">import</span> <span class="n">NormalizeSurf</span>
+<span class="kn">from</span> <span class="nn">..interfaces.surf</span> <span class="kn">import</span> <span class="n">NormalizeSurf</span>
 
 
 <div class="viewcode-block" id="init_gifti_surface_wf"><a class="viewcode-back" href="../../../api/niworkflows.anat.freesurfer.html#niworkflows.anat.freesurfer.init_gifti_surface_wf">[docs]</a><span class="k">def</span> <span class="nf">init_gifti_surface_wf</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;gifti_surface_wf&#39;</span><span class="p">,</span>
@@ -311,6 +311,7 @@
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0/index.html">1.0.0</a></dd>
             <dd><a href="../../../../1.0.0rc1/index.html">1.0.0rc1</a></dd>
             <dd><a href="../../../../1.0.0rc2/index.html">1.0.0rc2</a></dd>
         </dl>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.plots &mdash; niworkflows 1.0.0rc2 documentation</title>
+  <title>niworkflows.viz.plots &mdash; niworkflows 1.0.0 documentation</title>
   
 
   
@@ -170,18 +170,18 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">gridspec</span> <span class="k">as</span> <span class="n">mgs</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">gridspec</span> <span class="k">as</span> <span class="n">mgs</span>
 <span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="k">import</span> <span class="n">ListedColormap</span><span class="p">,</span> <span class="n">Normalize</span>
-<span class="kn">from</span> <span class="nn">matplotlib.colorbar</span> <span class="k">import</span> <span class="n">ColorbarBase</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">ListedColormap</span><span class="p">,</span> <span class="n">Normalize</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colorbar</span> <span class="kn">import</span> <span class="n">ColorbarBase</span>
 
-<span class="kn">from</span> <span class="nn">nilearn.plotting</span> <span class="k">import</span> <span class="n">plot_img</span>
-<span class="kn">from</span> <span class="nn">nilearn.signal</span> <span class="k">import</span> <span class="n">clean</span>
-<span class="kn">from</span> <span class="nn">nilearn._utils</span> <span class="k">import</span> <span class="n">check_niimg_4d</span>
-<span class="kn">from</span> <span class="nn">nilearn._utils.niimg</span> <span class="k">import</span> <span class="n">_safe_get_data</span>
+<span class="kn">from</span> <span class="nn">nilearn.plotting</span> <span class="kn">import</span> <span class="n">plot_img</span>
+<span class="kn">from</span> <span class="nn">nilearn.signal</span> <span class="kn">import</span> <span class="n">clean</span>
+<span class="kn">from</span> <span class="nn">nilearn._utils</span> <span class="kn">import</span> <span class="n">check_niimg_4d</span>
+<span class="kn">from</span> <span class="nn">nilearn._utils.niimg</span> <span class="kn">import</span> <span class="n">_safe_get_data</span>
 
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">seaborn</span> <span class="k">import</span> <span class="n">color_palette</span>
+<span class="kn">from</span> <span class="nn">seaborn</span> <span class="kn">import</span> <span class="n">color_palette</span>
 
 <span class="n">DINA4_LANDSCAPE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">11.69</span><span class="p">,</span> <span class="mf">8.27</span><span class="p">)</span>
 
@@ -193,7 +193,7 @@
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;func_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_data&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;tr&#39;</span><span class="p">,</span> <span class="s1">&#39;seg_data&#39;</span><span class="p">,</span> <span class="s1">&#39;confounds&#39;</span><span class="p">,</span> <span class="s1">&#39;spikes&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func_file</span><span class="p">,</span> <span class="n">mask_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">conf_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seg_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func_file</span><span class="p">,</span> <span class="n">mask_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">conf_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seg_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">tr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vlines</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spikes_files</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">func_file</span> <span class="o">=</span> <span class="n">func_file</span>
         <span class="n">func_nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">func_file</span><span class="p">)</span>
@@ -968,6 +968,7 @@
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
+            <dd><a href="../../../../1.0.0/index.html">1.0.0</a></dd>
             <dd><a href="../../../../1.0.0rc1/index.html">1.0.0rc1</a></dd>
             <dd><a href="plots.html">1.0.0rc2</a></dd>
         </dl>
