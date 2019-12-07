@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.func.util &mdash; niworkflows 1.0.1+27.g5e833f9 documentation</title>
+  <title>niworkflows.func.util &mdash; niworkflows 1.0.1+30.gfe3eaea1 documentation</title>
   
 
   
@@ -604,7 +604,9 @@
 <span class="sd">        number of volumes to skip</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">dummy_scans</span> <span class="ow">or</span> <span class="n">algo_dummy_scans</span>
+    <span class="k">if</span> <span class="n">dummy_scans</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">algo_dummy_scans</span>
+    <span class="k">return</span> <span class="n">dummy_scans</span>
 </pre></div>
 
            </div>
