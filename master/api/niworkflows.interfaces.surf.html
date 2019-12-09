@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.surf module &mdash; niworkflows 1.0.2 documentation</title>
+  <title>niworkflows.interfaces.surf module &mdash; niworkflows 1.0.2+39.g12e6f04b documentation</title>
   
 
   
@@ -229,7 +229,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Construct a new filename for a GIFTI file.</p>
 <p>Construct a new filename based on an input filename, a matching pattern,
-and a related template.</p>
+and a related template, with optionally additional keywords.</p>
 <p>This interface is intended for use with GIFTI files, to generate names
 conforming to Section 9.0 of the <a class="reference external" href="https://www.nitrc.org/frs/download.php/2871/GIFTI_Surface_Format.pdf">GIFTI Standard</a>.</p>
 <p>Patterns are expected to have named groups, including one named “LR” that
@@ -258,6 +258,16 @@ These groups must correspond to named format elements in the template.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">func_namer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_name</span>
 <span class="go">&#39;space-fsaverage.R.func&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span> <span class="o">=</span> <span class="n">GiftiNameSource</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?P&lt;LR&gt;[lr])h.(?P&lt;space&gt;\w+).gii&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;space-</span><span class="si">{space}</span><span class="s1">_density-</span><span class="si">{density}</span><span class="s1">_hemi-</span><span class="si">{LR}</span><span class="s1">.func&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;rh.fsaverage.gii&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">template_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;density&#39;</span><span class="p">:</span> <span class="s1">&#39;10k&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">namer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_name</span>
+<span class="go">&#39;space-fsaverage_density-10k_hemi-R.func&#39;</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
