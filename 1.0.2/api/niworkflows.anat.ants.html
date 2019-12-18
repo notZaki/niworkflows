@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.anat.ants module &mdash; niworkflows 1.1.2 documentation</title>
+  <title>niworkflows.anat.ants module &mdash; niworkflows 1.0.3 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.1.2
+                1.0.3
               </div>
             
           
@@ -330,65 +330,6 @@ input in <code class="docutils literal notranslate"><span class="pre">in_files</
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="niworkflows.anat.ants.init_n4_only_wf">
-<code class="sig-prename descclassname">niworkflows.anat.ants.</code><code class="sig-name descname">init_n4_only_wf</code><span class="sig-paren">(</span><em class="sig-param">atropos_model=None</em>, <em class="sig-param">atropos_refine=True</em>, <em class="sig-param">atropos_use_random_seed=True</em>, <em class="sig-param">bids_suffix='T1w'</em>, <em class="sig-param">mem_gb=3.0</em>, <em class="sig-param">name='n4_only_wf'</em>, <em class="sig-param">omp_nthreads=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/anat/ants.html#init_n4_only_wf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.anat.ants.init_n4_only_wf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build a workflow to sidetrack brain extraction on skull-stripped datasets.</p>
-<p>An alternative workflow to “init_brain_extraction_wf”, for anatomical
-images which have already been brain extracted.</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Creates brain mask assuming all zero voxels are outside the brain</p></li>
-<li><p>Applies N4 bias field correction</p></li>
-<li><p>(Optional) apply ATROPOS and massage its outputs</p></li>
-<li><p>Use results from 3 to refine N4 bias field correction</p></li>
-</ol>
-</div></blockquote>
-<dl>
-<dt>Workflow Graph</dt><dd><div class="figure align-default">
-<img alt="../_images/niworkflows-anat-ants-3.png" src="../_images/niworkflows-anat-ants-3.png" />
-</div>
-<p>(<a class="reference external" href="../api/niworkflows-anat-ants-3.py">Source code</a>, <a class="reference external" href="../api/niworkflows-anat-ants-3.png">png</a>, <a class="reference external" href="../api/niworkflows-anat-ants-3.svg">svg</a>, <a class="reference external" href="../api/niworkflows-anat-ants-3.pdf">pdf</a>)</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>omp_nthreads</strong> (<em>int</em>) – Maximum number of threads an individual process may use</p></li>
-<li><p><strong>mem_gb</strong> (<em>float</em>) – Estimated peak memory consumption of the most hungry nodes</p></li>
-<li><p><strong>bids_suffix</strong> (<em>str</em>) – Sequence type of the first input image. For a list of acceptable values see
-<a class="reference external" href="https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#anatomy-imaging-data">https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#anatomy-imaging-data</a></p></li>
-<li><p><strong>atropos_refine</strong> (<em>bool</em>) – Enables or disables the whole ATROPOS sub-workflow</p></li>
-<li><p><strong>atropos_use_random_seed</strong> (<em>bool</em>) – Whether ATROPOS should generate a random seed based on the
-system’s clock</p></li>
-<li><p><strong>atropos_model</strong> (<em>tuple or None</em>) – Allows to specify a particular segmentation model, overwriting
-the defaults based on <code class="docutils literal notranslate"><span class="pre">bids_suffix</span></code></p></li>
-<li><p><strong>name</strong> (<em>str, optional</em>) – Workflow name (default: <code class="docutils literal notranslate"><span class="pre">'n4_only_wf'</span></code>).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Inputs</dt>
-<dd class="field-even"><p><strong>in_files</strong> – List of input anatomical images to be bias corrected,
-typically T1-weighted.
-If a list of anatomical images is provided, subsequently
-specified images are used during the segmentation process.
-However, only the first image is used in the registration
-of priors.
-Our suggestion would be to specify the T1w as the first image.</p>
-</dd>
-<dt class="field-odd">Outputs</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>out_file</strong> – <abbr title="intensity non-uniformity">INU</abbr>-corrected <code class="docutils literal notranslate"><span class="pre">in_files</span></code></p></li>
-<li><p><strong>out_mask</strong> – Calculated brain mask</p></li>
-<li><p><strong>bias_corrected</strong> – Same as “out_file”, provided for consistency with brain extraction</p></li>
-<li><p><strong>bias_image</strong> – The <abbr title="intensity non-uniformity">INU</abbr> field estimated for each
-input in <code class="docutils literal notranslate"><span class="pre">in_files</span></code></p></li>
-<li><p><strong>out_segm</strong> – Output segmentation by ATROPOS</p></li>
-<li><p><strong>out_tpms</strong> – Output <abbr title="tissue probability maps">TPMs</abbr> by ATROPOS</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 
 
@@ -440,6 +381,7 @@ input in <code class="docutils literal notranslate"><span class="pre">in_files</
             <dd><a href="../../1.0.0rc2/api/niworkflows.anat.ants.html">1.0.0rc2</a></dd>
             <dd><a href="../../1.0.1/api/niworkflows.anat.ants.html">1.0.1</a></dd>
             <dd><a href="niworkflows.anat.ants.html">1.0.2</a></dd>
+            <dd><a href="../../1.0.3/api/niworkflows.anat.ants.html">1.0.3</a></dd>
             <dd><a href="../../1.1.0/api/niworkflows.anat.ants.html">1.1.0</a></dd>
             <dd><a href="../../1.1.1/api/niworkflows.anat.ants.html">1.1.1</a></dd>
             <dd><a href="../../1.1.2/api/niworkflows.anat.ants.html">1.1.2</a></dd>
