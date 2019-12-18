@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>What’s new? &mdash; niworkflows 1.1.1 documentation</title>
+  <title>What’s new? &mdash; niworkflows 1.1.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.1.1
+                1.1.2
               </div>
             
           
@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Library API (application program interface)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What’s new?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#december-17-2019">1.1.1 (December 17, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#december-9-2019">1.1.0 (December 9, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">1.0.2 (December 9, 2019)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#november-27-2019">1.0.1 (November 27, 2019)</a></li>
@@ -256,6 +257,16 @@
 
 <div class="section" id="what-s-new">
 <h1>What’s new?<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="december-17-2019">
+<h2>1.1.1 (December 17, 2019)<a class="headerlink" href="#december-17-2019" title="Permalink to this headline">¶</a></h2>
+<p>A bugfix release to support addressing <a class="reference external" href="https://github.com/poldracklab/sdcflows/issues/77">poldracklab/sdcflows#77</a>.
+With thanks to Alejandro De La Vega for contributions.</p>
+<ul class="simple">
+<li><p>FIX: <code class="docutils literal notranslate"><span class="pre">IntraModalMerge</span></code> failed for dims (x, y, z, 1) (#441) &#64;oesteban</p></li>
+<li><p>ENH: Add <code class="docutils literal notranslate"><span class="pre">n4_only</span></code> workflow – to skip brain extraction (#435) &#64;adelavega</p></li>
+<li><p>MAINT: Update nibabel to 3.0.0rc1 (#439) &#64;mgxd</p></li>
+</ul>
+</div>
 <div class="section" id="december-9-2019">
 <h2>1.1.0 (December 9, 2019)<a class="headerlink" href="#december-9-2019" title="Permalink to this headline">¶</a></h2>
 <p>The first minor release of the niworkflows 1.x series. Numerous interfaces (GenerateCifti, CiftiNameSource, GiftiNameSource) have been changed to be compatible with HCP grayordinates.</p>
@@ -1006,6 +1017,7 @@ used with the nonlinear-asym-09c template for the carpetplot</p></li>
             <dd><a href="../1.0.2/changelog.html">1.0.2</a></dd>
             <dd><a href="../1.1.0/changelog.html">1.1.0</a></dd>
             <dd><a href="../1.1.1/changelog.html">1.1.1</a></dd>
+            <dd><a href="../1.1.2/changelog.html">1.1.2</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
