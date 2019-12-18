@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.ants module &mdash; niworkflows 1.1.0+8.gc88c5217 documentation</title>
+  <title>niworkflows.interfaces.ants module &mdash; niworkflows 1.1.0+11.gb7f9955f documentation</title>
   
 
   
@@ -247,7 +247,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.ants.base.ANTSCommand</span></code></p>
 <p>Operations over images.</p>
 <p class="rubric">Example</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maths</span> <span class="o">=</span> <span class="n">ImageMath</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">op1</span><span class="o">=</span><span class="n">nifti_fname</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">op2</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maths</span> <span class="o">=</span> <span class="n">ImageMath</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">op1</span><span class="o">=</span><span class="n">nifti_fname</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">op2</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">maths</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">output_image</span><span class="p">)</span><span class="o">.</span><span class="n">get_sform</span><span class="p">()</span> <span class="o">==</span>
 <span class="gp">... </span>       <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">nifti_fname</span><span class="p">)</span><span class="o">.</span><span class="n">get_sform</span><span class="p">())</span>
@@ -274,7 +274,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.ants.base.ANTSCommand</span></code></p>
 <p>Resample an image with a given spacing.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ResampleImageBySpacing</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ResampleImageBySpacing</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_spacing</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -282,7 +282,7 @@
 <span class="go">&#39;ResampleImageBySpacing 3 .../test.nii.gz output.nii.gz 4 4 4&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ResampleImageBySpacing</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ResampleImageBySpacing</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_spacing</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -291,7 +291,7 @@
 <span class="go">&#39;ResampleImageBySpacing 3 .../test.nii.gz output.nii.gz 4 4 4 1&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ResampleImageBySpacing</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ResampleImageBySpacing</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_spacing</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -322,7 +322,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.ants.base.ANTSCommand</span></code></p>
 <p>Apply thresholds on images.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span> <span class="o">=</span> <span class="n">ThresholdImage</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span> <span class="o">=</span> <span class="n">ThresholdImage</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">th_low</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -333,12 +333,12 @@
 <span class="go">&#39;ThresholdImage 3 .../test.nii.gz output.nii.gz 0.500000 1.000000 1.000000 0.000000&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">thres</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">thres</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">output_image</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span> <span class="o">=</span> <span class="n">ThresholdImage</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span> <span class="o">=</span> <span class="n">ThresholdImage</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thres</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Kmeans&#39;</span>

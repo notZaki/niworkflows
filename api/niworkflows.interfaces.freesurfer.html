@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.freesurfer module &mdash; niworkflows 1.1.0+8.gc88c5217 documentation</title>
+  <title>niworkflows.interfaces.freesurfer module &mdash; niworkflows 1.1.0+11.gb7f9955f documentation</title>
   
 
   
@@ -363,7 +363,7 @@ and deep, wide sulci.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.freesurfer.longitudinal.RobustTemplate</span></code></p>
 <p>Shortcut RobustTemplate with a copy of the source if a single volume is provided.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t1w</span> <span class="o">=</span> <span class="n">bids_collect_data</span><span class="p">(</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t1w</span> <span class="o">=</span> <span class="n">bids_collect_data</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds114&#39;</span><span class="p">),</span> <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;t1w&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">template</span> <span class="o">=</span> <span class="n">StructuralReference</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_files</span> <span class="o">=</span> <span class="n">t1w</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.cifti module &mdash; niworkflows 1.1.0+8.gc88c5217 documentation</title>
+  <title>niworkflows.interfaces.cifti module &mdash; niworkflows 1.1.0+11.gb7f9955f documentation</title>
   
 
   
@@ -209,14 +209,14 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Construct new filename based on unique label of spaces used to generate a CIFTI file.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span> <span class="o">=</span> <span class="n">CiftiNameSource</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span> <span class="o">=</span> <span class="n">CiftiNameSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">variant</span> <span class="o">=</span> <span class="s1">&#39;HCP grayordinates&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">namer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_name</span>
 <span class="go">&#39;space-fsLR_bold.dtseries&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="s1">&#39;32k&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="s1">&#39;32k&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">namer</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_name</span>
 <span class="go">&#39;space-fsLR_den-32k_bold.dtseries&#39;</span>

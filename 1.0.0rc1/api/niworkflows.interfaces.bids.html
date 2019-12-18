@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.bids module &mdash; niworkflows 1.1.0+8.gc88c5217 documentation</title>
+  <title>niworkflows.interfaces.bids module &mdash; niworkflows 1.1.0+11.gb7f9955f documentation</title>
   
 
   
@@ -190,7 +190,7 @@
 <em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.bids.</code><code class="sig-name descname">BIDSDataGrabber</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/bids.html#BIDSDataGrabber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.bids.BIDSDataGrabber" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Collect files from a BIDS directory structure.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_src</span> <span class="o">=</span> <span class="n">BIDSDataGrabber</span><span class="p">(</span><span class="n">anat_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_src</span> <span class="o">=</span> <span class="n">BIDSDataGrabber</span><span class="p">(</span><span class="n">anat_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_src</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">subject_data</span> <span class="o">=</span> <span class="n">bids_collect_data</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds114&#39;</span><span class="p">),</span> <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_src</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">subject_id</span> <span class="o">=</span> <span class="s1">&#39;01&#39;</span>
@@ -251,7 +251,7 @@ other FreeSurfer interfaces.</p>
 <p>Extract BIDS entities from a BIDS-conforming path.</p>
 <p>This interface uses only the basename, not the path, to determine the
 subject, session, task, run, acquisition or reconstruction.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span><span class="p">),</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span><span class="p">),</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;sub-01/func/ses-retest/sub-01_ses-retest_task-covertverbgeneration_bold.nii.gz&#39;&#39;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">bids_info</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span>
@@ -265,7 +265,7 @@ subject, session, task, run, acquisition or reconstruction.</p>
 <span class="go">task = covertverbgeneration</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span><span class="p">),</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span><span class="p">),</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;sub-01/func/ses-retest/sub-01_ses-retest_task-covertverbgeneration_rec-MB_acq-AP_run-1_bold.nii.gz&#39;&#39;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">bids_info</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span>
@@ -279,7 +279,7 @@ subject, session, task, run, acquisition or reconstruction.</p>
 <span class="go">task = covertverbgeneration</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span><span class="p">),</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span><span class="p">),</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;sub-01/func/ses-retest/sub-01_ses-retest_task-covertverbgeneration_acq-AP_run-01_bold.nii.gz&#39;&#39;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">bids_info</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span>
@@ -293,7 +293,7 @@ subject, session, task, run, acquisition or reconstruction.</p>
 <span class="go">task = covertverbgeneration</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds114&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-01&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-retest&#39;</span> <span class="o">/</span>
 <span class="gp">... </span>    <span class="s1">&#39;func&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-01_ses-retest_task-covertverbgeneration_bold.nii.gz&#39;</span><span class="p">)</span>
@@ -309,7 +309,7 @@ subject, session, task, run, acquisition or reconstruction.</p>
 <span class="go">task = covertverbgeneration</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">(</span><span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;sub-01/func/ses-retest/sub-01_ses-retest_task-covertverbgeneration_bold.nii.gz&#39;&#39;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">bids_info</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span>
@@ -323,7 +323,7 @@ subject, session, task, run, acquisition or reconstruction.</p>
 <span class="go">task = covertverbgeneration</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids</span> <span class="kn">import</span> <span class="n">BIDSLayout</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids</span> <span class="kn">import</span> <span class="n">BIDSLayout</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">BIDSLayout</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds114&#39;</span><span class="p">),</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;sub-01/func/ses-retest/sub-01_ses-retest_task-covertverbgeneration_bold.nii.gz&#39;&#39;&#39;</span>
@@ -365,7 +365,7 @@ subject, session, task, run, acquisition or reconstruction.</p>
 <p>Store derivative files.</p>
 <p>Saves the <cite>in_file</cite> into a BIDS-Derivatives folder provided
 by <cite>base_directory</cite>, given the input reference <cite>source_file</cite>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tmpfile</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;a_temp_file.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tmpfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># &quot;touch&quot; the file</span>
@@ -380,7 +380,7 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="go">&#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_desc-denoised_T1w.nii.gz&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="gp">... </span>                            <span class="n">allowed_entities</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">],</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="s1">&#39;orig&#39;</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">to</span> <span class="o">=</span> <span class="s1">&#39;native&#39;</span>
@@ -392,7 +392,7 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="go">&#39;.../sub-01_ses-retest_from-orig_to-native_T1w.nii.gz&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span> <span class="o">=</span> <span class="n">bids_dir</span> <span class="o">/</span> <span class="s1">&#39;sub-02_ses-noanat_task-rest_run-01_bold.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -406,7 +406,7 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_desc-preproc_bold.nii.gz&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span> <span class="o">=</span> <span class="n">bids_dir</span> <span class="o">/</span> <span class="s1">&#39;sub-02_ses-noanat_task-rest_run-01_bold.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -421,11 +421,11 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_desc-preproc_bold.json&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
 <span class="go">&#39;  &quot;RepetitionTime&quot;: 0.75&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span> <span class="o">=</span> <span class="n">bids_dir</span> <span class="o">/</span> <span class="s1">&#39;sub-02_ses-noanat_task-rest_run-01_bold.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -441,16 +441,16 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_desc-preproc_bold.json&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="go">&#39;  &quot;RepetitionTime&quot;: 0.75,&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="go">&#39;  &quot;SkullStripped&quot;: true&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span> <span class="o">=</span> <span class="n">bids_dir</span> <span class="o">/</span> <span class="s1">&#39;sub-02_ses-noanat_task-rest_run-01_bold.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -467,16 +467,16 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_desc-preproc_bold.json&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="go">&#39;  &quot;RepetitionTime&quot;: 0.75,&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="go">&#39;  &quot;SkullStripped&quot;: true,&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 <span class="go">&#39;  &quot;Z&quot;: &quot;val&quot;&#39;</span>
 </pre></div>
 </div>
@@ -504,11 +504,11 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.bids.</code><code class="sig-name descname">ReadSidecarJSON</code><span class="sig-paren">(</span><em class="sig-param">fields=None</em>, <em class="sig-param">undef_fields=False</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/bids.html#ReadSidecarJSON"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.bids.ReadSidecarJSON" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Read JSON sidecar files of a BIDS tree.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fmap</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-100185&#39;</span> <span class="o">/</span> <span class="s1">&#39;fmap&#39;</span> <span class="o">/</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fmap</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-100185&#39;</span> <span class="o">/</span> <span class="s1">&#39;fmap&#39;</span> <span class="o">/</span>
 <span class="gp">... </span>           <span class="s1">&#39;sub-100185_phasediff.nii.gz&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">meta</span> <span class="o">=</span> <span class="n">ReadSidecarJSON</span><span class="p">(</span><span class="n">in_file</span><span class="o">=</span><span class="n">fmap</span><span class="p">,</span> <span class="n">bids_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span><span class="p">),</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">meta</span> <span class="o">=</span> <span class="n">ReadSidecarJSON</span><span class="p">(</span><span class="n">in_file</span><span class="o">=</span><span class="n">fmap</span><span class="p">,</span> <span class="n">bids_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds054&#39;</span><span class="p">),</span>
 <span class="gp">... </span>                       <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">meta</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">subject</span>
 <span class="go">&#39;100185&#39;</span>

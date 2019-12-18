@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.surf module &mdash; niworkflows 1.1.0+8.gc88c5217 documentation</title>
+  <title>niworkflows.interfaces.surf module &mdash; niworkflows 1.1.0+11.gb7f9955f documentation</title>
   
 
   
@@ -217,14 +217,14 @@ conforming to Section 9.0 of the <a class="reference external" href="https://www
 <p>Patterns are expected to have named groups, including one named “LR” that
 matches “l” or “r”.
 These groups must correspond to named format elements in the template.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;lh.pial.gii&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;lh.pial.gii&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;rh.fsaverage.gii&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">surf_namer</span> <span class="o">=</span> <span class="n">GiftiNameSource</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">surf_namer</span> <span class="o">=</span> <span class="n">GiftiNameSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">surf_namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?P&lt;LR&gt;[lr])h.(?P&lt;surf&gt;\w+).gii&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">surf_namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;</span><span class="si">{surf}</span><span class="s1">.</span><span class="si">{LR}</span><span class="s1">.surf&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">surf_namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;lh.pial.gii&#39;</span>
@@ -233,7 +233,7 @@ These groups must correspond to named format elements in the template.</p>
 <span class="go">&#39;pial.L.surf&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">func_namer</span> <span class="o">=</span> <span class="n">GiftiNameSource</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">func_namer</span> <span class="o">=</span> <span class="n">GiftiNameSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">func_namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?P&lt;LR&gt;[lr])h.(?P&lt;space&gt;\w+).gii&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">func_namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;space-</span><span class="si">{space}</span><span class="s1">.</span><span class="si">{LR}</span><span class="s1">.func&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">func_namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;rh.fsaverage.gii&#39;</span>
@@ -242,7 +242,7 @@ These groups must correspond to named format elements in the template.</p>
 <span class="go">&#39;space-fsaverage.R.func&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span> <span class="o">=</span> <span class="n">GiftiNameSource</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span> <span class="o">=</span> <span class="n">GiftiNameSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?P&lt;LR&gt;[lr])h.(?P&lt;space&gt;\w+).gii&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;space-</span><span class="si">{space}</span><span class="s1">_density-</span><span class="si">{density}</span><span class="s1">_hemi-</span><span class="si">{LR}</span><span class="s1">.func&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">namer</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;rh.fsaverage.gii&#39;</span>
@@ -252,7 +252,7 @@ These groups must correspond to named format elements in the template.</p>
 <span class="go">&#39;space-fsaverage_density-10k_hemi-R.func&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="s1">&#39;lh.pial.gii&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="s1">&#39;rh.fsaverage.gii&#39;</span><span class="p">)</span>
 </pre></div>

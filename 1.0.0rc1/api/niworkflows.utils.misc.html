@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.misc module &mdash; niworkflows 1.1.0+8.gc88c5217 documentation</title>
+  <title>niworkflows.utils.misc module &mdash; niworkflows 1.1.0+11.gb7f9955f documentation</title>
   
 
   
@@ -189,27 +189,27 @@
 <dt id="niworkflows.utils.misc.get_template_specs">
 <code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">get_template_specs</code><span class="sig-paren">(</span><em class="sig-param">in_template</em>, <em class="sig-param">template_spec=None</em>, <em class="sig-param">default_resolution=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#get_template_specs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.get_template_specs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse template specifications</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span>
 <span class="go">{&#39;resolution&#39;: 1}</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span>
 <span class="go">{&#39;resolution&#39;: &#39;2&#39;}</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">specs</span> <span class="o">=</span> <span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNIInfant&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;cohort&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">specs</span> <span class="o">=</span> <span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNIInfant&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;cohort&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">specs</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
 <span class="go">[(&#39;cohort&#39;, &#39;10&#39;), (&#39;resolution&#39;, &#39;2&#39;)]</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span>
 <span class="gp">... </span>                   <span class="p">{</span><span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">,</span> <span class="s1">&#39;cohort&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span> 
 <span class="gt">Traceback (most recent call last):</span>
 <span class="gr">RuntimeError</span>:
 <span class="gp">...</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span>
 <span class="gp">... </span>                   <span class="p">{</span><span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">,</span> <span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="s1">&#39;1|2&#39;</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span> 
 <span class="gt">Traceback (most recent call last):</span>
 <span class="gr">RuntimeError</span>:
@@ -222,7 +222,7 @@
 <dt id="niworkflows.utils.misc.fix_multi_T1w_source_name">
 <code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">fix_multi_T1w_source_name</code><span class="sig-paren">(</span><em class="sig-param">in_files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#fix_multi_T1w_source_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.fix_multi_T1w_source_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make up a generic source name when there are multiple T1s</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fix_multi_T1w_source_name</span><span class="p">([</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fix_multi_T1w_source_name</span><span class="p">([</span>
 <span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-test_T1w.nii.gz&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-retest_T1w.nii.gz&#39;</span><span class="p">])</span>
 <span class="go">&#39;/path/to/sub-045_T1w.nii.gz&#39;</span>
@@ -234,7 +234,7 @@
 <dt id="niworkflows.utils.misc.add_suffix">
 <code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">add_suffix</code><span class="sig-paren">(</span><em class="sig-param">in_files</em>, <em class="sig-param">suffix</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#add_suffix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.add_suffix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrap nipype’s fname_presuffix to conveniently just add a prefix</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_suffix</span><span class="p">([</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_suffix</span><span class="p">([</span>
 <span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-test_T1w.nii.gz&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-retest_T1w.nii.gz&#39;</span><span class="p">],</span> <span class="s1">&#39;_test&#39;</span><span class="p">)</span>
 <span class="go">&#39;sub-045_ses-test_T1w_test.nii.gz&#39;</span>
@@ -251,7 +251,7 @@
 <dt id="niworkflows.utils.misc.splitext">
 <code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">splitext</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#splitext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.splitext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Splits filename and extension (.gz safe)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/file.nii.gz&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/file.nii.gz&#39;</span><span class="p">)</span>
 <span class="go">(&#39;file&#39;, &#39;.nii.gz&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/other/file.nii&#39;</span><span class="p">)</span>
 <span class="go">(&#39;file&#39;, &#39;.nii&#39;)</span>
