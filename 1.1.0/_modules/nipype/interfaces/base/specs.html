@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nipype.interfaces.base.specs &mdash; niworkflows 1.0.3 documentation</title>
+  <title>nipype.interfaces.base.specs &mdash; niworkflows 1.1.2+4.gdc76f6e2 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.0.3
+                1.1.2
               </div>
             
           
@@ -171,20 +171,15 @@
 <span class="sd">Define the API for the I/O of interfaces</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span><span class="n">print_function</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">,</span>
-                        <span class="n">absolute_import</span><span class="p">)</span>
-
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">isclass</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span>
 <span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 
 <span class="kn">from</span> <span class="nn">traits.trait_errors</span> <span class="kn">import</span> <span class="n">TraitError</span>
 <span class="kn">from</span> <span class="nn">traits.trait_handlers</span> <span class="kn">import</span> <span class="n">TraitDictObject</span><span class="p">,</span> <span class="n">TraitListObject</span>
-<span class="kn">from</span> <span class="nn">...utils.filemanip</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">md5</span><span class="p">,</span> <span class="n">hash_infile</span><span class="p">,</span> <span class="n">hash_timestamp</span><span class="p">,</span> <span class="n">to_str</span><span class="p">,</span> <span class="n">USING_PATHLIB2</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">...utils.filemanip</span> <span class="kn">import</span> <span class="n">md5</span><span class="p">,</span> <span class="n">hash_infile</span><span class="p">,</span> <span class="n">hash_timestamp</span>
 <span class="kn">from</span> <span class="nn">.traits_extension</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">traits</span><span class="p">,</span>
     <span class="n">File</span><span class="p">,</span>
@@ -198,7 +193,7 @@
 <span class="kn">from</span> <span class="nn">...</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">__version__</span>
 
 
-<span class="n">FLOAT_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.10f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
+<span class="n">FLOAT_FORMAT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.10f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span>
 <span class="n">nipype_version</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="n">__version__</span><span class="p">)</span>
 
 
@@ -222,6 +217,7 @@
 <span class="sd">    XXX Reconsider this in the long run, but it seems like the best</span>
 <span class="sd">    solution to move forward on the refactoring.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">package_version</span> <span class="o">=</span> <span class="n">nipype_version</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -250,8 +246,8 @@
         <span class="sd">&quot;&quot;&quot; Return a well-formatted representation of the traits &quot;&quot;&quot;</span>
         <span class="n">outstr</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trait_get</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-            <span class="n">outstr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> = </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outstr</span><span class="p">))</span>
+            <span class="n">outstr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outstr</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_generate_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Find all traits with the &#39;xor&#39; metadata and attach an event</span>
@@ -278,11 +274,12 @@
                     <span class="k">continue</span>
                 <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trait_name</span><span class="p">)):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span>
-                        <span class="n">trait_change_notify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span>
-                            <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">:</span> <span class="n">Undefined</span>
-                        <span class="p">})</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Input &quot;</span><span class="si">%s</span><span class="s1">&quot; is mutually exclusive with input &quot;</span><span class="si">%s</span><span class="s1">&quot;, &#39;</span>
-                           <span class="s1">&#39;which is already set&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">trait_name</span><span class="p">)</span>
+                        <span class="n">trait_change_notify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">:</span> <span class="n">Undefined</span><span class="p">}</span>
+                    <span class="p">)</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="s1">&#39;Input &quot;</span><span class="si">%s</span><span class="s1">&quot; is mutually exclusive with input &quot;</span><span class="si">%s</span><span class="s1">&quot;, &#39;</span>
+                        <span class="s2">&quot;which is already set&quot;</span>
+                    <span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">trait_name</span><span class="p">)</span>
                     <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_deprecated_warn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
@@ -290,32 +287,37 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="n">new</span><span class="p">):</span>
             <span class="n">trait_spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">traits</span><span class="p">()[</span><span class="n">name</span><span class="p">]</span>
-            <span class="n">msg1</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Input </span><span class="si">%s</span><span class="s1"> in interface </span><span class="si">%s</span><span class="s1"> is deprecated.&#39;</span> <span class="o">%</span>
-                    <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;InputSpec&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
-            <span class="n">msg2</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Will be removed or raise an error as of release </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span>
-                    <span class="n">trait_spec</span><span class="o">.</span><span class="n">deprecated</span><span class="p">)</span>
+            <span class="n">msg1</span> <span class="o">=</span> <span class="s2">&quot;Input </span><span class="si">%s</span><span class="s2"> in interface </span><span class="si">%s</span><span class="s2"> is deprecated.&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;InputSpec&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="n">msg2</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Will be removed or raise an error as of release </span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">deprecated</span>
+            <span class="p">)</span>
             <span class="k">if</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">copyable_trait_names</span><span class="p">():</span>
-                    <span class="k">raise</span> <span class="n">TraitError</span><span class="p">(</span><span class="n">msg1</span> <span class="o">+</span> <span class="s1">&#39; Replacement trait </span><span class="si">%s</span><span class="s1"> not found&#39;</span> <span class="o">%</span>
-                                     <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span><span class="p">)</span>
-                <span class="n">msg3</span> <span class="o">=</span> <span class="s1">&#39;It has been replaced by </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span>
+                    <span class="k">raise</span> <span class="n">TraitError</span><span class="p">(</span>
+                        <span class="n">msg1</span> <span class="o">+</span> <span class="s2">&quot; Replacement trait </span><span class="si">%s</span><span class="s2"> not found&quot;</span> <span class="o">%</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span>
+                    <span class="p">)</span>
+                <span class="n">msg3</span> <span class="o">=</span> <span class="s2">&quot;It has been replaced by </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">msg3</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">msg1</span><span class="p">,</span> <span class="n">msg2</span><span class="p">,</span> <span class="n">msg3</span><span class="p">))</span>
+                <span class="n">msg3</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">msg1</span><span class="p">,</span> <span class="n">msg2</span><span class="p">,</span> <span class="n">msg3</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">trait_spec</span><span class="o">.</span><span class="n">deprecated</span><span class="p">))</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_version</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">TraitError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span><span class="p">:</span>
-                    <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;Unsetting old value </span><span class="si">%s</span><span class="s1">; setting new value </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="p">(</span>
-                        <span class="n">name</span><span class="p">,</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span><span class="p">)</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="s2">&quot;Unsetting old value </span><span class="si">%s</span><span class="s2">; setting new value </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">name</span><span class="p">,</span>
+                        <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span>
                         <span class="n">trait_change_notify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="o">**</span><span class="p">{</span>
-                            <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">:</span> <span class="n">Undefined</span><span class="p">,</span>
-                            <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span><span class="p">:</span> <span class="n">new</span>
-                        <span class="p">})</span>
+                        <span class="o">**</span><span class="p">{</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">:</span> <span class="n">Undefined</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">trait_spec</span><span class="o">.</span><span class="n">new_name</span><span class="p">:</span> <span class="n">new</span><span class="p">}</span>
+                    <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">trait_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns traited class as a dict</span>
@@ -351,8 +353,11 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">skipundefined</span><span class="p">:</span>
                         <span class="n">out</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">undefinedval</span>
-        <span class="k">elif</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="n">TraitListObject</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span>
-              <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="n">TraitListObject</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+        <span class="p">):</span>
             <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">objekt</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
@@ -378,8 +383,7 @@
 <span class="sd">        Return has_metadata for the requested trait name in this</span>
 <span class="sd">        interface</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">has_metadata</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">trait</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">trait_type</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">has_metadata</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trait</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">trait_type</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">recursive</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_hashval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hash_method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a dictionary of our items with hashes for each file.</span>
@@ -408,36 +412,45 @@
                 <span class="c1"># skip undefined traits and traits with nohash=True</span>
                 <span class="k">continue</span>
 
-            <span class="n">hash_files</span> <span class="o">=</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_metadata</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;hash_files&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span>
-                          <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_metadata</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;name_source&quot;</span><span class="p">))</span>
-            <span class="n">list_nofilename</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span>
-                                    <span class="bp">self</span><span class="o">.</span><span class="n">_get_sorteddict</span><span class="p">(</span>
-                                        <span class="n">val</span><span class="p">,</span>
-                                        <span class="n">hash_method</span><span class="o">=</span><span class="n">hash_method</span><span class="p">,</span>
-                                        <span class="n">hash_files</span><span class="o">=</span><span class="n">hash_files</span><span class="p">)))</span>
-            <span class="n">list_withhash</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span>
-                                  <span class="bp">self</span><span class="o">.</span><span class="n">_get_sorteddict</span><span class="p">(</span>
-                                      <span class="n">val</span><span class="p">,</span>
-                                      <span class="kc">True</span><span class="p">,</span>
-                                      <span class="n">hash_method</span><span class="o">=</span><span class="n">hash_method</span><span class="p">,</span>
-                                      <span class="n">hash_files</span><span class="o">=</span><span class="n">hash_files</span><span class="p">)))</span>
-        <span class="k">return</span> <span class="n">list_withhash</span><span class="p">,</span> <span class="n">md5</span><span class="p">(</span><span class="n">to_str</span><span class="p">(</span><span class="n">list_nofilename</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+            <span class="n">hash_files</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_metadata</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;hash_files&quot;</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_metadata</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;name_source&quot;</span><span class="p">)</span>
+            <span class="n">list_nofilename</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="n">name</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_get_sorteddict</span><span class="p">(</span>
+                        <span class="n">val</span><span class="p">,</span> <span class="n">hash_method</span><span class="o">=</span><span class="n">hash_method</span><span class="p">,</span> <span class="n">hash_files</span><span class="o">=</span><span class="n">hash_files</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">list_withhash</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="n">name</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_get_sorteddict</span><span class="p">(</span>
+                        <span class="n">val</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">hash_method</span><span class="o">=</span><span class="n">hash_method</span><span class="p">,</span> <span class="n">hash_files</span><span class="o">=</span><span class="n">hash_files</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">list_withhash</span><span class="p">,</span> <span class="n">md5</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">list_nofilename</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_get_sorteddict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                        <span class="n">objekt</span><span class="p">,</span>
-                        <span class="n">dictwithhash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">hash_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">hash_files</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_sorteddict</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">objekt</span><span class="p">,</span> <span class="n">dictwithhash</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hash_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hash_files</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">objekt</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
                 <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">_get_sorteddict</span><span class="p">(</span>
-                                    <span class="n">val</span><span class="p">,</span>
-                                    <span class="n">dictwithhash</span><span class="p">,</span>
-                                    <span class="n">hash_method</span><span class="o">=</span><span class="n">hash_method</span><span class="p">,</span>
-                                    <span class="n">hash_files</span><span class="o">=</span><span class="n">hash_files</span><span class="p">)))</span>
+                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="p">(</span>
+                            <span class="n">key</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_get_sorteddict</span><span class="p">(</span>
+                                <span class="n">val</span><span class="p">,</span>
+                                <span class="n">dictwithhash</span><span class="p">,</span>
+                                <span class="n">hash_method</span><span class="o">=</span><span class="n">hash_method</span><span class="p">,</span>
+                                <span class="n">hash_files</span><span class="o">=</span><span class="n">hash_files</span><span class="p">,</span>
+                            <span class="p">),</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
             <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">objekt</span><span class="p">:</span>
@@ -447,24 +460,28 @@
                             <span class="n">val</span><span class="p">,</span>
                             <span class="n">dictwithhash</span><span class="p">,</span>
                             <span class="n">hash_method</span><span class="o">=</span><span class="n">hash_method</span><span class="p">,</span>
-                            <span class="n">hash_files</span><span class="o">=</span><span class="n">hash_files</span><span class="p">))</span>
+                            <span class="n">hash_files</span><span class="o">=</span><span class="n">hash_files</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
                 <span class="n">out</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">out</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="n">objekt</span><span class="p">):</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">hash_files</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">))</span> <span class="ow">and</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">objekt</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">hash_files</span>
+                    <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">))</span>
+                    <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">objekt</span><span class="p">)</span>
+                <span class="p">):</span>
                     <span class="k">if</span> <span class="n">hash_method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">hash_method</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;execution&#39;</span><span class="p">,</span> <span class="s1">&#39;hash_method&#39;</span><span class="p">)</span>
+                        <span class="n">hash_method</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;execution&quot;</span><span class="p">,</span> <span class="s2">&quot;hash_method&quot;</span><span class="p">)</span>
 
-                    <span class="k">if</span> <span class="n">hash_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">hash_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span>
                         <span class="nb">hash</span> <span class="o">=</span> <span class="n">hash_timestamp</span><span class="p">(</span><span class="n">objekt</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="n">hash_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;content&#39;</span><span class="p">:</span>
+                    <span class="k">elif</span> <span class="n">hash_method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span>
                         <span class="nb">hash</span> <span class="o">=</span> <span class="n">hash_infile</span><span class="p">(</span><span class="n">objekt</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
-                            <span class="s2">&quot;Unknown hash method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">hash_method</span><span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown hash method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">hash_method</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">dictwithhash</span><span class="p">:</span>
                         <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">objekt</span><span class="p">,</span> <span class="nb">hash</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -506,44 +523,12 @@
         <span class="k">return</span> <span class="n">state</span>
 
 
-<span class="k">def</span> <span class="nf">_deepcopypatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Replace the ``__deepcopy__`` member with a traits-friendly implementation.</span>
-
-<span class="sd">    A bug in ``__deepcopy__`` for ``HasTraits`` results in weird cloning behaviors.</span>
-<span class="sd">    Occurs for all specs in Python&lt;3 and only for DynamicTraitedSpec in Python&gt;2.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">id_self</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">id_self</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">id_self</span><span class="p">]</span>
-    <span class="n">dup_dict</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trait_get</span><span class="p">(),</span> <span class="n">memo</span><span class="p">)</span>
-    <span class="c1"># access all keys</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">copyable_trait_names</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">_</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-    <span class="c1"># clone once</span>
-    <span class="n">dup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone_traits</span><span class="p">(</span><span class="n">memo</span><span class="o">=</span><span class="n">memo</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">copyable_trait_names</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">_</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">dup</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">pass</span>
-    <span class="c1"># clone twice</span>
-    <span class="n">dup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone_traits</span><span class="p">(</span><span class="n">memo</span><span class="o">=</span><span class="n">memo</span><span class="p">)</span>
-    <span class="n">dup</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span><span class="o">**</span><span class="n">dup_dict</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">dup</span>
-
-
-<span class="k">if</span> <span class="n">USING_PATHLIB2</span><span class="p">:</span>
-    <span class="n">BaseTraitedSpec</span><span class="o">.</span><span class="n">__deepcopy__</span> <span class="o">=</span> <span class="n">_deepcopypatch</span>
-
-
 <span class="k">class</span> <span class="nc">TraitedSpec</span><span class="p">(</span><span class="n">BaseTraitedSpec</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Create a subclass with strict traits.</span>
 
 <span class="sd">    This is used in 90% of the cases.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">_</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Disallow</span>
 
 
@@ -558,15 +543,38 @@
 <span class="sd">    functioning well together.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="k">def</span> <span class="nf">__deepcopy__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">memo</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replace the ``__deepcopy__`` member with a traits-friendly implementation.</span>
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">USING_PATHLIB2</span><span class="p">:</span>
-    <span class="n">DynamicTraitedSpec</span><span class="o">.</span><span class="n">__deepcopy__</span> <span class="o">=</span> <span class="n">_deepcopypatch</span>
+<span class="sd">        A bug in ``__deepcopy__`` for ``HasTraits`` results in weird cloning behaviors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">id_self</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">id_self</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">memo</span><span class="p">[</span><span class="n">id_self</span><span class="p">]</span>
+        <span class="n">dup_dict</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trait_get</span><span class="p">(),</span> <span class="n">memo</span><span class="p">)</span>
+        <span class="c1"># access all keys</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">copyable_trait_names</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="c1"># clone once</span>
+        <span class="n">dup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone_traits</span><span class="p">(</span><span class="n">memo</span><span class="o">=</span><span class="n">memo</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">copyable_trait_names</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">dup</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="c1"># clone twice</span>
+        <span class="n">dup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone_traits</span><span class="p">(</span><span class="n">memo</span><span class="o">=</span><span class="n">memo</span><span class="p">)</span>
+        <span class="n">dup</span><span class="o">.</span><span class="n">trait_set</span><span class="p">(</span><span class="o">**</span><span class="n">dup_dict</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dup</span>
 
 
 <span class="k">class</span> <span class="nc">CommandLineInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Additional parameters to the command&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Additional parameters to the command&quot;</span><span class="p">)</span>
     <span class="n">environ</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">DictStrStr</span><span class="p">(</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Environment variables&#39;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nohash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Environment variables&quot;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nohash</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">StdOutCommandLineInputSpec</span><span class="p">(</span><span class="n">CommandLineInputSpec</span><span class="p">):</span>
@@ -575,12 +583,13 @@
 
 <span class="k">class</span> <span class="nc">MpiCommandLineInputSpec</span><span class="p">(</span><span class="n">CommandLineInputSpec</span><span class="p">):</span>
     <span class="n">use_mpi</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
-        <span class="kc">False</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Whether or not to run the command with mpiexec&quot;</span><span class="p">,</span>
-        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">n_procs</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Num processors to specify to mpiexec. Do not &quot;</span>
-                         <span class="s2">&quot;specify if this is managed externally (e.g. through &quot;</span>
-                         <span class="s2">&quot;SGE)&quot;</span><span class="p">)</span>
+        <span class="kc">False</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Whether or not to run the command with mpiexec&quot;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">n_procs</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Num processors to specify to mpiexec. Do not &quot;</span>
+        <span class="s2">&quot;specify if this is managed externally (e.g. through &quot;</span>
+        <span class="s2">&quot;SGE)&quot;</span>
+    <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">get_filecopy_info</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
@@ -591,7 +600,7 @@
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="c1"># normalize_filenames is not a classmethod, hence check first</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">isclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;normalize_filenames&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">isclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s2">&quot;normalize_filenames&quot;</span><span class="p">):</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">normalize_filenames</span><span class="p">()</span>
     <span class="n">info</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">input_spec</span><span class="p">()</span> <span class="k">if</span> <span class="n">isclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="k">else</span> <span class="bp">cls</span><span class="o">.</span><span class="n">inputs</span>
@@ -611,7 +620,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright 2019, Center for Reproducible Neuroscience, Stanford University
+        &copy; Copyright Copyright 2020, Center for Reproducible Neuroscience, Stanford University
 
     </p>
   </div>
