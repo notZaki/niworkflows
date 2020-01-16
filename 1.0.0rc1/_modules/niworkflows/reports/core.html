@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.reports.core &mdash; niworkflows 1.1.2+6.g24619661 documentation</title>
+  <title>niworkflows.reports.core &mdash; niworkflows 1.1.2+29.ga4cbe8ec documentation</title>
   
 
   
@@ -168,7 +168,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">compress</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_filename</span> <span class="k">as</span> <span class="n">pkgrf</span>
 <span class="kn">from</span> <span class="nn">bids.layout</span> <span class="kn">import</span> <span class="n">BIDSLayout</span><span class="p">,</span> <span class="n">add_config_paths</span>
@@ -394,7 +394,7 @@
 <span class="sd">    &gt;&gt;&gt; robj.generate_report()</span>
 <span class="sd">    0</span>
 <span class="sd">    &gt;&gt;&gt; len((testdir / &#39;out&#39; / &#39;fmriprep&#39; / &#39;sub-01.html&#39;).read_text())</span>
-<span class="sd">    19369</span>
+<span class="sd">    36425</span>
 
 <span class="sd">    .. testcleanup::</span>
 
@@ -445,6 +445,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="n">template_path</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;sections&#39;</span><span class="p">])</span>
 
+<div class="viewcode-block" id="Report.init_layout"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.Report.init_layout">[docs]</a>    <span class="k">def</span> <span class="nf">init_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">BIDSLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Report.index"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.Report.index">[docs]</a>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Traverse the reports config definition and instantiate reportlets.</span>
@@ -452,34 +455,33 @@
 <span class="sd">        This method also places figures in their final location.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Initialize a BIDS layout</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">BIDSLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_layout</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">subrep_cfg</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
             <span class="c1"># First determine whether we need to split by some ordering</span>
             <span class="c1"># (ie. sessions / tasks / runs), which are separated by commas.</span>
             <span class="n">orderings</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">subrep_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ordering&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="p">]</span>
-            <span class="n">queries</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">orderings</span><span class="p">:</span>
-                <span class="n">values</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="s1">&#39;get_</span><span class="si">%s%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">PLURAL_SUFFIX</span><span class="p">[</span><span class="n">key</span><span class="p">]))()</span>
-                <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
-                    <span class="n">queries</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">values</span><span class="p">))</span>
+            <span class="n">entities</span><span class="p">,</span> <span class="n">list_combos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_orderings</span><span class="p">(</span><span class="n">orderings</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">queries</span><span class="p">:</span>  <span class="c1"># E.g. this is an anatomical reportlet</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">list_combos</span><span class="p">:</span>  <span class="c1"># E.g. this is an anatomical reportlet</span>
                 <span class="n">reportlets</span> <span class="o">=</span> <span class="p">[</span><span class="n">Reportlet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">cfg</span><span class="p">)</span>
                               <span class="k">for</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">subrep_cfg</span><span class="p">[</span><span class="s1">&#39;reportlets&#39;</span><span class="p">]]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Do not use dictionary for queries, as we need to preserve ordering</span>
                 <span class="c1"># of ordering columns.</span>
                 <span class="n">reportlets</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="n">entities</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">queries</span><span class="p">)</span>
-                <span class="n">combinations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">))</span>  <span class="c1"># e.g.: [(&#39;rest&#39;, 1), (&#39;rest&#39;, 2)]</span>
-
-                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">list_combos</span><span class="p">:</span>
+                    <span class="c1"># do not display entities with the value None.</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+                    <span class="n">ent</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">compress</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+                    <span class="n">missing_entities</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">entities</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">ent</span><span class="p">))</span>
                     <span class="c1"># Set a common title for this particular combination c</span>
                     <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Reports for: </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                        <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> &lt;span class=&quot;bids-entity&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/span&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">entities</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                        <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> &lt;span class=&quot;bids-entity&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/span&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ent</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))])</span>
                     <span class="k">for</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">subrep_cfg</span><span class="p">[</span><span class="s1">&#39;reportlets&#39;</span><span class="p">]:</span>
-                        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;bids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">entities</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))})</span>
+                        <span class="k">for</span> <span class="n">m_e</span> <span class="ow">in</span> <span class="n">missing_entities</span><span class="p">:</span>
+                            <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;bids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">m_e</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;bids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">ent</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))})</span>
                         <span class="n">rlet</span> <span class="o">=</span> <span class="n">Reportlet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">cfg</span><span class="p">)</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">rlet</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
                             <span class="n">rlet</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
@@ -491,7 +493,7 @@
             <span class="k">if</span> <span class="n">reportlets</span><span class="p">:</span>
                 <span class="n">sub_report</span> <span class="o">=</span> <span class="n">SubReport</span><span class="p">(</span>
                     <span class="n">subrep_cfg</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
-                    <span class="n">isnested</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">queries</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="n">isnested</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">list_combos</span><span class="p">),</span>
                     <span class="n">reportlets</span><span class="o">=</span><span class="n">reportlets</span><span class="p">,</span>
                     <span class="n">title</span><span class="o">=</span><span class="n">subrep_cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">))</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_report</span><span class="p">)</span>
@@ -544,7 +546,51 @@
 
         <span class="c1"># Write out report</span>
         <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_filename</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">report_render</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_process_orderings</span><span class="p">(</span><span class="n">orderings</span><span class="p">,</span> <span class="n">layout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate relevant combinations of orderings with observed values.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        orderings : :obj:`list` of :obj:`list` of :obj:`str`</span>
+<span class="sd">            Sections prescribing an ordering to select across sessions, acquisitions, runs, etc.</span>
+<span class="sd">        layout : :obj:`bids.layout.BIDSLayout`</span>
+<span class="sd">            The BIDS layout</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        entities: :obj:`list` of :obj:`str`</span>
+<span class="sd">            The relevant orderings that had unique values</span>
+<span class="sd">        value_combos: :obj:`list` of :obj:`tuple`</span>
+<span class="sd">            Unique value combinations for the entities</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># get a set of all unique entity combinations</span>
+        <span class="n">all_value_combos</span> <span class="o">=</span> <span class="p">{</span><span class="nb">tuple</span><span class="p">(</span><span class="n">bids_file</span><span class="o">.</span><span class="n">get_entities</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">orderings</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">bids_file</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">()}</span>
+        <span class="c1"># remove the all None member if it exists</span>
+        <span class="n">none_member</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="kc">None</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">orderings</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">none_member</span> <span class="ow">in</span> <span class="n">all_value_combos</span><span class="p">:</span>
+            <span class="n">all_value_combos</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="kc">None</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">orderings</span><span class="p">]))</span>
+        <span class="c1"># see what values exist for each entity</span>
+        <span class="n">unique_values</span> <span class="o">=</span> <span class="p">[{</span><span class="n">value</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">all_value_combos</span><span class="p">}</span>
+                         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">orderings</span><span class="p">))]</span>
+        <span class="c1"># if all values are None for an entity, we do not want to keep that entity</span>
+        <span class="n">keep_idx</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span> <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val_set</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">val_set</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">val_set</span>
+                    <span class="k">else</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">val_set</span> <span class="ow">in</span> <span class="n">unique_values</span><span class="p">]</span>
+        <span class="c1"># the &quot;kept&quot; entities</span>
+        <span class="n">entities</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">compress</span><span class="p">(</span><span class="n">orderings</span><span class="p">,</span> <span class="n">keep_idx</span><span class="p">))</span>
+        <span class="c1"># the &quot;kept&quot; value combinations</span>
+        <span class="n">value_combos</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">compress</span><span class="p">(</span><span class="n">value_combo</span><span class="p">,</span> <span class="n">keep_idx</span><span class="p">))</span>
+                        <span class="k">for</span> <span class="n">value_combo</span> <span class="ow">in</span> <span class="n">all_value_combos</span><span class="p">]</span>
+        <span class="c1"># sort the value combinations alphabetically from the first entity to the last entity</span>
+        <span class="n">value_combos</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">entry</span><span class="p">:</span>
+                          <span class="nb">tuple</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;0&#39;</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">entities</span><span class="p">,</span> <span class="n">value_combos</span></div>
 
 
 <div class="viewcode-block" id="run_reports"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.run_reports">[docs]</a><span class="k">def</span> <span class="nf">run_reports</span><span class="p">(</span><span class="n">reportlets_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
