@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.anat.ants &mdash; niworkflows 1.1.3 documentation</title>
+  <title>niworkflows.anat.ants &mdash; niworkflows 1.0.4 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.0.4
               </div>
             
           
@@ -187,7 +187,6 @@
     <span class="n">FixHeaderApplyTransforms</span> <span class="k">as</span> <span class="n">ApplyTransforms</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..interfaces.utils</span> <span class="kn">import</span> <span class="n">CopyXForm</span>
-<span class="kn">from</span> <span class="nn">..interfaces.nibabel</span> <span class="kn">import</span> <span class="n">Binarize</span>
 
 
 <span class="n">ATROPOS_MODELS</span> <span class="o">=</span> <span class="p">{</span>
@@ -773,164 +772,6 @@
     <span class="k">return</span> <span class="n">wf</span></div>
 
 
-<div class="viewcode-block" id="init_n4_only_wf"><a class="viewcode-back" href="../../../api/niworkflows.anat.ants.html#niworkflows.anat.ants.init_n4_only_wf">[docs]</a><span class="k">def</span> <span class="nf">init_n4_only_wf</span><span class="p">(</span><span class="n">atropos_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">atropos_refine</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">atropos_use_random_seed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">bids_suffix</span><span class="o">=</span><span class="s1">&#39;T1w&#39;</span><span class="p">,</span>
-                    <span class="n">mem_gb</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
-                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;n4_only_wf&#39;</span><span class="p">,</span>
-                    <span class="n">omp_nthreads</span><span class="o">=</span><span class="kc">None</span>
-                    <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Build a workflow to sidetrack brain extraction on skull-stripped datasets.</span>
-
-<span class="sd">    An alternative workflow to &quot;init_brain_extraction_wf&quot;, for anatomical</span>
-<span class="sd">    images which have already been brain extracted.</span>
-
-<span class="sd">      1. Creates brain mask assuming all zero voxels are outside the brain</span>
-<span class="sd">      2. Applies N4 bias field correction</span>
-<span class="sd">      3. (Optional) apply ATROPOS and massage its outputs</span>
-<span class="sd">      4. Use results from 3 to refine N4 bias field correction</span>
-
-<span class="sd">    Workflow Graph</span>
-<span class="sd">        .. workflow::</span>
-<span class="sd">            :graph2use: orig</span>
-<span class="sd">            :simple_form: yes</span>
-
-<span class="sd">            from niworkflows.anat.ants import init_n4_only_wf</span>
-<span class="sd">            wf = init_n4_only_wf()</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    omp_nthreads : int</span>
-<span class="sd">        Maximum number of threads an individual process may use</span>
-<span class="sd">    mem_gb : float</span>
-<span class="sd">        Estimated peak memory consumption of the most hungry nodes</span>
-<span class="sd">    bids_suffix : str</span>
-<span class="sd">        Sequence type of the first input image. For a list of acceptable values see</span>
-<span class="sd">        https://bids-specification.readthedocs.io/en/latest/04-modality-specific-files/01-magnetic-resonance-imaging-data.html#anatomy-imaging-data</span>
-<span class="sd">    atropos_refine : bool</span>
-<span class="sd">        Enables or disables the whole ATROPOS sub-workflow</span>
-<span class="sd">    atropos_use_random_seed : bool</span>
-<span class="sd">        Whether ATROPOS should generate a random seed based on the</span>
-<span class="sd">        system&#39;s clock</span>
-<span class="sd">    atropos_model : tuple or None</span>
-<span class="sd">        Allows to specify a particular segmentation model, overwriting</span>
-<span class="sd">        the defaults based on ``bids_suffix``</span>
-<span class="sd">    name : str, optional</span>
-<span class="sd">        Workflow name (default: ``&#39;n4_only_wf&#39;``).</span>
-
-<span class="sd">    Inputs</span>
-<span class="sd">    ------</span>
-<span class="sd">    in_files</span>
-<span class="sd">        List of input anatomical images to be bias corrected,</span>
-<span class="sd">        typically T1-weighted.</span>
-<span class="sd">        If a list of anatomical images is provided, subsequently</span>
-<span class="sd">        specified images are used during the segmentation process.</span>
-<span class="sd">        However, only the first image is used in the registration</span>
-<span class="sd">        of priors.</span>
-<span class="sd">        Our suggestion would be to specify the T1w as the first image.</span>
-
-<span class="sd">    Outputs</span>
-<span class="sd">    -------</span>
-<span class="sd">    out_file</span>
-<span class="sd">        :abbr:`INU (intensity non-uniformity)`-corrected ``in_files``</span>
-<span class="sd">    out_mask</span>
-<span class="sd">        Calculated brain mask</span>
-<span class="sd">    bias_corrected</span>
-<span class="sd">        Same as &quot;out_file&quot;, provided for consistency with brain extraction</span>
-<span class="sd">    bias_image</span>
-<span class="sd">        The :abbr:`INU (intensity non-uniformity)` field estimated for each</span>
-<span class="sd">        input in ``in_files``</span>
-<span class="sd">    out_segm</span>
-<span class="sd">        Output segmentation by ATROPOS</span>
-<span class="sd">    out_tpms</span>
-<span class="sd">        Output :abbr:`TPMs (tissue probability maps)` by ATROPOS</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">wf</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-
-    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;in_files&#39;</span><span class="p">,</span> <span class="s1">&#39;in_mask&#39;</span><span class="p">]),</span>
-                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;inputnode&#39;</span><span class="p">)</span>
-
-    <span class="n">outputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span>
-        <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;out_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;bias_corrected&#39;</span><span class="p">,</span> <span class="s1">&#39;bias_image&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;out_segm&#39;</span><span class="p">,</span> <span class="s1">&#39;out_tpms&#39;</span><span class="p">]),</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;outputnode&#39;</span><span class="p">)</span>
-
-    <span class="c1"># Create brain mask</span>
-    <span class="n">thr_brainmask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Binarize</span><span class="p">(</span><span class="n">thresh_low</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;binarize&#39;</span><span class="p">)</span>
-
-    <span class="c1"># INU correction</span>
-    <span class="n">inu_n4_final</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">MapNode</span><span class="p">(</span>
-        <span class="n">N4BiasFieldCorrection</span><span class="p">(</span>
-            <span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">save_bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">copy_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">n_iterations</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="n">convergence_threshold</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">shrink_factor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-            <span class="n">bspline_fitting_distance</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span>
-        <span class="n">n_procs</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;inu_n4_final&#39;</span><span class="p">,</span> <span class="n">iterfield</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;input_image&#39;</span><span class="p">])</span>
-
-    <span class="c1"># Check ANTs version</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">inu_n4_final</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">rescale_intensities</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The installed ANTs version too old. Please consider upgrading to &quot;</span>
-             <span class="s2">&quot;2.1.0 or greater.&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
-
-    <span class="n">wf</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">inu_n4_final</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_files&#39;</span><span class="p">,</span> <span class="s1">&#39;input_image&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">thr_brainmask</span><span class="p">,</span> <span class="p">[((</span><span class="s1">&#39;in_files&#39;</span><span class="p">,</span> <span class="n">_pop</span><span class="p">),</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">thr_brainmask</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;out_mask&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;out_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;bias_corrected&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;bias_image&#39;</span><span class="p">,</span> <span class="s1">&#39;bias_image&#39;</span><span class="p">)])</span>
-    <span class="p">])</span>
-
-    <span class="c1"># If atropos refine, do in4 twice</span>
-    <span class="k">if</span> <span class="n">atropos_refine</span><span class="p">:</span>
-        <span class="c1"># Morphological dilation, radius=2</span>
-        <span class="n">dil_brainmask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">ImageMath</span><span class="p">(</span><span class="n">operation</span><span class="o">=</span><span class="s1">&#39;MD&#39;</span><span class="p">,</span> <span class="n">op2</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">),</span>
-                                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dil_brainmask&#39;</span><span class="p">)</span>
-        <span class="c1"># Get largest connected component</span>
-        <span class="n">get_brainmask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">ImageMath</span><span class="p">(</span><span class="n">operation</span><span class="o">=</span><span class="s1">&#39;GetLargestComponent&#39;</span><span class="p">),</span>
-                                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;get_brainmask&#39;</span><span class="p">)</span>
-        <span class="n">atropos_model</span> <span class="o">=</span> <span class="n">atropos_model</span> <span class="ow">or</span> <span class="nb">list</span><span class="p">(</span>
-            <span class="n">ATROPOS_MODELS</span><span class="p">[</span><span class="n">bids_suffix</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-        <span class="n">atropos_wf</span> <span class="o">=</span> <span class="n">init_atropos_wf</span><span class="p">(</span>
-            <span class="n">use_random_seed</span><span class="o">=</span><span class="n">atropos_use_random_seed</span><span class="p">,</span>
-            <span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span>
-            <span class="n">mem_gb</span><span class="o">=</span><span class="n">mem_gb</span><span class="p">,</span>
-            <span class="n">in_segmentation_model</span><span class="o">=</span><span class="n">atropos_model</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">sel_wm</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">atropos_model</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;sel_wm&#39;</span><span class="p">,</span>
-                         <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="n">inu_n4</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">MapNode</span><span class="p">(</span>
-            <span class="n">N4BiasFieldCorrection</span><span class="p">(</span>
-                <span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">save_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">copy_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">n_iterations</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">convergence_threshold</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
-                <span class="n">shrink_factor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">bspline_fitting_distance</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span>
-            <span class="n">n_procs</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;inu_n4&#39;</span><span class="p">,</span> <span class="n">iterfield</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;input_image&#39;</span><span class="p">])</span>
-
-        <span class="n">wf</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
-            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">inu_n4</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_files&#39;</span><span class="p">,</span> <span class="s1">&#39;input_image&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">inu_n4</span><span class="p">,</span> <span class="n">atropos_wf</span><span class="p">,</span> <span class="p">[</span>
-                <span class="p">(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;inputnode.in_files&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">thr_brainmask</span><span class="p">,</span> <span class="n">atropos_wf</span><span class="p">,</span> <span class="p">[</span>
-                <span class="p">(</span><span class="s1">&#39;out_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;inputnode.in_mask&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">thr_brainmask</span><span class="p">,</span> <span class="n">dil_brainmask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;op1&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">dil_brainmask</span><span class="p">,</span> <span class="n">get_brainmask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;op1&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">get_brainmask</span><span class="p">,</span> <span class="n">atropos_wf</span><span class="p">,</span> <span class="p">[</span>
-                <span class="p">(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;inputnode.in_mask_dilated&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">atropos_wf</span><span class="p">,</span> <span class="n">sel_wm</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;outputnode.out_tpms&#39;</span><span class="p">,</span> <span class="s1">&#39;inlist&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">sel_wm</span><span class="p">,</span> <span class="n">inu_n4_final</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out&#39;</span><span class="p">,</span> <span class="s1">&#39;weight_image&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">atropos_wf</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[</span>
-                <span class="p">(</span><span class="s1">&#39;outputnode.out_segm&#39;</span><span class="p">,</span> <span class="s1">&#39;out_segm&#39;</span><span class="p">),</span>
-                <span class="p">(</span><span class="s1">&#39;outputnode.out_tpms&#39;</span><span class="p">,</span> <span class="s1">&#39;out_tpms&#39;</span><span class="p">)]),</span>
-        <span class="p">])</span>
-
-    <span class="k">return</span> <span class="n">wf</span></div>
-
-
 <span class="k">def</span> <span class="nf">_pop</span><span class="p">(</span><span class="n">in_files</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">in_files</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
         <span class="k">return</span> <span class="n">in_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1031,6 +872,7 @@
             <dd><a href="../../../../1.0.1/index.html">1.0.1</a></dd>
             <dd><a href="../../../../1.0.2/index.html">1.0.2</a></dd>
             <dd><a href="../../../../1.0.3/index.html">1.0.3</a></dd>
+            <dd><a href="../../../../1.0.4/index.html">1.0.4</a></dd>
             <dd><a href="../../../../1.1.0/index.html">1.1.0</a></dd>
             <dd><a href="../../../../1.1.1/index.html">1.1.1</a></dd>
             <dd><a href="../../../../1.1.2/index.html">1.1.2</a></dd>

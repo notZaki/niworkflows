@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.surf &mdash; niworkflows 1.1.3 documentation</title>
+  <title>niworkflows.interfaces.surf &mdash; niworkflows 1.0.4 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.1.3
+                1.0.4
               </div>
             
           
@@ -247,7 +247,6 @@
     <span class="n">pattern</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;input file name pattern (must capture named group &quot;LR&quot;)&#39;</span><span class="p">)</span>
     <span class="n">template</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output file name template&#39;</span><span class="p">)</span>
-    <span class="n">template_kwargs</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;additional template keyword value pairs&#39;</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_GiftiNameSourceOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
@@ -259,7 +258,7 @@
 <span class="sd">    Construct a new filename for a GIFTI file.</span>
 
 <span class="sd">    Construct a new filename based on an input filename, a matching pattern,</span>
-<span class="sd">    and a related template, with optionally additional keywords.</span>
+<span class="sd">    and a related template.</span>
 
 <span class="sd">    This interface is intended for use with GIFTI files, to generate names</span>
 <span class="sd">    conforming to Section 9.0 of the `GIFTI Standard`_.</span>
@@ -291,15 +290,6 @@
 <span class="sd">    &gt;&gt;&gt; res.outputs.out_name</span>
 <span class="sd">    &#39;space-fsaverage.R.func&#39;</span>
 
-<span class="sd">    &gt;&gt;&gt; namer = GiftiNameSource()</span>
-<span class="sd">    &gt;&gt;&gt; namer.inputs.pattern = r&#39;(?P&lt;LR&gt;[lr])h.(?P&lt;space&gt;\w+).gii&#39;</span>
-<span class="sd">    &gt;&gt;&gt; namer.inputs.template = r&#39;space-{space}_density-{density}_hemi-{LR}.func&#39;</span>
-<span class="sd">    &gt;&gt;&gt; namer.inputs.in_file = &#39;rh.fsaverage.gii&#39;</span>
-<span class="sd">    &gt;&gt;&gt; namer.inputs.template_kwargs = {&#39;density&#39;: &#39;10k&#39;}</span>
-<span class="sd">    &gt;&gt;&gt; res = namer.run()</span>
-<span class="sd">    &gt;&gt;&gt; res.outputs.out_name</span>
-<span class="sd">    &#39;space-fsaverage_density-10k_hemi-R.func&#39;</span>
-
 <span class="sd">    .. testcleanup::</span>
 
 <span class="sd">    &gt;&gt;&gt; import os</span>
@@ -316,8 +306,6 @@
         <span class="n">in_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span><span class="p">)</span>
         <span class="n">info</span> <span class="o">=</span> <span class="n">in_format</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">in_file</span><span class="p">)</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
         <span class="n">info</span><span class="p">[</span><span class="s1">&#39;LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;LR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">template_kwargs</span><span class="p">:</span>
-            <span class="n">info</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">template_kwargs</span><span class="p">)</span>
         <span class="n">filefmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">template</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filefmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">info</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
@@ -781,6 +769,7 @@
             <dd><a href="../../../../1.0.1/index.html">1.0.1</a></dd>
             <dd><a href="../../../../1.0.2/index.html">1.0.2</a></dd>
             <dd><a href="../../../../1.0.3/index.html">1.0.3</a></dd>
+            <dd><a href="../../../../1.0.4/index.html">1.0.4</a></dd>
             <dd><a href="../../../../1.1.0/index.html">1.1.0</a></dd>
             <dd><a href="../../../../1.1.1/index.html">1.1.1</a></dd>
             <dd><a href="../../../../1.1.2/index.html">1.1.2</a></dd>
