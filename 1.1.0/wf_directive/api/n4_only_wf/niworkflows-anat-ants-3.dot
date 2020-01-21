@@ -1,0 +1,24 @@
+strict digraph  {
+"inputnode (utility)";
+"inu_n4_final (ants)";
+"binarize (nibabel)";
+"inu_n4 (ants)";
+"outputnode (utility)";
+atropos_wf;
+"dil_brainmask (ants)";
+"sel_wm (utility)";
+"get_brainmask (ants)";
+"inputnode (utility)" -> "inu_n4_final (ants)";
+"inputnode (utility)" -> "binarize (nibabel)";
+"inputnode (utility)" -> "inu_n4 (ants)";
+"inu_n4_final (ants)" -> "outputnode (utility)";
+"binarize (nibabel)" -> "outputnode (utility)";
+"binarize (nibabel)" -> atropos_wf;
+"binarize (nibabel)" -> "dil_brainmask (ants)";
+"inu_n4 (ants)" -> atropos_wf;
+atropos_wf -> "sel_wm (utility)";
+atropos_wf -> "outputnode (utility)";
+"dil_brainmask (ants)" -> "get_brainmask (ants)";
+"sel_wm (utility)" -> "inu_n4_final (ants)";
+"get_brainmask (ants)" -> atropos_wf;
+}
