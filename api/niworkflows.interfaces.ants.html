@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.ants module &mdash; niworkflows 1.1.4 documentation</title>
+  <title>niworkflows.interfaces.ants module &mdash; niworkflows 1.1.4+2.g231d5790 documentation</title>
   
 
   
@@ -197,12 +197,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><a href="../master/api/niworkflows.interfaces.ants.html"><b>Warning:</b> This document is for an old version of niworkflows. The main version is master.</a></p>
 <div class="section" id="module-niworkflows.interfaces.ants">
 <span id="niworkflows-interfaces-ants-module"></span><h1>niworkflows.interfaces.ants module<a class="headerlink" href="#module-niworkflows.interfaces.ants" title="Permalink to this headline">¶</a></h1>
 <p>Nipype interfaces for ANTs’ commands.</p>
@@ -297,12 +294,12 @@
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">ResampleImageBySpacing</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span> <span class="o">=</span> <span class="n">nifti_fname</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_image</span> <span class="o">=</span> <span class="s1">&#39;output.nii.gz&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_spacing</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_spacing</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">apply_smoothing</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">addvox</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">nn_interp</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">cmdline</span>  
-<span class="go">&#39;ResampleImageBySpacing 3 .../test.nii.gz output.nii.gz 4 4 4 1 2 0&#39;</span>
+<span class="go">&#39;ResampleImageBySpacing 3 .../test.nii.gz output.nii.gz 0.4 0.4 0.4 1 2 0&#39;</span>
 </pre></div>
 </div>
 <dl class="attribute">
@@ -404,7 +401,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.1.4
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">

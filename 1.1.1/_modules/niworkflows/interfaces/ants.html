@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.ants &mdash; niworkflows 1.1.4 documentation</title>
+  <title>niworkflows.interfaces.ants &mdash; niworkflows 1.1.4+2.g231d5790 documentation</title>
   
 
   
@@ -267,12 +267,12 @@
 <span class="sd">    &gt;&gt;&gt; res = ResampleImageBySpacing(dimension=3)</span>
 <span class="sd">    &gt;&gt;&gt; res.inputs.input_image = nifti_fname</span>
 <span class="sd">    &gt;&gt;&gt; res.inputs.output_image = &#39;output.nii.gz&#39;</span>
-<span class="sd">    &gt;&gt;&gt; res.inputs.out_spacing = (4, 4, 4)</span>
+<span class="sd">    &gt;&gt;&gt; res.inputs.out_spacing = (0.4, 0.4, 0.4)</span>
 <span class="sd">    &gt;&gt;&gt; res.inputs.apply_smoothing = True</span>
 <span class="sd">    &gt;&gt;&gt; res.inputs.addvox = 2</span>
 <span class="sd">    &gt;&gt;&gt; res.inputs.nn_interp = False</span>
 <span class="sd">    &gt;&gt;&gt; res.cmdline  #doctest: +ELLIPSIS</span>
-<span class="sd">    &#39;ResampleImageBySpacing 3 .../test.nii.gz output.nii.gz 4 4 4 1 2 0&#39;</span>
+<span class="sd">    &#39;ResampleImageBySpacing 3 .../test.nii.gz output.nii.gz 0.4 0.4 0.4 1 2 0&#39;</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -285,7 +285,7 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">dimension</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;out_spacing dimensions should match dimension&#39;</span><span class="p">)</span>
 
-            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">value</span><span class="p">])</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">value</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ResampleImageBySpacing</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_format_arg</span><span class="p">(</span>
             <span class="n">name</span><span class="p">,</span> <span class="n">trait_spec</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
