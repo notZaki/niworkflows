@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.spaces &mdash; niworkflows 1.1.4+8.g269e7335 documentation</title>
+  <title>niworkflows.utils.spaces &mdash; niworkflows 1.1.4+12.g8e42c6c6 documentation</title>
   
 
   
@@ -494,6 +494,23 @@
 <span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 2}),</span>
 <span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1})]</span>
 
+<span class="sd">    &gt;&gt;&gt; sp.cached</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">     ...</span>
+<span class="sd">    ValueError: Spaces have not ...</span>
+
+<span class="sd">    &gt;&gt;&gt; sp.checkpoint()</span>
+<span class="sd">    &gt;&gt;&gt; sp.cached</span>
+<span class="sd">    (Space(name=&#39;func&#39;, spec={}),</span>
+<span class="sd">     Space(name=&#39;fsnative&#39;, spec={}),</span>
+<span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={}),</span>
+<span class="sd">     Space(name=&#39;anat&#39;, spec={}),</span>
+<span class="sd">     Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;}),</span>
+<span class="sd">     Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;41k&#39;}),</span>
+<span class="sd">     Space(name=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;2&#39;}),</span>
+<span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 2}),</span>
+<span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1}))</span>
+
 <span class="sd">    &gt;&gt;&gt; sp.add((&#39;MNIPediatricAsym&#39;, {&#39;cohort&#39;: &#39;2&#39;}))</span>
 <span class="sd">    &gt;&gt;&gt; sp.get_std_spaces(dim=(3,))</span>
 <span class="sd">    [&#39;MNI152NLin2009cAsym&#39;, &#39;MNIPediatricAsym:cohort-2&#39;]</span>
@@ -519,9 +536,14 @@
 <span class="sd">      ...</span>
 <span class="sd">    ValueError: space ...</span>
 
+<span class="sd">    &gt;&gt;&gt; sp.checkpoint()</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">     ...</span>
+<span class="sd">    ValueError: Spaces have already ...</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;_spaces&#39;</span><span class="p">,)</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;_spaces&#39;</span><span class="p">,</span> <span class="s1">&#39;_cached&#39;</span><span class="p">)</span>
     <span class="n">standard_spaces</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_tfapi</span><span class="o">.</span><span class="n">templates</span><span class="p">())</span>
     <span class="sd">&quot;&quot;&quot;List of supported standard reference spaces.&quot;&quot;&quot;</span>
 
@@ -555,6 +577,7 @@
 <span class="sd">        Output spaces are desired user outputs.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_spaces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">spaces</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spaces</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                 <span class="n">spaces</span> <span class="o">=</span> <span class="p">[</span><span class="n">spaces</span><span class="p">]</span>
@@ -606,6 +629,19 @@
     <span class="k">def</span> <span class="nf">spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get all specified spaces.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spaces</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cached</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get cached spaces. If cached has not been set, raise `AttributeError`&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Spaces have not been cached&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span>
+
+<div class="viewcode-block" id="SpatialReferences.checkpoint"><a class="viewcode-back" href="../../../api/niworkflows.utils.spaces.html#niworkflows.utils.spaces.SpatialReferences.checkpoint">[docs]</a>    <span class="k">def</span> <span class="nf">checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Cache and freeze current spaces to separate attribute&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Spaces have already been cached&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spaces</span><span class="p">)</span></div>
 
     <span class="nd">@spaces</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>

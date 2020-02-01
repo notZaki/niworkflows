@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.spaces module &mdash; niworkflows 1.1.4+8.g269e7335 documentation</title>
+  <title>niworkflows.utils.spaces module &mdash; niworkflows 1.1.4+12.g8e42c6c6 documentation</title>
   
 
   
@@ -488,6 +488,25 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 <span class="go"> Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1})]</span>
 </pre></div>
 </div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span>
+<span class="gt">Traceback (most recent call last):</span>
+ <span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">Spaces have not ...</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span>
+<span class="go">(Space(name=&#39;func&#39;, spec={}),</span>
+<span class="go"> Space(name=&#39;fsnative&#39;, spec={}),</span>
+<span class="go"> Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={}),</span>
+<span class="go"> Space(name=&#39;anat&#39;, spec={}),</span>
+<span class="go"> Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;}),</span>
+<span class="go"> Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;41k&#39;}),</span>
+<span class="go"> Space(name=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;2&#39;}),</span>
+<span class="go"> Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 2}),</span>
+<span class="go"> Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1}))</span>
+</pre></div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="s1">&#39;MNIPediatricAsym&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;cohort&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">}))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">get_std_spaces</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
 <span class="go">[&#39;MNI152NLin2009cAsym&#39;, &#39;MNIPediatricAsym:cohort-2&#39;]</span>
@@ -518,6 +537,12 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 <span class="gr">ValueError</span>: <span class="n">space ...</span>
 </pre></div>
 </div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+ <span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">Spaces have already ...</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="niworkflows.utils.spaces.SpatialReferences.add">
 <code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#SpatialReferences.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.add" title="Permalink to this definition">¶</a></dt>
@@ -531,9 +556,21 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 </dd></dl>
 
 <dl class="method">
+<dt id="niworkflows.utils.spaces.SpatialReferences.cached">
+<em class="property">property </em><code class="sig-name descname">cached</code><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.cached" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get cached spaces. If cached has not been set, raise <cite>AttributeError</cite></p>
+</dd></dl>
+
+<dl class="method">
 <dt id="niworkflows.utils.spaces.SpatialReferences.check_space">
 <em class="property">static </em><code class="sig-name descname">check_space</code><span class="sig-paren">(</span><em class="sig-param">space</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#SpatialReferences.check_space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.check_space" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a <a class="reference internal" href="#niworkflows.utils.spaces.Space" title="niworkflows.utils.spaces.Space"><code class="xref py py-class docutils literal notranslate"><span class="pre">Space</span></code></a> object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="niworkflows.utils.spaces.SpatialReferences.checkpoint">
+<code class="sig-name descname">checkpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#SpatialReferences.checkpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache and freeze current spaces to separate attribute</p>
 </dd></dl>
 
 <dl class="method">
