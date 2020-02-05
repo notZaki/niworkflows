@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.spaces module &mdash; niworkflows 1.1.4+12.g8e42c6c6 documentation</title>
+  <title>niworkflows.utils.spaces module &mdash; niworkflows 1.1.4+16.g7ec7d3a4 documentation</title>
   
 
   
@@ -492,8 +492,8 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span>
-<span class="go">(Space(name=&#39;func&#39;, spec={}),</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span><span class="o">.</span><span class="n">spaces</span>
+<span class="go">[Space(name=&#39;func&#39;, spec={}),</span>
 <span class="go"> Space(name=&#39;fsnative&#39;, spec={}),</span>
 <span class="go"> Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={}),</span>
 <span class="go"> Space(name=&#39;anat&#39;, spec={}),</span>
@@ -501,7 +501,11 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 <span class="go"> Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;41k&#39;}),</span>
 <span class="go"> Space(name=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;2&#39;}),</span>
 <span class="go"> Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 2}),</span>
-<span class="go"> Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1}))</span>
+<span class="go"> Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1})]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span><span class="o">.</span><span class="n">get_fs_spaces</span><span class="p">()</span>
+<span class="go">[&#39;fsnative&#39;, &#39;fsaverage5&#39;, &#39;fsaverage6&#39;]</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="s1">&#39;MNIPediatricAsym&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;cohort&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">}))</span>
@@ -604,7 +608,42 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 <dl class="method">
 <dt id="niworkflows.utils.spaces.SpatialReferences.get_std_spaces">
 <code class="sig-name descname">get_std_spaces</code><span class="sig-paren">(</span><em class="sig-param">only_names=True</em>, <em class="sig-param">dim=(2</em>, <em class="sig-param">3)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#SpatialReferences.get_std_spaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.get_std_spaces" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return only standard spaces.</p>
+<dd><p>Return standard spaces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>only_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>, optional) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), return all unique <a class="reference internal" href="#niworkflows.utils.spaces.Space" title="niworkflows.utils.spaces.Space"><code class="xref py py-class docutils literal notranslate"><span class="pre">Space</span></code></a> names. If <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+return all <a class="reference internal" href="#niworkflows.utils.spaces.Space" title="niworkflows.utils.spaces.Space"><code class="xref py py-class docutils literal notranslate"><span class="pre">Space</span></code></a> entities.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>, optional) – Desired dimensions of the standard spaces (default is <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">3)</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spaces</span> <span class="o">=</span> <span class="n">SpatialReferences</span><span class="p">([</span><span class="s1">&#39;MNI152NLin6Asym&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;fsaverage&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;den&quot;</span><span class="p">:</span> <span class="s2">&quot;10k&quot;</span><span class="p">})])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spaces</span><span class="o">.</span><span class="n">get_std_spaces</span><span class="p">()</span>
+<span class="go">[&#39;MNI152NLin6Asym&#39;, &#39;fsaverage&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spaces</span><span class="o">.</span><span class="n">get_std_spaces</span><span class="p">(</span><span class="n">only_names</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[Space(name=&#39;MNI152NLin6Asym&#39;, spec={}),</span>
+<span class="go"> Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;})]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spaces</span><span class="o">.</span><span class="n">get_std_spaces</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+<span class="go">[&#39;MNI152NLin6Asym&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spaces</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="s1">&#39;MNI152NLin6Asym&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">}))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spaces</span><span class="o">.</span><span class="n">get_std_spaces</span><span class="p">()</span>
+<span class="go">[&#39;MNI152NLin6Asym&#39;, &#39;fsaverage&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">spaces</span><span class="o">.</span><span class="n">get_std_spaces</span><span class="p">(</span><span class="n">only_names</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">[Space(name=&#39;MNI152NLin6Asym&#39;, spec={}),</span>
+<span class="go"> Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;}),</span>
+<span class="go"> Space(name=&#39;MNI152NLin6Asym&#39;, spec={&#39;res&#39;: &#39;2&#39;})]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">

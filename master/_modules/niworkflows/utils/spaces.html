@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.spaces &mdash; niworkflows 1.1.4+12.g8e42c6c6 documentation</title>
+  <title>niworkflows.utils.spaces &mdash; niworkflows 1.1.4+16.g7ec7d3a4 documentation</title>
   
 
   
@@ -500,8 +500,8 @@
 <span class="sd">    ValueError: Spaces have not ...</span>
 
 <span class="sd">    &gt;&gt;&gt; sp.checkpoint()</span>
-<span class="sd">    &gt;&gt;&gt; sp.cached</span>
-<span class="sd">    (Space(name=&#39;func&#39;, spec={}),</span>
+<span class="sd">    &gt;&gt;&gt; sp.cached.spaces</span>
+<span class="sd">    [Space(name=&#39;func&#39;, spec={}),</span>
 <span class="sd">     Space(name=&#39;fsnative&#39;, spec={}),</span>
 <span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={}),</span>
 <span class="sd">     Space(name=&#39;anat&#39;, spec={}),</span>
@@ -509,7 +509,10 @@
 <span class="sd">     Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;41k&#39;}),</span>
 <span class="sd">     Space(name=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;2&#39;}),</span>
 <span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 2}),</span>
-<span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1}))</span>
+<span class="sd">     Space(name=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1})]</span>
+
+<span class="sd">    &gt;&gt;&gt; sp.cached.get_fs_spaces()</span>
+<span class="sd">    [&#39;fsnative&#39;, &#39;fsaverage5&#39;, &#39;fsaverage6&#39;]</span>
 
 <span class="sd">    &gt;&gt;&gt; sp.add((&#39;MNIPediatricAsym&#39;, {&#39;cohort&#39;: &#39;2&#39;}))</span>
 <span class="sd">    &gt;&gt;&gt; sp.get_std_spaces(dim=(3,))</span>
@@ -641,7 +644,7 @@
         <span class="sd">&quot;&quot;&quot;Cache and freeze current spaces to separate attribute&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Spaces have already been cached&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spaces</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spaces</span><span class="p">)</span></div>
 
     <span class="nd">@spaces</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -668,16 +671,49 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;space &quot;</span><span class="si">%s</span><span class="s1">&quot; already in spaces.&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="SpatialReferences.get_std_spaces"><a class="viewcode-back" href="../../../api/niworkflows.utils.spaces.html#niworkflows.utils.spaces.SpatialReferences.get_std_spaces">[docs]</a>    <span class="k">def</span> <span class="nf">get_std_spaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">only_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)):</span>
-        <span class="sd">&quot;&quot;&quot;Return only standard spaces.&quot;&quot;&quot;</span>
-        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">std_spaces</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spaces</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">standard</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">dim</span> <span class="ow">in</span> <span class="n">dim</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">fullname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-                <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fullname</span><span class="p">)</span>
-                <span class="n">std_spaces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">only_names</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">names</span>
-        <span class="k">return</span> <span class="n">std_spaces</span></div>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return standard spaces.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        only_names : :obj:`bool`, optional</span>
+<span class="sd">            If ``True`` (default), return all unique :class:`Space` names. If ``False``,</span>
+<span class="sd">            return all :class:`Space` entities.</span>
+<span class="sd">        dim : :obj:`tuple`, optional</span>
+<span class="sd">            Desired dimensions of the standard spaces (default is ``(2, 3)``)</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; spaces = SpatialReferences([&#39;MNI152NLin6Asym&#39;, (&quot;fsaverage&quot;, {&quot;den&quot;: &quot;10k&quot;})])</span>
+<span class="sd">        &gt;&gt;&gt; spaces.get_std_spaces()</span>
+<span class="sd">        [&#39;MNI152NLin6Asym&#39;, &#39;fsaverage&#39;]</span>
+
+<span class="sd">        &gt;&gt;&gt; spaces.get_std_spaces(only_names=False)</span>
+<span class="sd">        [Space(name=&#39;MNI152NLin6Asym&#39;, spec={}),</span>
+<span class="sd">         Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;})]</span>
+
+<span class="sd">        &gt;&gt;&gt; spaces.get_std_spaces(dim=(3,))</span>
+<span class="sd">        [&#39;MNI152NLin6Asym&#39;]</span>
+
+<span class="sd">        &gt;&gt;&gt; spaces.add((&#39;MNI152NLin6Asym&#39;, {&#39;res&#39;: &#39;2&#39;}))</span>
+<span class="sd">        &gt;&gt;&gt; spaces.get_std_spaces()</span>
+<span class="sd">        [&#39;MNI152NLin6Asym&#39;, &#39;fsaverage&#39;]</span>
+
+<span class="sd">        &gt;&gt;&gt; spaces.get_std_spaces(only_names=False)</span>
+<span class="sd">        [Space(name=&#39;MNI152NLin6Asym&#39;, spec={}),</span>
+<span class="sd">         Space(name=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;}),</span>
+<span class="sd">         Space(name=&#39;MNI152NLin6Asym&#39;, spec={&#39;res&#39;: &#39;2&#39;})]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spaces</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">standard</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">dim</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">only_names</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">fullname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">out</span><span class="p">:</span>
+                        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fullname</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
 
 <div class="viewcode-block" id="SpatialReferences.get_templates"><a class="viewcode-back" href="../../../api/niworkflows.utils.spaces.html#niworkflows.utils.spaces.SpatialReferences.get_templates">[docs]</a>    <span class="k">def</span> <span class="nf">get_templates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)):</span>
         <span class="sd">&quot;&quot;&quot;Return output spaces.&quot;&quot;&quot;</span>
