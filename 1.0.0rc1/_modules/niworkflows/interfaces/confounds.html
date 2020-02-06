@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.confounds &mdash; niworkflows 1.1.4+25.g4fedc3a5 documentation</title>
+  <title>niworkflows.interfaces.confounds &mdash; niworkflows 1.1.4+26.g102f19f50 documentation</title>
   
 
   
@@ -376,8 +376,8 @@
     <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">minimum_contiguous</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">post_final</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="n">epoch_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">mask</span> <span class="o">|</span>
-                                      <span class="nb">set</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">post_final</span><span class="p">])))</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">epoch_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="n">mask</span> <span class="o">|</span> <span class="nb">set</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">post_final</span><span class="p">])))</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">epoch_end</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mask</span> <span class="o">|</span> <span class="nb">set</span><span class="p">([</span><span class="n">post_final</span><span class="p">]))</span>
         <span class="k">for</span> <span class="n">end</span><span class="p">,</span> <span class="n">length</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">epoch_end</span><span class="p">,</span> <span class="n">epoch_length</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="n">minimum_contiguous</span><span class="p">:</span>
