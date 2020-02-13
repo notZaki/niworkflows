@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.bids &mdash; niworkflows 1.1.6+9.gedeea8135 documentation</title>
+  <title>niworkflows.interfaces.bids &mdash; niworkflows 1.1.6+11.g4743f926c documentation</title>
   
 
   
@@ -381,8 +381,8 @@
 
         <span class="k">for</span> <span class="n">imtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="s1">&#39;t2w&#39;</span><span class="p">,</span> <span class="s1">&#39;flair&#39;</span><span class="p">,</span> <span class="s1">&#39;fmap&#39;</span><span class="p">,</span> <span class="s1">&#39;sbref&#39;</span><span class="p">,</span> <span class="s1">&#39;roi&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">bids_dict</span><span class="p">[</span><span class="n">imtype</span><span class="p">]:</span>
-                <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;No &quot;</span><span class="si">%s</span><span class="s1">&quot; images found for sub-</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-                               <span class="n">imtype</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">subject_id</span><span class="p">)</span>
+                <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;No &quot;</span><span class="si">%s</span><span class="s1">&quot; images found for sub-</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+                            <span class="n">imtype</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">subject_id</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">runtime</span></div>
 
