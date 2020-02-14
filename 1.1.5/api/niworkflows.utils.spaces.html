@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.spaces module &mdash; niworkflows 1.1.6+11.g4743f926c documentation</title>
+  <title>niworkflows.utils.spaces module &mdash; niworkflows 1.1.7 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.1.6
+                1.1.7
               </div>
             
           
@@ -483,13 +483,17 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 <span class="go"> Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1})]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">is_cached</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span>
 <span class="gt">Traceback (most recent call last):</span>
  <span class="c">...</span>
 <span class="gr">ValueError</span>: <span class="n">References have not ...</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">is_cached</span><span class="p">()</span>
+<span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span><span class="o">.</span><span class="n">references</span>
 <span class="go">[Reference(space=&#39;func&#39;, spec={}),</span>
 <span class="go"> Reference(space=&#39;fsnative&#39;, spec={}),</span>
@@ -542,6 +546,21 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 <span class="gr">ValueError</span>: <span class="n">References have already ...</span>
 </pre></div>
 </div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">cached</span><span class="o">.</span><span class="n">references</span>
+<span class="go">[Reference(space=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;3&#39;}),</span>
+<span class="go"> Reference(space=&#39;func&#39;, spec={}),</span>
+<span class="go"> Reference(space=&#39;fsnative&#39;, spec={}),</span>
+<span class="go"> Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={}),</span>
+<span class="go"> Reference(space=&#39;anat&#39;, spec={}),</span>
+<span class="go"> Reference(space=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;}),</span>
+<span class="go"> Reference(space=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;41k&#39;}),</span>
+<span class="go"> Reference(space=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;2&#39;}),</span>
+<span class="go"> Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 2}),</span>
+<span class="go"> Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1}),</span>
+<span class="go"> Reference(space=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;1&#39;})]</span>
+</pre></div>
+</div>
 <dl class="method">
 <dt id="niworkflows.utils.spaces.SpatialReferences.add">
 <code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#SpatialReferences.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.add" title="Permalink to this definition">¶</a></dt>
@@ -568,7 +587,7 @@ language for <code class="docutils literal notranslate"><span class="pre">--outp
 
 <dl class="method">
 <dt id="niworkflows.utils.spaces.SpatialReferences.checkpoint">
-<code class="sig-name descname">checkpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#SpatialReferences.checkpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.checkpoint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">checkpoint</code><span class="sig-paren">(</span><em class="sig-param">force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#SpatialReferences.checkpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.checkpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cache and freeze current spaces to separate attribute.</p>
 </dd></dl>
 
@@ -672,6 +691,11 @@ have density or resolution set).</p></li>
 </dd></dl>
 
 <dl class="method">
+<dt id="niworkflows.utils.spaces.SpatialReferences.is_cached">
+<code class="sig-name descname">is_cached</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#SpatialReferences.is_cached"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.is_cached" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="niworkflows.utils.spaces.SpatialReferences.references">
 <em class="property">property </em><code class="sig-name descname">references</code><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all specified references.</p>
@@ -764,6 +788,7 @@ have density or resolution set).</p></li>
             <dd><a href="../../1.1.4/api/niworkflows.utils.spaces.html">1.1.4</a></dd>
             <dd><a href="niworkflows.utils.spaces.html">1.1.5</a></dd>
             <dd><a href="../../1.1.6/api/niworkflows.utils.spaces.html">1.1.6</a></dd>
+            <dd><a href="../../1.1.7/api/niworkflows.utils.spaces.html">1.1.7</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>

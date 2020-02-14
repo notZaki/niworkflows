@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.spaces &mdash; niworkflows 1.1.6+11.g4743f926c documentation</title>
+  <title>niworkflows.utils.spaces &mdash; niworkflows 1.1.7 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.1.6
+                1.1.7
               </div>
             
           
@@ -153,9 +153,12 @@
   
 
 
+    
+    
 
 
 
+    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.utils.spaces</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Utilities for tracking and filtering spaces.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
@@ -490,12 +493,16 @@
 <span class="sd">     Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 2}),</span>
 <span class="sd">     Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1})]</span>
 
+<span class="sd">    &gt;&gt;&gt; sp.is_cached()</span>
+<span class="sd">    False</span>
 <span class="sd">    &gt;&gt;&gt; sp.cached</span>
 <span class="sd">    Traceback (most recent call last):</span>
 <span class="sd">     ...</span>
 <span class="sd">    ValueError: References have not ...</span>
 
 <span class="sd">    &gt;&gt;&gt; sp.checkpoint()</span>
+<span class="sd">    &gt;&gt;&gt; sp.is_cached()</span>
+<span class="sd">    True</span>
 <span class="sd">    &gt;&gt;&gt; sp.cached.references</span>
 <span class="sd">    [Reference(space=&#39;func&#39;, spec={}),</span>
 <span class="sd">     Reference(space=&#39;fsnative&#39;, spec={}),</span>
@@ -539,6 +546,20 @@
 <span class="sd">    Traceback (most recent call last):</span>
 <span class="sd">     ...</span>
 <span class="sd">    ValueError: References have already ...</span>
+
+<span class="sd">    &gt;&gt;&gt; sp.checkpoint(force=True)</span>
+<span class="sd">    &gt;&gt;&gt; sp.cached.references</span>
+<span class="sd">    [Reference(space=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;3&#39;}),</span>
+<span class="sd">     Reference(space=&#39;func&#39;, spec={}),</span>
+<span class="sd">     Reference(space=&#39;fsnative&#39;, spec={}),</span>
+<span class="sd">     Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={}),</span>
+<span class="sd">     Reference(space=&#39;anat&#39;, spec={}),</span>
+<span class="sd">     Reference(space=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;}),</span>
+<span class="sd">     Reference(space=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;41k&#39;}),</span>
+<span class="sd">     Reference(space=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;2&#39;}),</span>
+<span class="sd">     Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 2}),</span>
+<span class="sd">     Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={&#39;res&#39;: 1}),</span>
+<span class="sd">     Reference(space=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: &#39;1&#39;})]</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -635,13 +656,16 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cached</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get cached spaces, raise error if not cached.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_cached</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;References have not been cached&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span>
 
-<div class="viewcode-block" id="SpatialReferences.checkpoint"><a class="viewcode-back" href="../../../api/niworkflows.utils.spaces.html#niworkflows.utils.spaces.SpatialReferences.checkpoint">[docs]</a>    <span class="k">def</span> <span class="nf">checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SpatialReferences.is_cached"><a class="viewcode-back" href="../../../api/niworkflows.utils.spaces.html#niworkflows.utils.spaces.SpatialReferences.is_cached">[docs]</a>    <span class="k">def</span> <span class="nf">is_cached</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="SpatialReferences.checkpoint"><a class="viewcode-back" href="../../../api/niworkflows.utils.spaces.html#niworkflows.utils.spaces.SpatialReferences.checkpoint">[docs]</a>    <span class="k">def</span> <span class="nf">checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Cache and freeze current spaces to separate attribute.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_cached</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;References have already been cached&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="p">)</span></div>
 
@@ -784,6 +808,9 @@
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">option_string</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Execute parser.&quot;&quot;&quot;</span>
         <span class="n">spaces</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">namespace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">)</span> <span class="ow">or</span> <span class="n">SpatialReferences</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
+            <span class="c1"># option was called without any output spaces, so user does not want outputs</span>
+            <span class="n">spaces</span><span class="o">.</span><span class="n">checkpoint</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
             <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
             <span class="c1"># Should we support some sort of explicit &quot;default&quot; resolution?</span>
@@ -881,7 +908,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: 1.1.7
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -901,12 +928,13 @@
             <dd><a href="../../../1.1.4/index.html">1.1.4</a></dd>
             <dd><a href="../../../1.1.5/index.html">1.1.5</a></dd>
             <dd><a href="../../../1.1.6/index.html">1.1.6</a></dd>
+            <dd><a href="../../../1.1.7/_modules/niworkflows/utils/spaces.html">1.1.7</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
-            <dd><a href="../../../master/_modules/niworkflows/utils/spaces.html">master</a></dd>
+            <dd><a href="../../../master/index.html">master</a></dd>
         </dl>
     </div>
 </div>
