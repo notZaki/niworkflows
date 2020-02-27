@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.images &mdash; niworkflows 1.1.7+6.g15c9161ed documentation</title>
+  <title>niworkflows.interfaces.images &mdash; niworkflows 1.1.8 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.1.7
+                1.1.8
               </div>
             
           
@@ -153,9 +153,12 @@
   
 
 
+    
+    
 
 
 
+    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.interfaces.images</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -579,25 +582,28 @@
         <span class="k">elif</span> <span class="p">(</span><span class="n">valid_sform</span> <span class="ow">and</span> <span class="n">sform_code</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">matching_affines</span> <span class="ow">or</span> <span class="n">qform_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
             <span class="n">img</span><span class="o">.</span><span class="n">set_qform</span><span class="p">(</span><span class="n">sform</span><span class="p">,</span> <span class="n">sform_code</span><span class="p">)</span>
             <span class="n">new_qform</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_qform</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">new_qform</span><span class="p">,</span> <span class="n">qform</span><span class="p">)</span> <span class="ow">and</span> <span class="n">qform_code</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="c1"># False alarm</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span>
-                <span class="nb">open</span><span class="p">(</span><span class="n">out_report</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_report&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_report</span>
-                <span class="k">return</span> <span class="n">runtime</span>
-            <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">qform</span><span class="p">)</span> <span class="o">@</span> <span class="n">new_qform</span>
-            <span class="n">trans</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">transforms3d</span><span class="o">.</span><span class="n">affines</span><span class="o">.</span><span class="n">decompose44</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
-            <span class="n">angle</span> <span class="o">=</span> <span class="n">transforms3d</span><span class="o">.</span><span class="n">axangles</span><span class="o">.</span><span class="n">mat2axangle</span><span class="p">(</span><span class="n">rot</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">total_trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">trans</span> <span class="o">*</span> <span class="n">trans</span><span class="p">))</span>  <span class="c1"># Add angle and total_trans to report</span>
-            <span class="n">warning_txt</span> <span class="o">=</span> <span class="s1">&#39;Note on orientation: qform matrix overwritten&#39;</span>
-            <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+            <span class="k">if</span> <span class="n">valid_qform</span><span class="p">:</span>
+                <span class="c1"># False alarm - the difference is due to precision loss of qform</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">new_qform</span><span class="p">,</span> <span class="n">qform</span><span class="p">)</span> <span class="ow">and</span> <span class="n">qform_code</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span>
+                    <span class="nb">open</span><span class="p">(</span><span class="n">out_report</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_report&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_report</span>
+                    <span class="k">return</span> <span class="n">runtime</span>
+                <span class="c1"># Replacing an existing, valid qform. Report magnitude of change.</span>
+                <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">qform</span><span class="p">)</span> <span class="o">@</span> <span class="n">new_qform</span>
+                <span class="n">trans</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">transforms3d</span><span class="o">.</span><span class="n">affines</span><span class="o">.</span><span class="n">decompose44</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="n">transforms3d</span><span class="o">.</span><span class="n">axangles</span><span class="o">.</span><span class="n">mat2axangle</span><span class="p">(</span><span class="n">rot</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">total_trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">trans</span> <span class="o">*</span> <span class="n">trans</span><span class="p">))</span>  <span class="c1"># Add angle and total_trans to report</span>
+                <span class="n">warning_txt</span> <span class="o">=</span> <span class="s1">&#39;Note on orientation: qform matrix overwritten&#39;</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">    &lt;p class=&quot;elem-desc&quot;&gt;</span>
 <span class="s2">    The qform has been copied from sform.</span>
 <span class="s2">    The difference in angle is </span><span class="si">{angle:.02g}</span><span class="s2">.</span>
 <span class="s2">    The difference in translation is </span><span class="si">{total_trans:.02g}</span><span class="s2">.</span>
 <span class="s2">    &lt;/p&gt;</span>
 <span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">,</span> <span class="n">total_trans</span><span class="o">=</span><span class="n">total_trans</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_qform</span> <span class="ow">and</span> <span class="n">qform_code</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">qform_code</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># qform code indicates the qform is supposed to be valid. Use more stridency.</span>
                 <span class="n">warning_txt</span> <span class="o">=</span> <span class="s1">&#39;WARNING - Invalid qform information&#39;</span>
                 <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">&lt;p class=&quot;elem-desc&quot;&gt;</span>
@@ -607,6 +613,10 @@
 <span class="s2">    by the scanner is advised.</span>
 <span class="s2">&lt;/p&gt;</span>
 <span class="s2">&quot;&quot;&quot;</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># qform_code == 0</span>
+                <span class="c1"># qform is not expected to be valids. Simple note.</span>
+                <span class="n">warning_txt</span> <span class="o">=</span> <span class="s1">&#39;Note on orientation: qform matrix overwritten&#39;</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&lt;p class=&quot;elem-desc&quot;&gt;The qform has been copied from sform.&lt;/p&gt;&#39;</span>
         <span class="c1"># Rows 5-6:</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">affine</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">get_base_affine</span><span class="p">()</span>
@@ -949,7 +959,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: 1.1.8
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -970,13 +980,14 @@
             <dd><a href="../../../1.1.5/index.html">1.1.5</a></dd>
             <dd><a href="../../../1.1.6/index.html">1.1.6</a></dd>
             <dd><a href="../../../1.1.7/index.html">1.1.7</a></dd>
+            <dd><a href="../../../1.1.8/_modules/niworkflows/interfaces/images.html">1.1.8</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_migrate-to-nipreps/index.html">maint/migrate-to-nipreps</a></dd>
-            <dd><a href="../../../master/_modules/niworkflows/interfaces/images.html">master</a></dd>
+            <dd><a href="../../../master/index.html">master</a></dd>
         </dl>
     </div>
 </div>

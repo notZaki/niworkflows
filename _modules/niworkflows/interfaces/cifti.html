@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.1.7+6.g15c9161ed documentation</title>
+  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.1.8 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.1.7
+                1.1.8
               </div>
             
           
@@ -153,15 +153,17 @@
   
 
 
+    
+    
 
 
 
+    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.interfaces.cifti</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;Handling connectivity: combines FreeSurfer surfaces with subcortical volumes.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
@@ -368,12 +370,7 @@
     <span class="c1"># fMRIPrep grayordinates</span>
     <span class="k">if</span> <span class="n">volume</span> <span class="o">==</span> <span class="s2">&quot;MNI152NLin2009cAsym&quot;</span><span class="p">:</span>
         <span class="n">tpl_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;resolution&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;DKT31&#39;</span><span class="p">})</span>
-        <span class="n">annotation_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">subjects_dir</span><span class="p">,</span>
-            <span class="n">surface</span><span class="p">,</span>
-            <span class="s1">&#39;label&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;*h.aparc.annot&#39;</span>
-        <span class="p">)))</span>
+        <span class="n">annotation_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">((</span><span class="n">subjects_dir</span> <span class="o">/</span> <span class="n">surface</span> <span class="o">/</span> <span class="s1">&#39;label&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*h.aparc.annot&#39;</span><span class="p">))</span>
     <span class="c1"># HCP grayordinates</span>
     <span class="k">elif</span> <span class="n">volume</span> <span class="o">==</span> <span class="s1">&#39;MNI152NLin6Asym&#39;</span><span class="p">:</span>
         <span class="c1"># templateflow specific resolutions (2mm, 1.6mm)</span>
@@ -412,7 +409,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; metafile, variant, _ = _get_cifti_variant(&#39;fsaverage5&#39;, &#39;MNI152NLin2009cAsym&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; metafile  # doctest: +ELLIPSIS</span>
+<span class="sd">    &gt;&gt;&gt; str(metafile)  # doctest: +ELLIPSIS</span>
 <span class="sd">    &#39;.../dtseries_variant.json&#39;</span>
 <span class="sd">    &gt;&gt;&gt; variant</span>
 <span class="sd">    &#39;fMRIPrep grayordinates&#39;</span>
@@ -438,7 +435,7 @@
         <span class="p">)</span>
 
     <span class="n">grayords</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">out_metadata</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;dtseries_variant.json&#39;</span><span class="p">)</span>
+    <span class="n">out_metadata</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;dtseries_variant.json&#39;</span>
     <span class="n">out_json</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;space&#39;</span><span class="p">:</span> <span class="n">variant</span><span class="p">,</span>
         <span class="s1">&#39;surface&#39;</span><span class="p">:</span> <span class="n">surface</span><span class="p">,</span>
@@ -449,8 +446,7 @@
         <span class="n">grayords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;32k&#39;</span><span class="p">:</span> <span class="s1">&#39;91k&#39;</span><span class="p">,</span> <span class="s1">&#39;59k&#39;</span><span class="p">:</span> <span class="s1">&#39;170k&#39;</span><span class="p">}[</span><span class="n">density</span><span class="p">]</span>
         <span class="n">out_json</span><span class="p">[</span><span class="s1">&#39;grayordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grayords</span>
 
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_metadata</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">out_json</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+    <span class="n">out_metadata</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">out_json</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">out_metadata</span><span class="p">,</span> <span class="n">variant</span><span class="p">,</span> <span class="n">grayords</span>
 
 
@@ -587,7 +583,7 @@
 
     <span class="n">out_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.dtseries.nii&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">split_filename</span><span class="p">(</span><span class="n">bold_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">ci</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">out_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="n">out_file</span>
 </pre></div>
 
            </div>
@@ -618,7 +614,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: 1.1.8
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -639,13 +635,14 @@
             <dd><a href="../../../1.1.5/index.html">1.1.5</a></dd>
             <dd><a href="../../../1.1.6/index.html">1.1.6</a></dd>
             <dd><a href="../../../1.1.7/index.html">1.1.7</a></dd>
+            <dd><a href="../../../1.1.8/_modules/niworkflows/interfaces/cifti.html">1.1.8</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
             <dd><a href="../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_migrate-to-nipreps/index.html">maint/migrate-to-nipreps</a></dd>
-            <dd><a href="../../../master/_modules/niworkflows/interfaces/cifti.html">master</a></dd>
+            <dd><a href="../../../master/index.html">master</a></dd>
         </dl>
     </div>
 </div>
