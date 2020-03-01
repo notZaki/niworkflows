@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.func.util &mdash; niworkflows 1.1.8+13.g4687dd6b6 documentation</title>
+  <title>niworkflows.func.util &mdash; niworkflows 1.1.8+15.g29e7c43ed documentation</title>
   
 
   
@@ -179,6 +179,7 @@
 <span class="kn">from</span> <span class="nn">..interfaces.masks</span> <span class="kn">import</span> <span class="n">SimpleShowMaskRPT</span>
 <span class="kn">from</span> <span class="nn">..interfaces.registration</span> <span class="kn">import</span> <span class="n">EstimateReferenceImage</span>
 <span class="kn">from</span> <span class="nn">..interfaces.utils</span> <span class="kn">import</span> <span class="n">CopyXForm</span>
+<span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">pass_dummy_scans</span> <span class="k">as</span> <span class="n">_pass_dummy_scans</span>
 
 
 <span class="n">DEFAULT_MEMORY_MIN_GB</span> <span class="o">=</span> <span class="mf">0.01</span>
@@ -584,28 +585,6 @@
     <span class="p">])</span>
 
     <span class="k">return</span> <span class="n">workflow</span></div>
-
-
-<span class="k">def</span> <span class="nf">_pass_dummy_scans</span><span class="p">(</span><span class="n">algo_dummy_scans</span><span class="p">,</span> <span class="n">dummy_scans</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Graft manually provided number of dummy scans, if necessary.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    algo_dummy_scans : int</span>
-<span class="sd">        number of volumes to skip determined by an algorithm</span>
-<span class="sd">    dummy_scans : int or None</span>
-<span class="sd">        number of volumes to skip determined by the user</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    skip_vols_num : int</span>
-<span class="sd">        number of volumes to skip</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">dummy_scans</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">algo_dummy_scans</span>
-    <span class="k">return</span> <span class="n">dummy_scans</span>
 </pre></div>
 
            </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.misc &mdash; niworkflows 1.1.8+13.g4687dd6b6 documentation</title>
+  <title>niworkflows.utils.misc &mdash; niworkflows 1.1.8+15.g29e7c43ed documentation</title>
   
 
   
@@ -398,6 +398,28 @@
             <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">False</span>
     <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<span class="k">def</span> <span class="nf">pass_dummy_scans</span><span class="p">(</span><span class="n">algo_dummy_scans</span><span class="p">,</span> <span class="n">dummy_scans</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Graft manually provided number of dummy scans, if necessary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    algo_dummy_scans : int</span>
+<span class="sd">        number of volumes to skip determined by an algorithm</span>
+<span class="sd">    dummy_scans : int or None</span>
+<span class="sd">        number of volumes to skip determined by the user</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    skip_vols_num : int</span>
+<span class="sd">        number of volumes to skip</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dummy_scans</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">algo_dummy_scans</span>
+    <span class="k">return</span> <span class="n">dummy_scans</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
