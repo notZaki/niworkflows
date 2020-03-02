@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.engine.workflows &mdash; niworkflows 1.1.8+19.g0a6e986c7 documentation</title>
+  <title>niworkflows.engine.workflows &mdash; niworkflows 1.1.8+26.g53eed17b6 documentation</title>
   
 
   
@@ -160,12 +160,10 @@
 
     <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.engine.workflows</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
+<span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Supercharging Nipype&#39;s workflow engine</span>
-<span class="sd">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="sd">Supercharging Nipype&#39;s workflow engine.</span>
 
 <span class="sd">Add special features to the Nipype&#39;s vanilla workflows</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -176,23 +174,23 @@
     <span class="sd">&quot;&quot;&quot;Controls the setup and execution of a pipeline of processes.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a workflow object.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a workflow object.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        name : alphanumeric string</span>
+<span class="sd">        name : alphanumeric :obj:`str`</span>
 <span class="sd">            unique identifier for the workflow</span>
-<span class="sd">        base_dir : string, optional</span>
+<span class="sd">        base_dir : :obj:`str`, optional</span>
 <span class="sd">            path to workflow storage</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">LiterateWorkflow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__desc__</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__postdesc__</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="LiterateWorkflow.visit_desc"><a class="viewcode-back" href="../../../api/niworkflows.engine.workflows.html#niworkflows.engine.workflows.LiterateWorkflow.visit_desc">[docs]</a>    <span class="k">def</span> <span class="nf">visit_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Builds a citation boilerplate by visiting all workflows</span>
-<span class="sd">        appending their ``__desc__`` field</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Build a citation boilerplate by visiting all workflows.&quot;&quot;&quot;</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__desc__</span><span class="p">:</span>

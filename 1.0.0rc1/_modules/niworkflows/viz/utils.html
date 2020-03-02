@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.utils &mdash; niworkflows 1.1.8+19.g0a6e986c7 documentation</title>
+  <title>niworkflows.viz.utils &mdash; niworkflows 1.1.8+26.g53eed17b6 documentation</title>
   
 
   
@@ -158,14 +158,11 @@
 
     <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.viz.utils</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
+<span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;Helper tools for visualization purposes&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">which</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -182,83 +179,25 @@
 <span class="kn">from</span> <span class="nn">svgutils.transform</span> <span class="kn">import</span> <span class="n">SVGFigure</span>
 <span class="kn">from</span> <span class="nn">seaborn</span> <span class="kn">import</span> <span class="n">color_palette</span>
 
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">NIWORKFLOWS_LOG</span>
 <span class="kn">from</span> <span class="nn">nipype.utils</span> <span class="kn">import</span> <span class="n">filemanip</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">which</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-
-    <span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        A homemade which command</span>
-
-<span class="sd">        &gt;&gt;&gt; from niworkflows.viz.utils import which</span>
-<span class="sd">        &gt;&gt;&gt; which(&#39;ls&#39;)</span>
-<span class="sd">        True</span>
-<span class="sd">        &gt;&gt;&gt; which(&#39;madeoutcommand&#39;)</span>
-<span class="sd">        False</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">cmd</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
-                           <span class="n">close_fds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n">ENOENT</span>
-            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">ENOENT</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">raise</span> <span class="n">e</span>
-        <span class="k">return</span> <span class="kc">True</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">NIWORKFLOWS_LOG</span>
 
 
 <span class="n">SVGNS</span> <span class="o">=</span> <span class="s2">&quot;http://www.w3.org/2000/svg&quot;</span>
 <span class="n">PY3</span> <span class="o">=</span> <span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span>
 
-<span class="c1"># Patch subprocess in python 2</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">subprocess</span><span class="p">,</span> <span class="s1">&#39;DEVNULL&#39;</span><span class="p">):</span>
-    <span class="nb">setattr</span><span class="p">(</span><span class="n">subprocess</span><span class="p">,</span> <span class="s1">&#39;DEVNULL&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">subprocess</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-             <span class="n">close_fds</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-
-        <span class="n">devnull</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span>
-        <span class="n">stdin</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span> <span class="k">if</span> <span class="nb">input</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
-
-        <span class="k">if</span> <span class="n">stdout</span> <span class="o">==</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">:</span>
-            <span class="n">stdout</span> <span class="o">=</span> <span class="n">devnull</span>
-
-        <span class="k">if</span> <span class="n">stderr</span> <span class="o">==</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">:</span>
-            <span class="n">stderr</span> <span class="o">=</span> <span class="n">devnull</span>
-
-        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">stdin</span><span class="p">,</span>
-                                <span class="n">close_fds</span><span class="o">=</span><span class="n">close_fds</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;CompletedProcess&#39;</span><span class="p">,</span> <span class="s1">&#39;stdout stderr&#39;</span><span class="p">)</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">result</span><span class="p">(</span><span class="o">*</span><span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="nb">input</span><span class="p">))</span>
-
-        <span class="n">devnull</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="n">check</span> <span class="ow">and</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">res</span>
-    <span class="nb">setattr</span><span class="p">(</span><span class="n">subprocess</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">_run</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="robust_set_limits"><a class="viewcode-back" href="../../../api/niworkflows.viz.utils.html#niworkflows.viz.utils.robust_set_limits">[docs]</a><span class="k">def</span> <span class="nf">robust_set_limits</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">plot_params</span><span class="p">):</span>
+<div class="viewcode-block" id="robust_set_limits"><a class="viewcode-back" href="../../../api/niworkflows.viz.utils.html#niworkflows.viz.utils.robust_set_limits">[docs]</a><span class="k">def</span> <span class="nf">robust_set_limits</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">plot_params</span><span class="p">,</span> <span class="n">percentiles</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mf">99.8</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;Set (vmax, vmin) based on percentiles of the data.&quot;&quot;&quot;</span>
     <span class="n">plot_params</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plot_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-        <span class="s1">&#39;vmin&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+        <span class="s1">&#39;vmin&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="n">plot_params</span><span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plot_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-        <span class="s1">&#39;vmax&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mf">99.8</span><span class="p">))</span>
+        <span class="s1">&#39;vmax&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">plot_params</span></div>
 
 
 <div class="viewcode-block" id="svg_compress"><a class="viewcode-back" href="../../../api/niworkflows.viz.utils.html#niworkflows.viz.utils.svg_compress">[docs]</a><span class="k">def</span> <span class="nf">svg_compress</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; takes an image as created by nilearn.plotting and returns a blob svg.</span>
-<span class="sd">    Performs compression (can be disabled). A bit hacky. &#39;&#39;&#39;</span>
-
+    <span class="sd">&quot;&quot;&quot;Generate a blob SVG from a matplotlib figure, may perform compression.&quot;&quot;&quot;</span>
     <span class="c1"># Check availability of svgo and cwebp</span>
     <span class="n">has_compress</span> <span class="o">=</span> <span class="nb">all</span><span class="p">((</span><span class="n">which</span><span class="p">(</span><span class="s1">&#39;svgo&#39;</span><span class="p">),</span> <span class="n">which</span><span class="p">(</span><span class="s1">&#39;cwebp&#39;</span><span class="p">)))</span>
     <span class="k">if</span> <span class="n">compress</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_compress</span><span class="p">:</span>
@@ -321,9 +260,7 @@
 
 
 <div class="viewcode-block" id="svg2str"><a class="viewcode-back" href="../../../api/niworkflows.viz.utils.html#niworkflows.viz.utils.svg2str">[docs]</a><span class="k">def</span> <span class="nf">svg2str</span><span class="p">(</span><span class="n">display_object</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Serializes a nilearn display object as a string</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Serialize a nilearn display object to string.&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
     <span class="n">image_buf</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
     <span class="n">display_object</span><span class="o">.</span><span class="n">frame_axes</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
@@ -333,9 +270,7 @@
 
 
 <div class="viewcode-block" id="extract_svg"><a class="viewcode-back" href="../../../api/niworkflows.viz.utils.html#niworkflows.viz.utils.extract_svg">[docs]</a><span class="k">def</span> <span class="nf">extract_svg</span><span class="p">(</span><span class="n">display_object</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Removes the preamble of the svg files generated with nilearn</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Remove the preamble of the svg files generated with nilearn.&quot;&quot;&quot;</span>
     <span class="n">image_svg</span> <span class="o">=</span> <span class="n">svg2str</span><span class="p">(</span><span class="n">display_object</span><span class="p">,</span> <span class="n">dpi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">compress</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">compress</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
         <span class="n">image_svg</span> <span class="o">=</span> <span class="n">svg_compress</span><span class="p">(</span><span class="n">image_svg</span><span class="p">,</span> <span class="n">compress</span><span class="p">)</span>
@@ -357,7 +292,7 @@
 
 
 <div class="viewcode-block" id="cuts_from_bbox"><a class="viewcode-back" href="../../../api/niworkflows.viz.utils.html#niworkflows.viz.utils.cuts_from_bbox">[docs]</a><span class="k">def</span> <span class="nf">cuts_from_bbox</span><span class="p">(</span><span class="n">mask_nii</span><span class="p">,</span> <span class="n">cuts</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Finds equi-spaced cuts for presenting images&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Find equi-spaced cuts for presenting images.&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">nibabel.affines</span> <span class="kn">import</span> <span class="n">apply_affine</span>
 
     <span class="n">mask_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">mask_nii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0</span>

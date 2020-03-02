@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.utility &mdash; niworkflows 1.1.8+19.g0a6e986c7 documentation</title>
+  <title>niworkflows.interfaces.utility &mdash; niworkflows 1.1.8+26.g53eed17b6 documentation</title>
   
 
   
@@ -248,6 +248,36 @@
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_KeySelectOutputSpec</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">inputs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a KeySelect utility interface.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; ks = KeySelect(fields=&#39;field1&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; ks.inputs</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">        field1 = &lt;undefined&gt;</span>
+<span class="sd">        key = &lt;undefined&gt;</span>
+<span class="sd">        keys = &lt;undefined&gt;</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+
+<span class="sd">        &gt;&gt;&gt; ks = KeySelect(fields=&#39;field1&#39;, field1=[&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; ks.inputs</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">        field1 = [&#39;a&#39;, &#39;b&#39;]</span>
+<span class="sd">        key = &lt;undefined&gt;</span>
+<span class="sd">        keys = &lt;undefined&gt;</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+
+<span class="sd">        &gt;&gt;&gt; ks = KeySelect()</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">        ValueError: A list or multiplexed...</span>
+
+<span class="sd">        &gt;&gt;&gt; ks = KeySelect(fields=&#39;key&#39;)</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">        ValueError: Some fields are invalid...</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Call constructor</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">KeySelect</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
 
@@ -310,8 +340,7 @@
 
     <span class="k">def</span> <span class="nf">_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">base</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">KeySelect</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_outputs</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span>
-            <span class="n">base</span> <span class="o">=</span> <span class="n">add_traits</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">add_traits</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">base</span></div>
 </pre></div>
 

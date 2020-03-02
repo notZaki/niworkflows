@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.utils module &mdash; niworkflows 1.1.8+19.g0a6e986c7 documentation</title>
+  <title>niworkflows.viz.utils module &mdash; niworkflows 1.1.8+26.g53eed17b6 documentation</title>
   
 
   
@@ -90,7 +90,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">Library API (application program interface)</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="niworkflows.anat.html">niworkflows.anat package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="niworkflows.common.html">niworkflows.common package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="niworkflows.dwi.html">niworkflows.dwi package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="niworkflows.engine.html">niworkflows.engine package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="niworkflows.func.html">niworkflows.func package</a></li>
@@ -195,13 +194,13 @@ the CSS code for the flickering animation</p>
 <dl class="function">
 <dt id="niworkflows.viz.utils.cuts_from_bbox">
 <code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">cuts_from_bbox</code><span class="sig-paren">(</span><em class="sig-param">mask_nii</em>, <em class="sig-param">cuts=3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#cuts_from_bbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.cuts_from_bbox" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds equi-spaced cuts for presenting images</p>
+<dd><p>Find equi-spaced cuts for presenting images.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="niworkflows.viz.utils.extract_svg">
 <code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">extract_svg</code><span class="sig-paren">(</span><em class="sig-param">display_object</em>, <em class="sig-param">dpi=300</em>, <em class="sig-param">compress='auto'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#extract_svg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.extract_svg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes the preamble of the svg files generated with nilearn</p>
+<dd><p>Remove the preamble of the svg files generated with nilearn.</p>
 </dd></dl>
 
 <dl class="function">
@@ -258,20 +257,20 @@ seg_niis is a list of size one, it behaves as if it was plotting the mask.</p>
 
 <dl class="function">
 <dt id="niworkflows.viz.utils.robust_set_limits">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">robust_set_limits</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">plot_params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#robust_set_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.robust_set_limits" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">robust_set_limits</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">plot_params</em>, <em class="sig-param">percentiles=(15</em>, <em class="sig-param">99.8)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#robust_set_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.robust_set_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set (vmax, vmin) based on percentiles of the data.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="niworkflows.viz.utils.svg2str">
 <code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">svg2str</code><span class="sig-paren">(</span><em class="sig-param">display_object</em>, <em class="sig-param">dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#svg2str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.svg2str" title="Permalink to this definition">¶</a></dt>
-<dd><p>Serializes a nilearn display object as a string</p>
+<dd><p>Serialize a nilearn display object to string.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="niworkflows.viz.utils.svg_compress">
 <code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">svg_compress</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">compress='auto'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#svg_compress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.svg_compress" title="Permalink to this definition">¶</a></dt>
-<dd><p>takes an image as created by nilearn.plotting and returns a blob svg.
-Performs compression (can be disabled). A bit hacky.</p>
+<dd><p>Generate a blob SVG from a matplotlib figure, may perform compression.</p>
 </dd></dl>
 
 <dl class="function">
