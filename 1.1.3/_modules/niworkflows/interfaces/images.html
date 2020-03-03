@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.images &mdash; niworkflows 1.1.8+26.g53eed17b6 documentation</title>
+  <title>niworkflows.interfaces.images &mdash; niworkflows 1.1.8+28.gba0d68520 documentation</title>
   
 
   
@@ -469,7 +469,8 @@
             <span class="n">out_name</span> <span class="o">=</span> <span class="n">fname</span>
 
         <span class="n">transform</span> <span class="o">=</span> <span class="n">ornt_xfm</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">conform_xfm</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">orig_img</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">transform</span><span class="p">),</span> <span class="n">target_affine</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">orig_img</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">transform</span><span class="p">),</span> <span class="n">target_affine</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Original and target affines are not similar&quot;</span><span class="p">)</span>
 
         <span class="n">mat_name</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.mat&#39;</span><span class="p">,</span> <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="n">use_ext</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">mat_name</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.08f</span><span class="s1">&#39;</span><span class="p">)</span>

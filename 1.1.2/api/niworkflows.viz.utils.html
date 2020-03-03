@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.utils module &mdash; niworkflows 1.1.8+26.g53eed17b6 documentation</title>
+  <title>niworkflows.viz.utils module &mdash; niworkflows 1.1.8+28.gba0d68520 documentation</title>
   
 
   
@@ -212,35 +212,29 @@ the CSS code for the flickering animation</p>
 <code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">plot_melodic_components</code><span class="sig-paren">(</span><em class="sig-param">melodic_dir</em>, <em class="sig-param">in_file</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">out_file='melodic_reportlet.svg'</em>, <em class="sig-param">compress='auto'</em>, <em class="sig-param">report_mask=None</em>, <em class="sig-param">noise_components_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#plot_melodic_components"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.plot_melodic_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the spatiotemporal components extracted by FSL MELODIC
 from functional MRI data.</p>
-<p>Parameters</p>
-<blockquote>
-<div><dl>
-<dt>melodic_dir<span class="classifier">str</span></dt><dd><p>Path pointing to the outputs of MELODIC</p>
-</dd>
-<dt>in_file<span class="classifier">str</span></dt><dd><p>Path pointing to the reference fMRI dataset. This file
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>melodic_dir</strong> (<em>str</em>) – Path pointing to the outputs of MELODIC</p></li>
+<li><p><strong>in_file</strong> (<em>str</em>) – Path pointing to the reference fMRI dataset. This file
 will be used to extract the TR value, if the <code class="docutils literal notranslate"><span class="pre">tr</span></code> argument
 is not set. This file will be used to calculate a mask
-if <code class="docutils literal notranslate"><span class="pre">report_mask</span></code> is not provided.</p>
-</dd>
-<dt>tr<span class="classifier">float</span></dt><dd><p>Repetition time in seconds</p>
-</dd>
-<dt>out_file<span class="classifier">str</span></dt><dd><p>Path where the resulting SVG file will be stored</p>
-</dd>
-<dt>compress<span class="classifier"><code class="docutils literal notranslate"><span class="pre">'auto'</span></code> or bool</span></dt><dd><p>Whether SVG should be compressed. If <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, compression
-will be executed if dependencies are installed (SVGO)</p>
-</dd>
-<dt>report_mask<span class="classifier">str</span></dt><dd><p>Path to a brain mask corresponding to <code class="docutils literal notranslate"><span class="pre">in_file</span></code></p>
-</dd>
-<dt>noise_components_file<span class="classifier">str</span></dt><dd><p>A CSV file listing the indexes of components classified as noise
+if <code class="docutils literal notranslate"><span class="pre">report_mask</span></code> is not provided.</p></li>
+<li><p><strong>tr</strong> (<em>float</em>) – Repetition time in seconds</p></li>
+<li><p><strong>out_file</strong> (<em>str</em>) – Path where the resulting SVG file will be stored</p></li>
+<li><p><strong>compress</strong> (<code class="docutils literal notranslate"><span class="pre">'auto'</span></code> or bool) – Whether SVG should be compressed. If <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, compression
+will be executed if dependencies are installed (SVGO)</p></li>
+<li><p><strong>report_mask</strong> (<em>str</em>) – Path to a brain mask corresponding to <code class="docutils literal notranslate"><span class="pre">in_file</span></code></p></li>
+<li><p><strong>noise_components_file</strong> (<em>str</em>) – A CSV file listing the indexes of components classified as noise
 by some manual or automated (e.g. ICA-AROMA) procedure. If a
 <code class="docutils literal notranslate"><span class="pre">noise_components_file</span></code> is provided, then components will be
 plotted with red/green colors (correspondingly to whether they
 are in the file -noise components, red-, or not -signal, green-).
 When all or none of the components are in the file, a warning
-is printed at the top.</p>
+is printed at the top.</p></li>
+</ul>
 </dd>
 </dl>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">

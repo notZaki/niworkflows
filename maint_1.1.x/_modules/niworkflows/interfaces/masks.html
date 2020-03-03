@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.masks &mdash; niworkflows 1.1.8+26.g53eed17b6 documentation</title>
+  <title>niworkflows.interfaces.masks &mdash; niworkflows 1.1.8+28.gba0d68520 documentation</title>
   
 
   
@@ -334,9 +334,10 @@
     <span class="k">def</span> <span class="nf">_post_run_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; generates a report showing slices from each axis &#39;&#39;&#39;</span>
 
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> \
-            <span class="s2">&quot;ACompCorRPT only supports a single input mask. &quot;</span> \
-            <span class="s2">&quot;A list </span><span class="si">%s</span><span class="s2"> was found.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;ACompCorRPT only supports a single input mask. &quot;</span>
+                <span class="s2">&quot;A list </span><span class="si">%s</span><span class="s2"> was found.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">realigned_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_seg_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span>
@@ -367,9 +368,11 @@
 
         <span class="n">high_variance_masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span><span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span><span class="o">.</span><span class="n">high_variance_masks</span>
 
-        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">high_variance_masks</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span>\
-            <span class="s2">&quot;TCompCorRPT only supports a single output high variance mask. &quot;</span> \
-            <span class="s2">&quot;A list </span><span class="si">%s</span><span class="s2"> was found.&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">high_variance_masks</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">high_variance_masks</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;TCompCorRPT only supports a single output high variance mask. &quot;</span>
+                <span class="s2">&quot;A list </span><span class="si">%s</span><span class="s2"> was found.&quot;</span> <span class="o">%</span> <span class="n">high_variance_masks</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">realigned_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span> <span class="o">=</span> <span class="n">high_variance_masks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_seg_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">high_variance_masks</span><span class="p">]</span>

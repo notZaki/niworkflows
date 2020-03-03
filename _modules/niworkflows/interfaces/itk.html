@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.itk &mdash; niworkflows 1.1.8+26.g53eed17b6 documentation</title>
+  <title>niworkflows.interfaces.itk &mdash; niworkflows 1.1.8+28.gba0d68520 documentation</title>
   
 
   
@@ -268,7 +268,10 @@
         <span class="n">tmp_folder</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;tmp-&#39;</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
 
         <span class="n">xfms_list</span> <span class="o">=</span> <span class="n">_arrange_xfms</span><span class="p">(</span><span class="n">transforms</span><span class="p">,</span> <span class="n">num_files</span><span class="p">,</span> <span class="n">tmp_folder</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">xfms_list</span><span class="p">)</span> <span class="o">==</span> <span class="n">num_files</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xfms_list</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_files</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Number of files and entries in the transforms list do not match&quot;</span>
+            <span class="p">)</span>
 
         <span class="c1"># Inputs are ready to run in parallel</span>
         <span class="k">if</span> <span class="n">num_threads</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
