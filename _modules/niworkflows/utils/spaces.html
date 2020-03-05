@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.spaces &mdash; niworkflows 1.1.9 documentation</title>
+  <title>niworkflows.utils.spaces &mdash; niworkflows 1.1.9+2.g76f831f1f documentation</title>
   
 
   
@@ -153,12 +153,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.utils.spaces</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Utilities for tracking and filtering spaces.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
@@ -380,6 +377,19 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s1">&#39;space identifier &quot;</span><span class="si">%s</span><span class="s1">&quot; is invalid.</span><span class="se">\n</span><span class="s1">Valid &#39;</span>
                 <span class="s1">&#39;identifiers are: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valid</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Format this reference.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; str(Reference(space=&#39;MNIPediatricAsym&#39;, spec={&#39;cohort&#39;: 2, &#39;res&#39;: 1}))</span>
+<span class="sd">        &#39;MNIPediatricAsym:cohort-2:res-1&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">space</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
+            <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">items</span><span class="p">())])</span>
 
 <div class="viewcode-block" id="Reference.from_string"><a class="viewcode-back" href="../../../api/niworkflows.utils.spaces.html#niworkflows.utils.spaces.Reference.from_string">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -635,18 +645,14 @@
 <span class="sd">        Spatial References: &lt;none&gt;.</span>
 
 <span class="sd">        &gt;&gt;&gt; print(SpatialReferences([&#39;MNI152NLin2009cAsym&#39;]))</span>
-<span class="sd">        Spatial References:</span>
-<span class="sd">            - Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={})</span>
+<span class="sd">        Spatial References: MNI152NLin2009cAsym</span>
 
 <span class="sd">        &gt;&gt;&gt; print(SpatialReferences([&#39;MNI152NLin2009cAsym&#39;, &#39;fsaverage5&#39;]))</span>
-<span class="sd">        Spatial References:</span>
-<span class="sd">            - Reference(space=&#39;MNI152NLin2009cAsym&#39;, spec={})</span>
-<span class="sd">            - Reference(space=&#39;fsaverage&#39;, spec={&#39;den&#39;: &#39;10k&#39;})</span>
+<span class="sd">        Spatial References: MNI152NLin2009cAsym, fsaverage:den-10k</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">spaces</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    - &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="p">])</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="k">else</span> <span class="s1">&#39; &lt;none&gt;.&#39;</span>
-        <span class="k">return</span> <span class="s1">&#39;Spatial References:</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">spaces</span>
+        <span class="n">spaces</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="p">])</span> <span class="ow">or</span> <span class="s1">&#39;&lt;none&gt;.&#39;</span>
+        <span class="k">return</span> <span class="s1">&#39;Spatial References: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">spaces</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">references</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -908,7 +914,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.1.9
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -930,7 +936,7 @@
             <dd><a href="../../../1.1.6/index.html">1.1.6</a></dd>
             <dd><a href="../../../1.1.7/index.html">1.1.7</a></dd>
             <dd><a href="../../../1.1.8/index.html">1.1.8</a></dd>
-            <dd><a href="../../../1.1.9/_modules/niworkflows/utils/spaces.html">1.1.9</a></dd>
+            <dd><a href="../../../1.1.9/index.html">1.1.9</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
@@ -939,7 +945,7 @@
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_migrate-to-nipreps/index.html">maint/migrate-to-nipreps</a></dd>
             <dd><a href="../../../masks_refactor-circle/index.html">masks/refactor-circle</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/niworkflows/utils/spaces.html">master</a></dd>
         </dl>
     </div>
 </div>
