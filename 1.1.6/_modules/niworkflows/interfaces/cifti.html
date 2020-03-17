@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.1.10 documentation</title>
+  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.1.11 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.1.10
+                1.1.11
               </div>
             
           
@@ -480,6 +480,8 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Resampling bold volume to match label dimensions&quot;</span><span class="p">)</span>
         <span class="n">bold_img</span> <span class="o">=</span> <span class="n">resample_to_img</span><span class="p">(</span><span class="n">bold_img</span><span class="p">,</span> <span class="n">label_img</span><span class="p">)</span>
 
+    <span class="n">bold_img</span> <span class="o">=</span> <span class="n">_reorient_image</span><span class="p">(</span><span class="n">bold_img</span><span class="p">,</span> <span class="n">target_img</span><span class="o">=</span><span class="n">label_img</span><span class="p">)</span>
+
     <span class="n">bold_data</span> <span class="o">=</span> <span class="n">bold_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
     <span class="n">timepoints</span> <span class="o">=</span> <span class="n">bold_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">label_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">label_img</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int16&#39;</span><span class="p">)</span>
@@ -584,6 +586,69 @@
     <span class="n">out_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.dtseries.nii&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">split_filename</span><span class="p">(</span><span class="n">bold_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">ci</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">/</span> <span class="n">out_file</span>
+
+
+<span class="k">def</span> <span class="nf">_reorient_image</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">target_img</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Coerce an image to a target orientation.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Only RAS -&gt; LAS conversion is currently supported</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    img : :obj:`SpatialImage`</span>
+<span class="sd">        image to be reoriented</span>
+<span class="sd">    target_img : :obj:`SpatialImage`, optional</span>
+<span class="sd">        target in desired orientation</span>
+<span class="sd">    orientation : :obj:`str` or :obj:`tuple`, optional</span>
+<span class="sd">        desired orientation, if no target image is provided</span>
+
+<span class="sd">    .. testsetup::</span>
+<span class="sd">    &gt;&gt;&gt; img = nb.load(Path(test_data) / &#39;testRobustMNINormalizationRPTMovingWarpedImage.nii.gz&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; las_img = img.as_reoriented([[0, -1], [1, 1], [2, 1]])</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; nimg = _reorient_image(img, target_img=img)</span>
+<span class="sd">    &gt;&gt;&gt; nb.aff2axcodes(nimg.affine)</span>
+<span class="sd">    (&#39;R&#39;, &#39;A&#39;, &#39;S&#39;)</span>
+
+<span class="sd">    &gt;&gt;&gt; nimg = _reorient_image(img, target_img=las_img)</span>
+<span class="sd">    &gt;&gt;&gt; nb.aff2axcodes(nimg.affine)</span>
+<span class="sd">    (&#39;L&#39;, &#39;A&#39;, &#39;S&#39;)</span>
+
+<span class="sd">    &gt;&gt;&gt; nimg = _reorient_image(img, orientation=&#39;LAS&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; nb.aff2axcodes(nimg.affine)</span>
+<span class="sd">    (&#39;L&#39;, &#39;A&#39;, &#39;S&#39;)</span>
+
+<span class="sd">    &gt;&gt;&gt; _reorient_image(img, orientation=&#39;LPI&#39;)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      ...</span>
+<span class="sd">    NotImplementedError: Cannot reorient ...</span>
+
+<span class="sd">    &gt;&gt;&gt; _reorient_image(img)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      ...</span>
+<span class="sd">    RuntimeError: No orientation ...</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">orient0</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">aff2axcodes</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">target_img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">orient1</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">aff2axcodes</span><span class="p">(</span><span class="n">target_img</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">orientation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">orient1</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">orientation</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No orientation to reorient to!&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">orient0</span> <span class="o">==</span> <span class="n">orient1</span><span class="p">:</span>  <span class="c1"># already in desired orientation</span>
+        <span class="k">return</span> <span class="n">img</span>
+    <span class="k">elif</span> <span class="n">orient0</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span><span class="s1">&#39;RAS&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">orient1</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span><span class="s1">&#39;LAS&#39;</span><span class="p">):</span>  <span class="c1"># RAS -&gt; LAS</span>
+        <span class="k">return</span> <span class="n">img</span><span class="o">.</span><span class="n">as_reoriented</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;Cannot reorient </span><span class="si">{0}</span><span class="s2"> to </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">orient0</span><span class="p">,</span> <span class="n">orient1</span><span class="p">)</span>
+        <span class="p">)</span>
 </pre></div>
 
            </div>
@@ -630,6 +695,7 @@
             <dd><a href="../../../../1.1.0/index.html">1.1.0</a></dd>
             <dd><a href="../../../../1.1.1/index.html">1.1.1</a></dd>
             <dd><a href="../../../../1.1.10/index.html">1.1.10</a></dd>
+            <dd><a href="../../../../1.1.11/index.html">1.1.11</a></dd>
             <dd><a href="../../../../1.1.2/index.html">1.1.2</a></dd>
             <dd><a href="../../../../1.1.3/index.html">1.1.3</a></dd>
             <dd><a href="../../../../1.1.4/index.html">1.1.4</a></dd>
@@ -641,11 +707,8 @@
         </dl>
         <dl>
             <dt>Branches</dt>
-            <dd><a href="../../../../ci_docker-registry-caching/index.html">ci/docker-registry-caching</a></dd>
             <dd><a href="../../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
-            <dd><a href="../../../../maint_migrate-to-nipreps/index.html">maint/migrate-to-nipreps</a></dd>
-            <dd><a href="../../../../masks_refactor-circle/index.html">masks/refactor-circle</a></dd>
             <dd><a href="../../../../master/index.html">master</a></dd>
         </dl>
     </div>
