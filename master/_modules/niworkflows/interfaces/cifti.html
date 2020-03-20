@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.1.12+1.g12d9858ea documentation</title>
+  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.1.12+3.gbbd65e1c3 documentation</title>
   
 
   
@@ -477,7 +477,9 @@
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Resampling bold volume to match label dimensions&quot;</span><span class="p">)</span>
         <span class="n">bold_img</span> <span class="o">=</span> <span class="n">resample_to_img</span><span class="p">(</span><span class="n">bold_img</span><span class="p">,</span> <span class="n">label_img</span><span class="p">)</span>
 
-    <span class="n">bold_img</span> <span class="o">=</span> <span class="n">_reorient_image</span><span class="p">(</span><span class="n">bold_img</span><span class="p">,</span> <span class="n">target_img</span><span class="o">=</span><span class="n">label_img</span><span class="p">)</span>
+    <span class="c1"># ensure images match HCP orientation (LAS)</span>
+    <span class="n">bold_img</span> <span class="o">=</span> <span class="n">_reorient_image</span><span class="p">(</span><span class="n">bold_img</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;LAS&#39;</span><span class="p">)</span>
+    <span class="n">label_img</span> <span class="o">=</span> <span class="n">_reorient_image</span><span class="p">(</span><span class="n">label_img</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;LAS&#39;</span><span class="p">)</span>
 
     <span class="n">bold_data</span> <span class="o">=</span> <span class="n">bold_img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
     <span class="n">timepoints</span> <span class="o">=</span> <span class="n">bold_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
