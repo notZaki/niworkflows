@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.plots &mdash; niworkflows 1.2.0rc1+13.g49343a0e6 documentation</title>
+  <title>niworkflows.viz.plots &mdash; niworkflows 1.2.0rc1+27.g197770763 documentation</title>
   
 
   
@@ -186,33 +186,42 @@
 <span class="n">DINA4_LANDSCAPE</span> <span class="o">=</span> <span class="p">(</span><span class="mf">11.69</span><span class="p">,</span> <span class="mf">8.27</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="fMRIPlot"><a class="viewcode-back" href="../../../api/niworkflows.viz.plots.html#niworkflows.viz.fMRIPlot">[docs]</a><span class="k">class</span> <span class="nc">fMRIPlot</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="fMRIPlot"><a class="viewcode-back" href="../../../api/niworkflows.viz.plots.html#niworkflows.viz.fMRIPlot">[docs]</a><span class="k">class</span> <span class="nc">fMRIPlot</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates the fMRI Summary Plot</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;func_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_data&#39;</span><span class="p">,</span>
-                 <span class="s1">&#39;tr&#39;</span><span class="p">,</span> <span class="s1">&#39;seg_data&#39;</span><span class="p">,</span> <span class="s1">&#39;confounds&#39;</span><span class="p">,</span> <span class="s1">&#39;spikes&#39;</span><span class="p">]</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;func_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_data&#39;</span><span class="p">,</span> <span class="s1">&#39;tr&#39;</span><span class="p">,</span> <span class="s1">&#39;seg_data&#39;</span><span class="p">,</span> <span class="s1">&#39;confounds&#39;</span><span class="p">,</span> <span class="s1">&#39;spikes&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func_file</span><span class="p">,</span> <span class="n">mask_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">conf_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seg_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">tr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vlines</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spikes_files</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">func_file</span><span class="p">,</span>
+        <span class="n">mask_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">conf_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">seg_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">tr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">vlines</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">spikes_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">func_img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">func_file</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">func_file</span> <span class="o">=</span> <span class="n">func_file</span>
-        <span class="n">func_nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">func_file</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span> <span class="k">if</span> <span class="n">tr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">func_nii</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">get_zooms</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">mask_data</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">fileslice</span><span class="o">.</span><span class="n">strided_scalar</span><span class="p">(</span><span class="n">func_nii</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">mask_file</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">mask_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;uint8&#39;</span><span class="p">)</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span> <span class="ow">or</span> <span class="n">_get_tr</span><span class="p">(</span><span class="n">func_img</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_data</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seg_data</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">seg_file</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">seg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">seg_file</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func_img</span><span class="p">,</span> <span class="n">nb</span><span class="o">.</span><span class="n">Cifti2Image</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask_data</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">fileslice</span><span class="o">.</span><span class="n">strided_scalar</span><span class="p">(</span><span class="n">func_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">mask_file</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mask_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;uint8&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">seg_file</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">seg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">seg_file</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
-
         <span class="k">if</span> <span class="n">vlines</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">vlines</span> <span class="o">=</span> <span class="p">{}</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">confounds</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">conf_file</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">conf_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;[\t\s]+&#39;</span><span class="p">,</span>
@@ -263,14 +272,14 @@
                 <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">grid_id</span> <span class="o">+=</span> <span class="mi">1</span>
 
-        <span class="n">plot_carpet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">seg_data</span><span class="p">,</span> <span class="n">subplot</span><span class="o">=</span><span class="n">grid</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">tr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">)</span>
+        <span class="n">plot_carpet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func_file</span><span class="p">,</span> <span class="n">atlaslabels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">seg_data</span><span class="p">,</span> <span class="n">subplot</span><span class="o">=</span><span class="n">grid</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">tr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tr</span><span class="p">)</span>
         <span class="c1"># spikesplot_cb([0.7, 0.78, 0.2, 0.008])</span>
         <span class="k">return</span> <span class="n">figure</span></div></div>
 
 
-<div class="viewcode-block" id="plot_carpet"><a class="viewcode-back" href="../../../api/niworkflows.viz.plots.html#niworkflows.viz.plot_carpet">[docs]</a><span class="k">def</span> <span class="nf">plot_carpet</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">atlaslabels</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nskip</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">950</span><span class="p">,</span> <span class="mi">800</span><span class="p">),</span>
+<div class="viewcode-block" id="plot_carpet"><a class="viewcode-back" href="../../../api/niworkflows.viz.plots.html#niworkflows.viz.plot_carpet">[docs]</a><span class="k">def</span> <span class="nf">plot_carpet</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">atlaslabels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nskip</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">950</span><span class="p">,</span> <span class="mi">800</span><span class="p">),</span>
                 <span class="n">subplot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">lut</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                <span class="n">tr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lut</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot an image representation of voxel intensities across time also know</span>
 <span class="sd">    as the &quot;carpet plot&quot; or &quot;Power plot&quot;. See Jonathan Power Neuroimage</span>
@@ -279,21 +288,20 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 
-<span class="sd">        img : Niimg-like object</span>
-<span class="sd">            See http://nilearn.github.io/manipulating_images/input_output.html</span>
-<span class="sd">            4D input image</span>
-<span class="sd">        atlaslabels: ndarray</span>
+<span class="sd">        func : string</span>
+<span class="sd">            Path to NIfTI or CIFTI BOLD image</span>
+<span class="sd">        atlaslabels: ndarray, optional</span>
 <span class="sd">            A 3D array of integer labels from an atlas, resampled into ``img`` space.</span>
+<span class="sd">            Required if ``func`` is a NIfTI image.</span>
 <span class="sd">        detrend : boolean, optional</span>
 <span class="sd">            Detrend and standardize the data prior to plotting.</span>
-<span class="sd">        nskip : int</span>
+<span class="sd">        nskip : int, optional</span>
 <span class="sd">            Number of volumes at the beginning of the scan marked as nonsteady state.</span>
-<span class="sd">        long_cutoff : int</span>
-<span class="sd">            Number of TRs to consider img too long (and decimate the time direction</span>
-<span class="sd">            to save memory)</span>
-<span class="sd">        axes : matplotlib axes, optional</span>
-<span class="sd">            The axes used to display the plot. If None, the complete</span>
-<span class="sd">            figure is used.</span>
+<span class="sd">            Not used.</span>
+<span class="sd">        size : tuple, optional</span>
+<span class="sd">            Size of figure.</span>
+<span class="sd">        subplot : matplotlib Subplot, optional</span>
+<span class="sd">            Subplot to plot figure on.</span>
 <span class="sd">        title : string, optional</span>
 <span class="sd">            The title displayed on the figure.</span>
 <span class="sd">        output_file : string, or None, optional</span>
@@ -305,50 +313,96 @@
 <span class="sd">            overlay.</span>
 <span class="sd">        tr : float , optional</span>
 <span class="sd">            Specify the TR, if specified it uses this value. If left as None,</span>
-<span class="sd">            # Frames is plotted instead of time.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">            # of frames is plotted instead of time.</span>
+<span class="sd">        lut : ndarray, optional</span>
+<span class="sd">            Look up table for segmentations</span>
 
-    <span class="c1"># Define TR and number of frames</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">epinii</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">segnii</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">nslices</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">nb</span><span class="o">.</span><span class="n">Cifti2Image</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">img</span><span class="o">.</span><span class="n">nifti_header</span><span class="o">.</span><span class="n">get_intent</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ConnDenseSeries&#39;</span><span class="p">,</span> <span class="s1">&#39;Not a dense timeseries&#39;</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">matrix</span>
+        <span class="n">struct_map</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;LEFT_CORTEX&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;RIGHT_CORTEX&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;SUBCORTICAL&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;CEREBELLUM&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+        <span class="n">seg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;uint32&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">bm</span> <span class="ow">in</span> <span class="n">matrix</span><span class="o">.</span><span class="n">get_index_map</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">brain_models</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;CORTEX&#39;</span> <span class="ow">in</span> <span class="n">bm</span><span class="o">.</span><span class="n">brain_structure</span><span class="p">:</span>
+                <span class="n">lidx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="s1">&#39;RIGHT&#39;</span> <span class="ow">in</span> <span class="n">bm</span><span class="o">.</span><span class="n">brain_structure</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="s1">&#39;CEREBELLUM&#39;</span> <span class="ow">in</span> <span class="n">bm</span><span class="o">.</span><span class="n">brain_structure</span><span class="p">:</span>
+                <span class="n">lidx</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lidx</span> <span class="o">=</span> <span class="mi">3</span>
+            <span class="n">index_final</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">index_offset</span> <span class="o">+</span> <span class="n">bm</span><span class="o">.</span><span class="n">index_count</span>
+            <span class="n">seg</span><span class="p">[</span><span class="n">bm</span><span class="o">.</span><span class="n">index_offset</span><span class="p">:</span><span class="n">index_final</span><span class="p">]</span> <span class="o">=</span> <span class="n">lidx</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">seg</span><span class="p">[</span><span class="n">seg</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Unassigned labels&quot;</span>
+
+        <span class="c1"># Decimate data</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">seg</span> <span class="o">=</span> <span class="n">_decimate_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">seg</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+        <span class="c1"># preserve as much continuity as possible</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">seg</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;stable&#39;</span><span class="p">)</span>
+
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">([</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Paired&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cmap</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">struct_map</span><span class="p">),</span> \
+            <span class="s2">&quot;Mismatch between expected # of structures and colors&quot;</span>
+
+        <span class="c1"># ensure no legend for CIFTI</span>
+        <span class="n">legend</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># Volumetric NIfTI</span>
+        <span class="n">img_nii</span> <span class="o">=</span> <span class="n">check_niimg_4d</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,)</span>
+        <span class="n">func_data</span> <span class="o">=</span> <span class="n">_safe_get_data</span><span class="p">(</span><span class="n">img_nii</span><span class="p">,</span> <span class="n">ensure_finite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ntsteps</span> <span class="o">=</span> <span class="n">func_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">func_data</span><span class="p">[</span><span class="n">atlaslabels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ntsteps</span><span class="p">)</span>
+        <span class="n">oseg</span> <span class="o">=</span> <span class="n">atlaslabels</span><span class="p">[</span><span class="n">atlaslabels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Map segmentation</span>
+        <span class="k">if</span> <span class="n">lut</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lut</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">256</span><span class="p">,</span> <span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+            <span class="n">lut</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">lut</span><span class="p">[</span><span class="mi">255</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="n">lut</span><span class="p">[</span><span class="mi">30</span><span class="p">:</span><span class="mi">99</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+            <span class="n">lut</span><span class="p">[</span><span class="mi">100</span><span class="p">:</span><span class="mi">201</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="c1"># Apply lookup table</span>
+        <span class="n">seg</span> <span class="o">=</span> <span class="n">lut</span><span class="p">[</span><span class="n">oseg</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span>
+
+        <span class="c1"># Decimate data</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">seg</span> <span class="o">=</span> <span class="n">_decimate_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">seg</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+        <span class="c1"># Order following segmentation labels</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">seg</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># Set colormap</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;tab10&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">colors</span><span class="p">[:</span><span class="mi">4</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
+            <span class="n">epiavg</span> <span class="o">=</span> <span class="n">func_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">epinii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">epiavg</span><span class="p">,</span> <span class="n">img_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">img_nii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+            <span class="n">segnii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">lut</span><span class="p">[</span><span class="n">atlaslabels</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)],</span> <span class="n">epinii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">epinii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+            <span class="n">segnii</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="s1">&#39;uint8&#39;</span><span class="p">)</span>
+            <span class="n">nslices</span> <span class="o">=</span> <span class="n">epiavg</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">_carpet</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">seg</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span>
+                   <span class="n">epinii</span><span class="o">=</span><span class="n">epinii</span><span class="p">,</span> <span class="n">segnii</span><span class="o">=</span><span class="n">segnii</span><span class="p">,</span> <span class="n">nslices</span><span class="o">=</span><span class="n">nslices</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="n">tr</span><span class="p">,</span>
+                   <span class="n">subplot</span><span class="o">=</span><span class="n">subplot</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_carpet</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">seg</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span>
+            <span class="n">tr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">detrend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">subplot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">epinii</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">segnii</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nslices</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Common carpetplot building code for volumetric / CIFTI plots&quot;&quot;&quot;</span>
     <span class="n">notr</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">if</span> <span class="n">tr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">notr</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">tr</span> <span class="o">=</span> <span class="mf">1.</span>
-
-    <span class="n">img_nii</span> <span class="o">=</span> <span class="n">check_niimg_4d</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,)</span>
-    <span class="n">func_data</span> <span class="o">=</span> <span class="n">_safe_get_data</span><span class="p">(</span><span class="n">img_nii</span><span class="p">,</span> <span class="n">ensure_finite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ntsteps</span> <span class="o">=</span> <span class="n">func_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="n">data</span> <span class="o">=</span> <span class="n">func_data</span><span class="p">[</span><span class="n">atlaslabels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ntsteps</span><span class="p">)</span>
-    <span class="n">seg</span> <span class="o">=</span> <span class="n">atlaslabels</span><span class="p">[</span><span class="n">atlaslabels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="c1"># Map segmentation</span>
-    <span class="k">if</span> <span class="n">lut</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">lut</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">256</span><span class="p">,</span> <span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
-        <span class="n">lut</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">lut</span><span class="p">[</span><span class="mi">255</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="n">lut</span><span class="p">[</span><span class="mi">30</span><span class="p">:</span><span class="mi">99</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-        <span class="n">lut</span><span class="p">[</span><span class="mi">100</span><span class="p">:</span><span class="mi">201</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-
-    <span class="c1"># Apply lookup table</span>
-    <span class="n">newsegm</span> <span class="o">=</span> <span class="n">lut</span><span class="p">[</span><span class="n">seg</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span>
-
-    <span class="n">p_dec</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">p_dec</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[::</span><span class="n">p_dec</span><span class="p">,</span> <span class="p">:]</span>
-        <span class="n">newsegm</span> <span class="o">=</span> <span class="n">newsegm</span><span class="p">[::</span><span class="n">p_dec</span><span class="p">]</span>
-
-    <span class="n">t_dec</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">t_dec</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">::</span><span class="n">t_dec</span><span class="p">]</span>
 
     <span class="c1"># Detrend data</span>
     <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">detrend</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">t_r</span><span class="o">=</span><span class="n">tr</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
         <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-
-    <span class="c1"># Order following segmentation labels</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">newsegm</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="c1"># If subplot is not defined</span>
     <span class="k">if</span> <span class="n">subplot</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -360,14 +414,12 @@
                                      <span class="n">width_ratios</span><span class="o">=</span><span class="n">wratios</span><span class="p">[:</span><span class="mi">2</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">legend</span><span class="p">)],</span>
                                      <span class="n">wspace</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
 
-    <span class="n">mycolors</span> <span class="o">=</span> <span class="n">ListedColormap</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;tab10&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">colors</span><span class="p">[:</span><span class="mi">4</span><span class="p">][::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-
     <span class="c1"># Segmentation colorbar</span>
     <span class="n">ax0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">ax0</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
     <span class="n">ax0</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
-    <span class="n">ax0</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">newsegm</span><span class="p">[</span><span class="n">order</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
-               <span class="n">cmap</span><span class="o">=</span><span class="n">mycolors</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">ax0</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">seg</span><span class="p">[</span><span class="n">order</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+
     <span class="n">ax0</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">ax0</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">ax0</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;bottom&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
@@ -375,7 +427,7 @@
 
     <span class="c1"># Carpet plot</span>
     <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">order</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">order</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
                <span class="n">vmin</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -386,11 +438,8 @@
     <span class="n">interval</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">10</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">xticks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])[::</span><span class="n">interval</span><span class="p">])</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">notr</span><span class="p">:</span>
-        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (frame #)&#39;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">tr</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xticks</span><span class="p">))</span> <span class="o">*</span> <span class="n">t_dec</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;time (frame #)&#39;</span> <span class="k">if</span> <span class="n">notr</span> <span class="k">else</span> <span class="s1">&#39;time (s)&#39;</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">tr</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xticks</span><span class="p">))</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%.02f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">labels</span><span class="o">.</span><span class="n">tolist</span><span class="p">()],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
     <span class="c1"># Remove and redefine spines</span>
@@ -407,20 +456,15 @@
     <span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
+    <span class="n">ax2</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
         <span class="n">gslegend</span> <span class="o">=</span> <span class="n">mgs</span><span class="o">.</span><span class="n">GridSpecFromSubplotSpec</span><span class="p">(</span>
             <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="n">gs</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-        <span class="n">epiavg</span> <span class="o">=</span> <span class="n">func_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-        <span class="n">epinii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">epiavg</span><span class="p">,</span> <span class="n">img_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">img_nii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
-        <span class="n">segnii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">lut</span><span class="p">[</span><span class="n">atlaslabels</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)],</span> <span class="n">epinii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">epinii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
-        <span class="n">segnii</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="s1">&#39;uint8&#39;</span><span class="p">)</span>
-
-        <span class="n">nslices</span> <span class="o">=</span> <span class="n">epiavg</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.10</span> <span class="o">*</span> <span class="n">nslices</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.95</span> <span class="o">*</span> <span class="n">nslices</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coords</span><span class="o">.</span><span class="n">tolist</span><span class="p">()):</span>
             <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gslegend</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">plot_img</span><span class="p">(</span><span class="n">segnii</span><span class="p">,</span> <span class="n">bg_img</span><span class="o">=</span><span class="n">epinii</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">display_mode</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span>
-                     <span class="n">annotate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cut_coords</span><span class="o">=</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mycolors</span><span class="p">,</span>
+                     <span class="n">annotate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cut_coords</span><span class="o">=</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
                      <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">output_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -430,7 +474,7 @@
         <span class="n">figure</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">output_file</span>
 
-    <span class="k">return</span> <span class="p">[</span><span class="n">ax0</span><span class="p">,</span> <span class="n">ax1</span><span class="p">],</span> <span class="n">gs</span></div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span> <span class="n">gs</span>
 
 
 <div class="viewcode-block" id="spikesplot"><a class="viewcode-back" href="../../../api/niworkflows.viz.plots.html#niworkflows.viz.spikesplot">[docs]</a><span class="k">def</span> <span class="nf">spikesplot</span><span class="p">(</span><span class="n">ts_z</span><span class="p">,</span> <span class="n">outer_gs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zscored</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">spike_thresh</span><span class="o">=</span><span class="mf">6.</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Spike plot&#39;</span><span class="p">,</span>
@@ -932,6 +976,50 @@
         <span class="n">figure</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">output_file</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">ax0</span><span class="p">,</span> <span class="n">ax1</span><span class="p">],</span> <span class="n">gs</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_tr</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Attempt to extract repetition time from NIfTI/CIFTI header</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; _get_tr(nb.load(Path(test_data) /</span>
+<span class="sd">    ...    &#39;sub-ds205s03_task-functionallocalizer_run-01_bold_volreg.nii.gz&#39;))</span>
+<span class="sd">    2.2</span>
+<span class="sd">    &gt;&gt;&gt; _get_tr(nb.load(Path(test_data) /</span>
+<span class="sd">    ...    &#39;sub-01_task-mixedgamblestask_run-02_space-fsLR_den-91k_bold.dtseries.nii&#39;))</span>
+<span class="sd">    2.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">get_index_map</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">series_step</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">get_zooms</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Could not extract TR - unknown data structure type&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_decimate_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">seg</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Decimate timeseries data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : ndarray</span>
+<span class="sd">        2 element array of timepoints and samples</span>
+<span class="sd">    seg : ndarray</span>
+<span class="sd">        1 element array of samples</span>
+<span class="sd">    size : tuple</span>
+<span class="sd">        2 element for P/T decimation</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p_dec</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">p_dec</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[::</span><span class="n">p_dec</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">seg</span> <span class="o">=</span> <span class="n">seg</span><span class="p">[::</span><span class="n">p_dec</span><span class="p">]</span>
+    <span class="n">t_dec</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">t_dec</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">::</span><span class="n">t_dec</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">seg</span>
 </pre></div>
 
            </div>
