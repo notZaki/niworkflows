@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.bids &mdash; niworkflows 1.2.0rc1+29.gc9ec849f6 documentation</title>
+  <title>niworkflows.interfaces.bids &mdash; niworkflows 1.2.0rc1+36.gd109e9972 documentation</title>
   
 
   
@@ -501,11 +501,12 @@
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.source_file = str(tricky_source)</span>
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.keep_dtype = True</span>
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.desc = &#39;preproc&#39;</span>
+<span class="sd">    &gt;&gt;&gt; dsink.inputs.space = &#39;MNI152NLin6Asym_res-01&#39;</span>
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.RepetitionTime = 0.75</span>
 <span class="sd">    &gt;&gt;&gt; res = dsink.run()</span>
 <span class="sd">    &gt;&gt;&gt; res.outputs.out_meta  # doctest: +ELLIPSIS</span>
 <span class="sd">    &#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_\</span>
-<span class="sd">desc-preproc_bold.json&#39;</span>
+<span class="sd">space-MNI152NLin6Asym_res-01_desc-preproc_bold.json&#39;</span>
 
 <span class="sd">    &gt;&gt;&gt; lines = Path(res.outputs.out_meta).read_text().splitlines()</span>
 <span class="sd">    &gt;&gt;&gt; lines[1]</span>
@@ -524,12 +525,13 @@
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.source_file = str(tricky_source)</span>
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.keep_dtype = True</span>
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.desc = &#39;preproc&#39;</span>
+<span class="sd">    &gt;&gt;&gt; dsink.inputs.space = &#39;MNI152NLin6Asym_res-native&#39;</span>
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.RepetitionTime = 0.75</span>
 <span class="sd">    &gt;&gt;&gt; dsink.inputs.meta_dict = {&#39;RepetitionTime&#39;: 1.75, &#39;SkullStripped&#39;: False, &#39;Z&#39;: &#39;val&#39;}</span>
 <span class="sd">    &gt;&gt;&gt; res = dsink.run()</span>
 <span class="sd">    &gt;&gt;&gt; res.outputs.out_meta  # doctest: +ELLIPSIS</span>
 <span class="sd">    &#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_\</span>
-<span class="sd">desc-preproc_bold.json&#39;</span>
+<span class="sd">space-MNI152NLin6Asym_desc-preproc_bold.json&#39;</span>
 
 <span class="sd">    &gt;&gt;&gt; lines = Path(res.outputs.out_meta).read_text().splitlines()</span>
 <span class="sd">    &gt;&gt;&gt; lines[1]</span>
@@ -612,6 +614,10 @@
         <span class="n">formatstr</span> <span class="o">=</span> <span class="n">formatbase</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{extra}{suffix}{dtype}{ext}</span><span class="s1">&#39;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">extra_values</span><span class="p">):</span>
             <span class="n">formatstr</span> <span class="o">=</span> <span class="n">formatbase</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{suffix}{i:04d}{dtype}{ext}</span><span class="s1">&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="ow">and</span> <span class="s1">&#39;_res-native&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span><span class="p">:</span>
+            <span class="c1"># strip native tag</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">space</span> <span class="o">=</span> <span class="s1">&#39;_space-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;_desc-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.bids module &mdash; niworkflows 1.2.0rc1+29.gc9ec849f6 documentation</title>
+  <title>niworkflows.interfaces.bids module &mdash; niworkflows 1.2.0rc1+36.gd109e9972 documentation</title>
   
 
   
@@ -455,10 +455,11 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tricky_source</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_dtype</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;preproc&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="s1">&#39;MNI152NLin6Asym_res-01&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">RepetitionTime</span> <span class="o">=</span> <span class="mf">0.75</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span>  
-<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_desc-preproc_bold.json&#39;</span>
+<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_space-MNI152NLin6Asym_res-01_desc-preproc_bold.json&#39;</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
@@ -480,11 +481,12 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tricky_source</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_dtype</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;preproc&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="s1">&#39;MNI152NLin6Asym_res-native&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">RepetitionTime</span> <span class="o">=</span> <span class="mf">0.75</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">meta_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;RepetitionTime&#39;</span><span class="p">:</span> <span class="mf">1.75</span><span class="p">,</span> <span class="s1">&#39;SkullStripped&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span> <span class="s1">&#39;val&#39;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span>  
-<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_desc-preproc_bold.json&#39;</span>
+<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_space-MNI152NLin6Asym_desc-preproc_bold.json&#39;</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
