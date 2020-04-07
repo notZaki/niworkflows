@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.bids &mdash; niworkflows 1.2.0rc1+36.gd109e9972 documentation</title>
+  <title>niworkflows.interfaces.bids &mdash; niworkflows 1.2.0rc1+38.g17f5fd241 documentation</title>
   
 
   
@@ -196,7 +196,8 @@
 <span class="n">DEFAULT_DTYPES</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">_none</span><span class="p">,</span> <span class="p">(</span>
     <span class="p">(</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span> <span class="s2">&quot;uint8&quot;</span><span class="p">),</span>
     <span class="p">(</span><span class="s2">&quot;dseg&quot;</span><span class="p">,</span> <span class="s2">&quot;int16&quot;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">&quot;probseg&quot;</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">))</span>
+    <span class="p">(</span><span class="s2">&quot;probseg&quot;</span><span class="p">,</span> <span class="s2">&quot;float32&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;boldref&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">))</span>
 <span class="p">)</span>
 
 
@@ -412,7 +413,8 @@
     <span class="n">in_file</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;the object to be saved&#39;</span><span class="p">)</span>
     <span class="n">keep_dtype</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;keep datatype suffix&#39;</span><span class="p">)</span>
-    <span class="n">data_dtype</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;NumPy datatype to coerce NIfTI data to&#39;</span><span class="p">)</span>
+    <span class="n">data_dtype</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;NumPy datatype to coerce NIfTI data to, or `source` to&#39;</span>
+                          <span class="s1">&#39;match the input file dtype&#39;</span><span class="p">)</span>
     <span class="n">meta_dict</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">DictStrAny</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;an input dictionary containing metadata&#39;</span><span class="p">)</span>
     <span class="n">source_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;the input func file&#39;</span><span class="p">)</span>
     <span class="n">space</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Label for space field&#39;</span><span class="p">)</span>
@@ -681,6 +683,8 @@
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">check_hdr</span><span class="p">:</span>
                         <span class="c1"># load updated NIfTI</span>
                         <span class="n">nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">mmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">data_dtype</span> <span class="o">==</span> <span class="s1">&#39;source&#39;</span><span class="p">:</span>  <span class="c1"># match source dtype</span>
+                        <span class="n">data_dtype</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span><span class="p">)</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">()</span>
                     <span class="n">data_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">data_dtype</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">nii</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">()</span> <span class="o">!=</span> <span class="n">data_dtype</span><span class="p">:</span>
                         <span class="n">nii</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="n">data_dtype</span><span class="p">)</span>
