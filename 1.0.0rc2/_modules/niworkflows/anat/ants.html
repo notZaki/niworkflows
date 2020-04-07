@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.anat.ants &mdash; niworkflows 1.2.0rc1+27.g197770763 documentation</title>
+  <title>niworkflows.anat.ants &mdash; niworkflows 1.2.0rc1+29.gc9ec849f6 documentation</title>
   
 
   
@@ -883,9 +883,9 @@
         <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">inu_n4_final</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_files&#39;</span><span class="p">,</span> <span class="s1">&#39;input_image&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">thr_brainmask</span><span class="p">,</span> <span class="p">[((</span><span class="s1">&#39;in_files&#39;</span><span class="p">,</span> <span class="n">_pop</span><span class="p">),</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">thr_brainmask</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;out_mask&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;out_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;bias_corrected&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;bias_image&#39;</span><span class="p">,</span> <span class="s1">&#39;bias_image&#39;</span><span class="p">)])</span>
+        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[((</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="n">_pop</span><span class="p">),</span> <span class="s1">&#39;out_file&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[((</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="n">_pop</span><span class="p">),</span> <span class="s1">&#39;bias_corrected&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inu_n4_final</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[((</span><span class="s1">&#39;bias_image&#39;</span><span class="p">,</span> <span class="n">_pop</span><span class="p">),</span> <span class="s1">&#39;bias_image&#39;</span><span class="p">)])</span>
     <span class="p">])</span>
 
     <span class="c1"># If atropos refine, do in4 twice</span>
