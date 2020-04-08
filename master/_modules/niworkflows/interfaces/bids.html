@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.bids &mdash; niworkflows 1.2.0rc2 documentation</title>
+  <title>niworkflows.interfaces.bids &mdash; niworkflows 1.2.0rc2+2.gc49c5d0eb documentation</title>
   
 
   
@@ -678,12 +678,19 @@
                         <span class="c1"># Rewrite file with new header</span>
                         <span class="n">overwrite_header</span><span class="p">(</span><span class="n">nii</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
 
+                <span class="k">if</span> <span class="n">data_dtype</span> <span class="o">==</span> <span class="s1">&#39;source&#39;</span><span class="p">:</span>  <span class="c1"># match source dtype</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">data_dtype</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span><span class="p">)</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">()</span>
+                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                        <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Could not get data type of file </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
+                        <span class="n">data_dtype</span> <span class="o">=</span> <span class="kc">None</span>
+
                 <span class="k">if</span> <span class="n">data_dtype</span><span class="p">:</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">check_hdr</span><span class="p">:</span>
                         <span class="c1"># load updated NIfTI</span>
                         <span class="n">nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">mmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="n">data_dtype</span> <span class="o">==</span> <span class="s1">&#39;source&#39;</span><span class="p">:</span>  <span class="c1"># match source dtype</span>
-                        <span class="n">data_dtype</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span><span class="p">)</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">()</span>
                     <span class="n">data_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">data_dtype</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">nii</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">()</span> <span class="o">!=</span> <span class="n">data_dtype</span><span class="p">:</span>
                         <span class="n">nii</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="n">data_dtype</span><span class="p">)</span>
