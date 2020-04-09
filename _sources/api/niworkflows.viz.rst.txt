@@ -11,5 +11,6 @@ Submodules
 
 .. toctree::
 
+   niworkflows.viz.notebook
    niworkflows.viz.plots
    niworkflows.viz.utils
