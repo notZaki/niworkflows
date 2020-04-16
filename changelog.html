@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>What’s new? &mdash; niworkflows 1.2.0rc3+35.gfda9a50d0 documentation</title>
+  <title>What’s new? &mdash; niworkflows 1.2.0rc4 documentation</title>
   
 
   
@@ -268,9 +268,12 @@
   
 
 
+    
+    
 
 
 
+    <p class="scv-banner scv-sphinx_rtd_theme"><a href="master/changelog.html"><b>Warning:</b> This document is for an old version of niworkflows. The main version is master.</a></p>
 <div class="section" id="what-s-new">
 <h1>What’s new?<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="tbd">
@@ -278,12 +281,16 @@
 <p>First release in the 1.2.x series.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>ENH: Ensure subcortical volume in CIFTI is in LAS orientation (#484)</p></li>
-<li><p>ENH: Produce carpetplot from CIFTI file (#491)</p></li>
-<li><p>ENH: Option to set DerivativesDataSink datatype (#492) (#495)</p></li>
+<li><p>FIX: Better generalization and renaming+relocation in the API of <code class="docutils literal notranslate"><span class="pre">extract_wm</span></code> (#500)</p></li>
 <li><p>FIX: Increase fault tolerance of DerivativesDataSink (#497)</p></li>
 <li><p>FIX: Match N4-only workflow outputs to brain extraction workflow (#496)</p></li>
 <li><p>FIX: Set default volumetric resolution within OutputReferencesAction to native (#494)</p></li>
+<li><p>ENH: Add nibabel-based split and merge interfaces (#489)</p></li>
+<li><p>ENH: Show registration reportlets inline within Jupyter notebooks (#493)</p></li>
+<li><p>ENH: Ensure subcortical volume in CIFTI is in LAS orientation (#484)</p></li>
+<li><p>ENH: Produce carpetplot from CIFTI file (#491)</p></li>
+<li><p>ENH: Option to set DerivativesDataSink datatype (#492) (#495)</p></li>
+<li><p>MAINT: Revert #496 – N4-only workflow connections (#498)</p></li>
 <li><p>MAINT: Transfer brainmask script from fMRIPrep (#488)</p></li>
 </ul>
 </div></blockquote>
@@ -1156,7 +1163,7 @@ used with the nonlinear-asym-09c template for the carpetplot</p></li>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: 1.2.0rc4
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -1185,6 +1192,7 @@ used with the nonlinear-asym-09c template for the carpetplot</p></li>
             <dd><a href="1.2.0rc1/changelog.html">1.2.0rc1</a></dd>
             <dd><a href="1.2.0rc2/changelog.html">1.2.0rc2</a></dd>
             <dd><a href="1.2.0rc3/changelog.html">1.2.0rc3</a></dd>
+            <dd><a href="1.2.0rc4/changelog.html">1.2.0rc4</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
