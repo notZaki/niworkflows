@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.images &mdash; niworkflows 1.2.0rc3+29.g7b28b4fe2 documentation</title>
+  <title>niworkflows.utils.images &mdash; niworkflows 1.2.0rc3+35.gfda9a50d0 documentation</title>
   
 
   
@@ -267,6 +267,26 @@
     <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
     <span class="n">overwrite_header</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dseg_label"><a class="viewcode-back" href="../../../api/niworkflows.utils.images.html#niworkflows.utils.images.dseg_label">[docs]</a><span class="k">def</span> <span class="nf">dseg_label</span><span class="p">(</span><span class="n">in_seg</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">newpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract a particular label from a discrete segmentation.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+    <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">fname_presuffix</span>
+
+    <span class="n">newpath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">newpath</span> <span class="ow">or</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+    <span class="n">nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_seg</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">(</span><span class="n">nii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span> <span class="o">==</span> <span class="n">label</span>
+
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span><span class="n">in_seg</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_mask&#39;</span><span class="p">,</span>
+                               <span class="n">newpath</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">newpath</span><span class="o">.</span><span class="n">absolute</span><span class="p">()))</span>
+    <span class="n">new</span> <span class="o">=</span> <span class="n">nii</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">nii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">new</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">new</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out_file</span></div>
 </pre></div>
 
            </div>
