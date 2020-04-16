@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.nibabel module &mdash; niworkflows 1.2.0rc3+6.g602a7ca37 documentation</title>
+  <title>niworkflows.interfaces.nibabel module &mdash; niworkflows 1.2.0rc3+29.g7b28b4fe2 documentation</title>
   
 
   
@@ -243,6 +243,44 @@
 
 </dd></dl>
 
+<dl class="class">
+<dt id="niworkflows.interfaces.nibabel.MergeSeries">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">MergeSeries</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#MergeSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.MergeSeries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<p>Merge a series of 3D volumes along the last dimension into a single 4D image.</p>
+<dl class="attribute">
+<dt id="niworkflows.interfaces.nibabel.MergeSeries.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.MergeSeries.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MergeSeriesInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="niworkflows.interfaces.nibabel.MergeSeries.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.MergeSeries.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MergeSeriesOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="niworkflows.interfaces.nibabel.SplitSeries">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">SplitSeries</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#SplitSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.SplitSeries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<p>Split a 4D dataset along the last dimension into a series of 3D volumes.</p>
+<dl class="attribute">
+<dt id="niworkflows.interfaces.nibabel.SplitSeries.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.SplitSeries.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_SplitSeriesInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="niworkflows.interfaces.nibabel.SplitSeries.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.SplitSeries.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_SplitSeriesOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -317,6 +355,7 @@
             <dt>Branches</dt>
             <dd><a href="../../maint_1.0.x/api/niworkflows.interfaces.nibabel.html">maint/1.0.x</a></dd>
             <dd><a href="../../maint_1.1.x/api/niworkflows.interfaces.nibabel.html">maint/1.1.x</a></dd>
+            <dd><a href="../../maint_github-action-pr/api/niworkflows.interfaces.nibabel.html">maint/github-action-pr</a></dd>
             <dd><a href="../../master/api/niworkflows.interfaces.nibabel.html">master</a></dd>
         </dl>
     </div>
