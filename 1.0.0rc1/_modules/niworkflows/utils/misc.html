@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.misc &mdash; niworkflows 1.2.0rc5+7.g98ff359f6 documentation</title>
+  <title>niworkflows.utils.misc &mdash; niworkflows 1.2.0rc5+9.g736306b40 documentation</title>
   
 
   
@@ -423,14 +423,31 @@
     <span class="k">return</span> <span class="n">dummy_scans</span>
 
 
-<span class="k">def</span> <span class="nf">check_valid_fs_license</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Run ``mri_convert`` to assess FreeSurfer access to a license.&quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">check_valid_fs_license</span><span class="p">(</span><span class="n">lic</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run ``mri_convert`` to assess FreeSurfer access to a license.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lic : :obj:`str`, optional</span>
+<span class="sd">        Path to FreeSurfer license file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    valid : :obj:`bool`</span>
+<span class="sd">        FreeSurfer license is valid</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
     <span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sp</span>
     <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 
     <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
     <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="k">if</span> <span class="n">lic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FS_LICENSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">lic</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">())</span>
 
     <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
         <span class="n">nii_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span> <span class="o">/</span> <span class="s1">&#39;test.nii.gz&#39;</span><span class="p">)</span>
