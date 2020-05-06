@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.spaces module &mdash; niworkflows 1.2.0rc5+9.g736306b40 documentation</title>
+  <title>niworkflows.utils.spaces module &mdash; niworkflows 1.2.0rc5+34.g1ba0d031b documentation</title>
   
 
   
@@ -700,7 +700,7 @@ have density or resolution set).</p></li>
 
 <dl class="attribute">
 <dt id="niworkflows.utils.spaces.SpatialReferences.standard_spaces">
-<code class="sig-name descname">standard_spaces</code><em class="property"> = ('MNI152Lin', 'MNI152NLin2009cAsym', 'MNI152NLin6Asym', 'MNI152NLin6Sym', 'MNIInfant', 'MNIPediatricAsym', 'NKI', 'OASIS30ANTs', 'PNC', 'WHS', 'fsLR', 'fsaverage')</em><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.standard_spaces" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">standard_spaces</code><em class="property"> = ('MNI152Lin', 'MNI152NLin2009cAsym', 'MNI152NLin2009cSym', 'MNI152NLin6Asym', 'MNI152NLin6Sym', 'MNIInfant', 'MNIPediatricAsym', 'NKI', 'OASIS30ANTs', 'PNC', 'WHS', 'fsLR', 'fsaverage')</em><a class="headerlink" href="#niworkflows.utils.spaces.SpatialReferences.standard_spaces" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of supported standard reference spaces.</p>
 </dd></dl>
 
@@ -723,6 +723,25 @@ have density or resolution set).</p></li>
 <dt id="niworkflows.utils.spaces.hasspec">
 <code class="sig-prename descclassname">niworkflows.utils.spaces.</code><code class="sig-name descname">hasspec</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">specs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#hasspec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.hasspec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check whether any of the keys are in a dict.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="niworkflows.utils.spaces.reference2dict">
+<code class="sig-prename descclassname">niworkflows.utils.spaces.</code><code class="sig-name descname">reference2dict</code><span class="sig-paren">(</span><em class="sig-param">in_tuple</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/spaces.html#reference2dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.spaces.reference2dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split a spatial reference given as a tuple into a dictionary.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reference2dict</span><span class="p">((</span><span class="s1">&#39;MNIPediatricAsym:cohort-2&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}))</span>
+<span class="go">{&#39;space&#39;: &#39;MNIPediatricAsym&#39;, &#39;cohort&#39;: &#39;2&#39;, &#39;resolution&#39;: &#39;2&#39;}</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reference2dict</span><span class="p">((</span><span class="s1">&#39;MNIPediatricAsym:cohort-2&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;resolution&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}))</span>
+<span class="go">{&#39;space&#39;: &#39;MNIPediatricAsym&#39;, &#39;cohort&#39;: &#39;2&#39;, &#39;resolution&#39;: &#39;1&#39;}</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reference2dict</span><span class="p">((</span><span class="s1">&#39;MNIPediatricAsym:cohort-2&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;res&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;den&#39;</span><span class="p">:</span> <span class="s1">&#39;91k&#39;</span><span class="p">}))</span>
+<span class="go">{&#39;space&#39;: &#39;MNIPediatricAsym&#39;, &#39;cohort&#39;: &#39;2&#39;, &#39;resolution&#39;: &#39;2&#39;, &#39;density&#39;: &#39;91k&#39;}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

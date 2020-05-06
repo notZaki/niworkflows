@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.surf module &mdash; niworkflows 1.2.0rc5+9.g736306b40 documentation</title>
+  <title>niworkflows.interfaces.surf module &mdash; niworkflows 1.2.0rc5+34.g1ba0d031b documentation</title>
   
 
   
@@ -396,6 +396,54 @@ less relevant to surfaces that don’t describe an anatomical structure.</p>
 <dt id="niworkflows.interfaces.surf.PLYtoGifti.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.surf.PLYtoGifti.output_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_PLYtoGiftiOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="niworkflows.interfaces.surf.Path2BIDS">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.surf.</code><code class="sig-name descname">Path2BIDS</code><span class="sig-paren">(</span><em class="sig-param">pattern=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/surf.html#Path2BIDS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.surf.Path2BIDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<p>Extract BIDS entities from paths using a pattern.</p>
+<p>Default pattern is given for Gifti surfaces.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Path2BIDS</span><span class="p">(</span><span class="n">in_file</span><span class="o">=</span><span class="s1">&#39;_fix_surfs0/rh.pial.surf.gii&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span><span class="o">.</span><span class="n">outputs</span>
+
+<span class="go">extension = .surf.gii</span>
+<span class="go">hemi = R</span>
+<span class="go">suffix = pial</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Path2BIDS</span><span class="p">(</span><span class="n">in_file</span><span class="o">=</span><span class="s1">&#39;_fix_surfs0/rh.pial.gii&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span><span class="o">.</span><span class="n">outputs</span>
+
+<span class="go">extension = .gii</span>
+<span class="go">hemi = R</span>
+<span class="go">suffix = pial</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Path2BIDS</span><span class="p">(</span><span class="n">in_file</span><span class="o">=</span><span class="s1">&#39;_fix_surfs0/rh.smoothwm_converted.gii&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span><span class="o">.</span><span class="n">outputs</span>
+
+<span class="go">extension = .gii</span>
+<span class="go">hemi = R</span>
+<span class="go">suffix = smoothwm</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Path2BIDS</span><span class="p">(</span><span class="n">in_file</span><span class="o">=</span><span class="s1">&#39;_fix_surfs0/rh.smoothwm_converted.func.gii&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span><span class="o">.</span><span class="n">outputs</span>
+
+<span class="go">extension = .func.gii</span>
+<span class="go">hemi = R</span>
+<span class="go">suffix = smoothwm</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="niworkflows.interfaces.surf.Path2BIDS.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.surf.Path2BIDS.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_Path2BIDSInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="niworkflows.interfaces.surf.Path2BIDS.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.surf.Path2BIDS.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_Path2BIDSOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>

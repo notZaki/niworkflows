@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.reports.core &mdash; niworkflows 1.2.0rc5+9.g736306b40 documentation</title>
+  <title>niworkflows.reports.core &mdash; niworkflows 1.2.0rc5+34.g1ba0d031b documentation</title>
   
 
   
@@ -174,13 +174,12 @@
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_filename</span> <span class="k">as</span> <span class="n">pkgrf</span>
 <span class="kn">from</span> <span class="nn">bids.layout</span> <span class="kn">import</span> <span class="n">BIDSLayout</span><span class="p">,</span> <span class="n">add_config_paths</span>
-
 <span class="kn">import</span> <span class="nn">jinja2</span>
 <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">copyfile</span>
 
 <span class="c1"># Add a new figures spec</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="n">add_config_paths</span><span class="p">(</span><span class="n">figures</span><span class="o">=</span><span class="n">pkgrf</span><span class="p">(</span><span class="s1">&#39;niworkflows&#39;</span><span class="p">,</span> <span class="s1">&#39;reports/figures.json&#39;</span><span class="p">))</span>
+    <span class="n">add_config_paths</span><span class="p">(</span><span class="n">figures</span><span class="o">=</span><span class="n">pkgrf</span><span class="p">(</span><span class="s1">&#39;niworkflows&#39;</span><span class="p">,</span> <span class="s1">&#39;data/nipreps.json&#39;</span><span class="p">))</span>
 <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="k">if</span> <span class="s2">&quot;Configuration &#39;figures&#39; already exists&quot;</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
         <span class="k">raise</span>
@@ -236,31 +235,31 @@
 <span class="sd">    .. doctest::</span>
 
 <span class="sd">    &gt;&gt;&gt; bl.get(subject=&#39;01&#39;, desc=&#39;reconall&#39;) # doctest: +ELLIPSIS</span>
-<span class="sd">    [&lt;BIDSFile filename=&#39;.../fmriprep/sub-01/anat/sub-01_desc-reconall_T1w.svg&#39;&gt;]</span>
+<span class="sd">    [&lt;BIDSFile filename=&#39;.../fmriprep/sub-01/figures/sub-01_desc-reconall_T1w.svg&#39;&gt;]</span>
 
 <span class="sd">    &gt;&gt;&gt; len(bl.get(subject=&#39;01&#39;, space=&#39;.*&#39;, regex_search=True))</span>
 <span class="sd">    2</span>
 
 <span class="sd">    &gt;&gt;&gt; r = Reportlet(bl, out_figs, config={</span>
-<span class="sd">    ...     &#39;title&#39;: &#39;Some Title&#39;, &#39;bids&#39;: {&#39;datatype&#39;: &#39;anat&#39;, &#39;desc&#39;: &#39;reconall&#39;},</span>
+<span class="sd">    ...     &#39;title&#39;: &#39;Some Title&#39;, &#39;bids&#39;: {&#39;datatype&#39;: &#39;figures&#39;, &#39;desc&#39;: &#39;reconall&#39;},</span>
 <span class="sd">    ...     &#39;description&#39;: &#39;Some description&#39;})</span>
 <span class="sd">    &gt;&gt;&gt; r.name</span>
-<span class="sd">    &#39;datatype-anat_desc-reconall&#39;</span>
+<span class="sd">    &#39;datatype-figures_desc-reconall&#39;</span>
 
 <span class="sd">    &gt;&gt;&gt; r.components[0][0].startswith(&#39;&lt;img&#39;)</span>
 <span class="sd">    True</span>
 
 <span class="sd">    &gt;&gt;&gt; r = Reportlet(bl, out_figs, config={</span>
-<span class="sd">    ...     &#39;title&#39;: &#39;Some Title&#39;, &#39;bids&#39;: {&#39;datatype&#39;: &#39;anat&#39;, &#39;desc&#39;: &#39;reconall&#39;},</span>
+<span class="sd">    ...     &#39;title&#39;: &#39;Some Title&#39;, &#39;bids&#39;: {&#39;datatype&#39;: &#39;figures&#39;, &#39;desc&#39;: &#39;reconall&#39;},</span>
 <span class="sd">    ...     &#39;description&#39;: &#39;Some description&#39;, &#39;static&#39;: False})</span>
 <span class="sd">    &gt;&gt;&gt; r.name</span>
-<span class="sd">    &#39;datatype-anat_desc-reconall&#39;</span>
+<span class="sd">    &#39;datatype-figures_desc-reconall&#39;</span>
 
 <span class="sd">    &gt;&gt;&gt; r.components[0][0].startswith(&#39;&lt;object&#39;)</span>
 <span class="sd">    True</span>
 
 <span class="sd">    &gt;&gt;&gt; r = Reportlet(bl, out_figs, config={</span>
-<span class="sd">    ...     &#39;title&#39;: &#39;Some Title&#39;, &#39;bids&#39;: {&#39;datatype&#39;: &#39;anat&#39;, &#39;desc&#39;: &#39;summary&#39;},</span>
+<span class="sd">    ...     &#39;title&#39;: &#39;Some Title&#39;, &#39;bids&#39;: {&#39;datatype&#39;: &#39;figures&#39;, &#39;desc&#39;: &#39;summary&#39;},</span>
 <span class="sd">    ...     &#39;description&#39;: &#39;Some description&#39;})</span>
 
 <span class="sd">    &gt;&gt;&gt; r.components[0][0].startswith(&#39;&lt;h3&#39;)</span>
@@ -271,7 +270,7 @@
 
 <span class="sd">    &gt;&gt;&gt; r = Reportlet(bl, out_figs, config={</span>
 <span class="sd">    ...     &#39;title&#39;: &#39;Some Title&#39;,</span>
-<span class="sd">    ...     &#39;bids&#39;: {&#39;datatype&#39;: &#39;anat&#39;, &#39;space&#39;: &#39;.*&#39;, &#39;regex_search&#39;: True},</span>
+<span class="sd">    ...     &#39;bids&#39;: {&#39;datatype&#39;: &#39;figures&#39;, &#39;space&#39;: &#39;.*&#39;, &#39;regex_search&#39;: True},</span>
 <span class="sd">    ...     &#39;caption&#39;: &#39;Some description {space}&#39;})</span>
 <span class="sd">    &gt;&gt;&gt; sorted(r.components)[0][1]</span>
 <span class="sd">    &#39;Some description MNI152NLin2009cAsym&#39;</span>
@@ -321,19 +320,15 @@
                 <span class="k">if</span> <span class="n">desc_text</span><span class="p">:</span>
                     <span class="n">desc_text</span> <span class="o">=</span> <span class="n">desc_text</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">entities</span><span class="p">)</span>
 
-                <span class="n">entities</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;svg&#39;</span>
-                <span class="n">entities</span><span class="p">[</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;figures&#39;</span>
-                <span class="n">linked_svg</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">build_path</span><span class="p">(</span><span class="n">entities</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">linked_svg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Could not generate SVG path to copy </span><span class="si">{src}</span><span class="s2">&quot;</span>
-                                     <span class="s2">&quot; to. Entities: </span><span class="si">{entities}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span>
-                                                                        <span class="n">entities</span><span class="o">=</span><span class="n">entities</span><span class="p">))</span>
-                <span class="n">out_file</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="o">/</span> <span class="n">linked_svg</span>
-                <span class="n">out_file</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="c1"># PY35: Coerce to str to pacify os.* functions that don&#39;t take Paths until 3.6</span>
-                <span class="n">copyfile</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">out_file</span><span class="p">),</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_hardlink</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="n">is_static</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-                <span class="n">contents</span> <span class="o">=</span> <span class="n">SVG_SNIPPET</span><span class="p">[</span><span class="n">is_static</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">linked_svg</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">html_anchor</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">html_anchor</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">root</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+                    <span class="n">dst</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="o">/</span> <span class="n">html_anchor</span>
+                    <span class="n">dst</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">copyfile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_hardlink</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="n">contents</span> <span class="o">=</span> <span class="n">SVG_SNIPPET</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;static&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">html_anchor</span><span class="p">)</span>
 
                 <span class="c1"># Our current implementations of dynamic reportlets do this themselves,</span>
                 <span class="c1"># however I&#39;ll leave the code here since this is potentially something we</span>
@@ -367,7 +362,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">isnested</span> <span class="o">=</span> <span class="n">isnested</span></div>
 
 
-<div class="viewcode-block" id="Report"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.Report">[docs]</a><span class="k">class</span> <span class="nc">Report</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Report"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.Report">[docs]</a><span class="k">class</span> <span class="nc">Report</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The full report object. This object maintains a BIDSLayout to index</span>
 <span class="sd">    all reportlets.</span>
@@ -388,15 +383,15 @@
 
 <span class="sd">    .. doctest::</span>
 
-<span class="sd">    &gt;&gt;&gt; robj = Report(testdir / &#39;work&#39; / &#39;reportlets&#39;, testdir / &#39;out&#39;,</span>
-<span class="sd">    ...               &#39;madeoutuuid&#39;, subject_id=&#39;01&#39;, packagename=&#39;fmriprep&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; robj = Report(testdir / &#39;out&#39;, &#39;madeoutuuid&#39;, subject_id=&#39;01&#39;, packagename=&#39;fmriprep&#39;,</span>
+<span class="sd">    ...               reportlets_dir=testdir / &#39;work&#39; / &#39;reportlets&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; robj.layout.get(subject=&#39;01&#39;, desc=&#39;reconall&#39;)  # doctest: +ELLIPSIS</span>
-<span class="sd">    [&lt;BIDSFile filename=&#39;.../anat/sub-01_desc-reconall_T1w.svg&#39;&gt;]</span>
+<span class="sd">    [&lt;BIDSFile filename=&#39;.../figures/sub-01_desc-reconall_T1w.svg&#39;&gt;]</span>
 
 <span class="sd">    &gt;&gt;&gt; robj.generate_report()</span>
 <span class="sd">    0</span>
 <span class="sd">    &gt;&gt;&gt; len((testdir / &#39;out&#39; / &#39;fmriprep&#39; / &#39;sub-01.html&#39;).read_text())</span>
-<span class="sd">    36540</span>
+<span class="sd">    36693</span>
 
 <span class="sd">    .. testcleanup::</span>
 
@@ -404,10 +399,17 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reportlets_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">subject_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_filename</span><span class="o">=</span><span class="s1">&#39;report.html&#39;</span><span class="p">,</span>
-                 <span class="n">packagename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">reportlets_dir</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="p">,</span>
+        <span class="n">run_uuid</span><span class="p">,</span>
+        <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">out_filename</span><span class="o">=</span><span class="s1">&#39;report.html&#39;</span><span class="p">,</span>
+        <span class="n">packagename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">reportlets_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">subject_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">reportlets_dir</span> <span class="ow">or</span> <span class="n">out_dir</span><span class="p">)</span>
 
         <span class="c1"># Initialize structuring elements</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sections</span> <span class="o">=</span> <span class="p">[]</span>
@@ -415,18 +417,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">out_filename</span> <span class="o">=</span> <span class="n">out_filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">run_uuid</span> <span class="o">=</span> <span class="n">run_uuid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">packagename</span> <span class="o">=</span> <span class="n">packagename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span> <span class="o">=</span> <span class="n">subject_id</span>
-        <span class="k">if</span> <span class="n">subject_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">subject_id</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;sub-&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">subject_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span> <span class="o">=</span> <span class="n">subject_id</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;sub-&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;sub-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span><span class="si">}</span><span class="s2">.html&quot;</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">out_filename</span> <span class="o">=</span> <span class="s1">&#39;sub-</span><span class="si">{}</span><span class="s1">.html&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">config</span> <span class="o">=</span> <span class="n">pkgrf</span><span class="p">(</span><span class="s1">&#39;niworkflows&#39;</span><span class="p">,</span> <span class="s1">&#39;reports/fmriprep.yml&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_load_config</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
+        <span class="c1"># Default template from niworkflows</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">pkgrf</span><span class="p">(</span><span class="s1">&#39;niworkflows&#39;</span><span class="p">,</span> <span class="s1">&#39;reports/report.tpl&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_config</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span> <span class="ow">or</span> <span class="n">pkgrf</span><span class="p">(</span><span class="s1">&#39;niworkflows&#39;</span><span class="p">,</span> <span class="s1">&#39;reports/default.yml&#39;</span><span class="p">)))</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_load_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">safe_load</span> <span class="k">as</span> <span class="n">load</span>
@@ -440,11 +440,9 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">/</span> <span class="s1">&#39;sub-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subject_id</span><span class="p">)</span>
 
-        <span class="c1"># Default template from niworkflows</span>
-        <span class="n">template_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">pkgrf</span><span class="p">(</span><span class="s1">&#39;niworkflows&#39;</span><span class="p">,</span> <span class="s1">&#39;reports/report.tpl&#39;</span><span class="p">))</span>
         <span class="k">if</span> <span class="s1">&#39;template_path&#39;</span> <span class="ow">in</span> <span class="n">settings</span><span class="p">:</span>
-            <span class="n">template_path</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">settings</span><span class="p">[</span><span class="s1">&#39;template_path&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="n">template_path</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">settings</span><span class="p">[</span><span class="s1">&#39;template_path&#39;</span><span class="p">]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;sections&#39;</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Report.init_layout"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.Report.init_layout">[docs]</a>    <span class="k">def</span> <span class="nf">init_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -511,28 +509,26 @@
         <span class="n">boiler_idx</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.html&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.html&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;div class=&quot;boiler-html&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/div&gt;&#39;</span> <span class="o">%</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-                <span class="s1">&#39;&lt;body&gt;(.*?)&lt;/body&gt;&#39;</span><span class="p">,</span>
-                <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="n">boilerplate</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">boiler_idx</span><span class="p">,</span> <span class="s1">&#39;HTML&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;&lt;body&gt;(.*?)&lt;/body&gt;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.html&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">boilerplate</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">boiler_idx</span><span class="p">,</span> <span class="s1">&#39;HTML&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;&lt;div class=&quot;boiler-html&quot;&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/div&gt;&#39;</span><span class="p">))</span>
             <span class="n">boiler_idx</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.md&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;pre&gt;</span><span class="si">%s</span><span class="s1">&lt;/pre&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.md&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
-            <span class="n">boilerplate</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">boiler_idx</span><span class="p">,</span> <span class="s1">&#39;Markdown&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.md&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+            <span class="n">boilerplate</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">boiler_idx</span><span class="p">,</span> <span class="s1">&#39;Markdown&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;&lt;pre&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/pre&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
             <span class="n">boiler_idx</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.tex&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.tex&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-                <span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">begin</span><span class="si">{document}</span><span class="s1">(.*?)</span><span class="se">\\</span><span class="s1">end</span><span class="si">{document}</span><span class="s1">&#39;</span><span class="p">,</span>
-                <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">text</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;pre&gt;</span><span class="si">%s</span><span class="s1">&lt;/pre&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">text</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;h3&gt;Bibliography&lt;/h3&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;&lt;pre&gt;</span><span class="si">%s</span><span class="s1">&lt;/pre&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">Path</span><span class="p">(</span>
-                <span class="n">pkgrf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">packagename</span><span class="p">,</span> <span class="s1">&#39;data/boilerplate.bib&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
-            <span class="n">boilerplate</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">boiler_idx</span><span class="p">,</span> <span class="s1">&#39;LaTeX&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">begin</span><span class="si">{document}</span><span class="s1">(.*?)</span><span class="se">\\</span><span class="s1">end</span><span class="si">{document}</span><span class="s1">&#39;</span><span class="p">,</span>
+                              <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">logs_path</span> <span class="o">/</span> <span class="s1">&#39;CITATION.tex&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">boilerplate</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">boiler_idx</span><span class="p">,</span> <span class="s1">&#39;LaTeX&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;&lt;pre&gt;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&lt;/pre&gt;</span>
+<span class="s2">&lt;h3&gt;Bibliography&lt;/h3&gt;</span>
+<span class="s2">&lt;pre&gt;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">pkgrf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">packagename</span><span class="p">,</span> <span class="s1">&#39;data/boilerplate.bib&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="si">}</span><span class="s2">&lt;/pre&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
             <span class="n">boiler_idx</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="n">env</span> <span class="o">=</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span>
@@ -544,6 +540,7 @@
                                           <span class="n">boilerplate</span><span class="o">=</span><span class="n">boilerplate</span><span class="p">)</span>
 
         <span class="c1"># Write out report</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_filename</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">report_render</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span></div>
 
@@ -592,10 +589,16 @@
         <span class="k">return</span> <span class="n">entities</span><span class="p">,</span> <span class="n">value_combos</span></div>
 
 
-<div class="viewcode-block" id="run_reports"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.run_reports">[docs]</a><span class="k">def</span> <span class="nf">run_reports</span><span class="p">(</span><span class="n">reportlets_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">packagename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="run_reports"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.run_reports">[docs]</a><span class="k">def</span> <span class="nf">run_reports</span><span class="p">(</span>
+    <span class="n">out_dir</span><span class="p">,</span>
+    <span class="n">subject_label</span><span class="p">,</span>
+    <span class="n">run_uuid</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">reportlets_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">packagename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Runs the reports</span>
+<span class="sd">    Run the reports.</span>
 
 <span class="sd">    .. testsetup::</span>
 
@@ -611,8 +614,8 @@
 
 <span class="sd">    .. doctest::</span>
 
-<span class="sd">    &gt;&gt;&gt; run_reports(testdir / &#39;work&#39; / &#39;reportlets&#39;, testdir / &#39;out&#39;,</span>
-<span class="sd">    ...             &#39;01&#39;, &#39;madeoutuuid&#39;, packagename=&#39;fmriprep&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; run_reports(testdir / &#39;out&#39;, &#39;01&#39;, &#39;madeoutuuid&#39;, packagename=&#39;fmriprep&#39;,</span>
+<span class="sd">    ...             reportlets_dir=testdir / &#39;work&#39; / &#39;reportlets&#39;)</span>
 <span class="sd">    0</span>
 
 <span class="sd">    .. testcleanup::</span>
@@ -620,20 +623,26 @@
 <span class="sd">    &gt;&gt;&gt; os.chdir(cwd)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">report</span> <span class="o">=</span> <span class="n">Report</span><span class="p">(</span><span class="n">reportlets_dir</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
-                    <span class="n">subject_id</span><span class="o">=</span><span class="n">subject_label</span><span class="p">,</span> <span class="n">packagename</span><span class="o">=</span><span class="n">packagename</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">report</span><span class="o">.</span><span class="n">generate_report</span><span class="p">()</span></div>
+    <span class="k">return</span> <span class="n">Report</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">subject_id</span><span class="o">=</span><span class="n">subject_label</span><span class="p">,</span>
+                  <span class="n">packagename</span><span class="o">=</span><span class="n">packagename</span><span class="p">,</span> <span class="n">reportlets_dir</span><span class="o">=</span><span class="n">reportlets_dir</span><span class="p">)</span><span class="o">.</span><span class="n">generate_report</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="generate_reports"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.generate_reports">[docs]</a><span class="k">def</span> <span class="nf">generate_reports</span><span class="p">(</span><span class="n">subject_list</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">work_dir</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                     <span class="n">packagename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A wrapper to run_reports on a given ``subject_list``</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">reportlets_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">work_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s1">&#39;reportlets&#39;</span>
+<div class="viewcode-block" id="generate_reports"><a class="viewcode-back" href="../../../api/niworkflows.reports.core.html#niworkflows.reports.generate_reports">[docs]</a><span class="k">def</span> <span class="nf">generate_reports</span><span class="p">(</span>
+    <span class="n">subject_list</span><span class="p">,</span>
+    <span class="n">output_dir</span><span class="p">,</span>
+    <span class="n">run_uuid</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">work_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">packagename</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Execute run_reports on a list of subjects.&quot;&quot;&quot;</span>
+    <span class="n">reportlets_dir</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">work_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reportlets_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">work_dir</span><span class="p">)</span> <span class="o">/</span> <span class="s1">&#39;reportlets&#39;</span>
     <span class="n">report_errors</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">run_reports</span><span class="p">(</span><span class="n">reportlets_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span>
-                    <span class="n">config</span><span class="p">,</span> <span class="n">packagename</span><span class="o">=</span><span class="n">packagename</span><span class="p">)</span>
+        <span class="n">run_reports</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">subject_label</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span>
+                    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">packagename</span><span class="o">=</span><span class="n">packagename</span><span class="p">,</span>
+                    <span class="n">reportlets_dir</span><span class="o">=</span><span class="n">reportlets_dir</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">subject_label</span> <span class="ow">in</span> <span class="n">subject_list</span>
     <span class="p">]</span>
 

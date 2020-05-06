@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.bids module &mdash; niworkflows 1.2.0rc5+9.g736306b40 documentation</title>
+  <title>niworkflows.interfaces.bids module &mdash; niworkflows 1.2.0rc5+34.g1ba0d031b documentation</title>
   
 
   
@@ -323,32 +323,11 @@ subject, session, task, run, acquisition or reconstruction.</p>
 <span class="go">task = covertverbgeneration</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bids</span> <span class="kn">import</span> <span class="n">BIDSLayout</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span> <span class="o">=</span> <span class="n">BIDSInfo</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">BIDSLayout</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds114&#39;</span><span class="p">),</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bids_info</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;sub-01/func/ses-retest/sub-01_ses-retest_task-covertverbgeneration_bold.nii.gz&#39;&#39;&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">bids_info</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span>
-
-<span class="go">acquisition = &lt;undefined&gt;</span>
-<span class="go">reconstruction = &lt;undefined&gt;</span>
-<span class="go">run = &lt;undefined&gt;</span>
-<span class="go">session = retest</span>
-<span class="go">subject = 01</span>
-<span class="go">suffix = bold</span>
-<span class="go">task = covertverbgeneration</span>
-</pre></div>
-</div>
 <dl class="attribute">
 <dt id="niworkflows.interfaces.bids.BIDSInfo.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.bids.BIDSInfo.input_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_BIDSInfoInputSpec</span></code></p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="niworkflows.interfaces.bids.BIDSInfo.layout">
-<code class="sig-name descname">layout</code><em class="property"> = None</em><a class="headerlink" href="#niworkflows.interfaces.bids.BIDSInfo.layout" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="niworkflows.interfaces.bids.BIDSInfo.output_spec">
@@ -363,33 +342,58 @@ subject, session, task, run, acquisition or reconstruction.</p>
 <em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.bids.</code><code class="sig-name descname">DerivativesDataSink</code><span class="sig-paren">(</span><em class="sig-param">allowed_entities=None</em>, <em class="sig-param">out_path_base=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/bids.html#DerivativesDataSink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.bids.DerivativesDataSink" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Store derivative files.</p>
-<p>Saves the <cite>in_file</cite> into a BIDS-Derivatives folder provided
-by <cite>base_directory</cite>, given the input reference <cite>source_file</cite>.</p>
+<p>Saves the <code class="docutils literal notranslate"><span class="pre">in_file</span></code> into a BIDS-Derivatives folder provided
+by <code class="docutils literal notranslate"><span class="pre">base_directory</span></code>, given the input reference <code class="docutils literal notranslate"><span class="pre">source_file</span></code>.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tmpfile</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;a_temp_file.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tmpfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># &quot;touch&quot; the file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1w_source</span> <span class="o">=</span> <span class="n">bids_collect_data</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds114&#39;</span><span class="p">),</span> <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;t1w&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="n">bids_collect_data</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds114&#39;</span><span class="p">),</span> <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;t1w&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_dtype</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;desc-denoised&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="n">t1w_source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;denoised&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span>  
-<span class="go">&#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_desc-denoised_T1w.nii.gz&#39;</span>
+<span class="go">&#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_desc-denoised_T1w.nii&#39;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tmpfile</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;a_temp_file.nii&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tmpfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># &quot;touch&quot; the file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="n">allowed_entities</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;custom&quot;</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="n">t1w_source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">custom</span> <span class="o">=</span> <span class="s1">&#39;noise&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span>  
+<span class="go">&#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_custom-noise_T1w.nii&#39;</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="gp">... </span>                            <span class="n">allowed_entities</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">],</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="s1">&#39;orig&#39;</span><span class="p">})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">to</span> <span class="o">=</span> <span class="s1">&#39;native&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="n">bids_collect_data</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="nb">str</span><span class="p">(</span><span class="n">datadir</span> <span class="o">/</span> <span class="s1">&#39;ds114&#39;</span><span class="p">),</span> <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">bids_validate</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;t1w&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_dtype</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="gp">... </span>                            <span class="n">allowed_entities</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;custom&quot;</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="n">t1w_source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">custom</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span>  
-<span class="go">&#39;.../sub-01_ses-retest_from-orig_to-native_T1w.nii.gz&#39;</span>
+<span class="go">[&#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_custom-1_T1w.nii.gz&#39;,</span>
+<span class="go"> &#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_custom-2_T1w.nii.gz&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="n">allowed_entities</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;custom1&quot;</span><span class="p">,</span> <span class="s2">&quot;custom2&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="n">t1w_source</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">custom1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">custom2</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span>  
+<span class="go">[&#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_custom1-1_custom2-b_T1w.nii&#39;,</span>
+<span class="go"> &#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_custom1-2_custom2-b_T1w.nii&#39;]</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
@@ -399,26 +403,24 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tricky_source</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_dtype</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;preproc&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span>  
-<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_desc-preproc_bold.nii.gz&#39;</span>
+<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-1_desc-preproc_bold.nii&#39;</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span> <span class="o">=</span> <span class="n">bids_dir</span> <span class="o">/</span> <span class="s1">&#39;sub-02_ses-noanat_task-rest_run-01_bold.nii.gz&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span> <span class="o">=</span> <span class="n">bids_dir</span> <span class="o">/</span> <span class="s1">&#39;sub-02_ses-noanat_task-rest_run-1_bold.nii.gz&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tricky_source</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tricky_source</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_dtype</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;preproc&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">RepetitionTime</span> <span class="o">=</span> <span class="mf">0.75</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span>  
-<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_desc-preproc_bold.json&#39;</span>
+<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-1_desc-preproc_bold.json&#39;</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
@@ -433,13 +435,13 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="gp">... </span>                            <span class="n">SkullStripped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tricky_source</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_dtype</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;preproc&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="s1">&#39;MNI152NLin6Asym_res-01&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="s1">&#39;MNI152NLin6Asym&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="s1">&#39;01&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">RepetitionTime</span> <span class="o">=</span> <span class="mf">0.75</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span>  
-<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_space-MNI152NLin6Asym_res-01_desc-preproc_bold.json&#39;</span>
+<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-1_space-MNI152NLin6Asym_res-01_desc-preproc_bold.json&#39;</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
@@ -459,14 +461,14 @@ by <cite>base_directory</cite>, given the input reference <cite>source_file</cit
 <span class="gp">... </span>                            <span class="n">SkullStripped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tricky_source</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_dtype</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;preproc&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="s1">&#39;MNI152NLin6Asym_res-native&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="s1">&#39;native&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="s1">&#39;MNI152NLin6Asym&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">RepetitionTime</span> <span class="o">=</span> <span class="mf">0.75</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">meta_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;RepetitionTime&#39;</span><span class="p">:</span> <span class="mf">1.75</span><span class="p">,</span> <span class="s1">&#39;SkullStripped&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span> <span class="s1">&#39;val&#39;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span>  
-<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-01_space-MNI152NLin6Asym_desc-preproc_bold.json&#39;</span>
+<span class="go">&#39;.../niworkflows/sub-02/ses-noanat/func/sub-02_ses-noanat_task-rest_run-1_space-MNI152NLin6Asym_desc-preproc_bold.json&#39;</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_meta</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
