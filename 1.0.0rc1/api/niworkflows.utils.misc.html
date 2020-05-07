@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.misc module &mdash; niworkflows 1.2.0rc5+34.g1ba0d031b documentation</title>
+  <title>niworkflows.utils.misc module &mdash; niworkflows 1.2.0rc5+36.gfeb1882eea documentation</title>
   
 
   
@@ -184,7 +184,7 @@
     <p class="scv-banner scv-sphinx_rtd_theme"><a href="../../master/api/niworkflows.utils.misc.html"><b>Warning:</b> This document is for an old version of niworkflows. The main version is master.</a></p>
 <div class="section" id="module-niworkflows.utils.misc">
 <span id="niworkflows-utils-misc-module"></span><h1>niworkflows.utils.misc module<a class="headerlink" href="#module-niworkflows.utils.misc" title="Permalink to this headline">¶</a></h1>
-<p>Miscellaneous utilities</p>
+<p>Miscellaneous utilities.</p>
 <dl class="function">
 <dt id="niworkflows.utils.misc.get_template_specs">
 <code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">get_template_specs</code><span class="sig-paren">(</span><em class="sig-param">in_template</em>, <em class="sig-param">template_spec=None</em>, <em class="sig-param">default_resolution=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#get_template_specs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.get_template_specs" title="Permalink to this definition">¶</a></dt>
@@ -250,7 +250,8 @@
 <dl class="function">
 <dt id="niworkflows.utils.misc.splitext">
 <code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">splitext</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#splitext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.splitext" title="Permalink to this definition">¶</a></dt>
-<dd><p>Splits filename and extension (.gz safe)</p>
+<dd><p>Split filename in name and extension (.gz safe).</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/file.nii.gz&#39;</span><span class="p">)</span>
 <span class="go">(&#39;file&#39;, &#39;.nii.gz&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/other/file.nii&#39;</span><span class="p">)</span>
@@ -259,6 +260,12 @@
 <span class="go">(&#39;otherext&#39;, &#39;.tar.gz&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;text.txt&#39;</span><span class="p">)</span>
 <span class="go">(&#39;text&#39;, &#39;.txt&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/figure.svg&#39;</span><span class="p">)</span>
+<span class="go">(&#39;figure&#39;, &#39;.svg&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/figure.svg.gz&#39;</span><span class="p">)</span>
+<span class="go">(&#39;figure&#39;, &#39;.svg.gz&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/sub-01_bold.func.gii&#39;</span><span class="p">)</span>
+<span class="go">(&#39;sub-01_bold.func&#39;, &#39;.gii&#39;)</span>
 </pre></div>
 </div>
 </dd></dl>

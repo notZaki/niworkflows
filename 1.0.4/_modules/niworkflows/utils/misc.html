@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.misc &mdash; niworkflows 1.2.0rc5+34.g1ba0d031b documentation</title>
+  <title>niworkflows.utils.misc &mdash; niworkflows 1.2.0rc5+36.gfeb1882eea documentation</title>
   
 
   
@@ -162,9 +162,7 @@
 <h1>Source code for niworkflows.utils.misc</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Miscellaneous utilities</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;Miscellaneous utilities.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 
@@ -330,8 +328,11 @@
 
 
 <div class="viewcode-block" id="splitext"><a class="viewcode-back" href="../../../api/niworkflows.utils.misc.html#niworkflows.utils.misc.splitext">[docs]</a><span class="k">def</span> <span class="nf">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Splits filename and extension (.gz safe)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split filename in name and extension (.gz safe).</span>
 
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; splitext(&#39;some/file.nii.gz&#39;)</span>
 <span class="sd">    (&#39;file&#39;, &#39;.nii.gz&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; splitext(&#39;some/other/file.nii&#39;)</span>
@@ -340,6 +341,12 @@
 <span class="sd">    (&#39;otherext&#39;, &#39;.tar.gz&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; splitext(&#39;text.txt&#39;)</span>
 <span class="sd">    (&#39;text&#39;, &#39;.txt&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; splitext(&#39;some/figure.svg&#39;)</span>
+<span class="sd">    (&#39;figure&#39;, &#39;.svg&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; splitext(&#39;some/figure.svg.gz&#39;)</span>
+<span class="sd">    (&#39;figure&#39;, &#39;.svg.gz&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; splitext(&#39;some/sub-01_bold.func.gii&#39;)</span>
+<span class="sd">    (&#39;sub-01_bold.func&#39;, &#39;.gii&#39;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
