@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>What’s new? &mdash; niworkflows 1.2.0rc5+56.g1e09f473b0 documentation</title>
+  <title>What’s new? &mdash; niworkflows 1.2.0 documentation</title>
   
 
   
@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Library API (application program interface)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What’s new?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#tbd">1.2.0 (TBD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#may-21-2020">1.2.0 (May 21, 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#march-19-2020">1.1.12 (March 19, 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#march-17-2020">1.1.11 (March 17, 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#march-11-2020">1.1.10 (March 11, 2020)</a></li>
@@ -268,22 +268,29 @@
   
 
 
+    
+    
 
 
 
+    <p class="scv-banner scv-sphinx_rtd_theme"><a href="master/changelog.html"><b>Warning:</b> This document is for an old version of niworkflows. The main version is master.</a></p>
 <div class="section" id="what-s-new">
 <h1>What’s new?<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="tbd">
-<h2>1.2.0 (TBD)<a class="headerlink" href="#tbd" title="Permalink to this headline">¶</a></h2>
-<p>First release in the 1.2.x series.</p>
-<blockquote>
-<div><ul class="simple">
+<div class="section" id="may-21-2020">
+<h2>1.2.0 (May 21, 2020)<a class="headerlink" href="#may-21-2020" title="Permalink to this headline">¶</a></h2>
+<p>First release in the 1.2.x series. This release includes a variety of enhancements
+and bug fixes, including a large scale refactoring of DerivativesDataSink.</p>
+<ul class="simple">
+<li><p>FIX: Purge greedy lstrip from reports (#521)</p></li>
 <li><p>FIX: Add DWI default patterns for dMRIPrep’s reportlets (#504)</p></li>
 <li><p>FIX: Merge/SplitSeries write to path of input image, instead of cwd (#503)</p></li>
 <li><p>FIX: Better generalization and renaming+relocation in the API of <code class="docutils literal notranslate"><span class="pre">extract_wm</span></code> (#500)</p></li>
 <li><p>FIX: Increase fault tolerance of DerivativesDataSink (#497)</p></li>
 <li><p>FIX: Match N4-only workflow outputs to brain extraction workflow (#496)</p></li>
 <li><p>FIX: Set default volumetric resolution within OutputReferencesAction to native (#494)</p></li>
+<li><p>ENH: Upstream NiTransforms module from fMRIPrep (#525)</p></li>
+<li><p>ENH: Improve DerivativesDataSink flexibility (#507) (#514) (#516)</p></li>
+<li><p>ENH: Add utility function to quickly check for FS license (#505)</p></li>
 <li><p>ENH: Add nibabel-based split and merge interfaces (#489)</p></li>
 <li><p>ENH: Show registration reportlets inline within Jupyter notebooks (#493)</p></li>
 <li><p>ENH: Ensure subcortical volume in CIFTI is in LAS orientation (#484)</p></li>
@@ -292,7 +299,6 @@
 <li><p>MAINT: Revert #496 – N4-only workflow connections (#498)</p></li>
 <li><p>MAINT: Transfer brainmask script from fMRIPrep (#488)</p></li>
 </ul>
-</div></blockquote>
 </div>
 <div class="section" id="march-19-2020">
 <h2>1.1.12 (March 19, 2020)<a class="headerlink" href="#march-19-2020" title="Permalink to this headline">¶</a></h2>
@@ -1162,7 +1168,7 @@ used with the nonlinear-asym-09c template for the carpetplot</p></li>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: 1.2.0
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -1188,6 +1194,7 @@ used with the nonlinear-asym-09c template for the carpetplot</p></li>
             <dd><a href="1.1.7/changelog.html">1.1.7</a></dd>
             <dd><a href="1.1.8/changelog.html">1.1.8</a></dd>
             <dd><a href="1.1.9/changelog.html">1.1.9</a></dd>
+            <dd><a href="1.2.0/changelog.html">1.2.0</a></dd>
             <dd><a href="1.2.0rc1/changelog.html">1.2.0rc1</a></dd>
             <dd><a href="1.2.0rc2/changelog.html">1.2.0rc2</a></dd>
             <dd><a href="1.2.0rc3/changelog.html">1.2.0rc3</a></dd>
