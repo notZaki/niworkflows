@@ -23,6 +23,7 @@ Submodules
    niworkflows.interfaces.mni
    niworkflows.interfaces.nibabel
    niworkflows.interfaces.nilearn
+   niworkflows.interfaces.nitransforms
    niworkflows.interfaces.patches
    niworkflows.interfaces.plotting
    niworkflows.interfaces.registration
