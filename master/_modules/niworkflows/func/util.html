@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.func.util &mdash; niworkflows 1.2.0 documentation</title>
+  <title>niworkflows.func.util &mdash; niworkflows 1.2.0+2.g9b0f646590 documentation</title>
   
 
   
@@ -185,8 +185,13 @@
 <span class="n">DEFAULT_MEMORY_MIN_GB</span> <span class="o">=</span> <span class="mf">0.01</span>
 
 
-<div class="viewcode-block" id="init_bold_reference_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_bold_reference_wf">[docs]</a><span class="k">def</span> <span class="nf">init_bold_reference_wf</span><span class="p">(</span><span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">bold_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                           <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bold_reference_wf&#39;</span><span class="p">,</span> <span class="n">gen_report</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="init_bold_reference_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_bold_reference_wf">[docs]</a><span class="k">def</span> <span class="nf">init_bold_reference_wf</span><span class="p">(</span>
+    <span class="n">omp_nthreads</span><span class="p">,</span>
+    <span class="n">bold_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bold_reference_wf&quot;</span><span class="p">,</span>
+    <span class="n">gen_report</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Build a workflow that generates reference BOLD images for a series.</span>
 
@@ -255,67 +260,95 @@
 <span class="s2">First, a reference volume and its skull-stripped version were generated</span>
 <span class="s2">using a custom methodology of *fMRIPrep*.</span>
 <span class="s2">&quot;&quot;&quot;</span>
-    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bold_file&#39;</span><span class="p">,</span> <span class="s1">&#39;bold_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;dummy_scans&#39;</span><span class="p">,</span>
-                                                      <span class="s1">&#39;sbref_file&#39;</span><span class="p">]),</span>
-                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;inputnode&#39;</span><span class="p">)</span>
+    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bold_file&quot;</span><span class="p">,</span> <span class="s2">&quot;bold_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;dummy_scans&quot;</span><span class="p">,</span> <span class="s2">&quot;sbref_file&quot;</span><span class="p">]</span>
+        <span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inputnode&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">outputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
-        <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bold_file&#39;</span><span class="p">,</span> <span class="s1">&#39;raw_ref_image&#39;</span><span class="p">,</span> <span class="s1">&#39;skip_vols&#39;</span><span class="p">,</span>
-                                      <span class="s1">&#39;algo_dummy_scans&#39;</span><span class="p">,</span> <span class="s1">&#39;ref_image&#39;</span><span class="p">,</span> <span class="s1">&#39;ref_image_brain&#39;</span><span class="p">,</span>
-                                      <span class="s1">&#39;bold_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;validation_report&#39;</span><span class="p">]),</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;outputnode&#39;</span><span class="p">)</span>
+        <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;bold_file&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;raw_ref_image&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;skip_vols&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;algo_dummy_scans&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ref_image&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ref_image_brain&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;bold_mask&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;validation_report&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputnode&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="c1"># Simplify manually setting input image</span>
     <span class="k">if</span> <span class="n">bold_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">inputnode</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">bold_file</span> <span class="o">=</span> <span class="n">bold_file</span>
 
-    <span class="n">validate</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">ValidateImage</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;validate&#39;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="n">DEFAULT_MEMORY_MIN_GB</span><span class="p">)</span>
+    <span class="n">validate</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">ValidateImage</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;validate&quot;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="n">DEFAULT_MEMORY_MIN_GB</span><span class="p">)</span>
 
-    <span class="n">gen_ref</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">EstimateReferenceImage</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gen_ref&quot;</span><span class="p">,</span>
-                      <span class="n">mem_gb</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># OE: 128x128x128x50 * 64 / 8 ~ 900MB.</span>
+    <span class="n">gen_ref</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">EstimateReferenceImage</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gen_ref&quot;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>  <span class="c1"># OE: 128x128x128x50 * 64 / 8 ~ 900MB.</span>
     <span class="n">enhance_and_skullstrip_bold_wf</span> <span class="o">=</span> <span class="n">init_enhance_and_skullstrip_bold_wf</span><span class="p">(</span>
-        <span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">pre_mask</span><span class="o">=</span><span class="n">pre_mask</span><span class="p">)</span>
+        <span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">pre_mask</span><span class="o">=</span><span class="n">pre_mask</span>
+    <span class="p">)</span>
 
-    <span class="n">calc_dummy_scans</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">_pass_dummy_scans</span><span class="p">,</span>
-                                            <span class="n">output_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;skip_vols_num&#39;</span><span class="p">]),</span>
-                               <span class="n">name</span><span class="o">=</span><span class="s1">&#39;calc_dummy_scans&#39;</span><span class="p">,</span>
-                               <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                               <span class="n">mem_gb</span><span class="o">=</span><span class="n">DEFAULT_MEMORY_MIN_GB</span><span class="p">)</span>
+    <span class="n">calc_dummy_scans</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">niu</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="n">_pass_dummy_scans</span><span class="p">,</span> <span class="n">output_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;skip_vols_num&quot;</span><span class="p">]),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;calc_dummy_scans&quot;</span><span class="p">,</span>
+        <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mem_gb</span><span class="o">=</span><span class="n">DEFAULT_MEMORY_MIN_GB</span><span class="p">,</span>
+    <span class="p">)</span>
 
+    <span class="c1"># fmt: off</span>
     <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">enhance_and_skullstrip_bold_wf</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;bold_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;inputnode.pre_mask&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">validate</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;bold_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">gen_ref</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;sbref_file&#39;</span><span class="p">,</span> <span class="s1">&#39;sbref_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;dummy_scans&#39;</span><span class="p">,</span> <span class="s1">&#39;dummy_scans&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">validate</span><span class="p">,</span> <span class="n">gen_ref</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">enhance_and_skullstrip_bold_wf</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;ref_image&#39;</span><span class="p">,</span> <span class="s1">&#39;inputnode.in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">validate</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;bold_file&#39;</span><span class="p">),</span>
-                                <span class="p">(</span><span class="s1">&#39;out_report&#39;</span><span class="p">,</span> <span class="s1">&#39;validation_report&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;n_volumes_to_discard&#39;</span><span class="p">,</span> <span class="s1">&#39;algo_dummy_scans&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;skip_vols_num&#39;</span><span class="p">,</span> <span class="s1">&#39;skip_vols&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;ref_image&#39;</span><span class="p">,</span> <span class="s1">&#39;raw_ref_image&#39;</span><span class="p">),</span>
-                               <span class="p">(</span><span class="s1">&#39;n_volumes_to_discard&#39;</span><span class="p">,</span> <span class="s1">&#39;algo_dummy_scans&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">enhance_and_skullstrip_bold_wf</span><span class="p">,</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;bold_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;inputnode.pre_mask&quot;</span><span class="p">),</span>
+        <span class="p">]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">validate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;bold_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">gen_ref</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;sbref_file&quot;</span><span class="p">,</span> <span class="s2">&quot;sbref_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;dummy_scans&quot;</span><span class="p">,</span> <span class="s2">&quot;dummy_scans&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">validate</span><span class="p">,</span> <span class="n">gen_ref</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">enhance_and_skullstrip_bold_wf</span><span class="p">,</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;ref_image&quot;</span><span class="p">,</span> <span class="s2">&quot;inputnode.in_file&quot;</span><span class="p">),</span>
+        <span class="p">]),</span>
+        <span class="p">(</span><span class="n">validate</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;bold_file&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;out_report&quot;</span><span class="p">,</span> <span class="s2">&quot;validation_report&quot;</span><span class="p">),</span>
+        <span class="p">]),</span>
+        <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;n_volumes_to_discard&quot;</span><span class="p">,</span> <span class="s2">&quot;algo_dummy_scans&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;skip_vols_num&quot;</span><span class="p">,</span> <span class="s2">&quot;skip_vols&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;ref_image&quot;</span><span class="p">,</span> <span class="s2">&quot;raw_ref_image&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;n_volumes_to_discard&quot;</span><span class="p">,</span> <span class="s2">&quot;algo_dummy_scans&quot;</span><span class="p">),</span>
+        <span class="p">]),</span>
         <span class="p">(</span><span class="n">enhance_and_skullstrip_bold_wf</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[</span>
-            <span class="p">(</span><span class="s1">&#39;outputnode.bias_corrected_file&#39;</span><span class="p">,</span> <span class="s1">&#39;ref_image&#39;</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;outputnode.mask_file&#39;</span><span class="p">,</span> <span class="s1">&#39;bold_mask&#39;</span><span class="p">),</span>
-            <span class="p">(</span><span class="s1">&#39;outputnode.skull_stripped_file&#39;</span><span class="p">,</span> <span class="s1">&#39;ref_image_brain&#39;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="s2">&quot;outputnode.bias_corrected_file&quot;</span><span class="p">,</span> <span class="s2">&quot;ref_image&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;outputnode.mask_file&quot;</span><span class="p">,</span> <span class="s2">&quot;bold_mask&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;outputnode.skull_stripped_file&quot;</span><span class="p">,</span> <span class="s2">&quot;ref_image_brain&quot;</span><span class="p">),</span>
+        <span class="p">]),</span>
     <span class="p">])</span>
+    <span class="c1"># fmt: on</span>
 
     <span class="k">if</span> <span class="n">gen_report</span><span class="p">:</span>
-        <span class="n">mask_reportlet</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">SimpleShowMaskRPT</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mask_reportlet&#39;</span><span class="p">)</span>
+        <span class="n">mask_reportlet</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">SimpleShowMaskRPT</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mask_reportlet&quot;</span><span class="p">)</span>
+        <span class="c1"># fmt: off</span>
         <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
             <span class="p">(</span><span class="n">enhance_and_skullstrip_bold_wf</span><span class="p">,</span> <span class="n">mask_reportlet</span><span class="p">,</span> <span class="p">[</span>
-                <span class="p">(</span><span class="s1">&#39;outputnode.bias_corrected_file&#39;</span><span class="p">,</span> <span class="s1">&#39;background_file&#39;</span><span class="p">),</span>
-                <span class="p">(</span><span class="s1">&#39;outputnode.mask_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_file&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;outputnode.bias_corrected_file&quot;</span><span class="p">,</span> <span class="s2">&quot;background_file&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;outputnode.mask_file&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_file&quot;</span><span class="p">),</span>
             <span class="p">]),</span>
         <span class="p">])</span>
+        <span class="c1"># fmt: on</span>
 
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
 <div class="viewcode-block" id="init_enhance_and_skullstrip_bold_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_enhance_and_skullstrip_bold_wf">[docs]</a><span class="k">def</span> <span class="nf">init_enhance_and_skullstrip_bold_wf</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;enhance_and_skullstrip_bold_wf&#39;</span><span class="p">,</span>
-        <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">omp_nthreads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;enhance_and_skullstrip_bold_wf&quot;</span><span class="p">,</span> <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">omp_nthreads</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enhance and run brain extraction on a BOLD EPI image.</span>
 
@@ -394,134 +427,175 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">workflow</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;pre_mask&#39;</span><span class="p">]),</span>
-                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;inputnode&#39;</span><span class="p">)</span>
-    <span class="n">outputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span>
-        <span class="s1">&#39;mask_file&#39;</span><span class="p">,</span> <span class="s1">&#39;skull_stripped_file&#39;</span><span class="p">,</span> <span class="s1">&#39;bias_corrected_file&#39;</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;outputnode&#39;</span><span class="p">)</span>
+    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;pre_mask&quot;</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inputnode&quot;</span>
+    <span class="p">)</span>
+    <span class="n">outputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mask_file&quot;</span><span class="p">,</span> <span class="s2">&quot;skull_stripped_file&quot;</span><span class="p">,</span> <span class="s2">&quot;bias_corrected_file&quot;</span><span class="p">]</span>
+        <span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputnode&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="c1"># Dilate pre_mask</span>
-    <span class="n">pre_dilate</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">DilateImage</span><span class="p">(</span>
-        <span class="n">operation</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">kernel_shape</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
-        <span class="n">internal_datatype</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;pre_mask_dilate&#39;</span><span class="p">)</span>
+    <span class="n">pre_dilate</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">fsl</span><span class="o">.</span><span class="n">DilateImage</span><span class="p">(</span>
+            <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
+            <span class="n">kernel_shape</span><span class="o">=</span><span class="s2">&quot;sphere&quot;</span><span class="p">,</span>
+            <span class="n">kernel_size</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+            <span class="n">internal_datatype</span><span class="o">=</span><span class="s2">&quot;char&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pre_mask_dilate&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="c1"># Ensure mask&#39;s header matches reference&#39;s</span>
-    <span class="n">check_hdr</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">MatchHeader</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;check_hdr&#39;</span><span class="p">,</span>
-                        <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">check_hdr</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">MatchHeader</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;check_hdr&quot;</span><span class="p">,</span> <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Run N4 normally, force num_threads=1 for stability (images are small, no need for &gt;1)</span>
-    <span class="n">n4_correct</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">N4BiasFieldCorrection</span><span class="p">(</span>
-        <span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">copy_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bspline_fitting_distance</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="n">shrink_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;n4_correct&#39;</span><span class="p">,</span> <span class="n">n_procs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">n4_correct</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">N4BiasFieldCorrection</span><span class="p">(</span>
+            <span class="n">dimension</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">copy_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bspline_fitting_distance</span><span class="o">=</span><span class="mi">200</span>
+        <span class="p">),</span>
+        <span class="n">shrink_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;n4_correct&quot;</span><span class="p">,</span>
+        <span class="n">n_procs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">n4_correct</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">rescale_intensities</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="c1"># Create a generous BET mask out of the bias-corrected EPI</span>
-    <span class="n">skullstrip_first_pass</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">BET</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;skullstrip_first_pass&#39;</span><span class="p">)</span>
-    <span class="n">bet_dilate</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">DilateImage</span><span class="p">(</span>
-        <span class="n">operation</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="n">kernel_shape</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
-        <span class="n">internal_datatype</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;skullstrip_first_dilate&#39;</span><span class="p">)</span>
-    <span class="n">bet_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;skullstrip_first_mask&#39;</span><span class="p">)</span>
+    <span class="n">skullstrip_first_pass</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">fsl</span><span class="o">.</span><span class="n">BET</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;skullstrip_first_pass&quot;</span>
+    <span class="p">)</span>
+    <span class="n">bet_dilate</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">fsl</span><span class="o">.</span><span class="n">DilateImage</span><span class="p">(</span>
+            <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
+            <span class="n">kernel_shape</span><span class="o">=</span><span class="s2">&quot;sphere&quot;</span><span class="p">,</span>
+            <span class="n">kernel_size</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+            <span class="n">internal_datatype</span><span class="o">=</span><span class="s2">&quot;char&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;skullstrip_first_dilate&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">bet_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;skullstrip_first_mask&quot;</span><span class="p">)</span>
 
     <span class="c1"># Use AFNI&#39;s unifize for T2 constrast &amp; fix header</span>
-    <span class="n">unifize</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">afni</span><span class="o">.</span><span class="n">Unifize</span><span class="p">(</span>
-        <span class="n">t2</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">outputtype</span><span class="o">=</span><span class="s1">&#39;NIFTI_GZ&#39;</span><span class="p">,</span>
-        <span class="c1"># Default -clfrac is 0.1, 0.4 was too conservative</span>
-        <span class="c1"># -rbt because I&#39;m a Jedi AFNI Master (see 3dUnifize&#39;s documentation)</span>
-        <span class="n">args</span><span class="o">=</span><span class="s1">&#39;-clfrac 0.2 -rbt 18.3 65.0 90.0&#39;</span><span class="p">,</span>
-        <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;uni.nii.gz&quot;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;unifize&#39;</span><span class="p">)</span>
-    <span class="n">fixhdr_unifize</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">CopyXForm</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;fixhdr_unifize&#39;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">unifize</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">afni</span><span class="o">.</span><span class="n">Unifize</span><span class="p">(</span>
+            <span class="n">t2</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">outputtype</span><span class="o">=</span><span class="s2">&quot;NIFTI_GZ&quot;</span><span class="p">,</span>
+            <span class="c1"># Default -clfrac is 0.1, 0.4 was too conservative</span>
+            <span class="c1"># -rbt because I&#39;m a Jedi AFNI Master (see 3dUnifize&#39;s documentation)</span>
+            <span class="n">args</span><span class="o">=</span><span class="s2">&quot;-clfrac 0.2 -rbt 18.3 65.0 90.0&quot;</span><span class="p">,</span>
+            <span class="n">out_file</span><span class="o">=</span><span class="s2">&quot;uni.nii.gz&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;unifize&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">fixhdr_unifize</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">CopyXForm</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fixhdr_unifize&quot;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 
     <span class="c1"># Run ANFI&#39;s 3dAutomask to extract a refined brain mask</span>
-    <span class="n">skullstrip_second_pass</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">afni</span><span class="o">.</span><span class="n">Automask</span><span class="p">(</span><span class="n">dilate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                                   <span class="n">outputtype</span><span class="o">=</span><span class="s1">&#39;NIFTI_GZ&#39;</span><span class="p">),</span>
-                                     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;skullstrip_second_pass&#39;</span><span class="p">)</span>
-    <span class="n">fixhdr_skullstrip2</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">CopyXForm</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;fixhdr_skullstrip2&#39;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">skullstrip_second_pass</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">afni</span><span class="o">.</span><span class="n">Automask</span><span class="p">(</span><span class="n">dilate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">outputtype</span><span class="o">=</span><span class="s2">&quot;NIFTI_GZ&quot;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;skullstrip_second_pass&quot;</span>
+    <span class="p">)</span>
+    <span class="n">fixhdr_skullstrip2</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">CopyXForm</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fixhdr_skullstrip2&quot;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 
     <span class="c1"># Take intersection of both masks</span>
-    <span class="n">combine_masks</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">BinaryMaths</span><span class="p">(</span><span class="n">operation</span><span class="o">=</span><span class="s1">&#39;mul&#39;</span><span class="p">),</span>
-                            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;combine_masks&#39;</span><span class="p">)</span>
+    <span class="n">combine_masks</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">BinaryMaths</span><span class="p">(</span><span class="n">operation</span><span class="o">=</span><span class="s2">&quot;mul&quot;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;combine_masks&quot;</span><span class="p">)</span>
 
     <span class="c1"># Compute masked brain</span>
-    <span class="n">apply_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;apply_mask&#39;</span><span class="p">)</span>
+    <span class="n">apply_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;apply_mask&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pre_mask</span><span class="p">:</span>
         <span class="n">bold_template</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span>
-            <span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;fMRIPrep&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;boldref&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;MNI152NLin2009cAsym&quot;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;fMRIPrep&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;boldref&quot;</span>
+        <span class="p">)</span>
         <span class="n">brain_mask</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span>
-            <span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;brain&#39;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;mask&#39;</span><span class="p">)</span>
+            <span class="s2">&quot;MNI152NLin2009cAsym&quot;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;brain&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;mask&quot;</span>
+        <span class="p">)</span>
 
         <span class="c1"># Initialize transforms with antsAI</span>
-        <span class="n">init_aff</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">AI</span><span class="p">(</span>
-            <span class="n">fixed_image</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">bold_template</span><span class="p">),</span>
-            <span class="n">fixed_image_mask</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">brain_mask</span><span class="p">),</span>
-            <span class="n">metric</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Mattes&#39;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;Regular&#39;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
-            <span class="n">transform</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Affine&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
-            <span class="n">search_factor</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">),</span>
-            <span class="n">principal_axes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">convergence</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-            <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;init_aff&#39;</span><span class="p">,</span>
-            <span class="n">n_procs</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">)</span>
+        <span class="n">init_aff</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+            <span class="n">AI</span><span class="p">(</span>
+                <span class="n">fixed_image</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">bold_template</span><span class="p">),</span>
+                <span class="n">fixed_image_mask</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">brain_mask</span><span class="p">),</span>
+                <span class="n">metric</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Mattes&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">&quot;Regular&quot;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+                <span class="n">transform</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Affine&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+                <span class="n">search_factor</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">),</span>
+                <span class="n">principal_axes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">convergence</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;init_aff&quot;</span><span class="p">,</span>
+            <span class="n">n_procs</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="c1"># Registration().version may be None</span>
-        <span class="k">if</span> <span class="n">parseversion</span><span class="p">(</span><span class="n">Registration</span><span class="p">()</span><span class="o">.</span><span class="n">version</span> <span class="ow">or</span> <span class="s1">&#39;0.0.0&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Version</span><span class="p">(</span><span class="s1">&#39;2.2.0&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">parseversion</span><span class="p">(</span><span class="n">Registration</span><span class="p">()</span><span class="o">.</span><span class="n">version</span> <span class="ow">or</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;2.2.0&quot;</span><span class="p">):</span>
             <span class="n">init_aff</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">search_grid</span> <span class="o">=</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
 
         <span class="c1"># Set up spatial normalization</span>
-        <span class="n">norm</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Registration</span><span class="p">(</span>
-            <span class="n">from_file</span><span class="o">=</span><span class="n">pkgr_fn</span><span class="p">(</span>
-                <span class="s1">&#39;niworkflows.data&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;epi_atlasbased_brainmask.json&#39;</span><span class="p">)),</span>
-            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;norm&#39;</span><span class="p">,</span>
-            <span class="n">n_procs</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+            <span class="n">Registration</span><span class="p">(</span>
+                <span class="n">from_file</span><span class="o">=</span><span class="n">pkgr_fn</span><span class="p">(</span><span class="s2">&quot;niworkflows.data&quot;</span><span class="p">,</span> <span class="s2">&quot;epi_atlasbased_brainmask.json&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;norm&quot;</span><span class="p">,</span>
+            <span class="n">n_procs</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">norm</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fixed_image</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">bold_template</span><span class="p">)</span>
         <span class="n">map_brainmask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
-            <span class="n">ApplyTransforms</span><span class="p">(</span><span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;MultiLabel&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">input_image</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">brain_mask</span><span class="p">)),</span>
-            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;map_brainmask&#39;</span>
+            <span class="n">ApplyTransforms</span><span class="p">(</span>
+                <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;MultiLabel&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">input_image</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">brain_mask</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_brainmask&quot;</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="c1"># fmt: off</span>
         <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
-            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">init_aff</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;moving_image&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">map_brainmask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;reference_image&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;moving_image&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">init_aff</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_transform&#39;</span><span class="p">,</span> <span class="s1">&#39;initial_moving_transform&#39;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">init_aff</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;moving_image&quot;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">map_brainmask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;reference_image&quot;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;moving_image&quot;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">init_aff</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;output_transform&quot;</span><span class="p">,</span> <span class="s2">&quot;initial_moving_transform&quot;</span><span class="p">)]),</span>
             <span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="n">map_brainmask</span><span class="p">,</span> <span class="p">[</span>
-                <span class="p">(</span><span class="s1">&#39;reverse_invert_flags&#39;</span><span class="p">,</span> <span class="s1">&#39;invert_transform_flags&#39;</span><span class="p">),</span>
-                <span class="p">(</span><span class="s1">&#39;reverse_transforms&#39;</span><span class="p">,</span> <span class="s1">&#39;transforms&#39;</span><span class="p">)]),</span>
-            <span class="p">(</span><span class="n">map_brainmask</span><span class="p">,</span> <span class="n">pre_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
+                <span class="p">(</span><span class="s2">&quot;reverse_invert_flags&quot;</span><span class="p">,</span> <span class="s2">&quot;invert_transform_flags&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;reverse_transforms&quot;</span><span class="p">,</span> <span class="s2">&quot;transforms&quot;</span><span class="p">),</span>
+            <span class="p">]),</span>
+            <span class="p">(</span><span class="n">map_brainmask</span><span class="p">,</span> <span class="n">pre_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;output_image&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
         <span class="p">])</span>
+        <span class="c1"># fmt: on</span>
     <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># fmt: off</span>
         <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
-            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">pre_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;pre_mask&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">pre_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;pre_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
         <span class="p">])</span>
+        <span class="c1"># fmt: on</span>
 
+    <span class="c1"># fmt: off</span>
     <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">check_hdr</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;reference&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">pre_dilate</span><span class="p">,</span> <span class="n">check_hdr</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">check_hdr</span><span class="p">,</span> <span class="n">n4_correct</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_image&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">n4_correct</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;input_image&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">fixhdr_unifize</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;hdr_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">fixhdr_skullstrip2</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;hdr_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">n4_correct</span><span class="p">,</span> <span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">bet_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;mask_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">bet_dilate</span><span class="p">,</span> <span class="n">bet_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">bet_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">bet_mask</span><span class="p">,</span> <span class="n">unifize</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">unifize</span><span class="p">,</span> <span class="n">fixhdr_unifize</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">fixhdr_unifize</span><span class="p">,</span> <span class="n">skullstrip_second_pass</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">combine_masks</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;mask_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">skullstrip_second_pass</span><span class="p">,</span> <span class="n">fixhdr_skullstrip2</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">fixhdr_skullstrip2</span><span class="p">,</span> <span class="n">combine_masks</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;operand_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">fixhdr_unifize</span><span class="p">,</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">apply_mask</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;skull_stripped_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">n4_correct</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;output_image&#39;</span><span class="p">,</span> <span class="s1">&#39;bias_corrected_file&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">check_hdr</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;reference&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">pre_dilate</span><span class="p">,</span> <span class="n">check_hdr</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">check_hdr</span><span class="p">,</span> <span class="n">n4_correct</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_image&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">n4_correct</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;input_image&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">fixhdr_unifize</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;hdr_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">fixhdr_skullstrip2</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;hdr_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">n4_correct</span><span class="p">,</span> <span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;output_image&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">bet_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;mask_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">bet_dilate</span><span class="p">,</span> <span class="n">bet_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">bet_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">bet_mask</span><span class="p">,</span> <span class="n">unifize</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">unifize</span><span class="p">,</span> <span class="n">fixhdr_unifize</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">fixhdr_unifize</span><span class="p">,</span> <span class="n">skullstrip_second_pass</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">combine_masks</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;mask_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">skullstrip_second_pass</span><span class="p">,</span> <span class="n">fixhdr_skullstrip2</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">fixhdr_skullstrip2</span><span class="p">,</span> <span class="n">combine_masks</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;operand_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">fixhdr_unifize</span><span class="p">,</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">apply_mask</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;skull_stripped_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">n4_correct</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;output_image&quot;</span><span class="p">,</span> <span class="s2">&quot;bias_corrected_file&quot;</span><span class="p">)]),</span>
     <span class="p">])</span>
+    <span class="c1"># fmt: on</span>
 
     <span class="k">return</span> <span class="n">workflow</span></div>
 
 
-<div class="viewcode-block" id="init_skullstrip_bold_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_skullstrip_bold_wf">[docs]</a><span class="k">def</span> <span class="nf">init_skullstrip_bold_wf</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;skullstrip_bold_wf&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="init_skullstrip_bold_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_skullstrip_bold_wf">[docs]</a><span class="k">def</span> <span class="nf">init_skullstrip_bold_wf</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;skullstrip_bold_wf&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Apply skull-stripping to a BOLD image.</span>
 
@@ -554,35 +628,40 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">workflow</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;in_file&#39;</span><span class="p">]),</span>
-                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;inputnode&#39;</span><span class="p">)</span>
-    <span class="n">outputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mask_file&#39;</span><span class="p">,</span>
-                                                       <span class="s1">&#39;skull_stripped_file&#39;</span><span class="p">,</span>
-                                                       <span class="s1">&#39;out_report&#39;</span><span class="p">]),</span>
-                         <span class="n">name</span><span class="o">=</span><span class="s1">&#39;outputnode&#39;</span><span class="p">)</span>
-    <span class="n">skullstrip_first_pass</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">BET</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;skullstrip_first_pass&#39;</span><span class="p">)</span>
-    <span class="n">skullstrip_second_pass</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">afni</span><span class="o">.</span><span class="n">Automask</span><span class="p">(</span><span class="n">dilate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">outputtype</span><span class="o">=</span><span class="s1">&#39;NIFTI_GZ&#39;</span><span class="p">),</span>
-                                     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;skullstrip_second_pass&#39;</span><span class="p">)</span>
-    <span class="n">combine_masks</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">BinaryMaths</span><span class="p">(</span><span class="n">operation</span><span class="o">=</span><span class="s1">&#39;mul&#39;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;combine_masks&#39;</span><span class="p">)</span>
-    <span class="n">apply_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;apply_mask&#39;</span><span class="p">)</span>
-    <span class="n">mask_reportlet</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">SimpleShowMaskRPT</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mask_reportlet&#39;</span><span class="p">)</span>
+    <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_file&quot;</span><span class="p">]),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inputnode&quot;</span><span class="p">)</span>
+    <span class="n">outputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span>
+            <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mask_file&quot;</span><span class="p">,</span> <span class="s2">&quot;skull_stripped_file&quot;</span><span class="p">,</span> <span class="s2">&quot;out_report&quot;</span><span class="p">]</span>
+        <span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputnode&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">skullstrip_first_pass</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">fsl</span><span class="o">.</span><span class="n">BET</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;skullstrip_first_pass&quot;</span>
+    <span class="p">)</span>
+    <span class="n">skullstrip_second_pass</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
+        <span class="n">afni</span><span class="o">.</span><span class="n">Automask</span><span class="p">(</span><span class="n">dilate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">outputtype</span><span class="o">=</span><span class="s2">&quot;NIFTI_GZ&quot;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;skullstrip_second_pass&quot;</span>
+    <span class="p">)</span>
+    <span class="n">combine_masks</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">BinaryMaths</span><span class="p">(</span><span class="n">operation</span><span class="o">=</span><span class="s2">&quot;mul&quot;</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;combine_masks&quot;</span><span class="p">)</span>
+    <span class="n">apply_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;apply_mask&quot;</span><span class="p">)</span>
+    <span class="n">mask_reportlet</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">SimpleShowMaskRPT</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mask_reportlet&quot;</span><span class="p">)</span>
 
+    <span class="c1"># fmt: off</span>
     <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">skullstrip_second_pass</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">combine_masks</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;mask_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">skullstrip_second_pass</span><span class="p">,</span> <span class="n">combine_masks</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;operand_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_file&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">skullstrip_second_pass</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">skullstrip_first_pass</span><span class="p">,</span> <span class="n">combine_masks</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;mask_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">skullstrip_second_pass</span><span class="p">,</span> <span class="n">combine_masks</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;operand_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_file&quot;</span><span class="p">)]),</span>
         <span class="c1"># Masked file</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;in_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">apply_mask</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;skull_stripped_file&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">apply_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">apply_mask</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;skull_stripped_file&quot;</span><span class="p">)]),</span>
         <span class="c1"># Reportlet</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">mask_reportlet</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;in_file&#39;</span><span class="p">,</span> <span class="s1">&#39;background_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">mask_reportlet</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_file&#39;</span><span class="p">,</span> <span class="s1">&#39;mask_file&#39;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">mask_reportlet</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s1">&#39;out_report&#39;</span><span class="p">,</span> <span class="s1">&#39;out_report&#39;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">mask_reportlet</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;background_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">combine_masks</span><span class="p">,</span> <span class="n">mask_reportlet</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">mask_reportlet</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_report&quot;</span><span class="p">,</span> <span class="s2">&quot;out_report&quot;</span><span class="p">)]),</span>
     <span class="p">])</span>
+    <span class="c1"># fmt: on</span>
 
     <span class="k">return</span> <span class="n">workflow</span></div>
 </pre></div>

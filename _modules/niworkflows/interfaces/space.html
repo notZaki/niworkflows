@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.space &mdash; niworkflows 1.2.0 documentation</title>
+  <title>niworkflows.interfaces.space &mdash; niworkflows 1.2.0+2.g9b0f646590 documentation</title>
   
 
   
@@ -153,24 +153,25 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.interfaces.space</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;Interfaces for handling spaces.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">traits</span><span class="p">,</span> <span class="n">TraitedSpec</span><span class="p">,</span> <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span> <span class="n">SimpleInterface</span><span class="p">,</span>
+    <span class="n">traits</span><span class="p">,</span>
+    <span class="n">TraitedSpec</span><span class="p">,</span>
+    <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span>
+    <span class="n">SimpleInterface</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_SpaceDataSourceInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
-    <span class="n">in_tuple</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">((</span><span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Dict</span><span class="p">),</span>
-                            <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;a space declaration&quot;</span><span class="p">)</span>
+    <span class="n">in_tuple</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Dict</span><span class="p">),</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;a space declaration&quot;</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_SpaceDataSourceOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
@@ -214,6 +215,7 @@
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">..utils.spaces</span> <span class="kn">import</span> <span class="n">format_reference</span><span class="p">,</span> <span class="n">reference2dict</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_results</span> <span class="o">=</span> <span class="n">reference2dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_tuple</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;uid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">format_reference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_tuple</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
@@ -247,7 +249,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.2.0
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -273,7 +275,7 @@
             <dd><a href="../../../1.1.7/index.html">1.1.7</a></dd>
             <dd><a href="../../../1.1.8/index.html">1.1.8</a></dd>
             <dd><a href="../../../1.1.9/index.html">1.1.9</a></dd>
-            <dd><a href="../../../1.2.0/_modules/niworkflows/interfaces/space.html">1.2.0</a></dd>
+            <dd><a href="../../../1.2.0/index.html">1.2.0</a></dd>
             <dd><a href="../../../1.2.0rc1/index.html">1.2.0rc1</a></dd>
             <dd><a href="../../../1.2.0rc2/index.html">1.2.0rc2</a></dd>
             <dd><a href="../../../1.2.0rc3/index.html">1.2.0rc3</a></dd>
@@ -285,7 +287,7 @@
             <dd><a href="../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/niworkflows/interfaces/space.html">master</a></dd>
         </dl>
     </div>
 </div>

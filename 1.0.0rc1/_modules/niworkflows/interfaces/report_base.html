@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.report_base &mdash; niworkflows 1.2.0 documentation</title>
+  <title>niworkflows.interfaces.report_base &mdash; niworkflows 1.2.0+2.g9b0f646590 documentation</title>
   
 
   
@@ -172,16 +172,23 @@
 
 <span class="k">class</span> <span class="nc">_SVGReportCapableInputSpec</span><span class="p">(</span><span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableInputSpec</span><span class="p">):</span>
     <span class="n">out_report</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
-        <span class="s1">&#39;report.svg&#39;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;filename for the visual report&#39;</span><span class="p">)</span>
-    <span class="n">compress_report</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                  <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Compress the reportlet using SVGO or&quot;</span>
-                                       <span class="s2">&quot;WEBP. &#39;auto&#39; - compress if relevant &quot;</span>
-                                       <span class="s2">&quot;software is installed, True = force,&quot;</span>
-                                       <span class="s2">&quot;False - don&#39;t attempt to compress&quot;</span><span class="p">)</span>
+        <span class="s2">&quot;report.svg&quot;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;filename for the visual report&quot;</span>
+    <span class="p">)</span>
+    <span class="n">compress_report</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span>
+        <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Compress the reportlet using SVGO or&quot;</span>
+        <span class="s2">&quot;WEBP. &#39;auto&#39; - compress if relevant &quot;</span>
+        <span class="s2">&quot;software is installed, True = force,&quot;</span>
+        <span class="s2">&quot;False - don&#39;t attempt to compress&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
 <div class="viewcode-block" id="RegistrationRC"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.report_base.html#niworkflows.interfaces.report_base.RegistrationRC">[docs]</a><span class="k">class</span> <span class="nc">RegistrationRC</span><span class="p">(</span><span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableInterface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An abstract mixin to registration nipype interfaces.&quot;&quot;&quot;</span>
+
     <span class="n">_fixed_image</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_moving_image</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_fixed_image_mask</span> <span class="o">=</span> <span class="kc">None</span>
@@ -192,21 +199,24 @@
     <span class="k">def</span> <span class="nf">_generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generates the visual report.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="kn">import</span> <span class="n">plot_registration</span>
-        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating visual report&#39;</span><span class="p">)</span>
+
+        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating visual report&quot;</span><span class="p">)</span>
 
         <span class="n">fixed_image_nii</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image</span><span class="p">)</span>
         <span class="n">moving_image_nii</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_moving_image</span><span class="p">)</span>
         <span class="n">contour_nii</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_contour</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">:</span>
-            <span class="n">fixed_image_nii</span> <span class="o">=</span> <span class="n">unmask</span><span class="p">(</span><span class="n">apply_mask</span><span class="p">(</span><span class="n">fixed_image_nii</span><span class="p">,</span>
-                                                <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">),</span>
-                                     <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">)</span>
+            <span class="n">fixed_image_nii</span> <span class="o">=</span> <span class="n">unmask</span><span class="p">(</span>
+                <span class="n">apply_mask</span><span class="p">(</span><span class="n">fixed_image_nii</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="c1"># since the moving image is already in the fixed image space we</span>
             <span class="c1"># should apply the same mask</span>
-            <span class="n">moving_image_nii</span> <span class="o">=</span> <span class="n">unmask</span><span class="p">(</span><span class="n">apply_mask</span><span class="p">(</span><span class="n">moving_image_nii</span><span class="p">,</span>
-                                                 <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">),</span>
-                                      <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">)</span>
+            <span class="n">moving_image_nii</span> <span class="o">=</span> <span class="n">unmask</span><span class="p">(</span>
+                <span class="n">apply_mask</span><span class="p">(</span><span class="n">moving_image_nii</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="n">mask_nii</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_mask</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">mask_nii</span> <span class="o">=</span> <span class="n">threshold_img</span><span class="p">(</span><span class="n">fixed_image_nii</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
@@ -219,19 +229,25 @@
 
         <span class="c1"># Call composer</span>
         <span class="n">compose_view</span><span class="p">(</span>
-            <span class="n">plot_registration</span><span class="p">(</span><span class="n">fixed_image_nii</span><span class="p">,</span> <span class="s1">&#39;fixed-image&#39;</span><span class="p">,</span>
-                              <span class="n">estimate_brightness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                              <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span>
-                              <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_label</span><span class="p">,</span>
-                              <span class="n">contour</span><span class="o">=</span><span class="n">contour_nii</span><span class="p">,</span>
-                              <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span><span class="p">),</span>
-            <span class="n">plot_registration</span><span class="p">(</span><span class="n">moving_image_nii</span><span class="p">,</span> <span class="s1">&#39;moving-image&#39;</span><span class="p">,</span>
-                              <span class="n">estimate_brightness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                              <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span>
-                              <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_moving_image_label</span><span class="p">,</span>
-                              <span class="n">contour</span><span class="o">=</span><span class="n">contour_nii</span><span class="p">,</span>
-                              <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span><span class="p">),</span>
-            <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_report</span>
+            <span class="n">plot_registration</span><span class="p">(</span>
+                <span class="n">fixed_image_nii</span><span class="p">,</span>
+                <span class="s2">&quot;fixed-image&quot;</span><span class="p">,</span>
+                <span class="n">estimate_brightness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fixed_image_label</span><span class="p">,</span>
+                <span class="n">contour</span><span class="o">=</span><span class="n">contour_nii</span><span class="p">,</span>
+                <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">plot_registration</span><span class="p">(</span>
+                <span class="n">moving_image_nii</span><span class="p">,</span>
+                <span class="s2">&quot;moving-image&quot;</span><span class="p">,</span>
+                <span class="n">estimate_brightness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_moving_image_label</span><span class="p">,</span>
+                <span class="n">contour</span><span class="o">=</span><span class="n">contour_nii</span><span class="p">,</span>
+                <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_report</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
@@ -240,6 +256,7 @@
 
     <span class="k">def</span> <span class="nf">_generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="kn">import</span> <span class="n">plot_segs</span>
+
         <span class="n">compose_view</span><span class="p">(</span>
             <span class="n">plot_segs</span><span class="p">(</span>
                 <span class="n">image_nii</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">,</span>
@@ -247,15 +264,16 @@
                 <span class="n">bbox_nii</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">,</span>
                 <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_report</span><span class="p">,</span>
                 <span class="n">masked</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_masked</span><span class="p">,</span>
-                <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span>
+                <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">fg_svgs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_report</span>
+            <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_report</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SurfaceSegmentationRC"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.report_base.html#niworkflows.interfaces.report_base.SurfaceSegmentationRC">[docs]</a><span class="k">class</span> <span class="nc">SurfaceSegmentationRC</span><span class="p">(</span><span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableInterface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;An abstract mixin to registration nipype interfaces.&quot;&quot;&quot;</span>
+
     <span class="n">_anat_file</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_mask_file</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_contour</span> <span class="o">=</span> <span class="kc">None</span>
@@ -263,7 +281,8 @@
     <span class="k">def</span> <span class="nf">_generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Generates the visual report.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="kn">import</span> <span class="n">plot_registration</span>
-        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating visual report&#39;</span><span class="p">)</span>
+
+        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Generating visual report&quot;</span><span class="p">)</span>
 
         <span class="n">anat</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">)</span>
         <span class="n">contour_nii</span> <span class="o">=</span> <span class="n">load_img</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_contour</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contour</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
@@ -282,13 +301,16 @@
 
         <span class="c1"># Call composer</span>
         <span class="n">compose_view</span><span class="p">(</span>
-            <span class="n">plot_registration</span><span class="p">(</span><span class="n">anat</span><span class="p">,</span> <span class="s1">&#39;fixed-image&#39;</span><span class="p">,</span>
-                              <span class="n">estimate_brightness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                              <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span>
-                              <span class="n">contour</span><span class="o">=</span><span class="n">contour_nii</span><span class="p">,</span>
-                              <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span><span class="p">),</span>
+            <span class="n">plot_registration</span><span class="p">(</span>
+                <span class="n">anat</span><span class="p">,</span>
+                <span class="s2">&quot;fixed-image&quot;</span><span class="p">,</span>
+                <span class="n">estimate_brightness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span>
+                <span class="n">contour</span><span class="o">=</span><span class="n">contour_nii</span><span class="p">,</span>
+                <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span><span class="p">,</span>
+            <span class="p">),</span>
             <span class="p">[],</span>
-            <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_report</span>
+            <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_report</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
@@ -299,10 +321,13 @@
 <span class="sd">    A subclass must define an ``input_spec`` and override ``_generate_report``.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generate_report</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ReportingInterface</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">generate_report</span><span class="o">=</span><span class="n">generate_report</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ReportingInterface</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">generate_report</span><span class="o">=</span><span class="n">generate_report</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">runtime</span></div>

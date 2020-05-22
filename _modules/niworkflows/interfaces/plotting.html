@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.plotting &mdash; niworkflows 1.2.0 documentation</title>
+  <title>niworkflows.interfaces.plotting &mdash; niworkflows 1.2.0+2.g9b0f646590 documentation</title>
   
 
   
@@ -153,12 +153,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.interfaces.plotting</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -168,53 +165,58 @@
 
 <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">fname_presuffix</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">File</span><span class="p">,</span> <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span> <span class="n">TraitedSpec</span><span class="p">,</span> <span class="n">SimpleInterface</span><span class="p">,</span> <span class="n">traits</span><span class="p">,</span> <span class="n">isdefined</span>
+    <span class="n">File</span><span class="p">,</span>
+    <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span>
+    <span class="n">TraitedSpec</span><span class="p">,</span>
+    <span class="n">SimpleInterface</span><span class="p">,</span>
+    <span class="n">traits</span><span class="p">,</span>
+    <span class="n">isdefined</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">..viz.plots</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">fMRIPlot</span><span class="p">,</span> <span class="n">compcor_variance_plot</span><span class="p">,</span> <span class="n">confounds_correlation_plot</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..viz.plots</span> <span class="kn">import</span> <span class="n">fMRIPlot</span><span class="p">,</span> <span class="n">compcor_variance_plot</span><span class="p">,</span> <span class="n">confounds_correlation_plot</span>
 
 
 <span class="k">class</span> <span class="nc">_FMRISummaryInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
-    <span class="n">in_func</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">in_mask</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">in_segm</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">in_spikes_bg</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">fd</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">fd_thres</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">dvars</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">outliers</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">tr</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;the TR&#39;</span><span class="p">)</span>
+    <span class="n">in_func</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">in_mask</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">in_segm</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">in_spikes_bg</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">fd_thres</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">dvars</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">tr</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the TR&quot;</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_FMRISummaryOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">out_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;written file path&#39;</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;written file path&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="FMRISummary"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.plotting.html#niworkflows.interfaces.plotting.FMRISummary">[docs]</a><span class="k">class</span> <span class="nc">FMRISummary</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prepare an fMRI summary plot for the report.&quot;&quot;&quot;</span>
+
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_FMRISummaryInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_FMRISummaryOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_func</span><span class="p">,</span>
-            <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_fmriplot.svg&#39;</span><span class="p">,</span>
+            <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_fmriplot.svg&quot;</span><span class="p">,</span>
             <span class="n">use_ext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
+            <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span>
+        <span class="p">)</span>
 
-        <span class="n">dataframe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-            <span class="s1">&#39;outliers&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">outliers</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
-            <span class="c1"># Pick non-standardize dvars (col 1)</span>
-            <span class="c1"># First timepoint is NaN (difference)</span>
-            <span class="s1">&#39;DVARS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">dvars</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
-            <span class="c1"># First timepoint is zero (reference volume)</span>
-            <span class="s1">&#39;FD&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fd</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
-        <span class="p">})</span>
+        <span class="n">dataframe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;outliers&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">outliers</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                <span class="c1"># Pick non-standardize dvars (col 1)</span>
+                <span class="c1"># First timepoint is NaN (difference)</span>
+                <span class="s2">&quot;DVARS&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span>
+                <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">dvars</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                <span class="c1"># First timepoint is zero (reference volume)</span>
+                <span class="s2">&quot;FD&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span>
+                <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fd</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
 
         <span class="n">fig</span> <span class="o">=</span> <span class="n">fMRIPlot</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_func</span><span class="p">,</span>
@@ -222,96 +224,116 @@
             <span class="n">seg_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_segm</span> <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">seg_file</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">spikes_files</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_spikes_bg</span><span class="p">],</span>
             <span class="n">tr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">tr</span><span class="p">,</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">dataframe</span><span class="p">[[</span><span class="s1">&#39;outliers&#39;</span><span class="p">,</span> <span class="s1">&#39;DVARS&#39;</span><span class="p">,</span> <span class="s1">&#39;FD&#39;</span><span class="p">]],</span>
-            <span class="n">units</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;outliers&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="s1">&#39;FD&#39;</span><span class="p">:</span> <span class="s1">&#39;mm&#39;</span><span class="p">},</span>
-            <span class="n">vlines</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;FD&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fd_thres</span><span class="p">]},</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">dataframe</span><span class="p">[[</span><span class="s2">&quot;outliers&quot;</span><span class="p">,</span> <span class="s2">&quot;DVARS&quot;</span><span class="p">,</span> <span class="s2">&quot;FD&quot;</span><span class="p">]],</span>
+            <span class="n">units</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;outliers&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;FD&quot;</span><span class="p">:</span> <span class="s2">&quot;mm&quot;</span><span class="p">},</span>
+            <span class="n">vlines</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;FD&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fd_thres</span><span class="p">]},</span>
         <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">],</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">],</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
 
 
 <span class="k">class</span> <span class="nc">_CompCorVariancePlotInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
-    <span class="n">metadata_files</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                 <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;List of files containing component &#39;</span>
-                                      <span class="s1">&#39;metadata&#39;</span><span class="p">)</span>
-    <span class="n">metadata_sources</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span>
-                                   <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;List of names of decompositions &#39;</span>
-                                        <span class="s1">&#39;(e.g., aCompCor, tCompCor) yielding &#39;</span>
-                                        <span class="s1">&#39;the arguments in `metadata_files`&#39;</span><span class="p">)</span>
+    <span class="n">metadata_files</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
+        <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;List of files containing component &quot;</span> <span class="s2">&quot;metadata&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">metadata_sources</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;List of names of decompositions &quot;</span>
+        <span class="s2">&quot;(e.g., aCompCor, tCompCor) yielding &quot;</span>
+        <span class="s2">&quot;the arguments in `metadata_files`&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">variance_thresholds</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
-        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">0.7</span><span class="p">),</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">0.9</span><span class="p">),</span>
-        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Levels of explained variance to include in &#39;</span>
-                              <span class="s1">&#39;plot&#39;</span><span class="p">)</span>
-    <span class="n">out_file</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Path to save plot&#39;</span><span class="p">)</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">0.7</span><span class="p">),</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">0.9</span><span class="p">),</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Levels of explained variance to include in &quot;</span> <span class="s2">&quot;plot&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Path to save plot&quot;</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_CompCorVariancePlotOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">out_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Path to saved plot&#39;</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Path to saved plot&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="CompCorVariancePlot"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.plotting.html#niworkflows.interfaces.plotting.CompCorVariancePlot">[docs]</a><span class="k">class</span> <span class="nc">CompCorVariancePlot</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Plot the number of components necessary to explain the specified levels of variance.&quot;&quot;&quot;</span>
+
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_CompCorVariancePlotInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_CompCorVariancePlotOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">metadata_files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_compcor.svg&#39;</span><span class="p">,</span>
+                <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_compcor.svg&quot;</span><span class="p">,</span>
                 <span class="n">use_ext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
+                <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_file</span>
         <span class="n">compcor_variance_plot</span><span class="p">(</span>
             <span class="n">metadata_files</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">metadata_files</span><span class="p">,</span>
             <span class="n">metadata_sources</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">metadata_sources</span><span class="p">,</span>
-            <span class="n">output_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">],</span>
-            <span class="n">varexp_thresh</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">variance_thresholds</span>
+            <span class="n">output_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">],</span>
+            <span class="n">varexp_thresh</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">variance_thresholds</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
 
 
 <span class="k">class</span> <span class="nc">_ConfoundsCorrelationPlotInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
-    <span class="n">confounds_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                          <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;File containing confound regressors&#39;</span><span class="p">)</span>
-    <span class="n">out_file</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Path to save plot&#39;</span><span class="p">)</span>
-    <span class="n">reference_column</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="s1">&#39;global_signal&#39;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                  <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Column in the confound file for &#39;</span>
-                                       <span class="s1">&#39;which all correlation magnitudes &#39;</span>
-                                       <span class="s1">&#39;should be ranked and plotted&#39;</span><span class="p">)</span>
-    <span class="n">max_dim</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                         <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Maximum number of regressors to include in &#39;</span>
-                              <span class="s1">&#39;plot. Regressors with highest magnitude of &#39;</span>
-                              <span class="s1">&#39;correlation with `reference_column` will be &#39;</span>
-                              <span class="s1">&#39;selected.&#39;</span><span class="p">)</span>
+    <span class="n">confounds_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;File containing confound regressors&quot;</span>
+    <span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span> <span class="n">File</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Path to save plot&quot;</span>
+    <span class="p">)</span>
+    <span class="n">reference_column</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span>
+        <span class="s2">&quot;global_signal&quot;</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Column in the confound file for &quot;</span>
+        <span class="s2">&quot;which all correlation magnitudes &quot;</span>
+        <span class="s2">&quot;should be ranked and plotted&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">max_dim</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
+        <span class="mi">70</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Maximum number of regressors to include in &quot;</span>
+        <span class="s2">&quot;plot. Regressors with highest magnitude of &quot;</span>
+        <span class="s2">&quot;correlation with `reference_column` will be &quot;</span>
+        <span class="s2">&quot;selected.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_ConfoundsCorrelationPlotOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">out_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Path to saved plot&#39;</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Path to saved plot&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ConfoundsCorrelationPlot"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.plotting.html#niworkflows.interfaces.plotting.ConfoundsCorrelationPlot">[docs]</a><span class="k">class</span> <span class="nc">ConfoundsCorrelationPlot</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Plot the correlation among confound regressors.&quot;&quot;&quot;</span>
+
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_ConfoundsCorrelationPlotInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_ConfoundsCorrelationPlotOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">confounds_file</span><span class="p">,</span>
-                <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_confoundCorrelation.svg&#39;</span><span class="p">,</span>
+                <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_confoundCorrelation.svg&quot;</span><span class="p">,</span>
                 <span class="n">use_ext</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
+                <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_file</span>
         <span class="n">confounds_correlation_plot</span><span class="p">(</span>
             <span class="n">confounds_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">confounds_file</span><span class="p">,</span>
-            <span class="n">output_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s1">&#39;out_file&#39;</span><span class="p">],</span>
+            <span class="n">output_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">],</span>
             <span class="n">reference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">reference_column</span><span class="p">,</span>
-            <span class="n">max_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">max_dim</span>
+            <span class="n">max_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">max_dim</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
 </pre></div>
@@ -344,7 +366,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.2.0
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -370,7 +392,7 @@
             <dd><a href="../../../1.1.7/index.html">1.1.7</a></dd>
             <dd><a href="../../../1.1.8/index.html">1.1.8</a></dd>
             <dd><a href="../../../1.1.9/index.html">1.1.9</a></dd>
-            <dd><a href="../../../1.2.0/_modules/niworkflows/interfaces/plotting.html">1.2.0</a></dd>
+            <dd><a href="../../../1.2.0/index.html">1.2.0</a></dd>
             <dd><a href="../../../1.2.0rc1/index.html">1.2.0rc1</a></dd>
             <dd><a href="../../../1.2.0rc2/index.html">1.2.0rc2</a></dd>
             <dd><a href="../../../1.2.0rc3/index.html">1.2.0rc3</a></dd>
@@ -382,7 +404,7 @@
             <dd><a href="../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/niworkflows/interfaces/plotting.html">master</a></dd>
         </dl>
     </div>
 </div>

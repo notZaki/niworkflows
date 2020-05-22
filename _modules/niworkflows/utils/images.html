@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.images &mdash; niworkflows 1.2.0 documentation</title>
+  <title>niworkflows.utils.images &mdash; niworkflows 1.2.0+2.g9b0f646590 documentation</title>
   
 
   
@@ -153,12 +153,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.utils.images</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Utilities to manipulate images.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
@@ -175,7 +172,7 @@
 <span class="sd">    with Fortran-ordered fire.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># ImageOpener handles zips transparently</span>
-    <span class="k">with</span> <span class="n">nb</span><span class="o">.</span><span class="n">openers</span><span class="o">.</span><span class="n">ImageOpener</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">nb</span><span class="o">.</span><span class="n">openers</span><span class="o">.</span><span class="n">ImageOpener</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
         <span class="n">header</span><span class="o">.</span><span class="n">write_to</span><span class="p">(</span><span class="n">fobj</span><span class="p">)</span>
         <span class="c1"># This function serializes one block at a time to reduce memory usage a bit</span>
         <span class="c1"># It assumes Fortran-ordered data.</span>
@@ -228,7 +225,7 @@
     <span class="n">header</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span>
     <span class="n">dataobj</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">dataobj</span>
 
-    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">dataobj</span><span class="p">,</span> <span class="s1">&#39;_mmap&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">dataobj</span><span class="p">,</span> <span class="s2">&quot;_mmap&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Image loaded with `mmap=True`. Aborting unsafe operation.&quot;</span><span class="p">)</span>
 
     <span class="n">set_consumables</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">dataobj</span><span class="p">)</span>
@@ -245,13 +242,12 @@
     <span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">errmsg</span><span class="p">(</span><span class="s2">&quot;data blocks are not the same size&quot;</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;vox_offset&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ondisk</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;vox_offset&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ondisk</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">errmsg</span><span class="p">(</span><span class="s2">&quot;change in offset from start of file&quot;</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;scl_slope&#39;</span><span class="p">],</span> <span class="n">ondisk</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">slope</span><span class="p">,</span> <span class="n">equal_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;scl_inter&#39;</span><span class="p">],</span> <span class="n">ondisk</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">inter</span><span class="p">,</span> <span class="n">equal_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
+        <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;scl_slope&quot;</span><span class="p">],</span> <span class="n">ondisk</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">slope</span><span class="p">,</span> <span class="n">equal_nan</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;scl_inter&quot;</span><span class="p">],</span> <span class="n">ondisk</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">inter</span><span class="p">,</span> <span class="n">equal_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">errmsg</span><span class="p">(</span><span class="s2">&quot;change in scale factors&quot;</span><span class="p">))</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dataobj</span><span class="o">.</span><span class="n">get_unscaled</span><span class="p">())</span>
@@ -278,13 +274,12 @@
     <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
     <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">fname_presuffix</span>
 
-    <span class="n">newpath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">newpath</span> <span class="ow">or</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="n">newpath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">newpath</span> <span class="ow">or</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
 
     <span class="n">nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_seg</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">(</span><span class="n">nii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span> <span class="o">==</span> <span class="n">label</span>
 
-    <span class="n">out_file</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span><span class="n">in_seg</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_mask&#39;</span><span class="p">,</span>
-                               <span class="n">newpath</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">newpath</span><span class="o">.</span><span class="n">absolute</span><span class="p">()))</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span><span class="n">in_seg</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_mask&quot;</span><span class="p">,</span> <span class="n">newpath</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">newpath</span><span class="o">.</span><span class="n">absolute</span><span class="p">()))</span>
     <span class="n">new</span> <span class="o">=</span> <span class="n">nii</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">nii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
     <span class="n">new</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
     <span class="n">new</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">out_file</span><span class="p">)</span>
@@ -319,7 +314,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.2.0
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -345,7 +340,7 @@
             <dd><a href="../../../1.1.7/index.html">1.1.7</a></dd>
             <dd><a href="../../../1.1.8/index.html">1.1.8</a></dd>
             <dd><a href="../../../1.1.9/index.html">1.1.9</a></dd>
-            <dd><a href="../../../1.2.0/_modules/niworkflows/utils/images.html">1.2.0</a></dd>
+            <dd><a href="../../../1.2.0/index.html">1.2.0</a></dd>
             <dd><a href="../../../1.2.0rc1/index.html">1.2.0rc1</a></dd>
             <dd><a href="../../../1.2.0rc2/index.html">1.2.0rc2</a></dd>
             <dd><a href="../../../1.2.0rc3/index.html">1.2.0rc3</a></dd>
@@ -357,7 +352,7 @@
             <dd><a href="../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/niworkflows/utils/images.html">master</a></dd>
         </dl>
     </div>
 </div>

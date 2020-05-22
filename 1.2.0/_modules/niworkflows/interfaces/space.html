@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.space &mdash; niworkflows 1.2.0 documentation</title>
+  <title>niworkflows.interfaces.space &mdash; niworkflows 1.2.0+2.g9b0f646590 documentation</title>
   
 
   
@@ -164,13 +164,17 @@
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
 <span class="sd">&quot;&quot;&quot;Interfaces for handling spaces.&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">traits</span><span class="p">,</span> <span class="n">TraitedSpec</span><span class="p">,</span> <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span> <span class="n">SimpleInterface</span><span class="p">,</span>
+    <span class="n">traits</span><span class="p">,</span>
+    <span class="n">TraitedSpec</span><span class="p">,</span>
+    <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span>
+    <span class="n">SimpleInterface</span><span class="p">,</span>
 <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_SpaceDataSourceInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
-    <span class="n">in_tuple</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">((</span><span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Dict</span><span class="p">),</span>
-                            <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;a space declaration&quot;</span><span class="p">)</span>
+    <span class="n">in_tuple</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Dict</span><span class="p">),</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;a space declaration&quot;</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_SpaceDataSourceOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
@@ -214,6 +218,7 @@
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">..utils.spaces</span> <span class="kn">import</span> <span class="n">format_reference</span><span class="p">,</span> <span class="n">reference2dict</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_results</span> <span class="o">=</span> <span class="n">reference2dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_tuple</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;uid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">format_reference</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_tuple</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.ants &mdash; niworkflows 1.2.0 documentation</title>
+  <title>niworkflows.interfaces.ants &mdash; niworkflows 1.2.0+2.g9b0f646590 documentation</title>
   
 
   
@@ -153,12 +153,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.interfaces.ants</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -171,24 +168,39 @@
 
 
 <span class="k">class</span> <span class="nc">_ImageMathInputSpec</span><span class="p">(</span><span class="n">ANTSCommandInputSpec</span><span class="p">):</span>
-    <span class="n">dimension</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span>
-                           <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;dimension of output image&#39;</span><span class="p">)</span>
-    <span class="n">output_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;op1&#39;</span><span class="p">],</span>
-                             <span class="n">name_template</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_maths&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output image file&#39;</span><span class="p">,</span>
-                             <span class="n">keep_extension</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">operation</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span><span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-                         <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;operations and intputs&#39;</span><span class="p">)</span>
-    <span class="n">op1</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-                    <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;first operator&#39;</span><span class="p">)</span>
-    <span class="n">op2</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">base</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span> <span class="n">position</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-                        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;second operator&#39;</span><span class="p">)</span>
+    <span class="n">dimension</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
+        <span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;dimension of output image&quot;</span>
+    <span class="p">)</span>
+    <span class="n">output_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;op1&quot;</span><span class="p">],</span>
+        <span class="n">name_template</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_maths&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;output image file&quot;</span><span class="p">,</span>
+        <span class="n">keep_extension</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">operation</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;operations and intputs&quot;</span>
+    <span class="p">)</span>
+    <span class="n">op1</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;first operator&quot;</span>
+    <span class="p">)</span>
+    <span class="n">op2</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span>
+        <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">base</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;second operator&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">copy_header</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
-        <span class="kc">True</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;copy headers of the original image into the output (corrected) file&#39;</span><span class="p">)</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;copy headers of the original image into the output (corrected) file&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_ImageMathOuputSpec</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">output_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output image file&#39;</span><span class="p">)</span>
+    <span class="n">output_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;output image file&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ImageMath"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ImageMath">[docs]</a><span class="k">class</span> <span class="nc">ImageMath</span><span class="p">(</span><span class="n">ANTSCommand</span><span class="p">):</span>
@@ -205,42 +217,57 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_cmd</span> <span class="o">=</span> <span class="s1">&#39;ImageMath&#39;</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;ImageMath&quot;</span>
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_ImageMathInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_ImageMathOuputSpec</span>
 
     <span class="k">def</span> <span class="nf">_list_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ImageMath</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_list_outputs</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">copy_header</span><span class="p">:</span>  <span class="c1"># Fix headers</span>
-            <span class="n">_copy_header</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">op1</span><span class="p">,</span> <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;output_image&#39;</span><span class="p">],</span>
-                         <span class="n">set_dtype</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">_copy_header</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">op1</span><span class="p">,</span> <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;output_image&quot;</span><span class="p">],</span> <span class="n">set_dtype</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">outputs</span></div>
 
 
 <span class="k">class</span> <span class="nc">_ResampleImageBySpacingInputSpec</span><span class="p">(</span><span class="n">ANTSCommandInputSpec</span><span class="p">):</span>
-    <span class="n">dimension</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span>
-                           <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;dimension of output image&#39;</span><span class="p">)</span>
-    <span class="n">input_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-                            <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;input image file&#39;</span><span class="p">)</span>
-    <span class="n">output_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;input_image&#39;</span><span class="p">],</span>
-                             <span class="n">name_template</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_resampled&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output image file&#39;</span><span class="p">,</span>
-                             <span class="n">keep_extension</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dimension</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
+        <span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;dimension of output image&quot;</span>
+    <span class="p">)</span>
+    <span class="n">input_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;input image file&quot;</span>
+    <span class="p">)</span>
+    <span class="n">output_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input_image&quot;</span><span class="p">],</span>
+        <span class="n">name_template</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_resampled&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;output image file&quot;</span><span class="p">,</span>
+        <span class="n">keep_extension</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">out_spacing</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">minlen</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">),</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">),</span>
-        <span class="n">position</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output spacing&#39;</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;output spacing&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">apply_smoothing</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                                  <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;smooth before resampling&#39;</span><span class="p">)</span>
-    <span class="n">addvox</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;apply_smoothing&#39;</span><span class="p">],</span>
-                        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;addvox pads each dimension by addvox&#39;</span><span class="p">)</span>
-    <span class="n">nn_interp</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;nn interpolation&#39;</span><span class="p">,</span>
-                            <span class="n">position</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;addvox&#39;</span><span class="p">])</span>
+    <span class="n">apply_smoothing</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="kc">False</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;smooth before resampling&quot;</span>
+    <span class="p">)</span>
+    <span class="n">addvox</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;apply_smoothing&quot;</span><span class="p">],</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;addvox pads each dimension by addvox&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">nn_interp</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;nn interpolation&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;addvox&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_ResampleImageBySpacingOutputSpec</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">output_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;resampled file&#39;</span><span class="p">)</span>
+    <span class="n">output_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;resampled file&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ResampleImageBySpacing"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ResampleImageBySpacing">[docs]</a><span class="k">class</span> <span class="nc">ResampleImageBySpacing</span><span class="p">(</span><span class="n">ANTSCommand</span><span class="p">):</span>
@@ -276,53 +303,73 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_cmd</span> <span class="o">=</span> <span class="s1">&#39;ResampleImageBySpacing&#39;</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;ResampleImageBySpacing&quot;</span>
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_ResampleImageBySpacingInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_ResampleImageBySpacingOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_format_arg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">trait_spec</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;out_spacing&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;out_spacing&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">dimension</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;out_spacing dimensions should match dimension&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;out_spacing dimensions should match dimension&quot;</span><span class="p">)</span>
 
-            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%g</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">value</span><span class="p">])</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%g</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">value</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ResampleImageBySpacing</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_format_arg</span><span class="p">(</span>
-            <span class="n">name</span><span class="p">,</span> <span class="n">trait_spec</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ResampleImageBySpacing</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_format_arg</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">trait_spec</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_ThresholdImageInputSpec</span><span class="p">(</span><span class="n">ANTSCommandInputSpec</span><span class="p">):</span>
-    <span class="n">dimension</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span>
-                           <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;dimension of output image&#39;</span><span class="p">)</span>
-    <span class="n">input_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-                            <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;input image file&#39;</span><span class="p">)</span>
-    <span class="n">output_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;input_image&#39;</span><span class="p">],</span>
-                             <span class="n">name_template</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_resampled&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output image file&#39;</span><span class="p">,</span>
-                             <span class="n">keep_extension</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dimension</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
+        <span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;dimension of output image&quot;</span>
+    <span class="p">)</span>
+    <span class="n">input_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;input image file&quot;</span>
+    <span class="p">)</span>
+    <span class="n">output_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">name_source</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;input_image&quot;</span><span class="p">],</span>
+        <span class="n">name_template</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_resampled&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;output image file&quot;</span><span class="p">,</span>
+        <span class="n">keep_extension</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="n">mode</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Otsu&#39;</span><span class="p">,</span> <span class="s1">&#39;Kmeans&#39;</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                       <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;num_thresholds&#39;</span><span class="p">],</span> <span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;th_low&#39;</span><span class="p">,</span> <span class="s1">&#39;th_high&#39;</span><span class="p">],</span>
-                       <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;whether to run Otsu / Kmeans thresholding&#39;</span><span class="p">)</span>
-    <span class="n">num_thresholds</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span>
-                                <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;number of thresholds&#39;</span><span class="p">)</span>
-    <span class="n">input_mask</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;num_thresholds&#39;</span><span class="p">],</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-                           <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;input mask for Otsu, Kmeans&#39;</span><span class="p">)</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span>
+        <span class="s2">&quot;Otsu&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Kmeans&quot;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;num_thresholds&quot;</span><span class="p">],</span>
+        <span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;th_low&quot;</span><span class="p">,</span> <span class="s2">&quot;th_high&quot;</span><span class="p">],</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;whether to run Otsu / Kmeans thresholding&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">num_thresholds</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;number of thresholds&quot;</span><span class="p">)</span>
+    <span class="n">input_mask</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;num_thresholds&quot;</span><span class="p">],</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;input mask for Otsu, Kmeans&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="n">th_low</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">],</span>
-                          <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;lower threshold&#39;</span><span class="p">)</span>
-    <span class="n">th_high</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">],</span>
-                           <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;upper threshold&#39;</span><span class="p">)</span>
-    <span class="n">inside_value</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;th_low&#39;</span><span class="p">],</span>
-                                <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;inside value&#39;</span><span class="p">)</span>
-    <span class="n">outside_value</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;th_low&#39;</span><span class="p">],</span>
-                                 <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;outside value&#39;</span><span class="p">)</span>
+    <span class="n">th_low</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mode&quot;</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;lower threshold&quot;</span><span class="p">)</span>
+    <span class="n">th_high</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span>
+        <span class="n">position</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mode&quot;</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;upper threshold&quot;</span>
+    <span class="p">)</span>
+    <span class="n">inside_value</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;th_low&quot;</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;inside value&quot;</span>
+    <span class="p">)</span>
+    <span class="n">outside_value</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;th_low&quot;</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;outside value&quot;</span>
+    <span class="p">)</span>
     <span class="n">copy_header</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
-        <span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;copy headers of the original image into the output (corrected) file&#39;</span><span class="p">)</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;copy headers of the original image into the output (corrected) file&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_ThresholdImageOutputSpec</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">output_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;resampled file&#39;</span><span class="p">)</span>
+    <span class="n">output_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;resampled file&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ThresholdImage"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ThresholdImage">[docs]</a><span class="k">class</span> <span class="nc">ThresholdImage</span><span class="p">(</span><span class="n">ANTSCommand</span><span class="p">):</span>
@@ -355,118 +402,146 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_cmd</span> <span class="o">=</span> <span class="s1">&#39;ThresholdImage&#39;</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;ThresholdImage&quot;</span>
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_ThresholdImageInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_ThresholdImageOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_list_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ThresholdImage</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_list_outputs</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">copy_header</span><span class="p">:</span>  <span class="c1"># Fix headers</span>
-            <span class="n">_copy_header</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span><span class="p">,</span> <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;output_image&#39;</span><span class="p">],</span>
-                         <span class="n">set_dtype</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">_copy_header</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">input_image</span><span class="p">,</span> <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;output_image&quot;</span><span class="p">],</span> <span class="n">set_dtype</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">outputs</span></div>
 
 
 <span class="k">class</span> <span class="nc">_AIInputSpec</span><span class="p">(</span><span class="n">ANTSCommandInputSpec</span><span class="p">):</span>
-    <span class="n">dimension</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-d </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span>
-                           <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;dimension of output image&#39;</span><span class="p">)</span>
-    <span class="n">verbose</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-v </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span>
-                          <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;enable verbosity&#39;</span><span class="p">)</span>
+    <span class="n">dimension</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
+        <span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-d </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;dimension of output image&quot;</span>
+    <span class="p">)</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="kc">False</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-v </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;enable verbosity&quot;</span>
+    <span class="p">)</span>
 
     <span class="n">fixed_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
-        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Image to which the moving_image should be transformed&#39;</span><span class="p">)</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Image to which the moving_image should be transformed&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">moving_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
-        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Image that will be transformed to fixed_image&#39;</span><span class="p">)</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Image that will be transformed to fixed_image&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="n">fixed_image_mask</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
-        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-x </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;fixed mage mask&#39;</span><span class="p">)</span>
+    <span class="n">fixed_image_mask</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-x </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;fixed mage mask&quot;</span><span class="p">)</span>
     <span class="n">moving_image_mask</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
-        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fixed_image_mask&#39;</span><span class="p">],</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;moving mage mask&#39;</span><span class="p">)</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;fixed_image_mask&quot;</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;moving mage mask&quot;</span>
+    <span class="p">)</span>
 
     <span class="n">metric_trait</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s2">&quot;Mattes&quot;</span><span class="p">,</span> <span class="s2">&quot;GC&quot;</span><span class="p">,</span> <span class="s2">&quot;MI&quot;</span><span class="p">),</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
-        <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Regular&#39;</span><span class="p">,</span> <span class="s1">&#39;Random&#39;</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">),</span>
-        <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s2">&quot;Regular&quot;</span><span class="p">,</span> <span class="s2">&quot;Random&quot;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">),</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
     <span class="p">)</span>
-    <span class="n">metric</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span><span class="o">*</span><span class="n">metric_trait</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-m </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                          <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;the metric(s) to use.&#39;</span><span class="p">)</span>
+    <span class="n">metric</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">metric_trait</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-m </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the metric(s) to use.&quot;</span>
+    <span class="p">)</span>
 
     <span class="n">transform</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
-        <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Affine&#39;</span><span class="p">,</span> <span class="s1">&#39;Rigid&#39;</span><span class="p">,</span> <span class="s1">&#39;Similarity&#39;</span><span class="p">),</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="s2">&quot;Affine&quot;</span><span class="p">,</span> <span class="s2">&quot;Rigid&quot;</span><span class="p">,</span> <span class="s2">&quot;Similarity&quot;</span><span class="p">),</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">exclude_low</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-t </span><span class="si">%s</span><span class="s1">[</span><span class="si">%f</span><span class="s1">]&#39;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Several transform options are available&#39;</span><span class="p">)</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-t </span><span class="si">%s</span><span class="s2">[</span><span class="si">%f</span><span class="s2">]&quot;</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Several transform options are available&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
-    <span class="n">principal_axes</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-p </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;blobs&#39;</span><span class="p">],</span>
-                                 <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;align using principal axes&#39;</span><span class="p">)</span>
+    <span class="n">principal_axes</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-p </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;blobs&quot;</span><span class="p">],</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;align using principal axes&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">search_factor</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
-        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
-        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-s [</span><span class="si">%f</span><span class="s1">,</span><span class="si">%f</span><span class="s1">]&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;search factor&#39;</span><span class="p">)</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-s [</span><span class="si">%f</span><span class="s2">,</span><span class="si">%f</span><span class="s2">]&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;search factor&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">search_grid</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span>
-        <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">)),</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
+            <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">)</span>
+        <span class="p">),</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">)),</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-g </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Translation search grid in mm&#39;</span><span class="p">)</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-g </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Translation search grid in mm&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">convergence</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">),</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
-        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-c [</span><span class="si">%d</span><span class="s1">,</span><span class="si">%f</span><span class="s1">,</span><span class="si">%d</span><span class="s1">]&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;convergence&#39;</span><span class="p">)</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-c [</span><span class="si">%d</span><span class="s2">,</span><span class="si">%f</span><span class="s2">,</span><span class="si">%d</span><span class="s2">]&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;convergence&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="n">output_transform</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
-        <span class="s1">&#39;initialization.mat&#39;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-o </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output file name&#39;</span><span class="p">)</span>
+        <span class="s2">&quot;initialization.mat&quot;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-o </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;output file name&quot;</span>
+    <span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_AIOuputSpec</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">output_transform</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;output file name&#39;</span><span class="p">)</span>
+    <span class="n">output_transform</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;output file name&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="AI"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.AI">[docs]</a><span class="k">class</span> <span class="nc">AI</span><span class="p">(</span><span class="n">ANTSCommand</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Replaces ``AffineInitializer``.&quot;&quot;&quot;</span>
 
-    <span class="n">_cmd</span> <span class="o">=</span> <span class="s1">&#39;antsAI&#39;</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;antsAI&quot;</span>
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_AIInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_AIOuputSpec</span>
 
-    <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">,</span> <span class="n">correct_return_codes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">)):</span>
-        <span class="n">runtime</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">AI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_run_interface</span><span class="p">(</span>
-            <span class="n">runtime</span><span class="p">,</span> <span class="n">correct_return_codes</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">,</span> <span class="n">correct_return_codes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,)):</span>
+        <span class="n">runtime</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">AI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_run_interface</span><span class="p">(</span><span class="n">runtime</span><span class="p">,</span> <span class="n">correct_return_codes</span><span class="p">)</span>
 
-        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_output&#39;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s1">&#39;output_transform&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_transform</span><span class="p">))</span>
-        <span class="p">})</span>
+        <span class="nb">setattr</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;_output&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;output_transform&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">output_transform</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span>
 
     <span class="k">def</span> <span class="nf">_format_arg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;metric&#39;</span><span class="p">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">[</span><span class="si">{fixed_image}</span><span class="s1">,</span><span class="si">{moving_image}</span><span class="s1">,</span><span class="si">%d</span><span class="s1">,</span><span class="si">%s</span><span class="s1">,</span><span class="si">%f</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="n">val</span>
+        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;metric&quot;</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">[</span><span class="si">{fixed_image}</span><span class="s2">,</span><span class="si">{moving_image}</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%f</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">val</span>
             <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">fixed_image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fixed_image</span><span class="p">,</span>
-                <span class="n">moving_image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">moving_image</span><span class="p">)</span>
+                <span class="n">moving_image</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">moving_image</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="k">return</span> <span class="n">spec</span><span class="o">.</span><span class="n">argstr</span> <span class="o">%</span> <span class="n">val</span>
 
-        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;search_grid&#39;</span><span class="p">:</span>
-            <span class="n">val1</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
-            <span class="n">fmtval</span> <span class="o">=</span> <span class="s1">&#39;[</span><span class="si">%s</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">val1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;search_grid&quot;</span><span class="p">:</span>
+            <span class="n">val1</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="n">fmtval</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">val1</span><span class="p">])</span>
             <span class="k">return</span> <span class="n">spec</span><span class="o">.</span><span class="n">argstr</span> <span class="o">%</span> <span class="n">fmtval</span>
 
-        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;fixed_image_mask&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;fixed_image_mask&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">moving_image_mask</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">spec</span><span class="o">.</span><span class="n">argstr</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;[</span><span class="si">%s</span><span class="s1">,</span><span class="si">%s</span><span class="s1">]&#39;</span> <span class="o">%</span> <span class="p">(</span>
-                    <span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">moving_image_mask</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">spec</span><span class="o">.</span><span class="n">argstr</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">moving_image_mask</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_format_arg</span><span class="p">(</span><span class="n">opt</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_list_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_output&#39;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_output&quot;</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_AntsJointFusionInputSpec</span><span class="p">(</span><span class="n">ANTSCommandInputSpec</span><span class="p">):</span>
@@ -474,131 +549,153 @@
         <span class="mi">3</span><span class="p">,</span>
         <span class="mi">2</span><span class="p">,</span>
         <span class="mi">4</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-d </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;This option forces the image to be treated &#39;</span>
-        <span class="s1">&#39;as a specified-dimensional image. If not &#39;</span>
-        <span class="s1">&#39;specified, the program tries to infer the &#39;</span>
-        <span class="s1">&#39;dimensionality from the input image.&#39;</span><span class="p">)</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-d </span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;This option forces the image to be treated &quot;</span>
+        <span class="s2">&quot;as a specified-dimensional image. If not &quot;</span>
+        <span class="s2">&quot;specified, the program tries to infer the &quot;</span>
+        <span class="s2">&quot;dimensionality from the input image.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">target_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
         <span class="n">base</span><span class="o">.</span><span class="n">InputMultiPath</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-t </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-t </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;The target image (or &#39;</span>
-        <span class="s1">&#39;multimodal target images) assumed to be &#39;</span>
-        <span class="s1">&#39;aligned to a common image domain.&#39;</span><span class="p">)</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;The target image (or &quot;</span>
+        <span class="s2">&quot;multimodal target images) assumed to be &quot;</span>
+        <span class="s2">&quot;aligned to a common image domain.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">atlas_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
         <span class="n">base</span><span class="o">.</span><span class="n">InputMultiPath</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
         <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-g </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span>
         <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;The atlas image (or &#39;</span>
-        <span class="s1">&#39;multimodal atlas images) assumed to be &#39;</span>
-        <span class="s1">&#39;aligned to a common image domain.&#39;</span><span class="p">)</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;The atlas image (or &quot;</span>
+        <span class="s2">&quot;multimodal atlas images) assumed to be &quot;</span>
+        <span class="s2">&quot;aligned to a common image domain.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">atlas_segmentation_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">InputMultiPath</span><span class="p">(</span>
         <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-l </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="p">,</span>
         <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;The atlas segmentation &#39;</span>
-        <span class="s1">&#39;images. For performing label fusion the number &#39;</span>
-        <span class="s1">&#39;of specified segmentations should be identical &#39;</span>
-        <span class="s1">&#39;to the number of atlas image sets.&#39;</span><span class="p">)</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;The atlas segmentation &quot;</span>
+        <span class="s2">&quot;images. For performing label fusion the number &quot;</span>
+        <span class="s2">&quot;of specified segmentations should be identical &quot;</span>
+        <span class="s2">&quot;to the number of atlas image sets.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span>
         <span class="n">default_value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-a </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-a </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
-            <span class="s1">&#39;Regularization &#39;</span>
-            <span class="s1">&#39;term added to matrix Mx for calculating the inverse. Default = 0.1&#39;</span>
-        <span class="p">))</span>
+            <span class="s2">&quot;Regularization &quot;</span>
+            <span class="s2">&quot;term added to matrix Mx for calculating the inverse. Default = 0.1&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">beta</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span>
         <span class="n">default_value</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-b </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Exponent for mapping &#39;</span>
-              <span class="s1">&#39;intensity difference to the joint error. Default = 2.0&#39;</span><span class="p">))</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-b </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Exponent for mapping &quot;</span>
+            <span class="s2">&quot;intensity difference to the joint error. Default = 2.0&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">retain_label_posterior_images</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
         <span class="kc">False</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-r&quot;</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;atlas_segmentation_image&#39;</span><span class="p">],</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Retain label posterior probability images. Requires &#39;</span>
-              <span class="s1">&#39;atlas segmentations to be specified. Default = false&#39;</span><span class="p">))</span>
+        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;atlas_segmentation_image&quot;</span><span class="p">],</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Retain label posterior probability images. Requires &quot;</span>
+            <span class="s2">&quot;atlas segmentations to be specified. Default = false&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">retain_atlas_voting_images</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
         <span class="kc">False</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Retain atlas voting images. Default = false&#39;</span><span class="p">))</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Retain atlas voting images. Default = false&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">constrain_nonnegative</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
         <span class="kc">False</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-c&quot;</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Constrain solution to non-negative weights.&#39;</span><span class="p">))</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Constrain solution to non-negative weights.&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">patch_radius</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">ListInt</span><span class="p">(</span>
         <span class="n">minlen</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
         <span class="n">maxlen</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-p </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Patch radius for similarity measures.&#39;</span>
-              <span class="s1">&#39;Default: 2x2x2&#39;</span><span class="p">))</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-p </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Patch radius for similarity measures.&quot;</span> <span class="s2">&quot;Default: 2x2x2&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">patch_metric</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span>
-        <span class="s1">&#39;PC&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;MSQ&#39;</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-m </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Metric to be used in determining the most similar &#39;</span>
-              <span class="s1">&#39;neighborhood patch. Options include Pearson</span><span class="se">\&#39;</span><span class="s1">s &#39;</span>
-              <span class="s1">&#39;correlation (PC) and mean squares (MSQ). Default = &#39;</span>
-              <span class="s1">&#39;PC (Pearson correlation).&#39;</span><span class="p">))</span>
+        <span class="s2">&quot;PC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MSQ&quot;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-m </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Metric to be used in determining the most similar &quot;</span>
+            <span class="s2">&quot;neighborhood patch. Options include Pearson&#39;s &quot;</span>
+            <span class="s2">&quot;correlation (PC) and mean squares (MSQ). Default = &quot;</span>
+            <span class="s2">&quot;PC (Pearson correlation).&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">search_radius</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
         <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
         <span class="n">minlen</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">maxlen</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-s </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-s </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Search radius for similarity measures. Default = 3x3x3. &#39;</span>
-              <span class="s1">&#39;One can also specify an image where the value at the &#39;</span>
-              <span class="s1">&#39;voxel specifies the isotropic search radius at that voxel.&#39;</span><span class="p">))</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Search radius for similarity measures. Default = 3x3x3. &quot;</span>
+            <span class="s2">&quot;One can also specify an image where the value at the &quot;</span>
+            <span class="s2">&quot;voxel specifies the isotropic search radius at that voxel.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">exclusion_image_label</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
         <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(),</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-e </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;exclusion_image&#39;</span><span class="p">],</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Specify a label for the exclusion region.&#39;</span><span class="p">))</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-e </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;exclusion_image&quot;</span><span class="p">],</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Specify a label for the exclusion region.&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">exclusion_image</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
         <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Specify an exclusion region for the given label.&#39;</span><span class="p">))</span>
+        <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Specify an exclusion region for the given label.&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="n">mask_image</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s1">&#39;-x </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-x </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;If a mask image &#39;</span>
-        <span class="s1">&#39;is specified, fusion is only performed in the mask region.&#39;</span><span class="p">)</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;If a mask image &quot;</span>
+        <span class="s2">&quot;is specified, fusion is only performed in the mask region.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">out_label_fusion</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span>
-        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">hash_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;The output label fusion image.&#39;</span><span class="p">)</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">hash_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;The output label fusion image.&quot;</span>
+    <span class="p">)</span>
     <span class="n">out_intensity_fusion_name_format</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span>
         <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Optional intensity fusion &#39;</span>
-        <span class="s1">&#39;image file name format. &#39;</span>
-        <span class="s1">&#39;(e.g. &quot;antsJointFusionIntensity_</span><span class="si">%d</span><span class="s1">.nii.gz&quot;)&#39;</span><span class="p">)</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Optional intensity fusion &quot;</span>
+        <span class="s2">&quot;image file name format. &quot;</span>
+        <span class="s1">&#39;(e.g. &quot;antsJointFusionIntensity_</span><span class="si">%d</span><span class="s1">.nii.gz&quot;)&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">out_label_post_prob_name_format</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span>
-        <span class="s1">&#39;antsJointFusionPosterior_</span><span class="si">%d</span><span class="s1">.nii.gz&#39;</span><span class="p">,</span>
-        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;out_label_fusion&#39;</span><span class="p">,</span> <span class="s1">&#39;out_intensity_fusion_name_format&#39;</span><span class="p">],</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Optional label posterior probability &#39;</span>
-        <span class="s1">&#39;image file name format.&#39;</span><span class="p">)</span>
+        <span class="s2">&quot;antsJointFusionPosterior_</span><span class="si">%d</span><span class="s2">.nii.gz&quot;</span><span class="p">,</span>
+        <span class="n">requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;out_label_fusion&quot;</span><span class="p">,</span> <span class="s2">&quot;out_intensity_fusion_name_format&quot;</span><span class="p">],</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Optional label posterior probability &quot;</span> <span class="s2">&quot;image file name format.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">out_atlas_voting_weight_name_format</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">(</span>
-        <span class="s1">&#39;antsJointFusionVotingWeight_</span><span class="si">%d</span><span class="s1">.nii.gz&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;antsJointFusionVotingWeight_</span><span class="si">%d</span><span class="s2">.nii.gz&quot;</span><span class="p">,</span>
         <span class="n">requires</span><span class="o">=</span><span class="p">[</span>
-            <span class="s1">&#39;out_label_fusion&#39;</span><span class="p">,</span> <span class="s1">&#39;out_intensity_fusion_name_format&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;out_label_post_prob_name_format&#39;</span>
+            <span class="s2">&quot;out_label_fusion&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;out_intensity_fusion_name_format&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;out_label_post_prob_name_format&quot;</span><span class="p">,</span>
         <span class="p">],</span>
-        <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Optional atlas voting weight image &#39;</span>
-        <span class="s1">&#39;file name format.&#39;</span><span class="p">)</span>
-    <span class="n">verbose</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Verbose output.&#39;</span><span class="p">))</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Optional atlas voting weight image &quot;</span> <span class="s2">&quot;file name format.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;-v&quot;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Verbose output.&quot;</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">_AntsJointFusionOutputSpec</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">TraitedSpec</span><span class="p">):</span>
     <span class="n">out_label_fusion</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">out_intensity_fusion</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">OutputMultiPath</span><span class="p">(</span>
-        <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-    <span class="n">out_label_post_prob</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">OutputMultiPath</span><span class="p">(</span>
-        <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-    <span class="n">out_atlas_voting_weight</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">OutputMultiPath</span><span class="p">(</span>
-        <span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">out_intensity_fusion</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">OutputMultiPath</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">out_label_post_prob</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">OutputMultiPath</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">out_atlas_voting_weight</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">OutputMultiPath</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
 
 <div class="viewcode-block" id="AntsJointFusion"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.AntsJointFusion">[docs]</a><span class="k">class</span> <span class="nc">AntsJointFusion</span><span class="p">(</span><span class="n">ANTSCommand</span><span class="p">):</span>
@@ -606,69 +703,78 @@
 
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_AntsJointFusionInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_AntsJointFusionOutputSpec</span>
-    <span class="n">_cmd</span> <span class="o">=</span> <span class="s1">&#39;antsJointFusion&#39;</span>
+    <span class="n">_cmd</span> <span class="o">=</span> <span class="s2">&quot;antsJointFusion&quot;</span>
 
     <span class="k">def</span> <span class="nf">_format_arg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opt</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;exclusion_image_label&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;exclusion_image_label&quot;</span><span class="p">:</span>
             <span class="n">retval</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">exclusion_image_label</span><span class="p">)):</span>
                 <span class="n">retval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="s1">&#39;-e </span><span class="si">{0}</span><span class="s1">[</span><span class="si">{1}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">exclusion_image_label</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span>
-                                         <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">exclusion_image</span><span class="p">[</span><span class="n">ii</span><span class="p">]))</span>
-            <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">retval</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;patch_radius&#39;</span><span class="p">:</span>
-            <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;-p </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_format_xarray</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;search_radius&#39;</span><span class="p">:</span>
-            <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;-s </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_format_xarray</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;out_label_fusion&#39;</span><span class="p">:</span>
+                    <span class="s2">&quot;-e </span><span class="si">{0}</span><span class="s2">[</span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">exclusion_image_label</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">exclusion_image</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">retval</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;patch_radius&quot;</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot;-p </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_format_xarray</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;search_radius&quot;</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot;-s </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_format_xarray</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;out_label_fusion&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_post_prob_name_format</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_atlas_voting_weight_name_format</span><span class="p">):</span>
-                        <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;-o [</span><span class="si">{0}</span><span class="s1">, </span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">, </span><span class="si">{3}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_atlas_voting_weight_name_format</span><span class="p">):</span>
+                        <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot;-o [</span><span class="si">{0}</span><span class="s2">, </span><span class="si">{1}</span><span class="s2">, </span><span class="si">{2}</span><span class="s2">, </span><span class="si">{3}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">,</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="p">,</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_post_prob_name_format</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_atlas_voting_weight_name_format</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_atlas_voting_weight_name_format</span><span class="p">,</span>
+                        <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;-o [</span><span class="si">{0}</span><span class="s1">, </span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot;-o [</span><span class="si">{0}</span><span class="s2">, </span><span class="si">{1}</span><span class="s2">, </span><span class="si">{2}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">,</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_post_prob_name_format</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_post_prob_name_format</span><span class="p">,</span>
+                        <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;-o [</span><span class="si">{0}</span><span class="s1">, </span><span class="si">{1}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot;-o [</span><span class="si">{0}</span><span class="s2">, </span><span class="si">{1}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">,</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="p">,</span>
+                    <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;-o </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;out_intensity_fusion_name_format&#39;</span><span class="p">:</span>
-            <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot;-o </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;out_intensity_fusion_name_format&quot;</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">):</span>
-                <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;-o </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;atlas_image&#39;</span><span class="p">:</span>
-            <span class="n">atlas_image_cmd</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-                <span class="s1">&#39;-g [</span><span class="si">{0}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">ai</span><span class="p">))</span>
-                <span class="k">for</span> <span class="n">ai</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">atlas_image</span>
-            <span class="p">])</span>
+                <span class="n">retval</span> <span class="o">=</span> <span class="s2">&quot;-o </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;atlas_image&quot;</span><span class="p">:</span>
+            <span class="n">atlas_image_cmd</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;-g [</span><span class="si">{0}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">ai</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">ai</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">atlas_image</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
             <span class="n">retval</span> <span class="o">=</span> <span class="n">atlas_image_cmd</span>
-        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;target_image&#39;</span><span class="p">:</span>
-            <span class="n">target_image_cmd</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-                <span class="s1">&#39;-t [</span><span class="si">{0}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">ai</span><span class="p">))</span>
-                <span class="k">for</span> <span class="n">ai</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">target_image</span>
-            <span class="p">])</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;target_image&quot;</span><span class="p">:</span>
+            <span class="n">target_image_cmd</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;-t [</span><span class="si">{0}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">fn</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">ai</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">ai</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">target_image</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
             <span class="n">retval</span> <span class="o">=</span> <span class="n">target_image_cmd</span>
-        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;atlas_segmentation_image&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s2">&quot;atlas_segmentation_image&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">atlas_image</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;Number of specified segmentations should be identical to the number &quot;</span>
                     <span class="s2">&quot;of atlas image sets </span><span class="si">{0}</span><span class="s2">!=</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">atlas_image</span><span class="p">)))</span>
+                        <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">atlas_image</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
 
-            <span class="n">atlas_segmentation_image_cmd</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-                <span class="s1">&#39;-l </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">atlas_segmentation_image</span>
-            <span class="p">])</span>
+            <span class="n">atlas_segmentation_image_cmd</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-l </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span> <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">atlas_segmentation_image</span><span class="p">]</span>
+            <span class="p">)</span>
             <span class="n">retval</span> <span class="o">=</span> <span class="n">atlas_segmentation_image_cmd</span>
         <span class="k">else</span><span class="p">:</span>
 
@@ -678,22 +784,24 @@
     <span class="k">def</span> <span class="nf">_list_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">):</span>
-            <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;out_label_fusion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">)</span>
+            <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;out_label_fusion&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_fusion</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="p">):</span>
-            <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;out_intensity_fusion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+            <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;out_intensity_fusion&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_intensity_fusion_name_format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_post_prob_name_format</span><span class="p">):</span>
-            <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;out_label_post_prob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_post_prob_name_format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+            <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;out_label_post_prob&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_label_post_prob_name_format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_atlas_voting_weight_name_format</span><span class="p">):</span>
-            <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;out_atlas_voting_weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_atlas_voting_weight_name_format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+            <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;out_atlas_voting_weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_atlas_voting_weight_name_format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">outputs</span></div>
 
@@ -701,10 +809,10 @@
 <span class="k">def</span> <span class="nf">_copy_header</span><span class="p">(</span><span class="n">header_file</span><span class="p">,</span> <span class="n">in_file</span><span class="p">,</span> <span class="n">set_dtype</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Copy header from input image to an output image.&quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
+
     <span class="n">in_img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">header_file</span><span class="p">)</span>
     <span class="n">out_img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="n">mmap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">new_img</span> <span class="o">=</span> <span class="n">out_img</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">out_img</span><span class="o">.</span><span class="n">dataobj</span><span class="p">,</span> <span class="n">in_img</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
-                                <span class="n">in_img</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">new_img</span> <span class="o">=</span> <span class="n">out_img</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">out_img</span><span class="o">.</span><span class="n">dataobj</span><span class="p">,</span> <span class="n">in_img</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">in_img</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">set_dtype</span><span class="p">:</span>
         <span class="n">new_img</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="n">out_img</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">())</span>
     <span class="n">new_img</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">in_file</span><span class="p">)</span>
@@ -739,7 +847,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.2.0
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -765,7 +873,7 @@
             <dd><a href="../../../1.1.7/index.html">1.1.7</a></dd>
             <dd><a href="../../../1.1.8/index.html">1.1.8</a></dd>
             <dd><a href="../../../1.1.9/index.html">1.1.9</a></dd>
-            <dd><a href="../../../1.2.0/_modules/niworkflows/interfaces/ants.html">1.2.0</a></dd>
+            <dd><a href="../../../1.2.0/index.html">1.2.0</a></dd>
             <dd><a href="../../../1.2.0rc1/index.html">1.2.0rc1</a></dd>
             <dd><a href="../../../1.2.0rc2/index.html">1.2.0rc2</a></dd>
             <dd><a href="../../../1.2.0rc3/index.html">1.2.0rc3</a></dd>
@@ -777,7 +885,7 @@
             <dd><a href="../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/niworkflows/interfaces/ants.html">master</a></dd>
         </dl>
     </div>
 </div>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.masks &mdash; niworkflows 1.2.0 documentation</title>
+  <title>niworkflows.interfaces.masks &mdash; niworkflows 1.2.0+2.g9b0f646590 documentation</title>
   
 
   
@@ -153,12 +153,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.interfaces.masks</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -171,7 +168,13 @@
 
 <span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">fsl</span><span class="p">,</span> <span class="n">ants</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">File</span><span class="p">,</span> <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span> <span class="n">traits</span><span class="p">,</span> <span class="n">isdefined</span><span class="p">,</span> <span class="n">InputMultiPath</span><span class="p">,</span> <span class="n">Str</span><span class="p">)</span>
+    <span class="n">File</span><span class="p">,</span>
+    <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span>
+    <span class="n">traits</span><span class="p">,</span>
+    <span class="n">isdefined</span><span class="p">,</span>
+    <span class="n">InputMultiPath</span><span class="p">,</span>
+    <span class="n">Str</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.mixins</span> <span class="kn">import</span> <span class="n">reporting</span>
 <span class="kn">from</span> <span class="nn">nipype.algorithms</span> <span class="kn">import</span> <span class="n">confounds</span>
 <span class="kn">from</span> <span class="nn">seaborn</span> <span class="kn">import</span> <span class="n">color_palette</span>
@@ -179,13 +182,13 @@
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">report_base</span> <span class="k">as</span> <span class="n">nrc</span>
 
 
-<span class="k">class</span> <span class="nc">_BETInputSpecRPT</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span>
-                       <span class="n">fsl</span><span class="o">.</span><span class="n">preprocess</span><span class="o">.</span><span class="n">BETInputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_BETInputSpecRPT</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span> <span class="n">fsl</span><span class="o">.</span><span class="n">preprocess</span><span class="o">.</span><span class="n">BETInputSpec</span><span class="p">):</span>
     <span class="k">pass</span>
 
 
-<span class="k">class</span> <span class="nc">_BETOutputSpecRPT</span><span class="p">(</span><span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span><span class="p">,</span>
-                        <span class="n">fsl</span><span class="o">.</span><span class="n">preprocess</span><span class="o">.</span><span class="n">BETOutputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_BETOutputSpecRPT</span><span class="p">(</span>
+    <span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span><span class="p">,</span> <span class="n">fsl</span><span class="o">.</span><span class="n">preprocess</span><span class="o">.</span><span class="n">BETOutputSpec</span>
+<span class="p">):</span>
     <span class="k">pass</span>
 
 
@@ -200,27 +203,32 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">BETRPT</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_run_interface</span><span class="p">(</span><span class="n">runtime</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_post_run_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; generates a report showing slices from each axis of an arbitrary</span>
-<span class="sd">        volume of in_file, with the resulting binary brain mask overlaid &#39;&#39;&#39;</span>
+        <span class="sd">&quot;&quot;&quot; generates a report showing slices from each axis of an arbitrary</span>
+<span class="sd">        volume of in_file, with the resulting binary brain mask overlaid &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span><span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span><span class="o">.</span><span class="n">mask_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_seg_files</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_masked</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask</span>
 
-        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating report for BET. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, and mask file &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
-                             <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">)</span>
+        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;Generating report for BET. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, and mask file &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">BETRPT</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_post_run_hook</span><span class="p">(</span><span class="n">runtime</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">_BrainExtractionInputSpecRPT</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span>
-                                   <span class="n">ants</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">BrainExtractionInputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_BrainExtractionInputSpecRPT</span><span class="p">(</span>
+    <span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span> <span class="n">ants</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">BrainExtractionInputSpec</span>
+<span class="p">):</span>
     <span class="k">pass</span>
 
 
-<span class="k">class</span> <span class="nc">_BrainExtractionOutputSpecRPT</span><span class="p">(</span><span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span><span class="p">,</span>
-                                    <span class="n">ants</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">BrainExtractionOutputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_BrainExtractionOutputSpecRPT</span><span class="p">(</span>
+    <span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span><span class="p">,</span> <span class="n">ants</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">BrainExtractionOutputSpec</span>
+<span class="p">):</span>
     <span class="k">pass</span>
 
 
@@ -229,11 +237,16 @@
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_BrainExtractionOutputSpecRPT</span>
 
     <span class="k">def</span> <span class="nf">_post_run_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; generates a report showing slices from each axis &#39;&#39;&#39;</span>
+        <span class="sd">&quot;&quot;&quot; generates a report showing slices from each axis &quot;&quot;&quot;</span>
 
-        <span class="n">brain_extraction_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span><span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span><span class="o">.</span><span class="n">BrainExtractionMask</span>
+        <span class="n">brain_extraction_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span>
+            <span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">BrainExtractionMask</span>
 
-        <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_temporary_files</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_temporary_files</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_temporary_files</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">keep_temporary_files</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span><span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span><span class="o">.</span><span class="n">N4Corrected0</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">anatomical_image</span>
@@ -241,15 +254,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_seg_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">brain_extraction_mask</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_masked</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating report for ANTS BrainExtraction. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, mask &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
-                             <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">)</span>
+        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;Generating report for ANTS BrainExtraction. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, mask &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">BrainExtractionRPT</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_post_run_hook</span><span class="p">(</span><span class="n">runtime</span><span class="p">)</span></div>
 
 
 <span class="c1"># TODO: move this interface to nipype.interfaces.nilearn</span>
-<span class="k">class</span> <span class="nc">_ComputeEPIMaskInputSpec</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span>
-                               <span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_ComputeEPIMaskInputSpec</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span> <span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
     <span class="n">in_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;3D or 4D EPI file&quot;</span><span class="p">)</span>
     <span class="n">dilation</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;binary dilation on the nilearn output&quot;</span><span class="p">)</span>
 
@@ -267,11 +282,13 @@
         <span class="n">in_file_data</span> <span class="o">=</span> <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">()</span>
 
         <span class="c1"># pad the data to avoid the mask estimation running into edge effects</span>
-        <span class="n">in_file_data_padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">in_file_data</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span>
-                                     <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">in_file_data_padded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+            <span class="n">in_file_data</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
 
-        <span class="n">padded_nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">in_file_data_padded</span><span class="p">,</span> <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
-                                    <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+        <span class="n">padded_nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span>
+            <span class="n">in_file_data_padded</span><span class="p">,</span> <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">header</span>
+        <span class="p">)</span>
 
         <span class="n">mask_nii</span> <span class="o">=</span> <span class="n">compute_epi_mask</span><span class="p">(</span><span class="n">padded_nii</span><span class="p">,</span> <span class="n">exclude_zeros</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -286,8 +303,9 @@
         <span class="n">mask_data</span><span class="p">[</span><span class="n">in_file_data</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">mask_data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">in_file_data</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="n">better_mask</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">mask_data</span><span class="p">,</span> <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
-                                     <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
+        <span class="n">better_mask</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span>
+            <span class="n">mask_data</span><span class="p">,</span> <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">orig_file_nii</span><span class="o">.</span><span class="n">header</span>
+        <span class="p">)</span>
         <span class="n">better_mask</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
         <span class="n">better_mask</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="s2">&quot;mask_file.nii.gz&quot;</span><span class="p">)</span>
 
@@ -298,12 +316,12 @@
 
     <span class="k">def</span> <span class="nf">_list_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ComputeEPIMask</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_list_outputs</span><span class="p">()</span>
-        <span class="n">outputs</span><span class="p">[</span><span class="s1">&#39;mask_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span>
+        <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;mask_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span>
         <span class="k">return</span> <span class="n">outputs</span>
 
     <span class="k">def</span> <span class="nf">_post_run_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; generates a report showing slices from each axis of an arbitrary</span>
-<span class="sd">        volume of in_file, with the resulting binary brain mask overlaid &#39;&#39;&#39;</span>
+        <span class="sd">&quot;&quot;&quot; generates a report showing slices from each axis of an arbitrary</span>
+<span class="sd">        volume of in_file, with the resulting binary brain mask overlaid &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span><span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span><span class="o">.</span><span class="n">mask_file</span>
@@ -312,18 +330,20 @@
 
         <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
             <span class="s1">&#39;Generating report for nilearn.compute_epi_mask. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, and mask file &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ComputeEPIMask</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_post_run_hook</span><span class="p">(</span><span class="n">runtime</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">_ACompCorInputSpecRPT</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span>
-                            <span class="n">confounds</span><span class="o">.</span><span class="n">CompCorInputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_ACompCorInputSpecRPT</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span> <span class="n">confounds</span><span class="o">.</span><span class="n">CompCorInputSpec</span><span class="p">):</span>
     <span class="k">pass</span>
 
 
-<span class="k">class</span> <span class="nc">_ACompCorOutputSpecRPT</span><span class="p">(</span><span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span><span class="p">,</span>
-                             <span class="n">confounds</span><span class="o">.</span><span class="n">CompCorOutputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_ACompCorOutputSpecRPT</span><span class="p">(</span>
+    <span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span><span class="p">,</span> <span class="n">confounds</span><span class="o">.</span><span class="n">CompCorOutputSpec</span>
+<span class="p">):</span>
     <span class="k">pass</span>
 
 
@@ -332,30 +352,36 @@
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_ACompCorOutputSpecRPT</span>
 
     <span class="k">def</span> <span class="nf">_post_run_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; generates a report showing slices from each axis &#39;&#39;&#39;</span>
+        <span class="sd">&quot;&quot;&quot; generates a report showing slices from each axis &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;ACompCorRPT only supports a single input mask. &quot;</span>
-                <span class="s2">&quot;A list </span><span class="si">%s</span><span class="s2"> was found.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span><span class="p">)</span>
+                <span class="s2">&quot;A list </span><span class="si">%s</span><span class="s2"> was found.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_anat_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">realigned_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_seg_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mask_files</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_masked</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating report for aCompCor. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, mask &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
-                             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">realigned_file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">)</span>
+        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;Generating report for aCompCor. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, mask &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">realigned_file</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mask_file</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ACompCorRPT</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_post_run_hook</span><span class="p">(</span><span class="n">runtime</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">_TCompCorInputSpecRPT</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span>
-                            <span class="n">confounds</span><span class="o">.</span><span class="n">TCompCorInputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_TCompCorInputSpecRPT</span><span class="p">(</span>
+    <span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">,</span> <span class="n">confounds</span><span class="o">.</span><span class="n">TCompCorInputSpec</span>
+<span class="p">):</span>
     <span class="k">pass</span>
 
 
-<span class="k">class</span> <span class="nc">_TCompCorOutputSpecRPT</span><span class="p">(</span><span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span><span class="p">,</span>
-                             <span class="n">confounds</span><span class="o">.</span><span class="n">TCompCorOutputSpec</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_TCompCorOutputSpecRPT</span><span class="p">(</span>
+    <span class="n">reporting</span><span class="o">.</span><span class="n">ReportCapableOutputSpec</span><span class="p">,</span> <span class="n">confounds</span><span class="o">.</span><span class="n">TCompCorOutputSpec</span>
+<span class="p">):</span>
     <span class="k">pass</span>
 
 
@@ -364,9 +390,11 @@
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_TCompCorOutputSpecRPT</span>
 
     <span class="k">def</span> <span class="nf">_post_run_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; generates a report showing slices from each axis &#39;&#39;&#39;</span>
+        <span class="sd">&quot;&quot;&quot; generates a report showing slices from each axis &quot;&quot;&quot;</span>
 
-        <span class="n">high_variance_masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span><span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span><span class="o">.</span><span class="n">high_variance_masks</span>
+        <span class="n">high_variance_masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span>
+            <span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">high_variance_masks</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">high_variance_masks</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -378,16 +406,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_seg_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">high_variance_masks</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_masked</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Generating report for tCompCor. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, mask &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
-                             <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">realigned_file</span><span class="p">,</span>
-                             <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span><span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span><span class="o">.</span><span class="n">high_variance_masks</span><span class="p">)</span>
+        <span class="n">NIWORKFLOWS_LOG</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;Generating report for tCompCor. file &quot;</span><span class="si">%s</span><span class="s1">&quot;, mask &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">realigned_file</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_outputs</span><span class="p">(</span><span class="n">runtime</span><span class="o">=</span><span class="n">runtime</span><span class="p">)</span><span class="o">.</span><span class="n">high_variance_masks</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">TCompCorRPT</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_post_run_hook</span><span class="p">(</span><span class="n">runtime</span><span class="p">)</span></div>
 
 
 <span class="k">class</span> <span class="nc">_SimpleShowMaskInputSpec</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">):</span>
-    <span class="n">background_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;file before&#39;</span><span class="p">)</span>
-    <span class="n">mask_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;file before&#39;</span><span class="p">)</span>
+    <span class="n">background_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;file before&quot;</span><span class="p">)</span>
+    <span class="n">mask_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;file before&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="SimpleShowMaskRPT"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.masks.html#niworkflows.interfaces.masks.SimpleShowMaskRPT">[docs]</a><span class="k">class</span> <span class="nc">SimpleShowMaskRPT</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">SegmentationRC</span><span class="p">,</span> <span class="n">nrc</span><span class="o">.</span><span class="n">ReportingInterface</span><span class="p">):</span>
@@ -403,16 +433,24 @@
 
 
 <span class="k">class</span> <span class="nc">_ROIsPlotInputSpecRPT</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">_SVGReportCapableInputSpec</span><span class="p">):</span>
-    <span class="n">in_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;the volume where ROIs are defined&#39;</span><span class="p">)</span>
-    <span class="n">in_rois</span> <span class="o">=</span> <span class="n">InputMultiPath</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                             <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;a list of regions to be plotted&#39;</span><span class="p">)</span>
-    <span class="n">in_mask</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;a special region, eg. the brain mask&#39;</span><span class="p">)</span>
-    <span class="n">masked</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;mask in_file prior plotting&#39;</span><span class="p">)</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">Str</span><span class="p">),</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                           <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;use specific colors for contours&#39;</span><span class="p">)</span>
-    <span class="n">levels</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">),</span>
-                           <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;pass levels to nilearn.plotting&#39;</span><span class="p">)</span>
-    <span class="n">mask_color</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;color for mask&#39;</span><span class="p">)</span>
+    <span class="n">in_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the volume where ROIs are defined&quot;</span>
+    <span class="p">)</span>
+    <span class="n">in_rois</span> <span class="o">=</span> <span class="n">InputMultiPath</span><span class="p">(</span>
+        <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;a list of regions to be plotted&quot;</span>
+    <span class="p">)</span>
+    <span class="n">in_mask</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;a special region, eg. the brain mask&quot;</span><span class="p">)</span>
+    <span class="n">masked</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;mask in_file prior plotting&quot;</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">Str</span><span class="p">),</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;use specific colors for contours&quot;</span>
+    <span class="p">)</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span>
+        <span class="kc">None</span><span class="p">,</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">),</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;pass levels to nilearn.plotting&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">mask_color</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;color for mask&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ROIsPlot"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.masks.html#niworkflows.interfaces.masks.ROIsPlot">[docs]</a><span class="k">class</span> <span class="nc">ROIsPlot</span><span class="p">(</span><span class="n">nrc</span><span class="o">.</span><span class="n">ReportingInterface</span><span class="p">):</span>
@@ -420,9 +458,9 @@
 
     <span class="k">def</span> <span class="nf">_generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">niworkflows.viz.utils</span> <span class="kn">import</span> <span class="n">plot_segs</span><span class="p">,</span> <span class="n">compose_view</span>
+
         <span class="n">seg_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_rois</span>
-        <span class="n">mask_file</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_mask</span><span class="p">)</span> \
-            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_mask</span>
+        <span class="n">mask_file</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_mask</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_mask</span>
 
         <span class="c1"># Remove trait decoration and replace None with []</span>
         <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span><span class="n">level</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">levels</span> <span class="ow">or</span> <span class="p">[]]</span>
@@ -431,8 +469,9 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seg_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># in_rois is a segmentation</span>
             <span class="n">nsegs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">nsegs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span>
-                    <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">seg_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)))</span>
+                <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">seg_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">))</span>
+                <span class="p">)</span>
                 <span class="n">levels</span> <span class="o">=</span> <span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
                 <span class="n">nsegs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span>
 
@@ -468,7 +507,7 @@
                 <span class="n">compress</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">compress_report</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">fg_svgs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_report</span>
+            <span class="n">out_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_report</span><span class="p">,</span>
         <span class="p">)</span></div>
 </pre></div>
 
@@ -500,7 +539,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.2.0
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -526,7 +565,7 @@
             <dd><a href="../../../1.1.7/index.html">1.1.7</a></dd>
             <dd><a href="../../../1.1.8/index.html">1.1.8</a></dd>
             <dd><a href="../../../1.1.9/index.html">1.1.9</a></dd>
-            <dd><a href="../../../1.2.0/_modules/niworkflows/interfaces/masks.html">1.2.0</a></dd>
+            <dd><a href="../../../1.2.0/index.html">1.2.0</a></dd>
             <dd><a href="../../../1.2.0rc1/index.html">1.2.0rc1</a></dd>
             <dd><a href="../../../1.2.0rc2/index.html">1.2.0rc2</a></dd>
             <dd><a href="../../../1.2.0rc3/index.html">1.2.0rc3</a></dd>
@@ -538,7 +577,7 @@
             <dd><a href="../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/niworkflows/interfaces/masks.html">master</a></dd>
         </dl>
     </div>
 </div>
