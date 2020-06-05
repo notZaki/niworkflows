@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.func.util &mdash; niworkflows 1.2.5+6.gc215fc8ca7 documentation</title>
+  <title>niworkflows.func.util &mdash; niworkflows 1.2.5+17.gf963b2c950 documentation</title>
   
 
   
@@ -188,6 +188,7 @@
 <div class="viewcode-block" id="init_bold_reference_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_bold_reference_wf">[docs]</a><span class="k">def</span> <span class="nf">init_bold_reference_wf</span><span class="p">(</span>
     <span class="n">omp_nthreads</span><span class="p">,</span>
     <span class="n">bold_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">brainmask_thresh</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
     <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bold_reference_wf&quot;</span><span class="p">,</span>
     <span class="n">gen_report</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -209,10 +210,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    bold_file : str</span>
-<span class="sd">        BOLD series NIfTI file</span>
 <span class="sd">    omp_nthreads : int</span>
 <span class="sd">        Maximum number of threads an individual process may use</span>
+<span class="sd">    bold_file : str</span>
+<span class="sd">        BOLD series NIfTI file</span>
+<span class="sd">    brainmask_thresh: :obj:`float`</span>
+<span class="sd">        Lower threshold for the probabilistic brainmask to obtain</span>
+<span class="sd">        the final binary mask (default: 0.85).</span>
+<span class="sd">    pre_mask : bool</span>
+<span class="sd">        Indicates whether the ``pre_mask`` input will be set (and thus, step 1</span>
+<span class="sd">        should be skipped).</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Name of workflow (default: ``bold_reference_wf``)</span>
 <span class="sd">    gen_report : bool</span>
@@ -292,7 +299,9 @@
         <span class="n">EstimateReferenceImage</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gen_ref&quot;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="mi">1</span>
     <span class="p">)</span>  <span class="c1"># OE: 128x128x128x50 * 64 / 8 ~ 900MB.</span>
     <span class="n">enhance_and_skullstrip_bold_wf</span> <span class="o">=</span> <span class="n">init_enhance_and_skullstrip_bold_wf</span><span class="p">(</span>
-        <span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">pre_mask</span><span class="o">=</span><span class="n">pre_mask</span>
+        <span class="n">brainmask_thresh</span><span class="o">=</span><span class="n">brainmask_thresh</span><span class="p">,</span>
+        <span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span>
+        <span class="n">pre_mask</span><span class="o">=</span><span class="n">pre_mask</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">calc_dummy_scans</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
@@ -347,7 +356,10 @@
 
 
 <div class="viewcode-block" id="init_enhance_and_skullstrip_bold_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_enhance_and_skullstrip_bold_wf">[docs]</a><span class="k">def</span> <span class="nf">init_enhance_and_skullstrip_bold_wf</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;enhance_and_skullstrip_bold_wf&quot;</span><span class="p">,</span> <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">omp_nthreads</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">brainmask_thresh</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;enhance_and_skullstrip_bold_wf&quot;</span><span class="p">,</span>
+    <span class="n">omp_nthreads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enhance and run brain extraction on a BOLD EPI image.</span>
@@ -397,13 +409,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    brainmask_thresh: :obj:`float`</span>
+<span class="sd">        Lower threshold for the probabilistic brainmask to obtain</span>
+<span class="sd">        the final binary mask (default: 0.5).</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Name of workflow (default: ``enhance_and_skullstrip_bold_wf``)</span>
+<span class="sd">    omp_nthreads : int</span>
+<span class="sd">        number of threads available to parallel nodes</span>
 <span class="sd">    pre_mask : bool</span>
 <span class="sd">        Indicates whether the ``pre_mask`` input will be set (and thus, step 1</span>
 <span class="sd">        should be skipped).</span>
-<span class="sd">    omp_nthreads : int</span>
-<span class="sd">        number of threads available to parallel nodes</span>
 
 <span class="sd">    Inputs</span>
 <span class="sd">    ------</span>
@@ -504,6 +519,8 @@
     <span class="n">apply_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;apply_mask&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pre_mask</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">..interfaces.nibabel</span> <span class="kn">import</span> <span class="n">Binarize</span>
+
         <span class="n">bold_template</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span>
             <span class="s2">&quot;MNI152NLin2009cAsym&quot;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;fMRIPrep&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;boldref&quot;</span>
         <span class="p">)</span>
@@ -542,10 +559,22 @@
         <span class="n">norm</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fixed_image</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">bold_template</span><span class="p">)</span>
         <span class="n">map_brainmask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
             <span class="n">ApplyTransforms</span><span class="p">(</span>
-                <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;MultiLabel&quot;</span><span class="p">,</span> <span class="n">input_image</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">brain_mask</span><span class="p">)</span>
+                <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;BSpline&quot;</span><span class="p">,</span>
+                <span class="nb">float</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="c1"># Use the higher resolution and probseg for numerical stability in rounding</span>
+                <span class="n">input_image</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span>
+                    <span class="n">get_template</span><span class="p">(</span>
+                        <span class="s2">&quot;MNI152NLin2009cAsym&quot;</span><span class="p">,</span>
+                        <span class="n">resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;brain&quot;</span><span class="p">,</span>
+                        <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;probseg&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">),</span>
             <span class="p">),</span>
             <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_brainmask&quot;</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="n">binarize_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Binarize</span><span class="p">(</span><span class="n">thresh_low</span><span class="o">=</span><span class="n">brainmask_thresh</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;binarize_mask&quot;</span><span class="p">)</span>
+
         <span class="c1"># fmt: off</span>
         <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
             <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">init_aff</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;moving_image&quot;</span><span class="p">)]),</span>
@@ -556,7 +585,8 @@
                 <span class="p">(</span><span class="s2">&quot;reverse_invert_flags&quot;</span><span class="p">,</span> <span class="s2">&quot;invert_transform_flags&quot;</span><span class="p">),</span>
                 <span class="p">(</span><span class="s2">&quot;reverse_transforms&quot;</span><span class="p">,</span> <span class="s2">&quot;transforms&quot;</span><span class="p">),</span>
             <span class="p">]),</span>
-            <span class="p">(</span><span class="n">map_brainmask</span><span class="p">,</span> <span class="n">pre_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;output_image&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">map_brainmask</span><span class="p">,</span> <span class="n">binarize_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;output_image&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">binarize_mask</span><span class="p">,</span> <span class="n">pre_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
         <span class="p">])</span>
         <span class="c1"># fmt: on</span>
     <span class="k">else</span><span class="p">:</span>
