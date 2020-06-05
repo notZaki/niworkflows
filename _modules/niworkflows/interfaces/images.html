@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.images &mdash; niworkflows 1.2.5 documentation</title>
+  <title>niworkflows.interfaces.images &mdash; niworkflows 1.2.5+6.gc215fc8ca7 documentation</title>
   
 
   
@@ -153,12 +153,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.interfaces.images</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -185,6 +182,50 @@
 <span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">fsl</span>
 
 <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;nipype.interface&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_RegridToZoomsInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
+    <span class="n">in_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
+        <span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;a file whose resolution is to change&quot;</span>
+    <span class="p">)</span>
+    <span class="n">zooms</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Tuple</span><span class="p">(</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Float</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the new resolution&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;order of interpolator&quot;</span><span class="p">)</span>
+    <span class="n">clip</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;clip the data array within the original image&#39;s range&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_RegridToZoomsOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="s2">&quot;the regridded file&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="RegridToZooms"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RegridToZooms">[docs]</a><span class="k">class</span> <span class="nc">RegridToZooms</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Change the resolution of an image (regrid).&quot;&quot;&quot;</span>
+
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_RegridToZoomsInputSpec</span>
+    <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_RegridToZoomsOutputSpec</span>
+
+    <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">..utils.images</span> <span class="kn">import</span> <span class="n">resample_by_spacing</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fname_presuffix</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;_regrid&quot;</span><span class="p">,</span> <span class="n">newpath</span><span class="o">=</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span>
+        <span class="p">)</span>
+        <span class="n">resample_by_spacing</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">zooms</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
+            <span class="n">clip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">clip</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">runtime</span></div>
 
 
 <span class="k">class</span> <span class="nc">_IntraModalMergeInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
@@ -998,7 +1039,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.2.5
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -1034,7 +1075,7 @@
             <dd><a href="../../../1.2.2/index.html">1.2.2</a></dd>
             <dd><a href="../../../1.2.3/index.html">1.2.3</a></dd>
             <dd><a href="../../../1.2.4/index.html">1.2.4</a></dd>
-            <dd><a href="../../../1.2.5/_modules/niworkflows/interfaces/images.html">1.2.5</a></dd>
+            <dd><a href="../../../1.2.5/index.html">1.2.5</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
@@ -1042,7 +1083,7 @@
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_1.2.x/index.html">maint/1.2.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/niworkflows/interfaces/images.html">master</a></dd>
         </dl>
     </div>
 </div>
