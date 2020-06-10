@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.images &mdash; niworkflows 1.2.5+43.g42748dc6e3 documentation</title>
+  <title>niworkflows.interfaces.images &mdash; niworkflows 1.2.5+59.g86ccfd52b5 documentation</title>
   
 
   
@@ -509,31 +509,37 @@
             <span class="n">xyz_unit</span> <span class="o">=</span> <span class="s2">&quot;mm&quot;</span>
 
         <span class="c1"># Set a 0.05mm threshold to performing rescaling</span>
-        <span class="n">atol</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;meter&quot;</span><span class="p">:</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="s2">&quot;mm&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s2">&quot;micron&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}[</span><span class="n">xyz_unit</span><span class="p">]</span>
+        <span class="n">atol_gross</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;meter&quot;</span><span class="p">:</span> <span class="mf">5e-5</span><span class="p">,</span> <span class="s2">&quot;mm&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;micron&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">}[</span><span class="n">xyz_unit</span><span class="p">]</span>
+        <span class="c1"># if 0.01 &gt; difference &gt; 0.001mm, freesurfer won&#39;t be able to merge the images</span>
+        <span class="n">atol_fine</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;meter&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="s2">&quot;mm&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span> <span class="s2">&quot;micron&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}[</span><span class="n">xyz_unit</span><span class="p">]</span>
 
-        <span class="c1"># Rescale =&gt; change zooms</span>
-        <span class="c1"># Resize =&gt; update image dimensions</span>
-        <span class="n">rescale</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">zooms</span><span class="p">,</span> <span class="n">target_zooms</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
+        <span class="c1"># Update zooms =&gt; Modify affine</span>
+        <span class="c1"># Rescale =&gt; Resample to resized voxels</span>
+        <span class="c1"># Resize =&gt; Resample to new image dimensions</span>
+        <span class="n">update_zooms</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">zooms</span><span class="p">,</span> <span class="n">target_zooms</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol_fine</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">rescale</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">zooms</span><span class="p">,</span> <span class="n">target_zooms</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol_gross</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">resize</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">shape</span> <span class="o">==</span> <span class="n">target_shape</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">rescale</span> <span class="ow">or</span> <span class="n">resize</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">rescale</span><span class="p">:</span>
+        <span class="n">resample</span> <span class="o">=</span> <span class="n">rescale</span> <span class="ow">or</span> <span class="n">resize</span>
+        <span class="k">if</span> <span class="n">resample</span> <span class="ow">or</span> <span class="n">update_zooms</span><span class="p">:</span>
+            <span class="c1"># Use an affine with the corrected zooms, whether or not we resample</span>
+            <span class="k">if</span> <span class="n">update_zooms</span><span class="p">:</span>
                 <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">target_zooms</span> <span class="o">/</span> <span class="n">zooms</span>
-                <span class="n">target_affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">)</span>
-                <span class="p">)</span>
+                <span class="n">target_affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">resize</span><span class="p">:</span>
                 <span class="c1"># The shift is applied after scaling.</span>
                 <span class="c1"># Use a proportional shift to maintain relative position in dataset</span>
                 <span class="n">size_factor</span> <span class="o">=</span> <span class="n">target_span</span> <span class="o">/</span> <span class="p">(</span><span class="n">zooms</span> <span class="o">*</span> <span class="n">shape</span><span class="p">)</span>
                 <span class="c1"># Use integer shifts to avoid unnecessary interpolation</span>
-                <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">size_factor</span> <span class="o">-</span> <span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-                <span class="p">)</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">size_factor</span> <span class="o">-</span> <span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
                 <span class="n">target_affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-            <span class="n">data</span> <span class="o">=</span> <span class="n">nli</span><span class="o">.</span><span class="n">resample_img</span><span class="p">(</span><span class="n">reoriented</span><span class="p">,</span> <span class="n">target_affine</span><span class="p">,</span> <span class="n">target_shape</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span>
-            <span class="n">conform_xfm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">target_affine</span><span class="p">)</span>
+            <span class="n">conform_xfm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">reoriented</span><span class="o">.</span><span class="n">affine</span><span class="p">)</span> <span class="o">@</span> <span class="n">target_affine</span>
+
+            <span class="c1"># Create new image</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">reoriented</span><span class="o">.</span><span class="n">dataobj</span>
+            <span class="k">if</span> <span class="n">resample</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">nli</span><span class="o">.</span><span class="n">resample_img</span><span class="p">(</span><span class="n">reoriented</span><span class="p">,</span> <span class="n">target_affine</span><span class="p">,</span> <span class="n">target_shape</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span>
             <span class="n">reoriented</span> <span class="o">=</span> <span class="n">reoriented</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target_affine</span><span class="p">,</span> <span class="n">reoriented</span><span class="o">.</span><span class="n">header</span><span class="p">)</span>
 
         <span class="c1"># Image may be reoriented, rescaled, and/or resized</span>
@@ -1077,6 +1083,7 @@
             <dd><a href="../../../../1.2.3/index.html">1.2.3</a></dd>
             <dd><a href="../../../../1.2.4/index.html">1.2.4</a></dd>
             <dd><a href="../../../../1.2.5/index.html">1.2.5</a></dd>
+            <dd><a href="../../../../1.2.6/index.html">1.2.6</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
