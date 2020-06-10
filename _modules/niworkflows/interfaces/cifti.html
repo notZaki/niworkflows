@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.2.6+44.gbb44cd72ce documentation</title>
+  <title>niworkflows.interfaces.cifti &mdash; niworkflows 1.2.6 documentation</title>
   
 
   
@@ -153,9 +153,12 @@
   
 
 
+    
+    
 
 
 
+    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.interfaces.cifti</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -505,7 +508,7 @@
     <span class="c1"># Create brain models</span>
     <span class="n">idx_offset</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">brainmodels</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">bm_ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">timepoints</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+    <span class="n">bm_ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">timepoints</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
     <span class="k">for</span> <span class="n">structure</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">CIFTI_STRUCT_WITH_LABELS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># surface model</span>
@@ -513,8 +516,8 @@
             <span class="c1"># use the corresponding annotation</span>
             <span class="n">hemi</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="c1"># currently only supports L/R cortex</span>
-            <span class="n">surf_ts</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">bold_surfs</span><span class="p">[</span><span class="n">hemi</span> <span class="o">==</span> <span class="s2">&quot;RIGHT&quot;</span><span class="p">])</span>
-            <span class="n">surf_verts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">surf_ts</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">surf</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">bold_surfs</span><span class="p">[</span><span class="n">hemi</span> <span class="o">==</span> <span class="s2">&quot;RIGHT&quot;</span><span class="p">])</span>
+            <span class="n">surf_verts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">surf</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">annotation_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.annot&quot;</span><span class="p">):</span>
                 <span class="n">annot</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">freesurfer</span><span class="o">.</span><span class="n">read_annot</span><span class="p">(</span><span class="n">annotation_files</span><span class="p">[</span><span class="n">hemi</span> <span class="o">==</span> <span class="s2">&quot;RIGHT&quot;</span><span class="p">])</span>
                 <span class="c1"># remove medial wall</span>
@@ -523,7 +526,7 @@
                 <span class="n">annot</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">annotation_files</span><span class="p">[</span><span class="n">hemi</span> <span class="o">==</span> <span class="s2">&quot;RIGHT&quot;</span><span class="p">])</span>
                 <span class="n">medial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">annot</span><span class="o">.</span><span class="n">darrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="c1"># extract values across volumes</span>
-            <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tsarr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">medial</span><span class="p">]</span> <span class="k">for</span> <span class="n">tsarr</span> <span class="ow">in</span> <span class="n">surf_ts</span><span class="o">.</span><span class="n">darrays</span><span class="p">])</span>
+            <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">tsarr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">medial</span><span class="p">]</span> <span class="k">for</span> <span class="n">tsarr</span> <span class="ow">in</span> <span class="n">surf</span><span class="o">.</span><span class="n">darrays</span><span class="p">])</span>
 
             <span class="n">vert_idx</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">Cifti2VertexIndices</span><span class="p">(</span><span class="n">medial</span><span class="p">)</span>
             <span class="n">bm</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">Cifti2BrainModel</span><span class="p">(</span>
@@ -550,7 +553,7 @@
                     <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ts</span><span class="p">,</span> <span class="n">bold_data</span><span class="p">[</span><span class="n">ijk</span><span class="p">]))</span>
                 <span class="p">)</span>
                 <span class="n">vox</span> <span class="o">+=</span> <span class="p">[</span>
-                    <span class="p">[</span><span class="n">ijk</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">idx</span><span class="p">],</span> <span class="n">ijk</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">idx</span><span class="p">],</span> <span class="n">ijk</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">idx</span><span class="p">]]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="p">))</span>
+                    <span class="p">[</span><span class="n">ijk</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">ix</span><span class="p">],</span> <span class="n">ijk</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">ix</span><span class="p">],</span> <span class="n">ijk</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">ix</span><span class="p">]]</span> <span class="k">for</span> <span class="n">ix</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
                 <span class="p">]</span>
 
             <span class="n">vox</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">Cifti2VoxelIndicesIJK</span><span class="p">(</span><span class="n">vox</span><span class="p">)</span>
@@ -598,8 +601,7 @@
     <span class="n">matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry_map</span><span class="p">)</span>
     <span class="n">matrix</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">Cifti2MetaData</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
     <span class="n">hdr</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">Cifti2Header</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">Cifti2Image</span><span class="p">(</span><span class="n">dataobj</span><span class="o">=</span><span class="n">bm_ts</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">hdr</span><span class="p">)</span>
-    <span class="n">img</span><span class="o">.</span><span class="n">set_data_dtype</span><span class="p">(</span><span class="n">bold_img</span><span class="o">.</span><span class="n">get_data_dtype</span><span class="p">())</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">Cifti2Image</span><span class="p">(</span><span class="n">bm_ts</span><span class="p">,</span> <span class="n">hdr</span><span class="p">)</span>
     <span class="n">img</span><span class="o">.</span><span class="n">nifti_header</span><span class="o">.</span><span class="n">set_intent</span><span class="p">(</span><span class="s2">&quot;NIFTI_INTENT_CONNECTIVITY_DENSE_SERIES&quot;</span><span class="p">)</span>
 
     <span class="n">out_file</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.dtseries.nii&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">split_filename</span><span class="p">(</span><span class="n">bold_file</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
@@ -698,7 +700,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: 1.2.6
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -735,7 +737,7 @@
             <dd><a href="../../../1.2.3/index.html">1.2.3</a></dd>
             <dd><a href="../../../1.2.4/index.html">1.2.4</a></dd>
             <dd><a href="../../../1.2.5/index.html">1.2.5</a></dd>
-            <dd><a href="../../../1.2.6/index.html">1.2.6</a></dd>
+            <dd><a href="../../../1.2.6/_modules/niworkflows/interfaces/cifti.html">1.2.6</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
@@ -743,7 +745,7 @@
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_1.2.x/index.html">maint/1.2.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/_modules/niworkflows/interfaces/cifti.html">master</a></dd>
+            <dd><a href="../../../master/index.html">master</a></dd>
         </dl>
     </div>
 </div>
