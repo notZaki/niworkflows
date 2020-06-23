@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.utils &mdash; niworkflows 1.2.6 documentation</title>
+  <title>niworkflows.viz.utils &mdash; niworkflows 1.2.6+47.gda2339221b documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
 
   
   
@@ -17,7 +21,9 @@
   
 
   
-  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -30,11 +36,6 @@
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -50,7 +51,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> niworkflows
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> niworkflows
           
 
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -93,6 +95,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -131,7 +134,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -153,12 +156,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.viz.utils</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -305,8 +305,6 @@
 
 <div class="viewcode-block" id="cuts_from_bbox"><a class="viewcode-back" href="../../../api/niworkflows.viz.utils.html#niworkflows.viz.utils.cuts_from_bbox">[docs]</a><span class="k">def</span> <span class="nf">cuts_from_bbox</span><span class="p">(</span><span class="n">mask_nii</span><span class="p">,</span> <span class="n">cuts</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Find equi-spaced cuts for presenting images.&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">nibabel.affines</span> <span class="kn">import</span> <span class="n">apply_affine</span>
-
     <span class="n">mask_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">mask_nii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0</span>
 
     <span class="c1"># First, project the number of masked voxels on each axes</span>
@@ -325,32 +323,28 @@
     <span class="c1"># I have manually found that for the axial view requiring 30%</span>
     <span class="c1"># of the slice elements to be masked drops almost empty boxes</span>
     <span class="c1"># in the mosaic of axial planes (and also addresses #281)</span>
-    <span class="n">ijk_th</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="nb">int</span><span class="p">((</span><span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">),</span>  <span class="c1"># sagittal</span>
-        <span class="nb">int</span><span class="p">((</span><span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.0</span><span class="p">),</span>  <span class="c1"># coronal</span>
-        <span class="nb">int</span><span class="p">((</span><span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">),</span>  <span class="c1"># axial</span>
-    <span class="p">]</span>
+    <span class="n">ijk_th</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">([</span>
+        <span class="p">(</span><span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">,</span>  <span class="c1"># sagittal</span>
+        <span class="p">(</span><span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># coronal</span>
+        <span class="p">(</span><span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">,</span>  <span class="c1"># axial</span>
+    <span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-    <span class="n">vox_coords</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">vox_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="n">cuts</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">vox_coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">th</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ijk_counts</span><span class="p">,</span> <span class="n">ijk_th</span><span class="p">)):</span>
+        <span class="c1"># Start with full plane if mask is seemingly empty</span>
+        <span class="n">smin</span><span class="p">,</span> <span class="n">smax</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">ax</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
         <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">c</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">B</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>  <span class="c1"># Threshold too high</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">B</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
             <span class="n">smin</span><span class="p">,</span> <span class="n">smax</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">B</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
-        <span class="c1"># Avoid too narrow selections of cuts (very small masks)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">B</span><span class="o">.</span><span class="n">size</span> <span class="ow">or</span> <span class="p">(</span><span class="n">th</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">smin</span> <span class="o">+</span> <span class="n">cuts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">smax</span><span class="p">):</span>
-            <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">vox_coords</span><span class="p">[</span><span class="n">ax</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">smin</span><span class="p">,</span> <span class="n">smax</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">cuts</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-        <span class="c1"># Resort to full plane if mask is seemingly empty</span>
-        <span class="n">smin</span><span class="p">,</span> <span class="n">smax</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">B</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">if</span> <span class="n">B</span><span class="o">.</span><span class="n">size</span> <span class="k">else</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">ax</span><span class="p">])</span>
-        <span class="n">inc</span> <span class="o">=</span> <span class="p">(</span><span class="n">smax</span> <span class="o">-</span> <span class="n">smin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">cuts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">vox_coords</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">smin</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">inc</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cuts</span><span class="p">)])</span>
-
-    <span class="n">ras_coords</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">cross</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vox_coords</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
-        <span class="n">ras_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">apply_affine</span><span class="p">(</span><span class="n">mask_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">cross</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-    <span class="n">ras_cuts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span> <span class="k">for</span> <span class="n">coords</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">ras_coords</span><span class="p">)]</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span> <span class="n">ras_cuts</span><span class="p">)}</span></div>
+    <span class="n">ras_coords</span> <span class="o">=</span> <span class="n">mask_nii</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vox_coords</span><span class="p">)[:</span><span class="mi">3</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">ras_coords</span><span class="p">,</span> <span class="mi">3</span><span class="p">))}</span></div>
 
 
 <span class="k">def</span> <span class="nf">_3d_in_file</span><span class="p">(</span><span class="n">in_file</span><span class="p">):</span>
@@ -844,11 +838,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright Copyright 2020, Center for Reproducible Neuroscience, Stanford University
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -862,7 +864,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.2.6
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -899,7 +901,7 @@
             <dd><a href="../../../1.2.3/index.html">1.2.3</a></dd>
             <dd><a href="../../../1.2.4/index.html">1.2.4</a></dd>
             <dd><a href="../../../1.2.5/index.html">1.2.5</a></dd>
-            <dd><a href="../../../1.2.6/_modules/niworkflows/viz/utils.html">1.2.6</a></dd>
+            <dd><a href="../../../1.2.6/index.html">1.2.6</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
@@ -907,7 +909,7 @@
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_1.2.x/index.html">maint/1.2.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/index.html">master</a></dd>
+            <dd><a href="../../../master/_modules/niworkflows/viz/utils.html">master</a></dd>
         </dl>
     </div>
 </div>

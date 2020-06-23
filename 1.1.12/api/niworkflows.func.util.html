@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.func.util module &mdash; niworkflows 1.2.6 documentation</title>
+  <title>niworkflows.func.util module &mdash; niworkflows 1.2.6+47.gda2339221b documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
 
   
   
@@ -17,7 +21,9 @@
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -30,11 +36,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="niworkflows.interfaces package" href="niworkflows.interfaces.html" />
@@ -52,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> niworkflows
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> niworkflows
           
 
           
@@ -79,6 +80,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -111,6 +113,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -149,7 +152,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../api.html">Library API (application program interface)</a> &raquo;</li>
         
@@ -188,7 +191,7 @@
 <p>Utility workflows.</p>
 <dl class="function">
 <dt id="niworkflows.func.util.init_bold_reference_wf">
-<code class="sig-prename descclassname">niworkflows.func.util.</code><code class="sig-name descname">init_bold_reference_wf</code><span class="sig-paren">(</span><em class="sig-param">omp_nthreads</em>, <em class="sig-param">bold_file=None</em>, <em class="sig-param">pre_mask=False</em>, <em class="sig-param">name='bold_reference_wf'</em>, <em class="sig-param">gen_report=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/func/util.html#init_bold_reference_wf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.func.util.init_bold_reference_wf" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.func.util.</code><code class="sig-name descname">init_bold_reference_wf</code><span class="sig-paren">(</span><em class="sig-param">omp_nthreads</em>, <em class="sig-param">bold_file=None</em>, <em class="sig-param">sbref_files=None</em>, <em class="sig-param">brainmask_thresh=0.85</em>, <em class="sig-param">pre_mask=False</em>, <em class="sig-param">multiecho=False</em>, <em class="sig-param">name='bold_reference_wf'</em>, <em class="sig-param">gen_report=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/func/util.html#init_bold_reference_wf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.func.util.init_bold_reference_wf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a workflow that generates reference BOLD images for a series.</p>
 <p>The raw reference image is the target of <abbr title="head motion correction">HMC</abbr>, and a
 contrast-enhanced reference is the subject of distortion correction, as well as
@@ -203,10 +206,19 @@ boundary-based registration to T1w and template spaces.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bold_file</strong> (<em>str</em>) – BOLD series NIfTI file</p></li>
-<li><p><strong>omp_nthreads</strong> (<em>int</em>) – Maximum number of threads an individual process may use</p></li>
-<li><p><strong>name</strong> (<em>str</em>) – Name of workflow (default: <code class="docutils literal notranslate"><span class="pre">bold_reference_wf</span></code>)</p></li>
-<li><p><strong>gen_report</strong> (<em>bool</em>) – Whether a mask report node should be appended in the end</p></li>
+<li><p><strong>omp_nthreads</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Maximum number of threads an individual process may use</p></li>
+<li><p><strong>bold_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – BOLD series NIfTI file</p></li>
+<li><p><strong>sbref_files</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – Single band (as opposed to multi band) reference NIfTI file.
+If <code class="docutils literal notranslate"><span class="pre">True</span></code> is passed, the workflow is built to accommodate SBRefs,
+but the input is left undefined (i.e., it is left open for connection)</p></li>
+<li><p><strong>brainmask_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>) – Lower threshold for the probabilistic brainmask to obtain
+the final binary mask (default: 0.85).</p></li>
+<li><p><strong>pre_mask</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – Indicates whether the <code class="docutils literal notranslate"><span class="pre">pre_mask</span></code> input will be set (and thus, step 1
+should be skipped).</p></li>
+<li><p><strong>multiecho</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – If multiecho data was supplied, data from the first echo
+will be selected</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Name of workflow (default: <code class="docutils literal notranslate"><span class="pre">bold_reference_wf</span></code>)</p></li>
+<li><p><strong>gen_report</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether a mask report node should be appended in the end</p></li>
 </ul>
 </dd>
 <dt class="field-even">Inputs</dt>
@@ -242,7 +254,7 @@ beginning of <code class="docutils literal notranslate"><span class="pre">bold_f
 
 <dl class="function">
 <dt id="niworkflows.func.util.init_enhance_and_skullstrip_bold_wf">
-<code class="sig-prename descclassname">niworkflows.func.util.</code><code class="sig-name descname">init_enhance_and_skullstrip_bold_wf</code><span class="sig-paren">(</span><em class="sig-param">name='enhance_and_skullstrip_bold_wf'</em>, <em class="sig-param">pre_mask=False</em>, <em class="sig-param">omp_nthreads=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/func/util.html#init_enhance_and_skullstrip_bold_wf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.func.util.init_enhance_and_skullstrip_bold_wf" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.func.util.</code><code class="sig-name descname">init_enhance_and_skullstrip_bold_wf</code><span class="sig-paren">(</span><em class="sig-param">brainmask_thresh=0.5</em>, <em class="sig-param">name='enhance_and_skullstrip_bold_wf'</em>, <em class="sig-param">omp_nthreads=1</em>, <em class="sig-param">pre_mask=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/func/util.html#init_enhance_and_skullstrip_bold_wf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.func.util.init_enhance_and_skullstrip_bold_wf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enhance and run brain extraction on a BOLD EPI image.</p>
 <p>This workflow takes in a <abbr title="blood-oxygen level-dependant">BOLD</abbr>
 <abbr title="functional MRI">fMRI</abbr> average/summary (e.g., a reference image
@@ -286,10 +298,12 @@ Nipype input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>brainmask_thresh</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>) – Lower threshold for the probabilistic brainmask to obtain
+the final binary mask (default: 0.5).</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – Name of workflow (default: <code class="docutils literal notranslate"><span class="pre">enhance_and_skullstrip_bold_wf</span></code>)</p></li>
+<li><p><strong>omp_nthreads</strong> (<em>int</em>) – number of threads available to parallel nodes</p></li>
 <li><p><strong>pre_mask</strong> (<em>bool</em>) – Indicates whether the <code class="docutils literal notranslate"><span class="pre">pre_mask</span></code> input will be set (and thus, step 1
 should be skipped).</p></li>
-<li><p><strong>omp_nthreads</strong> (<em>int</em>) – number of threads available to parallel nodes</p></li>
 </ul>
 </dd>
 <dt class="field-even">Inputs</dt>
@@ -360,11 +374,19 @@ bias-corrected with
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright Copyright 2020, Center for Reproducible Neuroscience, Stanford University
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 

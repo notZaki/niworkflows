@@ -1,15 +1,19 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.images module &mdash; niworkflows 1.2.6 documentation</title>
+  <title>niworkflows.interfaces.images module &mdash; niworkflows 1.2.6+47.gda2339221b documentation</title>
   
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
 
   
   
@@ -17,7 +21,9 @@
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -30,11 +36,6 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/banner.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="niworkflows.interfaces.itk module" href="niworkflows.interfaces.itk.html" />
@@ -52,7 +53,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> niworkflows
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> niworkflows
           
 
           
@@ -79,6 +80,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -133,6 +135,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -171,7 +174,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../api.html">Library API (application program interface)</a> &raquo;</li>
         
@@ -199,12 +202,9 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><a href="../master/api/niworkflows.interfaces.images.html"><b>Warning:</b> This document is for an old version of niworkflows. The main version is master.</a></p>
 <div class="section" id="module-niworkflows.interfaces.images">
 <span id="niworkflows-interfaces-images-module"></span><h1>niworkflows.interfaces.images module<a class="headerlink" href="#module-niworkflows.interfaces.images" title="Permalink to this headline">¶</a></h1>
 <p>Image tools interfaces.</p>
@@ -304,6 +304,25 @@ head-motion correction with FSL <code class="docutils literal notranslate"><span
 <dt id="niworkflows.interfaces.images.MatchHeader.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.images.MatchHeader.output_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MatchHeaderOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="niworkflows.interfaces.images.RegridToZooms">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.images.</code><code class="sig-name descname">RegridToZooms</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/images.html#RegridToZooms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.images.RegridToZooms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<p>Change the resolution of an image (regrid).</p>
+<dl class="attribute">
+<dt id="niworkflows.interfaces.images.RegridToZooms.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.images.RegridToZooms.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_RegridToZoomsInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="niworkflows.interfaces.images.RegridToZooms.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.images.RegridToZooms.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_RegridToZoomsOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>
@@ -513,11 +532,19 @@ coordinates.</p>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright Copyright 2020, Center for Reproducible Neuroscience, Stanford University
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -531,7 +558,7 @@ coordinates.</p>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.2.6
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
