@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.bids module &mdash; niworkflows 1.2.6+54.gdbd2a972d5 documentation</title>
+  <title>niworkflows.interfaces.bids module &mdash; niworkflows 1.2.6+62.g5153624328 documentation</title>
   
 
   
@@ -417,6 +417,32 @@ by <code class="docutils literal notranslate"><span class="pre">base_directory</
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span>  
 <span class="go">[&#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_custom1-1_custom2-b_T1w.nii&#39;,</span>
 <span class="go"> &#39;.../niworkflows/sub-01/ses-retest/anat/sub-01_ses-retest_custom1-2_custom2-b_T1w.nii&#39;]</span>
+</pre></div>
+</div>
+<p>When multiple source files are passed, only common entities are passed down.
+For example, if two T1w images from different sessions are used to generate
+a single image, the session entity is removed automatically.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">multi_source</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="n">bids_dir</span> <span class="o">/</span> <span class="s1">&#39;sub-02/ses-A/anat/sub-02_ses-A_T1w.nii.gz&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">bids_dir</span> <span class="o">/</span> <span class="s1">&#39;sub-02/ses-B/anat/sub-02_ses-B_T1w.nii.gz&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">source_file</span> <span class="ow">in</span> <span class="n">multi_source</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">source_file</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">source_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span> <span class="o">=</span> <span class="n">DerivativesDataSink</span><span class="p">(</span><span class="n">base_directory</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">),</span> <span class="n">check_hdr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">multi_source</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;preproc&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span>  
+<span class="go">&#39;.../niworkflows/sub-02/anat/sub-02_desc-preproc_T1w.nii&#39;</span>
+</pre></div>
+</div>
+<p>If, on the other hand, only one is used, the session is preserved:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dsink</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">source_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">multi_source</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">dsink</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span>  
+<span class="go">&#39;.../niworkflows/sub-02/ses-A/anat/sub-02_ses-A_desc-preproc_T1w.nii&#39;</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bids_dir</span> <span class="o">=</span> <span class="n">tmpdir</span> <span class="o">/</span> <span class="s1">&#39;bidsroot&#39;</span> <span class="o">/</span> <span class="s1">&#39;sub-02&#39;</span> <span class="o">/</span> <span class="s1">&#39;ses-noanat&#39;</span> <span class="o">/</span> <span class="s1">&#39;func&#39;</span>
