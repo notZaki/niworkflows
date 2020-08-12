@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.anat.ants &mdash; niworkflows 1.2.7+63.g43adaf04c7 documentation</title>
+  <title>niworkflows.anat.ants &mdash; niworkflows 1.2.7 documentation</title>
   
 
   
@@ -178,7 +178,6 @@
 <span class="kn">from</span> <span class="nn">nipype.interfaces.ants</span> <span class="kn">import</span> <span class="n">N4BiasFieldCorrection</span><span class="p">,</span> <span class="n">Atropos</span><span class="p">,</span> <span class="n">MultiplyImages</span>
 
 <span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">get_template_specs</span>
-<span class="kn">from</span> <span class="nn">..utils.connections</span> <span class="kn">import</span> <span class="n">pop_file</span> <span class="k">as</span> <span class="n">_pop</span>
 
 <span class="c1"># niworkflows</span>
 <span class="kn">from</span> <span class="nn">..interfaces.ants</span> <span class="kn">import</span> <span class="p">(</span>
@@ -1058,6 +1057,12 @@
         <span class="c1"># fmt: on</span>
 
     <span class="k">return</span> <span class="n">wf</span></div>
+
+
+<span class="k">def</span> <span class="nf">_pop</span><span class="p">(</span><span class="n">in_files</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">in_files</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">in_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">in_files</span>
 
 
 <span class="k">def</span> <span class="nf">_select_labels</span><span class="p">(</span><span class="n">in_segm</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>

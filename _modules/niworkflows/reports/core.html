@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.reports.core &mdash; niworkflows 1.2.7+63.g43adaf04c7 documentation</title>
+  <title>niworkflows.reports.core &mdash; niworkflows 1.2.7 documentation</title>
   
 
   
@@ -156,9 +156,12 @@
   
 
 
+    
+    
 
 
 
+    <p class="scv-banner scv-sphinx_rtd_theme"><b>Warning:</b> This document is for an old version of niworkflows.</p>
 <h1>Source code for niworkflows.reports.core</h1><div class="highlight"><pre>
 <span></span><span class="c1"># emacs: -*- mode: python; py-indent-offset: 4; indent-tabs-mode: nil -*-</span>
 <span class="c1"># vi: set ft=python sts=4 ts=4 sw=4 et:</span>
@@ -299,6 +302,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Reportlet must have a config object&quot;</span><span class="p">)</span>
 
+        <span class="c1"># PY35: Sorted config dict for consistent behavior</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;bids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
         <span class="p">)</span>
@@ -749,7 +753,7 @@
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: master
+        v: 1.2.7
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -787,7 +791,7 @@
             <dd><a href="../../../1.2.4/index.html">1.2.4</a></dd>
             <dd><a href="../../../1.2.5/index.html">1.2.5</a></dd>
             <dd><a href="../../../1.2.6/index.html">1.2.6</a></dd>
-            <dd><a href="../../../1.2.7/index.html">1.2.7</a></dd>
+            <dd><a href="../../../1.2.7/_modules/niworkflows/reports/core.html">1.2.7</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
@@ -795,7 +799,7 @@
             <dd><a href="../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../maint_1.2.x/index.html">maint/1.2.x</a></dd>
             <dd><a href="../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
-            <dd><a href="../../../master/_modules/niworkflows/reports/core.html">master</a></dd>
+            <dd><a href="../../../master/index.html">master</a></dd>
         </dl>
     </div>
 </div>
