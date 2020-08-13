@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.func.util &mdash; niworkflows 1.2.7 documentation</title>
+  <title>niworkflows.func.util &mdash; niworkflows 1.2.7+69.g587a15b999 documentation</title>
   
 
   
@@ -183,6 +183,7 @@
 <span class="kn">from</span> <span class="nn">..interfaces.masks</span> <span class="kn">import</span> <span class="n">SimpleShowMaskRPT</span>
 <span class="kn">from</span> <span class="nn">..interfaces.registration</span> <span class="kn">import</span> <span class="n">EstimateReferenceImage</span>
 <span class="kn">from</span> <span class="nn">..interfaces.utils</span> <span class="kn">import</span> <span class="n">CopyXForm</span>
+<span class="kn">from</span> <span class="nn">..utils.connections</span> <span class="kn">import</span> <span class="n">listify</span>
 <span class="kn">from</span> <span class="nn">..utils.misc</span> <span class="kn">import</span> <span class="n">pass_dummy_scans</span> <span class="k">as</span> <span class="n">_pass_dummy_scans</span>
 
 
@@ -192,7 +193,10 @@
 <div class="viewcode-block" id="init_bold_reference_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_bold_reference_wf">[docs]</a><span class="k">def</span> <span class="nf">init_bold_reference_wf</span><span class="p">(</span>
     <span class="n">omp_nthreads</span><span class="p">,</span>
     <span class="n">bold_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sbref_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">brainmask_thresh</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
     <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">multiecho</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bold_reference_wf&quot;</span><span class="p">,</span>
     <span class="n">gen_report</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
@@ -213,13 +217,26 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    bold_file : str</span>
-<span class="sd">        BOLD series NIfTI file</span>
-<span class="sd">    omp_nthreads : int</span>
+<span class="sd">    omp_nthreads : :obj:`int`</span>
 <span class="sd">        Maximum number of threads an individual process may use</span>
-<span class="sd">    name : str</span>
+<span class="sd">    bold_file : :obj:`str`</span>
+<span class="sd">        BOLD series NIfTI file</span>
+<span class="sd">    sbref_files : :obj:`list` or :obj:`bool`</span>
+<span class="sd">        Single band (as opposed to multi band) reference NIfTI file.</span>
+<span class="sd">        If ``True`` is passed, the workflow is built to accommodate SBRefs,</span>
+<span class="sd">        but the input is left undefined (i.e., it is left open for connection)</span>
+<span class="sd">    brainmask_thresh: :obj:`float`</span>
+<span class="sd">        Lower threshold for the probabilistic brainmask to obtain</span>
+<span class="sd">        the final binary mask (default: 0.85).</span>
+<span class="sd">    pre_mask : :obj:`bool`</span>
+<span class="sd">        Indicates whether the ``pre_mask`` input will be set (and thus, step 1</span>
+<span class="sd">        should be skipped).</span>
+<span class="sd">    multiecho : :obj:`bool`</span>
+<span class="sd">        If multiecho data was supplied, data from the first echo</span>
+<span class="sd">        will be selected</span>
+<span class="sd">    name : :obj:`str`</span>
 <span class="sd">        Name of workflow (default: ``bold_reference_wf``)</span>
-<span class="sd">    gen_report : bool</span>
+<span class="sd">    gen_report : :obj:`bool`</span>
 <span class="sd">        Whether a mask report node should be appended in the end</span>
 
 <span class="sd">    Inputs</span>
@@ -260,10 +277,12 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">workflow</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">workflow</span><span class="o">.</span><span class="n">__desc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+    <span class="n">workflow</span><span class="o">.</span><span class="n">__desc__</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">First, a reference volume and its skull-stripped version were generated</span>
-<span class="s2">using a custom methodology of *fMRIPrep*.</span>
+<span class="si">{</span><span class="s1">&#39;from the shortest echo of the BOLD run&#39;</span> <span class="o">*</span> <span class="n">multiecho</span><span class="si">}</span><span class="s2"> using a custom</span>
+<span class="s2">methodology of *fMRIPrep*.</span>
 <span class="s2">&quot;&quot;&quot;</span>
+
     <span class="n">inputnode</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
         <span class="n">niu</span><span class="o">.</span><span class="n">IdentityInterface</span><span class="p">(</span>
             <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bold_file&quot;</span><span class="p">,</span> <span class="s2">&quot;bold_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;dummy_scans&quot;</span><span class="p">,</span> <span class="s2">&quot;sbref_file&quot;</span><span class="p">]</span>
@@ -281,6 +300,7 @@
                 <span class="s2">&quot;ref_image_brain&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;bold_mask&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;validation_report&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mask_report&quot;</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">),</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputnode&quot;</span><span class="p">,</span>
@@ -290,13 +310,20 @@
     <span class="k">if</span> <span class="n">bold_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">inputnode</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">bold_file</span> <span class="o">=</span> <span class="n">bold_file</span>
 
-    <span class="n">validate</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">ValidateImage</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;validate&quot;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="n">DEFAULT_MEMORY_MIN_GB</span><span class="p">)</span>
+    <span class="n">val_bold</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">MapNode</span><span class="p">(</span>
+        <span class="n">ValidateImage</span><span class="p">(),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;val_bold&quot;</span><span class="p">,</span>
+        <span class="n">mem_gb</span><span class="o">=</span><span class="n">DEFAULT_MEMORY_MIN_GB</span><span class="p">,</span>
+        <span class="n">iterfield</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_file&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
 
     <span class="n">gen_ref</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
-        <span class="n">EstimateReferenceImage</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gen_ref&quot;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="mi">1</span>
+        <span class="n">EstimateReferenceImage</span><span class="p">(</span><span class="n">multiecho</span><span class="o">=</span><span class="n">multiecho</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gen_ref&quot;</span><span class="p">,</span> <span class="n">mem_gb</span><span class="o">=</span><span class="mi">1</span>
     <span class="p">)</span>  <span class="c1"># OE: 128x128x128x50 * 64 / 8 ~ 900MB.</span>
     <span class="n">enhance_and_skullstrip_bold_wf</span> <span class="o">=</span> <span class="n">init_enhance_and_skullstrip_bold_wf</span><span class="p">(</span>
-        <span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span> <span class="n">pre_mask</span><span class="o">=</span><span class="n">pre_mask</span>
+        <span class="n">brainmask_thresh</span><span class="o">=</span><span class="n">brainmask_thresh</span><span class="p">,</span>
+        <span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">,</span>
+        <span class="n">pre_mask</span><span class="o">=</span><span class="n">pre_mask</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">calc_dummy_scans</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
@@ -305,23 +332,23 @@
         <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">mem_gb</span><span class="o">=</span><span class="n">DEFAULT_MEMORY_MIN_GB</span><span class="p">,</span>
     <span class="p">)</span>
+    <span class="n">bold_1st</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                       <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bold_1st&quot;</span><span class="p">,</span> <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">validate_1st</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">niu</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                           <span class="n">name</span><span class="o">=</span><span class="s2">&quot;validate_1st&quot;</span><span class="p">,</span> <span class="n">run_without_submitting</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># fmt: off</span>
     <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
+        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">val_bold</span><span class="p">,</span> <span class="p">[((</span><span class="s2">&quot;bold_file&quot;</span><span class="p">,</span> <span class="n">listify</span><span class="p">),</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">enhance_and_skullstrip_bold_wf</span><span class="p">,</span> <span class="p">[</span>
             <span class="p">(</span><span class="s2">&quot;bold_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;inputnode.pre_mask&quot;</span><span class="p">),</span>
         <span class="p">]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">validate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;bold_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">gen_ref</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;sbref_file&quot;</span><span class="p">,</span> <span class="s2">&quot;sbref_file&quot;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;dummy_scans&quot;</span><span class="p">,</span> <span class="s2">&quot;dummy_scans&quot;</span><span class="p">)]),</span>
-        <span class="p">(</span><span class="n">validate</span><span class="p">,</span> <span class="n">gen_ref</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">val_bold</span><span class="p">,</span> <span class="n">gen_ref</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">enhance_and_skullstrip_bold_wf</span><span class="p">,</span> <span class="p">[</span>
             <span class="p">(</span><span class="s2">&quot;ref_image&quot;</span><span class="p">,</span> <span class="s2">&quot;inputnode.in_file&quot;</span><span class="p">),</span>
         <span class="p">]),</span>
-        <span class="p">(</span><span class="n">validate</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[</span>
-            <span class="p">(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;bold_file&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="s2">&quot;out_report&quot;</span><span class="p">,</span> <span class="s2">&quot;validation_report&quot;</span><span class="p">),</span>
-        <span class="p">]),</span>
+        <span class="p">(</span><span class="n">val_bold</span><span class="p">,</span> <span class="n">bold_1st</span><span class="p">,</span> <span class="p">[((</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="n">listify</span><span class="p">),</span> <span class="s2">&quot;inlist&quot;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;n_volumes_to_discard&quot;</span><span class="p">,</span> <span class="s2">&quot;algo_dummy_scans&quot;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">calc_dummy_scans</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;skip_vols_num&quot;</span><span class="p">,</span> <span class="s2">&quot;skip_vols&quot;</span><span class="p">)]),</span>
         <span class="p">(</span><span class="n">gen_ref</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[</span>
@@ -333,8 +360,38 @@
             <span class="p">(</span><span class="s2">&quot;outputnode.mask_file&quot;</span><span class="p">,</span> <span class="s2">&quot;bold_mask&quot;</span><span class="p">),</span>
             <span class="p">(</span><span class="s2">&quot;outputnode.skull_stripped_file&quot;</span><span class="p">,</span> <span class="s2">&quot;ref_image_brain&quot;</span><span class="p">),</span>
         <span class="p">]),</span>
+        <span class="p">(</span><span class="n">val_bold</span><span class="p">,</span> <span class="n">validate_1st</span><span class="p">,</span> <span class="p">[((</span><span class="s2">&quot;out_report&quot;</span><span class="p">,</span> <span class="n">listify</span><span class="p">),</span> <span class="s2">&quot;inlist&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">bold_1st</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="s2">&quot;bold_file&quot;</span><span class="p">)]),</span>
+        <span class="p">(</span><span class="n">validate_1st</span><span class="p">,</span> <span class="n">outputnode</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="s2">&quot;validation_report&quot;</span><span class="p">)]),</span>
     <span class="p">])</span>
     <span class="c1"># fmt: on</span>
+
+    <span class="k">if</span> <span class="n">sbref_files</span><span class="p">:</span>
+        <span class="n">nsbrefs</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">sbref_files</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># If not boolean, then it is a list-of or pathlike.</span>
+            <span class="n">inputnode</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">sbref_file</span> <span class="o">=</span> <span class="n">sbref_files</span>
+            <span class="n">nsbrefs</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sbref_files</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="n">sbref_files</span><span class="p">)</span>
+
+        <span class="n">val_sbref</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">MapNode</span><span class="p">(</span>
+            <span class="n">ValidateImage</span><span class="p">(),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;val_sbref&quot;</span><span class="p">,</span>
+            <span class="n">mem_gb</span><span class="o">=</span><span class="n">DEFAULT_MEMORY_MIN_GB</span><span class="p">,</span>
+            <span class="n">iterfield</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_file&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="c1"># fmt: off</span>
+        <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
+            <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">val_sbref</span><span class="p">,</span> <span class="p">[((</span><span class="s2">&quot;sbref_file&quot;</span><span class="p">,</span> <span class="n">listify</span><span class="p">),</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">val_sbref</span><span class="p">,</span> <span class="n">gen_ref</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_file&quot;</span><span class="p">,</span> <span class="s2">&quot;sbref_file&quot;</span><span class="p">)]),</span>
+        <span class="p">])</span>
+        <span class="c1"># fmt: on</span>
+
+        <span class="c1"># Edit the boilerplate as the SBRef will be the reference</span>
+        <span class="n">workflow</span><span class="o">.</span><span class="n">__desc__</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="s2">First, a reference volume and its skull-stripped version were generated</span>
+<span class="s2">by aligning and averaging</span><span class="si">{</span><span class="s1">&#39; the first echo of&#39;</span> <span class="o">*</span> <span class="n">multiecho</span><span class="si">}</span><span class="s2"></span>
+<span class="si">{</span><span class="n">nsbrefs</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2"> single-band references (SBRefs).</span>
+<span class="s2">&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">gen_report</span><span class="p">:</span>
         <span class="n">mask_reportlet</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">SimpleShowMaskRPT</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mask_reportlet&quot;</span><span class="p">)</span>
@@ -351,7 +408,10 @@
 
 
 <div class="viewcode-block" id="init_enhance_and_skullstrip_bold_wf"><a class="viewcode-back" href="../../../api/niworkflows.func.util.html#niworkflows.func.util.init_enhance_and_skullstrip_bold_wf">[docs]</a><span class="k">def</span> <span class="nf">init_enhance_and_skullstrip_bold_wf</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;enhance_and_skullstrip_bold_wf&quot;</span><span class="p">,</span> <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">omp_nthreads</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">brainmask_thresh</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;enhance_and_skullstrip_bold_wf&quot;</span><span class="p">,</span>
+    <span class="n">omp_nthreads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">pre_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enhance and run brain extraction on a BOLD EPI image.</span>
@@ -401,13 +461,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    brainmask_thresh: :obj:`float`</span>
+<span class="sd">        Lower threshold for the probabilistic brainmask to obtain</span>
+<span class="sd">        the final binary mask (default: 0.5).</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Name of workflow (default: ``enhance_and_skullstrip_bold_wf``)</span>
+<span class="sd">    omp_nthreads : int</span>
+<span class="sd">        number of threads available to parallel nodes</span>
 <span class="sd">    pre_mask : bool</span>
 <span class="sd">        Indicates whether the ``pre_mask`` input will be set (and thus, step 1</span>
 <span class="sd">        should be skipped).</span>
-<span class="sd">    omp_nthreads : int</span>
-<span class="sd">        number of threads available to parallel nodes</span>
 
 <span class="sd">    Inputs</span>
 <span class="sd">    ------</span>
@@ -508,6 +571,8 @@
     <span class="n">apply_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">fsl</span><span class="o">.</span><span class="n">ApplyMask</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;apply_mask&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pre_mask</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">..interfaces.nibabel</span> <span class="kn">import</span> <span class="n">Binarize</span>
+
         <span class="n">bold_template</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span>
             <span class="s2">&quot;MNI152NLin2009cAsym&quot;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;fMRIPrep&quot;</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;boldref&quot;</span>
         <span class="p">)</span>
@@ -546,10 +611,22 @@
         <span class="n">norm</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">fixed_image</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">bold_template</span><span class="p">)</span>
         <span class="n">map_brainmask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span>
             <span class="n">ApplyTransforms</span><span class="p">(</span>
-                <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;MultiLabel&quot;</span><span class="p">,</span> <span class="n">input_image</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">brain_mask</span><span class="p">)</span>
+                <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;BSpline&quot;</span><span class="p">,</span>
+                <span class="nb">float</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="c1"># Use the higher resolution and probseg for numerical stability in rounding</span>
+                <span class="n">input_image</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span>
+                    <span class="n">get_template</span><span class="p">(</span>
+                        <span class="s2">&quot;MNI152NLin2009cAsym&quot;</span><span class="p">,</span>
+                        <span class="n">resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;brain&quot;</span><span class="p">,</span>
+                        <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;probseg&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">),</span>
             <span class="p">),</span>
             <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_brainmask&quot;</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="n">binarize_mask</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Binarize</span><span class="p">(</span><span class="n">thresh_low</span><span class="o">=</span><span class="n">brainmask_thresh</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;binarize_mask&quot;</span><span class="p">)</span>
+
         <span class="c1"># fmt: off</span>
         <span class="n">workflow</span><span class="o">.</span><span class="n">connect</span><span class="p">([</span>
             <span class="p">(</span><span class="n">inputnode</span><span class="p">,</span> <span class="n">init_aff</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;in_file&quot;</span><span class="p">,</span> <span class="s2">&quot;moving_image&quot;</span><span class="p">)]),</span>
@@ -560,7 +637,8 @@
                 <span class="p">(</span><span class="s2">&quot;reverse_invert_flags&quot;</span><span class="p">,</span> <span class="s2">&quot;invert_transform_flags&quot;</span><span class="p">),</span>
                 <span class="p">(</span><span class="s2">&quot;reverse_transforms&quot;</span><span class="p">,</span> <span class="s2">&quot;transforms&quot;</span><span class="p">),</span>
             <span class="p">]),</span>
-            <span class="p">(</span><span class="n">map_brainmask</span><span class="p">,</span> <span class="n">pre_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;output_image&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">map_brainmask</span><span class="p">,</span> <span class="n">binarize_mask</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;output_image&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
+            <span class="p">(</span><span class="n">binarize_mask</span><span class="p">,</span> <span class="n">pre_dilate</span><span class="p">,</span> <span class="p">[(</span><span class="s2">&quot;out_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;in_file&quot;</span><span class="p">)]),</span>
         <span class="p">])</span>
         <span class="c1"># fmt: on</span>
     <span class="k">else</span><span class="p">:</span>
