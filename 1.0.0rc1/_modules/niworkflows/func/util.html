@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.func.util &mdash; niworkflows 1.2.7+72.g8e9b574261 documentation</title>
+  <title>niworkflows.func.util &mdash; niworkflows 1.2.7+75.gcf1f227dfa documentation</title>
   
 
   
@@ -169,11 +169,11 @@
 
 <span class="kn">from</span> <span class="nn">nipype.pipeline</span> <span class="kn">import</span> <span class="n">engine</span> <span class="k">as</span> <span class="n">pe</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">utility</span> <span class="k">as</span> <span class="n">niu</span><span class="p">,</span> <span class="n">fsl</span><span class="p">,</span> <span class="n">afni</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.ants.utils</span> <span class="kn">import</span> <span class="n">AI</span>
 
 <span class="kn">from</span> <span class="nn">templateflow.api</span> <span class="kn">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">get_template</span>
 
 <span class="kn">from</span> <span class="nn">..engine.workflows</span> <span class="kn">import</span> <span class="n">LiterateWorkflow</span> <span class="k">as</span> <span class="n">Workflow</span>
-<span class="kn">from</span> <span class="nn">..interfaces.ants</span> <span class="kn">import</span> <span class="n">AI</span>
 <span class="kn">from</span> <span class="nn">..interfaces.fixes</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">FixHeaderRegistration</span> <span class="k">as</span> <span class="n">Registration</span><span class="p">,</span>
     <span class="n">FixHeaderApplyTransforms</span> <span class="k">as</span> <span class="n">ApplyTransforms</span><span class="p">,</span>
