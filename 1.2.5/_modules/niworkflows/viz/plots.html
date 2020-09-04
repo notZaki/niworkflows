@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.plots &mdash; niworkflows 1.3.0rc2+2.gd78fe6d47d documentation</title>
+  <title>niworkflows.viz.plots &mdash; niworkflows 1.2.8 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.2.8
               </div>
             
           
@@ -1068,40 +1068,55 @@
 
 
 <div class="viewcode-block" id="confounds_correlation_plot"><a class="viewcode-back" href="../../../api/niworkflows.viz.plots.html#niworkflows.viz.confounds_correlation_plot">[docs]</a><span class="k">def</span> <span class="nf">confounds_correlation_plot</span><span class="p">(</span>
-    <span class="n">confounds_file</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;global_signal&quot;</span><span class="p">,</span> <span class="n">max_dim</span><span class="o">=</span><span class="mi">70</span>
+    <span class="n">confounds_file</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">figure</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_dim</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">reference</span><span class="o">=</span><span class="s2">&quot;global_signal&quot;</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a bar plot with the correlation of confounds.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    confounds_file: str</span>
+<span class="sd">    confounds_file: :obj:`str`</span>
 <span class="sd">        File containing all confound regressors to be included in the</span>
 <span class="sd">        correlation plot.</span>
-<span class="sd">    output_file: str or None</span>
-<span class="sd">        Path where the output figure should be saved. If this is not defined,</span>
-<span class="sd">        then the plotting axes will be returned instead of the saved figure</span>
-<span class="sd">        path.</span>
 <span class="sd">    figure: figure or None</span>
 <span class="sd">        Existing figure on which to plot.</span>
-<span class="sd">    reference: str</span>
-<span class="sd">        `confounds_correlation_plot` prepares a bar plot of the correlations</span>
-<span class="sd">        of each confound regressor with a reference column. By default, this</span>
-<span class="sd">        is the global signal (so that collinearities with the global signal</span>
-<span class="sd">        can readily be assessed).</span>
-<span class="sd">    max_dim: int</span>
+<span class="sd">    columns: :obj:`list` or :obj:`None`.</span>
+<span class="sd">        Select a list of columns from the dataset.</span>
+<span class="sd">    max_dim: :obj:`int`</span>
 <span class="sd">        The maximum number of regressors to be included in the output plot.</span>
 <span class="sd">        Reductions (e.g., CompCor) of high-dimensional data can yield so many</span>
 <span class="sd">        regressors that the correlation structure becomes obfuscated. This</span>
-<span class="sd">        criterion selects the `max_dim` regressors that have the largest</span>
-<span class="sd">        correlation magnitude with `reference` for inclusion in the plot.</span>
+<span class="sd">        criterion selects the ``max_dim`` regressors that have the largest</span>
+<span class="sd">        correlation magnitude with ``reference`` for inclusion in the plot.</span>
+<span class="sd">    output_file: :obj:`str` or :obj:`None`</span>
+<span class="sd">        Path where the output figure should be saved. If this is not defined,</span>
+<span class="sd">        then the plotting axes will be returned instead of the saved figure</span>
+<span class="sd">        path.</span>
+<span class="sd">    reference: :obj:`str`</span>
+<span class="sd">        ``confounds_correlation_plot`` prepares a bar plot of the correlations</span>
+<span class="sd">        of each confound regressor with a reference column. By default, this</span>
+<span class="sd">        is the global signal (so that collinearities with the global signal</span>
+<span class="sd">        can readily be assessed).</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    axes and gridspec</span>
-<span class="sd">        Plotting axes and gridspec. Returned only if `output_file` is None.</span>
-<span class="sd">    output_file: str</span>
+<span class="sd">        Plotting axes and gridspec. Returned only if ``output_file`` is ``None``.</span>
+<span class="sd">    output_file: :obj:`str`</span>
 <span class="sd">        The file where the figure is saved.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">confounds_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">confounds_file</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">columns</span><span class="p">:</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>  <span class="c1"># Drop duplicates</span>
+        <span class="n">columns</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">reference</span><span class="p">)</span>  <span class="c1"># Make sure the reference is included</span>
+        <span class="n">confounds_data</span> <span class="o">=</span> <span class="n">confounds_data</span><span class="p">[[</span><span class="n">el</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]]</span>
+
     <span class="n">confounds_data</span> <span class="o">=</span> <span class="n">confounds_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
         <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">confounds_data</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
     <span class="p">]</span>
@@ -1286,6 +1301,7 @@
             <dd><a href="plots.html">1.2.5</a></dd>
             <dd><a href="../../../../1.2.6/index.html">1.2.6</a></dd>
             <dd><a href="../../../../1.2.7/index.html">1.2.7</a></dd>
+            <dd><a href="../../../../1.2.8/index.html">1.2.8</a></dd>
             <dd><a href="../../../../1.3.0rc1/index.html">1.3.0rc1</a></dd>
             <dd><a href="../../../../1.3.0rc2/index.html">1.3.0rc2</a></dd>
         </dl>

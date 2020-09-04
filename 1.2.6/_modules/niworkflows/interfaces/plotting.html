@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.plotting &mdash; niworkflows 1.3.0rc2+2.gd78fe6d47d documentation</title>
+  <title>niworkflows.interfaces.plotting &mdash; niworkflows 1.2.8 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.2.8
               </div>
             
           
@@ -305,8 +305,12 @@
         <span class="s2">&quot;which all correlation magnitudes &quot;</span>
         <span class="s2">&quot;should be ranked and plotted&quot;</span><span class="p">,</span>
     <span class="p">)</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Str</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Filter out all regressors not found in this list.&quot;</span>
+    <span class="p">)</span>
     <span class="n">max_dim</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Int</span><span class="p">(</span>
-        <span class="mi">70</span><span class="p">,</span>
+        <span class="mi">20</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Maximum number of regressors to include in &quot;</span>
         <span class="s2">&quot;plot. Regressors with highest magnitude of &quot;</span>
@@ -337,9 +341,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">out_file</span>
         <span class="n">confounds_correlation_plot</span><span class="p">(</span>
             <span class="n">confounds_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">confounds_file</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">max_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">max_dim</span><span class="p">,</span>
             <span class="n">output_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">],</span>
             <span class="n">reference</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">reference_column</span><span class="p">,</span>
-            <span class="n">max_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">max_dim</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">runtime</span></div>
 </pre></div>
@@ -419,6 +424,7 @@
             <dd><a href="../../../../1.2.5/index.html">1.2.5</a></dd>
             <dd><a href="plotting.html">1.2.6</a></dd>
             <dd><a href="../../../../1.2.7/index.html">1.2.7</a></dd>
+            <dd><a href="../../../../1.2.8/index.html">1.2.8</a></dd>
             <dd><a href="../../../../1.3.0rc1/index.html">1.3.0rc1</a></dd>
             <dd><a href="../../../../1.3.0rc2/index.html">1.3.0rc2</a></dd>
         </dl>

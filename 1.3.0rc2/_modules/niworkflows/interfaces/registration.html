@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.registration &mdash; niworkflows 1.3.0rc2+2.gd78fe6d47d documentation</title>
+  <title>niworkflows.interfaces.registration &mdash; niworkflows 1.2.8 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.2.8
               </div>
             
           
@@ -181,7 +181,6 @@
     <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span>
     <span class="n">File</span><span class="p">,</span>
     <span class="n">SimpleInterface</span><span class="p">,</span>
-    <span class="n">InputMultiObject</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.mixins</span> <span class="kn">import</span> <span class="n">reporting</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces</span> <span class="kn">import</span> <span class="n">freesurfer</span> <span class="k">as</span> <span class="n">fs</span>
@@ -564,38 +563,13 @@
 
 
 <span class="k">class</span> <span class="nc">_EstimateReferenceImageInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
-    <span class="n">in_file</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span>
-        <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;4D EPI file. If multiple files &quot;</span>
-            <span class="s2">&quot;are provided, they are assumed &quot;</span>
-            <span class="s2">&quot;to represent multiple echoes &quot;</span>
-            <span class="s2">&quot;from the same run.&quot;</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="n">sbref_file</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span>
-        <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;Single band reference image. &quot;</span>
-            <span class="s2">&quot;If multiple files are provided, &quot;</span>
-            <span class="s2">&quot;they are assumed to represent &quot;</span>
-            <span class="s2">&quot;multiple echoes.&quot;</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
+    <span class="n">in_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;4D EPI file&quot;</span><span class="p">)</span>
+    <span class="n">sbref_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Single band reference image&quot;</span><span class="p">)</span>
     <span class="n">mc_method</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span>
         <span class="s2">&quot;AFNI&quot;</span><span class="p">,</span>
         <span class="s2">&quot;FSL&quot;</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Which software to use to perform motion correction&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">multiecho</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span>
-        <span class="kc">False</span><span class="p">,</span>
-        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">desc</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;If multiecho data was supplied, data from &quot;</span>
-            <span class="s2">&quot;the first echo will be selected.&quot;</span>
-        <span class="p">),</span>
     <span class="p">)</span>
 
 
@@ -610,82 +584,51 @@
 
 <div class="viewcode-block" id="EstimateReferenceImage"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.EstimateReferenceImage">[docs]</a><span class="k">class</span> <span class="nc">EstimateReferenceImage</span><span class="p">(</span><span class="n">SimpleInterface</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generate a reference 3D map from BOLD and SBRef EPI images for BOLD datasets.</span>
-
-<span class="sd">    Given a 4D BOLD file or one or more 3/4D SBRefs, estimate a reference</span>
-<span class="sd">    image for subsequent motion estimation and coregistration steps.</span>
-<span class="sd">    For the case of BOLD datasets, it estimates a number of T1w saturated volumes</span>
-<span class="sd">    (non-steady state at the beginning of the scan) and calculates the median</span>
-<span class="sd">    across them.</span>
-<span class="sd">    Otherwise (SBRefs or detected zero non-steady state frames), a median of</span>
+<span class="sd">    Given an 4D EPI file estimate an optimal reference image that could be later</span>
+<span class="sd">    used for motion estimation and coregistration purposes. If detected uses</span>
+<span class="sd">    T1 saturated volumes (non-steady state) otherwise a median of</span>
 <span class="sd">    of a subset of motion corrected volumes is used.</span>
-<span class="sd">    If the input reference (BOLD or SBRef) is 3D already, it just returns a</span>
-<span class="sd">    copy of the image with the NIfTI header extensions removed.</span>
-
-<span class="sd">    LIMITATION: If one wants to extract the reference from several SBRefs</span>
-<span class="sd">    with several echoes each, the first echo should be selected elsewhere</span>
-<span class="sd">    and run this interface in ``multiecho = False`` mode.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_EstimateReferenceImageInputSpec</span>
     <span class="n">output_spec</span> <span class="o">=</span> <span class="n">_EstimateReferenceImageOutputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">):</span>
-        <span class="n">is_sbref</span> <span class="o">=</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">sbref_file</span><span class="p">)</span>
-        <span class="n">ref_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">sbref_file</span> <span class="k">if</span> <span class="n">is_sbref</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span>
+        <span class="n">ref_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span>
+        <span class="n">ref_nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ref_name</span><span class="p">)</span>
+        <span class="n">n_volumes_to_discard</span> <span class="o">=</span> <span class="n">_get_vols_to_discard</span><span class="p">(</span><span class="n">ref_nii</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">multiecho</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref_input</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">input_name</span> <span class="o">=</span> <span class="s2">&quot;sbref_file&quot;</span> <span class="k">if</span> <span class="n">is_sbref</span> <span class="k">else</span> <span class="s2">&quot;in_file&quot;</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Argument &#39;multiecho&#39; is True but &quot;</span>
-                                 <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">input_name</span><span class="si">}</span><span class="s2">&#39; has only one element.&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># Select only the first echo (see LIMITATION above for SBRefs)</span>
-                <span class="n">ref_input</span> <span class="o">=</span> <span class="n">ref_input</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="n">is_sbref</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref_input</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input &#39;in_file&#39; cannot point to more than one file &quot;</span>
-                             <span class="s2">&quot;for single-echo BOLD datasets.&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Build the nibabel spatial image we will work with</span>
-        <span class="n">ref_im</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">im_i</span> <span class="ow">in</span> <span class="n">ref_input</span><span class="p">:</span>
-            <span class="n">nib_i</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">squeeze_image</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">im_i</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">nib_i</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="n">ref_im</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nib_i</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">nib_i</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="n">ref_im</span> <span class="o">+=</span> <span class="n">nb</span><span class="o">.</span><span class="n">four_to_three</span><span class="p">(</span><span class="n">nib_i</span><span class="p">)</span>
-        <span class="n">ref_im</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">squeeze_image</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">concat_images</span><span class="p">(</span><span class="n">ref_im</span><span class="p">))</span>
-
-        <span class="c1"># Volumes to discard only makes sense with BOLD inputs.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_sbref</span><span class="p">:</span>
-            <span class="n">n_volumes_to_discard</span> <span class="o">=</span> <span class="n">_get_vols_to_discard</span><span class="p">(</span><span class="n">ref_im</span><span class="p">)</span>
-            <span class="n">out_ref_fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;ref_bold.nii.gz&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">n_volumes_to_discard</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">out_ref_fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;ref_sbref.nii.gz&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Set interface outputs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;n_volumes_to_discard&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_volumes_to_discard</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;ref_image&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_ref_fname</span>
+
+        <span class="n">out_ref_fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;ref_bold.nii.gz&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">isdefined</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">sbref_file</span><span class="p">):</span>
+            <span class="n">out_ref_fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;ref_sbref.nii.gz&quot;</span><span class="p">)</span>
+            <span class="n">ref_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">sbref_file</span>
+            <span class="n">ref_nii</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">squeeze_image</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ref_name</span><span class="p">))</span>
+
+            <span class="c1"># If reference is only 1 volume, return it directly</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref_nii</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">ref_nii</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="n">ref_nii</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">out_ref_fname</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;ref_image&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_ref_fname</span>
+                <span class="k">return</span> <span class="n">runtime</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Reset this variable as it no longer applies</span>
+                <span class="c1"># and value for the output is stored in self._results</span>
+                <span class="n">n_volumes_to_discard</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># Slicing may induce inconsistencies with shape-dependent values in extensions.</span>
         <span class="c1"># For now, remove all. If this turns out to be a mistake, we can select extensions</span>
         <span class="c1"># that don&#39;t break pipeline stages.</span>
-        <span class="n">ref_im</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-
-        <span class="c1"># If reference is only 1 volume, return it directly</span>
-        <span class="k">if</span> <span class="n">ref_im</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">ref_im</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">out_ref_fname</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">runtime</span>
+        <span class="n">ref_nii</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">n_volumes_to_discard</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">ref_im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">:</span>
-                <span class="n">ref_im</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span>
-                    <span class="n">ref_im</span><span class="o">.</span><span class="n">dataobj</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">20</span><span class="p">:</span><span class="mi">40</span><span class="p">],</span> <span class="n">ref_im</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">ref_im</span><span class="o">.</span><span class="n">header</span>
-                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">ref_nii</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">:</span>
+                <span class="n">ref_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;slice.nii.gz&quot;</span><span class="p">)</span>
+                <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span>
+                    <span class="n">ref_nii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">20</span><span class="p">:</span><span class="mi">40</span><span class="p">],</span> <span class="n">ref_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">ref_nii</span><span class="o">.</span><span class="n">header</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">ref_name</span><span class="p">)</span>
 
-            <span class="n">ref_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;slice.nii.gz&quot;</span><span class="p">)</span>
-            <span class="n">ref_im</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="n">ref_name</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mc_method</span> <span class="o">==</span> <span class="s2">&quot;AFNI&quot;</span><span class="p">:</span>
                 <span class="n">res</span> <span class="o">=</span> <span class="n">afni</span><span class="o">.</span><span class="n">Volreg</span><span class="p">(</span>
                     <span class="n">in_file</span><span class="o">=</span><span class="n">ref_name</span><span class="p">,</span>
@@ -702,12 +645,15 @@
             <span class="n">median_image_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">mc_slice_nii</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">median_image_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span>
-                <span class="n">ref_im</span><span class="o">.</span><span class="n">dataobj</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:</span><span class="n">n_volumes_to_discard</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span>
+                <span class="n">ref_nii</span><span class="o">.</span><span class="n">dataobj</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:</span><span class="n">n_volumes_to_discard</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span>
             <span class="p">)</span>
 
-        <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">median_image_data</span><span class="p">,</span> <span class="n">ref_im</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">ref_im</span><span class="o">.</span><span class="n">header</span><span class="p">)</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span>
+        <span class="n">nb</span><span class="o">.</span><span class="n">Nifti1Image</span><span class="p">(</span><span class="n">median_image_data</span><span class="p">,</span> <span class="n">ref_nii</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">ref_nii</span><span class="o">.</span><span class="n">header</span><span class="p">)</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span>
             <span class="n">out_ref_fname</span>
         <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;ref_image&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_ref_fname</span>
+
         <span class="k">return</span> <span class="n">runtime</span></div>
 
 
@@ -794,6 +740,7 @@
             <dd><a href="../../../../1.2.5/index.html">1.2.5</a></dd>
             <dd><a href="../../../../1.2.6/index.html">1.2.6</a></dd>
             <dd><a href="../../../../1.2.7/index.html">1.2.7</a></dd>
+            <dd><a href="../../../../1.2.8/index.html">1.2.8</a></dd>
             <dd><a href="../../../../1.3.0rc1/index.html">1.3.0rc1</a></dd>
             <dd><a href="registration.html">1.3.0rc2</a></dd>
         </dl>

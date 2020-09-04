@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; niworkflows 1.3.0rc2+2.gd78fe6d47d documentation</title>
+  <title>Index &mdash; niworkflows 1.2.8 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.2.8
               </div>
             
           
@@ -196,9 +196,13 @@
 </li>
       <li><a href="api/niworkflows.anat.skullstrip.html#niworkflows.anat.skullstrip.afni_wf">afni_wf() (in module niworkflows.anat.skullstrip)</a>
 </li>
+      <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.AI">AI (class in niworkflows.interfaces.ants)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.ANTSApplyTransformsRPT">ANTSApplyTransformsRPT (class in niworkflows.interfaces.registration)</a>
+</li>
+      <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.AntsJointFusion">AntsJointFusion (class in niworkflows.interfaces.ants)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.ANTSRegistrationRPT">ANTSRegistrationRPT (class in niworkflows.interfaces.registration)</a>
 </li>
@@ -442,6 +446,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/niworkflows.interfaces.segmentation.html#niworkflows.interfaces.segmentation.ICA_AROMARPT">ICA_AROMARPT (class in niworkflows.interfaces.segmentation)</a>
 </li>
+      <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ImageMath">ImageMath (class in niworkflows.interfaces.ants)</a>
+</li>
       <li><a href="api/niworkflows.reports.core.html#niworkflows.reports.core.Report.index">index() (niworkflows.reports.core.Report method)</a>
 </li>
       <li><a href="api/niworkflows.anat.ants.html#niworkflows.anat.ants.init_atropos_wf">init_atropos_wf() (in module niworkflows.anat.ants)</a>
@@ -462,9 +468,19 @@
 </li>
       <li><a href="api/niworkflows.interfaces.freesurfer.html#niworkflows.interfaces.freesurfer.inject_skullstripped">inject_skullstripped() (in module niworkflows.interfaces.freesurfer)</a>
 </li>
-      <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.BIDSDataGrabber.input_spec">input_spec (niworkflows.interfaces.bids.BIDSDataGrabber attribute)</a>
+      <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.AI.input_spec">input_spec (niworkflows.interfaces.ants.AI attribute)</a>
 
       <ul>
+        <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.AntsJointFusion.input_spec">(niworkflows.interfaces.ants.AntsJointFusion attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ImageMath.input_spec">(niworkflows.interfaces.ants.ImageMath attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ResampleImageBySpacing.input_spec">(niworkflows.interfaces.ants.ResampleImageBySpacing attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ThresholdImage.input_spec">(niworkflows.interfaces.ants.ThresholdImage attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.BIDSDataGrabber.input_spec">(niworkflows.interfaces.bids.BIDSDataGrabber attribute)</a>
+</li>
         <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.BIDSFreeSurferDir.input_spec">(niworkflows.interfaces.bids.BIDSFreeSurferDir attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.BIDSInfo.input_spec">(niworkflows.interfaces.bids.BIDSInfo attribute)</a>
@@ -480,8 +496,6 @@
         <li><a href="api/niworkflows.interfaces.confounds.html#niworkflows.interfaces.confounds.ExpandModel.input_spec">(niworkflows.interfaces.confounds.ExpandModel attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.confounds.html#niworkflows.interfaces.confounds.SpikeRegressors.input_spec">(niworkflows.interfaces.confounds.SpikeRegressors attribute)</a>
-</li>
-        <li><a href="api/niworkflows.interfaces.fixes.html#niworkflows.interfaces.fixes.FixHeaderApplyTransforms.input_spec">(niworkflows.interfaces.fixes.FixHeaderApplyTransforms attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.freesurfer.html#niworkflows.interfaces.freesurfer.FSDetectInputs.input_spec">(niworkflows.interfaces.freesurfer.FSDetectInputs attribute)</a>
 </li>
@@ -502,8 +516,6 @@
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.IntraModalMerge.input_spec">(niworkflows.interfaces.images.IntraModalMerge attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.MatchHeader.input_spec">(niworkflows.interfaces.images.MatchHeader attribute)</a>
-</li>
-        <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RegridToZooms.input_spec">(niworkflows.interfaces.images.RegridToZooms attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.SignalExtraction.input_spec">(niworkflows.interfaces.images.SignalExtraction attribute)</a>
 </li>
@@ -750,6 +762,8 @@
 </li>
       <li><a href="api/niworkflows.interfaces.html#module-niworkflows.interfaces">niworkflows.interfaces (module)</a>
 </li>
+      <li><a href="api/niworkflows.interfaces.ants.html#module-niworkflows.interfaces.ants">niworkflows.interfaces.ants (module)</a>
+</li>
       <li><a href="api/niworkflows.interfaces.bids.html#module-niworkflows.interfaces.bids">niworkflows.interfaces.bids (module)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.cifti.html#module-niworkflows.interfaces.cifti">niworkflows.interfaces.cifti (module)</a>
@@ -768,10 +782,10 @@
 </li>
       <li><a href="api/niworkflows.interfaces.mni.html#module-niworkflows.interfaces.mni">niworkflows.interfaces.mni (module)</a>
 </li>
-      <li><a href="api/niworkflows.interfaces.nibabel.html#module-niworkflows.interfaces.nibabel">niworkflows.interfaces.nibabel (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/niworkflows.interfaces.nibabel.html#module-niworkflows.interfaces.nibabel">niworkflows.interfaces.nibabel (module)</a>
+</li>
       <li><a href="api/niworkflows.interfaces.nilearn.html#module-niworkflows.interfaces.nilearn">niworkflows.interfaces.nilearn (module)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.patches.html#module-niworkflows.interfaces.patches">niworkflows.interfaces.patches (module)</a>
@@ -828,9 +842,19 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.DerivativesDataSink.out_path_base">out_path_base (niworkflows.interfaces.bids.DerivativesDataSink attribute)</a>
 </li>
-      <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.BIDSDataGrabber.output_spec">output_spec (niworkflows.interfaces.bids.BIDSDataGrabber attribute)</a>
+      <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.AI.output_spec">output_spec (niworkflows.interfaces.ants.AI attribute)</a>
 
       <ul>
+        <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.AntsJointFusion.output_spec">(niworkflows.interfaces.ants.AntsJointFusion attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ImageMath.output_spec">(niworkflows.interfaces.ants.ImageMath attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ResampleImageBySpacing.output_spec">(niworkflows.interfaces.ants.ResampleImageBySpacing attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ThresholdImage.output_spec">(niworkflows.interfaces.ants.ThresholdImage attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.BIDSDataGrabber.output_spec">(niworkflows.interfaces.bids.BIDSDataGrabber attribute)</a>
+</li>
         <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.BIDSFreeSurferDir.output_spec">(niworkflows.interfaces.bids.BIDSFreeSurferDir attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.BIDSInfo.output_spec">(niworkflows.interfaces.bids.BIDSInfo attribute)</a>
@@ -866,8 +890,6 @@
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.IntraModalMerge.output_spec">(niworkflows.interfaces.images.IntraModalMerge attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.MatchHeader.output_spec">(niworkflows.interfaces.images.MatchHeader attribute)</a>
-</li>
-        <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RegridToZooms.output_spec">(niworkflows.interfaces.images.RegridToZooms attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.SignalExtraction.output_spec">(niworkflows.interfaces.images.SignalExtraction attribute)</a>
 </li>
@@ -1060,23 +1082,21 @@
 </li>
       <li><a href="api/niworkflows.interfaces.report_base.html#niworkflows.interfaces.report_base.RegistrationRC">RegistrationRC (class in niworkflows.interfaces.report_base)</a>
 </li>
-      <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RegridToZooms">RegridToZooms (class in niworkflows.interfaces.images)</a>
-</li>
       <li><a href="api/niworkflows.utils.bids.html#niworkflows.utils.bids.relative_to_root">relative_to_root() (in module niworkflows.utils.bids)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.reorient">reorient() (in module niworkflows.interfaces.images)</a>
 </li>
-      <li><a href="api/niworkflows.reports.core.html#niworkflows.reports.core.Report">Report (class in niworkflows.reports.core)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/niworkflows.reports.core.html#niworkflows.reports.core.Report">Report (class in niworkflows.reports.core)</a>
+</li>
       <li><a href="api/niworkflows.interfaces.report_base.html#niworkflows.interfaces.report_base.ReportingInterface">ReportingInterface (class in niworkflows.interfaces.report_base)</a>
 </li>
       <li><a href="api/niworkflows.reports.core.html#niworkflows.reports.core.Reportlet">Reportlet (class in niworkflows.reports.core)</a>
 </li>
-      <li><a href="api/niworkflows.utils.images.html#niworkflows.utils.images.resample_by_spacing">resample_by_spacing() (in module niworkflows.utils.images)</a>
-</li>
       <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.ResampleBeforeAfterRPT">ResampleBeforeAfterRPT (class in niworkflows.interfaces.registration)</a>
+</li>
+      <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ResampleImageBySpacing">ResampleImageBySpacing (class in niworkflows.interfaces.ants)</a>
 </li>
       <li><a href="api/niworkflows.viz.utils.html#niworkflows.viz.utils.robust_set_limits">robust_set_limits() (in module niworkflows.viz.utils)</a>
 </li>
@@ -1089,10 +1109,6 @@
       <li><a href="api/niworkflows.interfaces.patches.html#niworkflows.interfaces.patches.RobustTCompCor">RobustTCompCor (class in niworkflows.interfaces.patches)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.masks.html#niworkflows.interfaces.masks.ROIsPlot">ROIsPlot (class in niworkflows.interfaces.masks)</a>
-</li>
-      <li><a href="api/niworkflows.utils.images.html#niworkflows.utils.images.rotate_affine">rotate_affine() (in module niworkflows.utils.images)</a>
-</li>
-      <li><a href="api/niworkflows.utils.images.html#niworkflows.utils.images.rotation2canonical">rotation2canonical() (in module niworkflows.utils.images)</a>
 </li>
       <li><a href="api/niworkflows.reports.core.html#niworkflows.reports.core.run_reports">run_reports() (in module niworkflows.reports.core)</a>
 </li>
@@ -1166,10 +1182,12 @@
 </li>
       <li><a href="api/niworkflows.interfaces.confounds.html#niworkflows.interfaces.confounds.temporal_derivatives">temporal_derivatives() (in module niworkflows.interfaces.confounds)</a>
 </li>
-      <li><a href="api/niworkflows.interfaces.utils.html#niworkflows.interfaces.utils.TPM2ROI">TPM2ROI (class in niworkflows.interfaces.utils)</a>
+      <li><a href="api/niworkflows.interfaces.ants.html#niworkflows.interfaces.ants.ThresholdImage">ThresholdImage (class in niworkflows.interfaces.ants)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/niworkflows.interfaces.utils.html#niworkflows.interfaces.utils.TPM2ROI">TPM2ROI (class in niworkflows.interfaces.utils)</a>
+</li>
       <li><a href="api/niworkflows.viz.plots.html#niworkflows.viz.plots.fMRIPlot.tr">tr (niworkflows.viz.plots.fMRIPlot attribute)</a>
 </li>
       <li><a href="api/niworkflows.viz.utils.html#niworkflows.viz.utils.transform_to_2d">transform_to_2d() (in module niworkflows.viz.utils)</a>
@@ -1286,6 +1304,7 @@
             <dd><a href="../1.2.5/index.html">1.2.5</a></dd>
             <dd><a href="../1.2.6/index.html">1.2.6</a></dd>
             <dd><a href="../1.2.7/index.html">1.2.7</a></dd>
+            <dd><a href="../1.2.8/index.html">1.2.8</a></dd>
             <dd><a href="../1.3.0rc1/index.html">1.3.0rc1</a></dd>
             <dd><a href="../1.3.0rc2/index.html">1.3.0rc2</a></dd>
         </dl>
