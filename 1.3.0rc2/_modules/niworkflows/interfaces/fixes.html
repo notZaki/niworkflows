@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.fixes &mdash; niworkflows 1.2.9 documentation</title>
+  <title>niworkflows.interfaces.fixes &mdash; niworkflows 1.3.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.2.9
+                1.3.0
               </div>
             
           
@@ -169,9 +169,9 @@
 
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
 
-<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="n">traits</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="n">traits</span><span class="p">,</span> <span class="n">InputMultiObject</span><span class="p">,</span> <span class="n">File</span>
 <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">fname_presuffix</span>
-<span class="kn">from</span> <span class="nn">nipype.interfaces.ants.resampling</span> <span class="kn">import</span> <span class="n">ApplyTransforms</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.ants.resampling</span> <span class="kn">import</span> <span class="n">ApplyTransforms</span><span class="p">,</span> <span class="n">ApplyTransformsInputSpec</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.ants.registration</span> <span class="kn">import</span> <span class="n">Registration</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.ants.segmentation</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">N4BiasFieldCorrection</span> <span class="k">as</span> <span class="n">VanillaN4</span><span class="p">,</span>
@@ -182,12 +182,24 @@
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_copyxform</span>
 
 
+<span class="k">class</span> <span class="nc">_FixTraitApplyTransformsInputSpec</span><span class="p">(</span><span class="n">ApplyTransformsInputSpec</span><span class="p">):</span>
+    <span class="n">transforms</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span>
+        <span class="n">traits</span><span class="o">.</span><span class="n">Either</span><span class="p">(</span><span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="s1">&#39;identity&#39;</span><span class="p">),</span>
+        <span class="n">argstr</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;transform files: will be applied in reverse order. For &quot;</span>
+        <span class="s2">&quot;example, the last specified transform will be applied first.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
 <div class="viewcode-block" id="FixHeaderApplyTransforms"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.fixes.html#niworkflows.interfaces.fixes.FixHeaderApplyTransforms">[docs]</a><span class="k">class</span> <span class="nc">FixHeaderApplyTransforms</span><span class="p">(</span><span class="n">ApplyTransforms</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A replacement for nipype.interfaces.ants.resampling.ApplyTransforms that</span>
 <span class="sd">    fixes the resampled image header to match the xform of the reference</span>
 <span class="sd">    image</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">input_spec</span> <span class="o">=</span> <span class="n">_FixTraitApplyTransformsInputSpec</span>
 
     <span class="k">def</span> <span class="nf">_run_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runtime</span><span class="p">,</span> <span class="n">correct_return_codes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,)):</span>
         <span class="c1"># Run normally</span>
@@ -363,6 +375,7 @@
             <dd><a href="../../../../1.2.7/index.html">1.2.7</a></dd>
             <dd><a href="../../../../1.2.8/index.html">1.2.8</a></dd>
             <dd><a href="../../../../1.2.9/index.html">1.2.9</a></dd>
+            <dd><a href="../../../../1.3.0/index.html">1.3.0</a></dd>
             <dd><a href="../../../../1.3.0rc1/index.html">1.3.0rc1</a></dd>
             <dd><a href="fixes.html">1.3.0rc2</a></dd>
             <dd><a href="../../../../1.3.0rc3/index.html">1.3.0rc3</a></dd>
@@ -372,6 +385,7 @@
             <dd><a href="../../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="../../../../maint_1.2.x/index.html">maint/1.2.x</a></dd>
+            <dd><a href="../../../../maint_1.3.x/index.html">maint/1.3.x</a></dd>
             <dd><a href="../../../../maint_github-action-pr/index.html">maint/github-action-pr</a></dd>
             <dd><a href="../../../../master/index.html">master</a></dd>
         </dl>

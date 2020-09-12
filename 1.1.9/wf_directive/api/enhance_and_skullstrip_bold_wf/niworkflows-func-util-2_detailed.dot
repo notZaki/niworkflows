@@ -4,6 +4,7 @@ enhance_and_skullstrip_bold_wfinputnode [label="{IN}|{ inputnode | utility |  }|
 enhance_and_skullstrip_bold_wfinit_aff [label="{IN|<inmovingimage> moving_image}|{ init_aff | ants |  }|{OUT|<outoutputtransform> output_transform}"];
 enhance_and_skullstrip_bold_wfnorm [label="{IN|<ininitialmovingtransform> initial_moving_transform|<inmovingimage> moving_image}|{ norm | fixes |  }|{OUT|<outreverseinvertflags> reverse_invert_flags|<outreversetransforms> reverse_transforms}"];
 enhance_and_skullstrip_bold_wfmap_brainmask [label="{IN|<ininverttransformflags> invert_transform_flags|<inreferenceimage> reference_image|<intransforms> transforms}|{ map_brainmask | fixes |  }|{OUT|<outoutputimage> output_image}"];
+enhance_and_skullstrip_bold_wfbinarize_mask [label="{IN|<ininfile> in_file}|{ binarize_mask | nibabel |  }|{OUT|<outoutmask> out_mask}"];
 enhance_and_skullstrip_bold_wfpre_mask_dilate [label="{IN|<ininfile> in_file}|{ pre_mask_dilate | fsl |  }|{OUT|<outoutfile> out_file}"];
 enhance_and_skullstrip_bold_wfcheck_hdr [label="{IN|<ininfile> in_file|<inreference> reference}|{ check_hdr | images |  }|{OUT|<outoutfile> out_file}"];
 enhance_and_skullstrip_bold_wfn4_correct [label="{IN|<ininputimage> input_image|<inmaskimage> mask_image}|{ n4_correct | fixes |  }|{OUT|<outoutputimage> output_image}"];
@@ -18,6 +19,7 @@ enhance_and_skullstrip_bold_wfcombine_masks [label="{IN|<ininfile> in_file|<inop
 enhance_and_skullstrip_bold_wfapply_mask [label="{IN|<ininfile> in_file|<inmaskfile> mask_file}|{ apply_mask | fsl |  }|{OUT|<outoutfile> out_file}"];
 enhance_and_skullstrip_bold_wfoutputnode [label="{IN|<inbiascorrectedfile> bias_corrected_file|<inmaskfile> mask_file|<inskullstrippedfile> skull_stripped_file}|{ outputnode | utility |  }|{OUT}"];
 enhance_and_skullstrip_bold_wfapply_mask:outoutfile:e -> enhance_and_skullstrip_bold_wfoutputnode:inskullstrippedfile:w;
+enhance_and_skullstrip_bold_wfbinarize_mask:outoutmask:e -> enhance_and_skullstrip_bold_wfpre_mask_dilate:ininfile:w;
 enhance_and_skullstrip_bold_wfcheck_hdr:outoutfile:e -> enhance_and_skullstrip_bold_wfn4_correct:inmaskimage:w;
 enhance_and_skullstrip_bold_wfcombine_masks:outoutfile:e -> enhance_and_skullstrip_bold_wfapply_mask:inmaskfile:w;
 enhance_and_skullstrip_bold_wfcombine_masks:outoutfile:e -> enhance_and_skullstrip_bold_wfoutputnode:inmaskfile:w;
@@ -32,7 +34,7 @@ enhance_and_skullstrip_bold_wfinputnode:outinfile:e -> enhance_and_skullstrip_bo
 enhance_and_skullstrip_bold_wfinputnode:outinfile:e -> enhance_and_skullstrip_bold_wfmap_brainmask:inreferenceimage:w;
 enhance_and_skullstrip_bold_wfinputnode:outinfile:e -> enhance_and_skullstrip_bold_wfn4_correct:ininputimage:w;
 enhance_and_skullstrip_bold_wfinputnode:outinfile:e -> enhance_and_skullstrip_bold_wfnorm:inmovingimage:w;
-enhance_and_skullstrip_bold_wfmap_brainmask:outoutputimage:e -> enhance_and_skullstrip_bold_wfpre_mask_dilate:ininfile:w;
+enhance_and_skullstrip_bold_wfmap_brainmask:outoutputimage:e -> enhance_and_skullstrip_bold_wfbinarize_mask:ininfile:w;
 enhance_and_skullstrip_bold_wfn4_correct:outoutputimage:e -> enhance_and_skullstrip_bold_wfoutputnode:inbiascorrectedfile:w;
 enhance_and_skullstrip_bold_wfn4_correct:outoutputimage:e -> enhance_and_skullstrip_bold_wfskullstrip_first_pass:ininfile:w;
 enhance_and_skullstrip_bold_wfnorm:outreverseinvertflags:e -> enhance_and_skullstrip_bold_wfmap_brainmask:ininverttransformflags:w;

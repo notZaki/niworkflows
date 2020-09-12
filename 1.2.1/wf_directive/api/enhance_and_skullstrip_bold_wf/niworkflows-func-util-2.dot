@@ -7,6 +7,7 @@ strict digraph  {
 "n4_correct (fixes)";
 "fixhdr_unifize (utils)";
 "fixhdr_skullstrip2 (utils)";
+"binarize_mask (nibabel)";
 "pre_mask_dilate (fsl)";
 "skullstrip_first_pass (fsl)";
 "outputnode (utility)";
@@ -24,7 +25,7 @@ strict digraph  {
 "inputnode (utility)" -> "fixhdr_unifize (utils)";
 "inputnode (utility)" -> "fixhdr_skullstrip2 (utils)";
 "init_aff (ants)" -> "norm (fixes)";
-"map_brainmask (fixes)" -> "pre_mask_dilate (fsl)";
+"map_brainmask (fixes)" -> "binarize_mask (nibabel)";
 "norm (fixes)" -> "map_brainmask (fixes)";
 "check_hdr (images)" -> "n4_correct (fixes)";
 "n4_correct (fixes)" -> "skullstrip_first_pass (fsl)";
@@ -32,6 +33,7 @@ strict digraph  {
 "fixhdr_unifize (utils)" -> "skullstrip_second_pass (afni)";
 "fixhdr_unifize (utils)" -> "apply_mask (fsl)";
 "fixhdr_skullstrip2 (utils)" -> "combine_masks (fsl)";
+"binarize_mask (nibabel)" -> "pre_mask_dilate (fsl)";
 "pre_mask_dilate (fsl)" -> "check_hdr (images)";
 "skullstrip_first_pass (fsl)" -> "skullstrip_first_dilate (fsl)";
 "skullstrip_first_pass (fsl)" -> "skullstrip_first_mask (fsl)";
