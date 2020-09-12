@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.itk &mdash; niworkflows 1.3.0rc3+9.gf66a419756 documentation</title>
+  <title>niworkflows.interfaces.itk &mdash; niworkflows 1.2.9 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.2.9
               </div>
             
           
@@ -175,17 +175,17 @@
     <span class="n">TraitedSpec</span><span class="p">,</span>
     <span class="n">BaseInterfaceInputSpec</span><span class="p">,</span>
     <span class="n">File</span><span class="p">,</span>
-    <span class="n">InputMultiObject</span><span class="p">,</span>
-    <span class="n">OutputMultiObject</span><span class="p">,</span>
+    <span class="n">InputMultiPath</span><span class="p">,</span>
+    <span class="n">OutputMultiPath</span><span class="p">,</span>
     <span class="n">SimpleInterface</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">niworkflows.interfaces.fixes</span> <span class="kn">import</span> <span class="n">_FixTraitApplyTransformsInputSpec</span>
+<span class="kn">from</span> <span class="nn">nipype.interfaces.ants.resampling</span> <span class="kn">import</span> <span class="n">ApplyTransformsInputSpec</span>
 
 <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;nipype.interface&quot;</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_MCFLIRT2ITKInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
-    <span class="n">in_files</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span>
+    <span class="n">in_files</span> <span class="o">=</span> <span class="n">InputMultiPath</span><span class="p">(</span>
         <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;list of MAT files from MCFLIRT&quot;</span>
     <span class="p">)</span>
     <span class="n">in_reference</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span>
@@ -259,8 +259,8 @@
         <span class="k">return</span> <span class="n">runtime</span></div>
 
 
-<span class="k">class</span> <span class="nc">_MultiApplyTransformsInputSpec</span><span class="p">(</span><span class="n">_FixTraitApplyTransformsInputSpec</span><span class="p">):</span>
-    <span class="n">input_image</span> <span class="o">=</span> <span class="n">InputMultiObject</span><span class="p">(</span>
+<span class="k">class</span> <span class="nc">_MultiApplyTransformsInputSpec</span><span class="p">(</span><span class="n">ApplyTransformsInputSpec</span><span class="p">):</span>
+    <span class="n">input_image</span> <span class="o">=</span> <span class="n">InputMultiPath</span><span class="p">(</span>
         <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;input time-series as a list of volumes after splitting&quot;</span>
@@ -278,7 +278,7 @@
 
 
 <span class="k">class</span> <span class="nc">_MultiApplyTransformsOutputSpec</span><span class="p">(</span><span class="n">TraitedSpec</span><span class="p">):</span>
-    <span class="n">out_files</span> <span class="o">=</span> <span class="n">OutputMultiObject</span><span class="p">(</span><span class="n">File</span><span class="p">(),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the output ITKTransform file&quot;</span><span class="p">)</span>
+    <span class="n">out_files</span> <span class="o">=</span> <span class="n">OutputMultiPath</span><span class="p">(</span><span class="n">File</span><span class="p">(),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;the output ITKTransform file&quot;</span><span class="p">)</span>
     <span class="n">log_cmdline</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="s2">&quot;a list of command lines used to apply transforms&quot;</span><span class="p">)</span>
 
 
@@ -417,10 +417,6 @@
     <span class="c1"># Initialize the transforms matrix</span>
     <span class="n">xfms_T</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tf_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">transforms</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tf_file</span> <span class="o">==</span> <span class="s2">&quot;identity&quot;</span><span class="p">:</span>
-            <span class="n">xfms_T</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">tf_file</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_files</span><span class="p">)</span>
-            <span class="k">continue</span>
-
         <span class="c1"># If it is a deformation field, copy to the tfs_matrix directly</span>
         <span class="k">if</span> <span class="n">guess_type</span><span class="p">(</span><span class="n">tf_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">:</span>
             <span class="n">xfms_T</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">tf_file</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_files</span><span class="p">)</span>
@@ -548,7 +544,6 @@
             <dd><a href="../../../../1.2.7/index.html">1.2.7</a></dd>
             <dd><a href="../../../../1.2.8/index.html">1.2.8</a></dd>
             <dd><a href="../../../../1.2.9/index.html">1.2.9</a></dd>
-            <dd><a href="../../../../1.3.0/index.html">1.3.0</a></dd>
             <dd><a href="../../../../1.3.0rc1/index.html">1.3.0rc1</a></dd>
             <dd><a href="../../../../1.3.0rc2/index.html">1.3.0rc2</a></dd>
             <dd><a href="../../../../1.3.0rc3/index.html">1.3.0rc3</a></dd>

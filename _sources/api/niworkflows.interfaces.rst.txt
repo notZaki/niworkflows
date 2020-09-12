@@ -11,6 +11,7 @@ Submodules
 
 .. toctree::
 
+   niworkflows.interfaces.ants
    niworkflows.interfaces.bids
    niworkflows.interfaces.cifti
    niworkflows.interfaces.confounds

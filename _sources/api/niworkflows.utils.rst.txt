@@ -12,7 +12,6 @@ Submodules
 .. toctree::
 
    niworkflows.utils.bids
-   niworkflows.utils.connections
    niworkflows.utils.images
    niworkflows.utils.misc
    niworkflows.utils.spaces

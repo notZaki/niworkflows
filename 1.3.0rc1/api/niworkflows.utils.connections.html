@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.utils.connections module &mdash; niworkflows 1.3.0rc3+9.gf66a419756 documentation</title>
+  <title>niworkflows.utils.connections module &mdash; niworkflows 1.2.9 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                1.3.0
+                1.2.9
               </div>
             
           
@@ -191,42 +191,8 @@
 
 
     <p class="scv-banner scv-sphinx_rtd_theme"><a href="../../master/api/niworkflows.utils.connections.html"><b>Warning:</b> This document is for an old version of niworkflows. The main version is master.</a></p>
-<div class="section" id="module-niworkflows.utils.connections">
-<span id="niworkflows-utils-connections-module"></span><h1>niworkflows.utils.connections module<a class="headerlink" href="#module-niworkflows.utils.connections" title="Permalink to this headline">¶</a></h1>
-<p>Utilities for the creation of nipype workflows.</p>
-<p>Because these functions are meant to be inlined in nipype’s <code class="docutils literal notranslate"><span class="pre">connect</span></code> invocations,
-all the imports MUST be done in each function’s context.</p>
-<dl class="function">
-<dt id="niworkflows.utils.connections.listify">
-<code class="sig-prename descclassname">niworkflows.utils.connections.</code><code class="sig-name descname">listify</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/connections.html#listify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.connections.listify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to a list (inspired by bids.utils.listify).</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">listify</span><span class="p">(</span><span class="s1">&#39;some/file.nii.gz&#39;</span><span class="p">)</span>
-<span class="go">[&#39;some/file.nii.gz&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">listify</span><span class="p">((</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
-<span class="go">[0.1, 0.2]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">listify</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
-<span class="go">True</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="niworkflows.utils.connections.pop_file">
-<code class="sig-prename descclassname">niworkflows.utils.connections.</code><code class="sig-name descname">pop_file</code><span class="sig-paren">(</span><em class="sig-param">in_files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/connections.html#pop_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.connections.pop_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select the first file from a list of filenames.</p>
-<p>Used to grab the first echo’s file when processing
-multi-echo data through workflows that only accept
-a single file.</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pop_file</span><span class="p">(</span><span class="s1">&#39;some/file.nii.gz&#39;</span><span class="p">)</span>
-<span class="go">&#39;some/file.nii.gz&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pop_file</span><span class="p">([</span><span class="s1">&#39;some/file1.nii.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;some/file2.nii.gz&#39;</span><span class="p">])</span>
-<span class="go">&#39;some/file1.nii.gz&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
+<div class="section" id="niworkflows-utils-connections-module">
+<h1>niworkflows.utils.connections module<a class="headerlink" href="#niworkflows-utils-connections-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -316,7 +282,6 @@ a single file.</p>
             <dd><a href="../../1.2.7/index.html">1.2.7</a></dd>
             <dd><a href="../../1.2.8/index.html">1.2.8</a></dd>
             <dd><a href="../../1.2.9/index.html">1.2.9</a></dd>
-            <dd><a href="../../1.3.0/api/niworkflows.utils.connections.html">1.3.0</a></dd>
             <dd><a href="niworkflows.utils.connections.html">1.3.0rc1</a></dd>
             <dd><a href="../../1.3.0rc2/api/niworkflows.utils.connections.html">1.3.0rc2</a></dd>
             <dd><a href="../../1.3.0rc3/api/niworkflows.utils.connections.html">1.3.0rc3</a></dd>
