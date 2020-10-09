@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.viz.plots module &mdash; niworkflows 1.3.1 documentation</title>
+  <title>niworkflows.viz.plots module &mdash; niworkflows 1.3.1+10.g93e5c6d9bc documentation</title>
   
 
   
@@ -234,19 +234,19 @@ path.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>confounds_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – File containing all confound regressors to be included in the
+<li><p><strong>confounds_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – File containing all confound regressors to be included in the
 correlation plot.</p></li>
 <li><p><strong>figure</strong> (<em>figure or None</em>) – Existing figure on which to plot.</p></li>
-<li><p><strong>columns</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.) – Select a list of columns from the dataset.</p></li>
-<li><p><strong>max_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – The maximum number of regressors to be included in the output plot.
+<li><p><strong>columns</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.) – Select a list of columns from the dataset.</p></li>
+<li><p><strong>max_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – The maximum number of regressors to be included in the output plot.
 Reductions (e.g., CompCor) of high-dimensional data can yield so many
 regressors that the correlation structure becomes obfuscated. This
 criterion selects the <code class="docutils literal notranslate"><span class="pre">max_dim</span></code> regressors that have the largest
 correlation magnitude with <code class="docutils literal notranslate"><span class="pre">reference</span></code> for inclusion in the plot.</p></li>
-<li><p><strong>output_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Path where the output figure should be saved. If this is not defined,
+<li><p><strong>output_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>) – Path where the output figure should be saved. If this is not defined,
 then the plotting axes will be returned instead of the saved figure
 path.</p></li>
-<li><p><strong>reference</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – <code class="docutils literal notranslate"><span class="pre">confounds_correlation_plot</span></code> prepares a bar plot of the correlations
+<li><p><strong>reference</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – <code class="docutils literal notranslate"><span class="pre">confounds_correlation_plot</span></code> prepares a bar plot of the correlations
 of each confound regressor with a reference column. By default, this
 is the global signal (so that collinearities with the global signal
 can readily be assessed).</p></li>
@@ -255,7 +255,7 @@ can readily be assessed).</p></li>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><em>axes and gridspec</em> – Plotting axes and gridspec. Returned only if <code class="docutils literal notranslate"><span class="pre">output_file</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>output_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – The file where the figure is saved.</p></li>
+<li><p><strong>output_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – The file where the figure is saved.</p></li>
 </ul>
 </p>
 </dd>
@@ -265,7 +265,7 @@ can readily be assessed).</p></li>
 <dl class="class">
 <dt id="niworkflows.viz.plots.fMRIPlot">
 <em class="property">class </em><code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">fMRIPlot</code><span class="sig-paren">(</span><em class="sig-param">func_file</em>, <em class="sig-param">mask_file=None</em>, <em class="sig-param">data=None</em>, <em class="sig-param">conf_file=None</em>, <em class="sig-param">seg_file=None</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">usecols=None</em>, <em class="sig-param">units=None</em>, <em class="sig-param">vlines=None</em>, <em class="sig-param">spikes_files=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#fMRIPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Generates the fMRI Summary Plot.</p>
 <dl class="attribute">
 <dt id="niworkflows.viz.plots.fMRIPlot.confounds">
