@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.images &mdash; niworkflows 1.3.1+10.g93e5c6d9bc documentation</title>
+  <title>niworkflows.interfaces.images &mdash; niworkflows 1.3.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.3.1
+                1.3.2
               </div>
             
           
@@ -694,19 +694,21 @@
                 <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">qform</span><span class="p">)</span> <span class="o">@</span> <span class="n">new_qform</span>
                 <span class="n">trans</span><span class="p">,</span> <span class="n">rot</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">transforms3d</span><span class="o">.</span><span class="n">affines</span><span class="o">.</span><span class="n">decompose44</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
                 <span class="n">angle</span> <span class="o">=</span> <span class="n">transforms3d</span><span class="o">.</span><span class="n">axangles</span><span class="o">.</span><span class="n">mat2axangle</span><span class="p">(</span><span class="n">rot</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">xyz_unit</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">get_xyzt_units</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">xyz_unit</span> <span class="o">==</span> <span class="s2">&quot;unknown&quot;</span><span class="p">:</span>
+                    <span class="n">xyz_unit</span> <span class="o">=</span> <span class="s2">&quot;mm&quot;</span>
+
                 <span class="n">total_trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
                     <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">trans</span> <span class="o">*</span> <span class="n">trans</span><span class="p">)</span>
                 <span class="p">)</span>  <span class="c1"># Add angle and total_trans to report</span>
                 <span class="n">warning_txt</span> <span class="o">=</span> <span class="s2">&quot;Note on orientation: qform matrix overwritten&quot;</span>
-                <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
 <span class="s2">    &lt;p class=&quot;elem-desc&quot;&gt;</span>
 <span class="s2">    The qform has been copied from sform.</span>
-<span class="s2">    The difference in angle is </span><span class="si">{angle:.02g}</span><span class="s2">.</span>
-<span class="s2">    The difference in translation is </span><span class="si">{total_trans:.02g}</span><span class="s2">.</span>
+<span class="s2">    The difference in angle is </span><span class="si">{</span><span class="n">angle</span><span class="si">:</span><span class="s2">.02g</span><span class="si">}</span><span class="s2"> radians.</span>
+<span class="s2">    The difference in translation is </span><span class="si">{</span><span class="n">total_trans</span><span class="si">:</span><span class="s2">.02g</span><span class="si">}{</span><span class="n">xyz_unit</span><span class="si">}</span><span class="s2">.</span>
 <span class="s2">    &lt;/p&gt;</span>
-<span class="s2">    &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">angle</span><span class="o">=</span><span class="n">angle</span><span class="p">,</span> <span class="n">total_trans</span><span class="o">=</span><span class="n">total_trans</span>
-                <span class="p">)</span>
+<span class="s2">    &quot;&quot;&quot;</span>
             <span class="k">elif</span> <span class="n">qform_code</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="c1"># qform code indicates the qform is supposed to be valid. Use more stridency.</span>
                 <span class="n">warning_txt</span> <span class="o">=</span> <span class="s2">&quot;WARNING - Invalid qform information&quot;</span>
@@ -1113,6 +1115,7 @@
             <dd><a href="../../../../1.3.0rc2/index.html">1.3.0rc2</a></dd>
             <dd><a href="../../../../1.3.0rc3/index.html">1.3.0rc3</a></dd>
             <dd><a href="../../../../1.3.1/index.html">1.3.1</a></dd>
+            <dd><a href="../../../../1.3.2/index.html">1.3.2</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
