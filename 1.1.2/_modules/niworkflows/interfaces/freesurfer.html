@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.freesurfer &mdash; niworkflows 1.3.2+21.gdf77431a26 documentation</title>
+  <title>niworkflows.interfaces.freesurfer &mdash; niworkflows 1.3.2+24.g016ea5beb2 documentation</title>
   
 
   
@@ -171,10 +171,6 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nb</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">morphology</span> <span class="k">as</span> <span class="n">sim</span>
-<span class="kn">from</span> <span class="nn">scipy.ndimage.morphology</span> <span class="kn">import</span> <span class="n">binary_fill_holes</span>
-<span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="kn">import</span> <span class="n">resample_to_img</span><span class="p">,</span> <span class="n">new_img_like</span>
 
 <span class="kn">from</span> <span class="nn">nipype.utils.filemanip</span> <span class="kn">import</span> <span class="n">copyfile</span><span class="p">,</span> <span class="n">filename_to_list</span><span class="p">,</span> <span class="n">fname_presuffix</span>
 <span class="kn">from</span> <span class="nn">nipype.interfaces.base</span> <span class="kn">import</span> <span class="p">(</span>
@@ -558,6 +554,8 @@
 
 
 <div class="viewcode-block" id="inject_skullstripped"><a class="viewcode-back" href="../../../api/niworkflows.interfaces.freesurfer.html#niworkflows.interfaces.freesurfer.inject_skullstripped">[docs]</a><span class="k">def</span> <span class="nf">inject_skullstripped</span><span class="p">(</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="n">skullstripped</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">nilearn.image</span> <span class="kn">import</span> <span class="n">resample_to_img</span><span class="p">,</span> <span class="n">new_img_like</span>
+
     <span class="n">mridir</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subjects_dir</span><span class="p">,</span> <span class="n">subject_id</span><span class="p">,</span> <span class="s2">&quot;mri&quot;</span><span class="p">)</span>
     <span class="n">t1</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mridir</span><span class="p">,</span> <span class="s2">&quot;T1.mgz&quot;</span><span class="p">)</span>
     <span class="n">bm_auto</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mridir</span><span class="p">,</span> <span class="s2">&quot;brainmask.auto.mgz&quot;</span><span class="p">)</span>
@@ -619,6 +617,9 @@
 <span class="sd">         cerebral brain is segmented out).</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">morphology</span> <span class="k">as</span> <span class="n">sim</span>
+    <span class="kn">from</span> <span class="nn">scipy.ndimage.morphology</span> <span class="kn">import</span> <span class="n">binary_fill_holes</span>
+
     <span class="c1"># Read aseg data</span>
     <span class="n">bmask</span> <span class="o">=</span> <span class="n">aseg</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">bmask</span><span class="p">[</span><span class="n">bmask</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -641,6 +642,8 @@
 <span class="sd">    https://github.com/nipy/mindboggle/blob/master/mindboggle/guts/segment.py#L1660</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">morphology</span> <span class="k">as</span> <span class="n">sim</span>
+
     <span class="n">selem</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">ball</span><span class="p">(</span><span class="n">bw</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">ants_segs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

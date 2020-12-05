@@ -12,5 +12,6 @@ Submodules
 .. toctree::
 
    niworkflows.anat.ants
+   niworkflows.anat.coregistration
    niworkflows.anat.freesurfer
    niworkflows.anat.skullstrip
