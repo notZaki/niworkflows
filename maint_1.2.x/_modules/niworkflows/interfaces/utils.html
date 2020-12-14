@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>niworkflows.interfaces.utils &mdash; niworkflows 1.4.0rc2 documentation</title>
+  <title>niworkflows.interfaces.utils &mdash; niworkflows 1.4.0rc2+9.gd50f7ae46a documentation</title>
   
 
   
@@ -449,7 +449,7 @@
 
         <span class="c1"># Get mask into reference space</span>
         <span class="n">masknii</span> <span class="o">=</span> <span class="n">nli</span><span class="o">.</span><span class="n">resample_img</span><span class="p">(</span>
-            <span class="n">fixed_image</span><span class="p">,</span> <span class="n">target_affine</span><span class="o">=</span><span class="n">new_affine</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span>
+            <span class="n">masknii</span><span class="p">,</span> <span class="n">target_affine</span><span class="o">=</span><span class="n">new_affine</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span>
         <span class="p">)</span>
         <span class="n">res_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">masknii</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
 
@@ -1299,6 +1299,7 @@
         </dl>
         <dl>
             <dt>Branches</dt>
+            <dd><a href="../../../../fix_seg_file_input/index.html">fix/seg_file_input</a></dd>
             <dd><a href="../../../../maint_1.0.x/index.html">maint/1.0.x</a></dd>
             <dd><a href="../../../../maint_1.1.x/index.html">maint/1.1.x</a></dd>
             <dd><a href="utils.html">maint/1.2.x</a></dd>
