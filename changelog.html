@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>What’s new? &mdash; niworkflows 1.4.0rc3 documentation</title>
+  <title>What’s new? &mdash; niworkflows 1.4.0rc2+17.g3f8c2658bd documentation</title>
   
 
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -52,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> niworkflows
+            <a href="index.html" class="icon icon-home"> niworkflows
           
 
           
@@ -91,7 +94,6 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Library API (application program interface)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">What’s new?</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#december-17-2020">1.4.0 (December 17, 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tbd">1.4.0 (TBD)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#november-5-2020">1.3.2 (November 5, 2020)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#september-22-2020">1.3.1 (September 22, 2020)</a></li>
@@ -260,6 +262,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -271,7 +275,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -288,17 +292,11 @@
   
 
 
-    
-    
 
 
 
-    <p class="scv-banner scv-sphinx_rtd_theme"><a href="master/changelog.html"><b>Warning:</b> This document is for an old version of niworkflows. The main version is master.</a></p>
 <div class="section" id="what-s-new">
 <h1>What’s new?<a class="headerlink" href="#what-s-new" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="december-17-2020">
-<h2>1.4.0 (December 17, 2020)<a class="headerlink" href="#december-17-2020" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="tbd">
 <h2>1.4.0 (TBD)<a class="headerlink" href="#tbd" title="Permalink to this headline">¶</a></h2>
 <p>First release in the 1.4.x series.
@@ -323,14 +321,10 @@ You changed the files</em>.</p></li>
 </div>
 <p>A list of prominent changes follows:</p>
 <ul class="simple">
-<li><p>FIX: Check for <code class="docutils literal notranslate"><span class="pre">in_segm</span></code> input, not <code class="docutils literal notranslate"><span class="pre">seg_file</span></code> (typo) (#592)</p></li>
-<li><p>FIX: Use the mask to calculate FOV rather than the fixed image in <code class="docutils literal notranslate"><span class="pre">GenerateSamplingReference</span></code> (#583)</p></li>
 <li><p>FIX: Allow omission of <code class="docutils literal notranslate"><span class="pre">&lt;res&gt;</span></code> for template normalization (#582)</p></li>
 <li><p>FIX: Include <code class="docutils literal notranslate"><span class="pre">_T2starw</span></code> <code class="docutils literal notranslate"><span class="pre">_MTw</span></code> and <code class="docutils literal notranslate"><span class="pre">_TSE</span></code>-suffixes in <code class="docutils literal notranslate"><span class="pre">build_path</span></code> options (#584)</p></li>
 <li><p>FIX: <code class="docutils literal notranslate"><span class="pre">DerivativesDataSink</span></code> warning when it has multiple source files (#573)</p></li>
-<li><p>ENH: Revise some patterns of the <code class="docutils literal notranslate"><span class="pre">BIDSLayout</span></code> config to aid <em>SDCFlows</em>’ new API (#585)</p></li>
 <li><p>ENH: Upstream <em>fMRIPrep</em>’s <code class="docutils literal notranslate"><span class="pre">init_bbreg_wf</span></code> to integrate it in <em>dMRIPrep</em> (#586)</p></li>
-<li><p>MAINT: Drop Python 3.6, test <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> builds, <code class="docutils literal notranslate"><span class="pre">pip</span></code> installations, and revise Docker pinned versions (#593)</p></li>
 <li><p>MAINT: CircleCI housekeeping (#580)</p></li>
 </ul>
 </div>
@@ -1312,35 +1306,28 @@ used with the nonlinear-asym-09c template for the carpetplot</p></li>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="api/niworkflows.viz.utils.html" class="btn btn-neutral float-left" title="niworkflows.viz.utils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="api/niworkflows.viz.utils.html" class="btn btn-neutral float-left" title="niworkflows.viz.utils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright Copyright 2020, The NiPreps Developers
+        &#169; Copyright Copyright 2021, The NiPreps Developers.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -1351,7 +1338,7 @@ used with the nonlinear-asym-09c template for the carpetplot</p></li>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 1.4.0rc3
+        v: master
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
