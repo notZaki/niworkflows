@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; niworkflows 1.4.0rc2+17.g3f8c2658bd documentation</title>
+  <title>Index &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
   
 
   
@@ -337,12 +337,10 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/niworkflows.reports.core.html#niworkflows.reports.core.Element">Element (class in niworkflows.reports.core)</a>
 </li>
-      <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.EstimateReferenceImage">EstimateReferenceImage (class in niworkflows.interfaces.registration)</a>
+      <li><a href="api/niworkflows.interfaces.confounds.html#niworkflows.interfaces.confounds.ExpandModel">ExpandModel (class in niworkflows.interfaces.confounds)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/niworkflows.interfaces.confounds.html#niworkflows.interfaces.confounds.ExpandModel">ExpandModel (class in niworkflows.interfaces.confounds)</a>
-</li>
       <li><a href="api/niworkflows.interfaces.confounds.html#niworkflows.interfaces.confounds.exponential_terms">exponential_terms() (in module niworkflows.interfaces.confounds)</a>
 </li>
       <li><a href="api/niworkflows.viz.utils.html#niworkflows.viz.utils.extract_svg">extract_svg() (in module niworkflows.viz.utils)</a>
@@ -488,6 +486,8 @@
 </li>
         <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.ReadSidecarJSON.input_spec">(niworkflows.interfaces.bids.ReadSidecarJSON attribute)</a>
 </li>
+        <li><a href="api/niworkflows.interfaces.bold.html#niworkflows.interfaces.bold.NonsteadyStatesDetector.input_spec">(niworkflows.interfaces.bold.NonsteadyStatesDetector attribute)</a>
+</li>
         <li><a href="api/niworkflows.interfaces.cifti.html#niworkflows.interfaces.cifti.CiftiNameSource.input_spec">(niworkflows.interfaces.cifti.CiftiNameSource attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.cifti.html#niworkflows.interfaces.cifti.GenerateCifti.input_spec">(niworkflows.interfaces.cifti.GenerateCifti attribute)</a>
@@ -519,6 +519,8 @@
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.MatchHeader.input_spec">(niworkflows.interfaces.images.MatchHeader attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RegridToZooms.input_spec">(niworkflows.interfaces.images.RegridToZooms attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RobustAverage.input_spec">(niworkflows.interfaces.images.RobustAverage attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.SignalExtraction.input_spec">(niworkflows.interfaces.images.SignalExtraction attribute)</a>
 </li>
@@ -575,8 +577,6 @@
         <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.ApplyXFMRPT.input_spec">(niworkflows.interfaces.registration.ApplyXFMRPT attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.BBRegisterRPT.input_spec">(niworkflows.interfaces.registration.BBRegisterRPT attribute)</a>
-</li>
-        <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.EstimateReferenceImage.input_spec">(niworkflows.interfaces.registration.EstimateReferenceImage attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.FLIRTRPT.input_spec">(niworkflows.interfaces.registration.FLIRTRPT attribute)</a>
 </li>
@@ -775,6 +775,8 @@
 </li>
       <li><a href="api/niworkflows.interfaces.bids.html#module-niworkflows.interfaces.bids">niworkflows.interfaces.bids (module)</a>
 </li>
+      <li><a href="api/niworkflows.interfaces.bold.html#module-niworkflows.interfaces.bold">niworkflows.interfaces.bold (module)</a>
+</li>
       <li><a href="api/niworkflows.interfaces.cifti.html#module-niworkflows.interfaces.cifti">niworkflows.interfaces.cifti (module)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.confounds.html#module-niworkflows.interfaces.confounds">niworkflows.interfaces.confounds (module)</a>
@@ -843,6 +845,8 @@
 </li>
       <li><a href="api/niworkflows.utils.spaces.html#niworkflows.utils.spaces.NONSTANDARD_REFERENCES">NONSTANDARD_REFERENCES (in module niworkflows.utils.spaces)</a>
 </li>
+      <li><a href="api/niworkflows.interfaces.bold.html#niworkflows.interfaces.bold.NonsteadyStatesDetector">NonsteadyStatesDetector (class in niworkflows.interfaces.bold)</a>
+</li>
       <li><a href="api/niworkflows.interfaces.surf.html#niworkflows.interfaces.surf.normalize_surfs">normalize_surfs() (in module niworkflows.interfaces.surf)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.normalize_xform">normalize_xform() (in module niworkflows.interfaces.images)</a>
@@ -869,6 +873,8 @@
         <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.DerivativesDataSink.output_spec">(niworkflows.interfaces.bids.DerivativesDataSink attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.bids.html#niworkflows.interfaces.bids.ReadSidecarJSON.output_spec">(niworkflows.interfaces.bids.ReadSidecarJSON attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.bold.html#niworkflows.interfaces.bold.NonsteadyStatesDetector.output_spec">(niworkflows.interfaces.bold.NonsteadyStatesDetector attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.cifti.html#niworkflows.interfaces.cifti.CiftiNameSource.output_spec">(niworkflows.interfaces.cifti.CiftiNameSource attribute)</a>
 </li>
@@ -899,6 +905,8 @@
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.MatchHeader.output_spec">(niworkflows.interfaces.images.MatchHeader attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RegridToZooms.output_spec">(niworkflows.interfaces.images.RegridToZooms attribute)</a>
+</li>
+        <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RobustAverage.output_spec">(niworkflows.interfaces.images.RobustAverage attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.SignalExtraction.output_spec">(niworkflows.interfaces.images.SignalExtraction attribute)</a>
 </li>
@@ -951,8 +959,6 @@
         <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.ApplyXFMRPT.output_spec">(niworkflows.interfaces.registration.ApplyXFMRPT attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.BBRegisterRPT.output_spec">(niworkflows.interfaces.registration.BBRegisterRPT attribute)</a>
-</li>
-        <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.EstimateReferenceImage.output_spec">(niworkflows.interfaces.registration.EstimateReferenceImage attribute)</a>
 </li>
         <li><a href="api/niworkflows.interfaces.registration.html#niworkflows.interfaces.registration.FLIRTRPT.output_spec">(niworkflows.interfaces.registration.FLIRTRPT attribute)</a>
 </li>
@@ -1118,6 +1124,8 @@
       <li><a href="api/niworkflows.viz.utils.html#niworkflows.viz.utils.robust_set_limits">robust_set_limits() (in module niworkflows.viz.utils)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.patches.html#niworkflows.interfaces.patches.RobustACompCor">RobustACompCor (class in niworkflows.interfaces.patches)</a>
+</li>
+      <li><a href="api/niworkflows.interfaces.images.html#niworkflows.interfaces.images.RobustAverage">RobustAverage (class in niworkflows.interfaces.images)</a>
 </li>
       <li><a href="api/niworkflows.interfaces.mni.html#niworkflows.interfaces.mni.RobustMNINormalization">RobustMNINormalization (class in niworkflows.interfaces.mni)</a>
 </li>

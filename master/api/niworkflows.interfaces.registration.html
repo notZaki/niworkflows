@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.registration module &mdash; niworkflows 1.4.0rc2+17.g3f8c2658bd documentation</title>
+  <title>niworkflows.interfaces.registration module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
   
 
   
@@ -102,6 +102,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="niworkflows.interfaces.html">niworkflows.interfaces package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="niworkflows.interfaces.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.bids.html">niworkflows.interfaces.bids module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.bold.html">niworkflows.interfaces.bold module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.cifti.html">niworkflows.interfaces.cifti module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.confounds.html">niworkflows.interfaces.confounds module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.fixes.html">niworkflows.interfaces.fixes module</a></li>
@@ -298,37 +299,6 @@
 <dt id="niworkflows.interfaces.registration.BBRegisterRPT.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.registration.BBRegisterRPT.output_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_BBRegisterOutputSpecRPT</span></code></p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="niworkflows.interfaces.registration.EstimateReferenceImage">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.registration.</code><code class="sig-name descname">EstimateReferenceImage</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/registration.html#EstimateReferenceImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.registration.EstimateReferenceImage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
-<p>Generate a reference 3D map from BOLD and SBRef EPI images for BOLD datasets.</p>
-<p>Given a 4D BOLD file or one or more 3/4D SBRefs, estimate a reference
-image for subsequent motion estimation and coregistration steps.
-For the case of BOLD datasets, it estimates a number of T1w saturated volumes
-(non-steady state at the beginning of the scan) and calculates the median
-across them.
-Otherwise (SBRefs or detected zero non-steady state frames), a median of
-of a subset of motion corrected volumes is used.
-If the input reference (BOLD or SBRef) is 3D already, it just returns a
-copy of the image with the NIfTI header extensions removed.</p>
-<p>LIMITATION: If one wants to extract the reference from several SBRefs
-with several echoes each, the first echo should be selected elsewhere
-and run this interface in <code class="docutils literal notranslate"><span class="pre">multiecho</span> <span class="pre">=</span> <span class="pre">False</span></code> mode.</p>
-<dl class="attribute">
-<dt id="niworkflows.interfaces.registration.EstimateReferenceImage.input_spec">
-<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.registration.EstimateReferenceImage.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_EstimateReferenceImageInputSpec</span></code></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="niworkflows.interfaces.registration.EstimateReferenceImage.output_spec">
-<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.registration.EstimateReferenceImage.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_EstimateReferenceImageOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>

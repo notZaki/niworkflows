@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.func.util module &mdash; niworkflows 1.4.0rc2+17.g3f8c2658bd documentation</title>
+  <title>niworkflows.func.util module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
   
 
   
@@ -199,6 +199,13 @@
 <p>The raw reference image is the target of <abbr title="head motion correction">HMC</abbr>, and a
 contrast-enhanced reference is the subject of distortion correction, as well as
 boundary-based registration to T1w and template spaces.</p>
+<p>LIMITATION: If one wants to extract the reference from several SBRefs
+with several echoes each, the first echo should be selected elsewhere
+and run this interface in <code class="docutils literal notranslate"><span class="pre">multiecho</span> <span class="pre">=</span> <span class="pre">False</span></code> mode. In other words,
+SBRef inputs are assumed to be single-echo.</p>
+<p>LIMITATION: If a list of SBRefs is provided, each can be 3D or 4D, but they
+are assumed to be sampled in the exact same 3D-grid and have the same orientation
+information in their headers so that they can directly be merged into a 4D volume.</p>
 <dl>
 <dt>Workflow Graph</dt><dd><div class="figure align-default">
 <img alt="../_images/niworkflows-func-util-1.png" src="../_images/niworkflows-func-util-1.png" />
