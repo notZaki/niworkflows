@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.nibabel module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.interfaces.nibabel module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -215,78 +214,159 @@
 <div class="section" id="module-niworkflows.interfaces.nibabel">
 <span id="niworkflows-interfaces-nibabel-module"></span><h1>niworkflows.interfaces.nibabel module<a class="headerlink" href="#module-niworkflows.interfaces.nibabel" title="Permalink to this headline">¶</a></h1>
 <p>Nibabel-based interfaces.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.interfaces.nibabel.ApplyMask">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">ApplyMask</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#ApplyMask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.ApplyMask" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">ApplyMask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#ApplyMask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.ApplyMask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Mask the input given a mask.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nibabel.ApplyMask.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.ApplyMask.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_ApplyMaskInputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._ApplyMaskInputSpec</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nibabel.ApplyMask.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.ApplyMask.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_ApplyMaskOutputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._ApplyMaskOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.interfaces.nibabel.Binarize">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">Binarize</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#Binarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.Binarize" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">Binarize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#Binarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.Binarize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Binarizes the input image applying the given thresholds.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nibabel.Binarize.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.Binarize.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_BinarizeInputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._BinarizeInputSpec</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nibabel.Binarize.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.Binarize.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_BinarizeOutputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._BinarizeOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
+<dt id="niworkflows.interfaces.nibabel.DemeanImage">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">DemeanImage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#DemeanImage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.DemeanImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.DemeanImage.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.DemeanImage.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._DemeanImageInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.DemeanImage.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.DemeanImage.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._DemeanImageOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="niworkflows.interfaces.nibabel.FilledImageLike">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">FilledImageLike</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#FilledImageLike"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.FilledImageLike" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.FilledImageLike.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.FilledImageLike.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._FilledImageLikeInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.FilledImageLike.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.FilledImageLike.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._FilledImageLikeOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="niworkflows.interfaces.nibabel.GenerateSamplingReference">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">GenerateSamplingReference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#GenerateSamplingReference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.GenerateSamplingReference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<p>Generates a reference grid for resampling one image keeping original resolution,
+but moving data to a different space (e.g. MNI).</p>
+<p>If the <cite>fov_mask</cite> optional input is provided, then the abbr:<cite>FoV (field-of-view)</cite>
+is cropped to a bounding box containing the brain mask plus an offest of two
+voxels along all dimensions. The <cite>fov_mask</cite> should be to the brain mask calculated
+from the T1w, and should not contain the brain stem. The mask is resampled into
+target space, and then the bounding box is calculated. Finally, the FoV is adjusted
+to that bounding box.</p>
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.GenerateSamplingReference.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.GenerateSamplingReference.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._GenerateSamplingReferenceInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.GenerateSamplingReference.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.GenerateSamplingReference.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._GenerateSamplingReferenceOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="niworkflows.interfaces.nibabel.MergeSeries">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">MergeSeries</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#MergeSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.MergeSeries" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">MergeSeries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#MergeSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.MergeSeries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Merge a series of 3D volumes along the last dimension into a single 4D image.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nibabel.MergeSeries.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.MergeSeries.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MergeSeriesInputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._MergeSeriesInputSpec</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nibabel.MergeSeries.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.MergeSeries.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MergeSeriesOutputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._MergeSeriesOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
+<dt id="niworkflows.interfaces.nibabel.RegridToZooms">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">RegridToZooms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#RegridToZooms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.RegridToZooms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<p>Change the resolution of an image (regrid).</p>
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.RegridToZooms.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.RegridToZooms.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._RegridToZoomsInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.RegridToZooms.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.RegridToZooms.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._RegridToZoomsOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="niworkflows.interfaces.nibabel.SplitSeries">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">SplitSeries</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#SplitSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.SplitSeries" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">SplitSeries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#SplitSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.SplitSeries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Split a 4D dataset along the last dimension into a series of 3D volumes.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nibabel.SplitSeries.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.SplitSeries.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_SplitSeriesInputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._SplitSeriesInputSpec</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nibabel.SplitSeries.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.SplitSeries.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_SplitSeriesOutputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._SplitSeriesOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>

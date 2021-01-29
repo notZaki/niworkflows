@@ -91,7 +91,7 @@
 <polyline fill="none" stroke="#000000" points="856,-479.5 856,-548.5 "/>
 <text text-anchor="middle" x="894" y="-533.3" font-family="Times,serif" font-size="14.00" fill="#000000">val_bold</text>
 <polyline fill="none" stroke="#000000" points="856,-525.5 932,-525.5 "/>
-<text text-anchor="middle" x="894" y="-510.3" font-family="Times,serif" font-size="14.00" fill="#000000">images</text>
+<text text-anchor="middle" x="894" y="-510.3" font-family="Times,serif" font-size="14.00" fill="#000000">header</text>
 <polyline fill="none" stroke="#000000" points="856,-502.5 932,-502.5 "/>
 <text text-anchor="middle" x="894" y="-487.3" font-family="Times,serif" font-size="14.00" fill="#000000"> </text>
 <polyline fill="none" stroke="#000000" points="932,-479.5 932,-548.5 "/>

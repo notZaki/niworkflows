@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.cifti module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.interfaces.cifti module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,9 +212,9 @@
 <div class="section" id="module-niworkflows.interfaces.cifti">
 <span id="niworkflows-interfaces-cifti-module"></span><h1>niworkflows.interfaces.cifti module<a class="headerlink" href="#module-niworkflows.interfaces.cifti" title="Permalink to this headline">¶</a></h1>
 <p>Handling connectivity: combines FreeSurfer surfaces with subcortical volumes.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.interfaces.cifti.CiftiNameSource">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.cifti.</code><code class="sig-name descname">CiftiNameSource</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/cifti.html#CiftiNameSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.cifti.CiftiNameSource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.cifti.</code><code class="sig-name descname">CiftiNameSource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/cifti.html#CiftiNameSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.cifti.CiftiNameSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Construct new filename based on unique label of spaces used to generate a CIFTI file.</p>
 <p class="rubric">Examples</p>
@@ -232,37 +231,37 @@
 <span class="go">&#39;space-fsLR_den-32k_bold.dtseries&#39;</span>
 </pre></div>
 </div>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.cifti.CiftiNameSource.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.cifti.CiftiNameSource.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_CiftiNameSourceInputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.cifti._CiftiNameSourceInputSpec</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.cifti.CiftiNameSource.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.cifti.CiftiNameSource.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_CiftiNameSourceOutputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.cifti._CiftiNameSourceOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.interfaces.cifti.GenerateCifti">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.cifti.</code><code class="sig-name descname">GenerateCifti</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/cifti.html#GenerateCifti"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.cifti.GenerateCifti" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.cifti.</code><code class="sig-name descname">GenerateCifti</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/cifti.html#GenerateCifti"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.cifti.GenerateCifti" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Generate CIFTI image from BOLD file in target spaces.</p>
 <p>Currently supports <code class="docutils literal notranslate"><span class="pre">fsLR</span></code>, <code class="docutils literal notranslate"><span class="pre">fsaverage5</span></code>, or <code class="docutils literal notranslate"><span class="pre">fsaverage6</span></code> for template surfaces and
 <code class="docutils literal notranslate"><span class="pre">MNI152NLin6Asym</span></code> or <code class="docutils literal notranslate"><span class="pre">MNI152NLin2009cAsym</span></code> as template volumes.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.cifti.GenerateCifti.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.cifti.GenerateCifti.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_GenerateCiftiInputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.cifti._GenerateCiftiInputSpec</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.cifti.GenerateCifti.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.cifti.GenerateCifti.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_GenerateCiftiOutputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.cifti._GenerateCiftiOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>

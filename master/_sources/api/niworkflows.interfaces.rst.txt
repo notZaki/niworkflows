@@ -6,10 +6,19 @@ niworkflows.interfaces package
    :undoc-members:
    :show-inheritance:
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 1
+
+   niworkflows.interfaces.reportlets
+
 Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 1
 
    niworkflows.interfaces.bids
    niworkflows.interfaces.bold
@@ -17,19 +26,16 @@ Submodules
    niworkflows.interfaces.confounds
    niworkflows.interfaces.fixes
    niworkflows.interfaces.freesurfer
+   niworkflows.interfaces.header
    niworkflows.interfaces.images
    niworkflows.interfaces.itk
-   niworkflows.interfaces.masks
-   niworkflows.interfaces.mni
    niworkflows.interfaces.nibabel
    niworkflows.interfaces.nilearn
    niworkflows.interfaces.nitransforms
+   niworkflows.interfaces.norm
    niworkflows.interfaces.patches
    niworkflows.interfaces.plotting
-   niworkflows.interfaces.registration
-   niworkflows.interfaces.report_base
-   niworkflows.interfaces.segmentation
+   niworkflows.interfaces.probmaps
    niworkflows.interfaces.space
    niworkflows.interfaces.surf
    niworkflows.interfaces.utility
-   niworkflows.interfaces.utils

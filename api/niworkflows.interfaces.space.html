@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.space module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.interfaces.space module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -42,7 +41,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="niworkflows.interfaces.surf module" href="niworkflows.interfaces.surf.html" />
-    <link rel="prev" title="niworkflows.interfaces.segmentation module" href="niworkflows.interfaces.segmentation.html" /> 
+    <link rel="prev" title="niworkflows.interfaces.probmaps module" href="niworkflows.interfaces.probmaps.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -100,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="niworkflows.engine.html">niworkflows.engine package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="niworkflows.func.html">niworkflows.func package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="niworkflows.interfaces.html">niworkflows.interfaces package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="niworkflows.interfaces.html#subpackages">Subpackages</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="niworkflows.interfaces.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.bids.html">niworkflows.interfaces.bids module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.bold.html">niworkflows.interfaces.bold module</a></li>
@@ -107,22 +107,19 @@
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.confounds.html">niworkflows.interfaces.confounds module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.fixes.html">niworkflows.interfaces.fixes module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.freesurfer.html">niworkflows.interfaces.freesurfer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.header.html">niworkflows.interfaces.header module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.images.html">niworkflows.interfaces.images module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.itk.html">niworkflows.interfaces.itk module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.masks.html">niworkflows.interfaces.masks module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.mni.html">niworkflows.interfaces.mni module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.nibabel.html">niworkflows.interfaces.nibabel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.nilearn.html">niworkflows.interfaces.nilearn module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.nitransforms.html">niworkflows.interfaces.nitransforms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.norm.html">niworkflows.interfaces.norm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.patches.html">niworkflows.interfaces.patches module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.plotting.html">niworkflows.interfaces.plotting module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.registration.html">niworkflows.interfaces.registration module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.report_base.html">niworkflows.interfaces.report_base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.segmentation.html">niworkflows.interfaces.segmentation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.probmaps.html">niworkflows.interfaces.probmaps module</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">niworkflows.interfaces.space module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.surf.html">niworkflows.interfaces.surf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.utility.html">niworkflows.interfaces.utility module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.utils.html">niworkflows.interfaces.utils module</a></li>
 </ul>
 </li>
 </ul>
@@ -213,9 +210,9 @@
 <div class="section" id="module-niworkflows.interfaces.space">
 <span id="niworkflows-interfaces-space-module"></span><h1>niworkflows.interfaces.space module<a class="headerlink" href="#module-niworkflows.interfaces.space" title="Permalink to this headline">¶</a></h1>
 <p>Interfaces for handling spaces.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.interfaces.space.SpaceDataSource">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.space.</code><code class="sig-name descname">SpaceDataSource</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/space.html#SpaceDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.space.SpaceDataSource" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.space.</code><code class="sig-name descname">SpaceDataSource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/space.html#SpaceDataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.space.SpaceDataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Generate a Nipype interface from a Space specification.</p>
 <p class="rubric">Example</p>
@@ -239,18 +236,20 @@
 <span class="go">uid = MNIPediatricAsym_cohort-2_res-native</span>
 </pre></div>
 </div>
-<dl class="attribute">
-<dt id="niworkflows.interfaces.space.SpaceDataSource.input_spec">
-<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.space.SpaceDataSource.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_SpaceDataSourceInputSpec</span></code></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="niworkflows.interfaces.space.SpaceDataSource.output_spec">
-<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.space.SpaceDataSource.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_SpaceDataSourceOutputSpec</span></code></p>
-</dd></dl>
-
+<dl class="field-list simple">
+<dt class="field-odd">Mandatory Inputs</dt>
+<dd class="field-odd"><p><strong>in_tuple</strong> (<em>a tuple of the form: (a string, a dictionary with keys which are any value and with values which are any value)</em>) – A space declaration.</p>
+</dd>
+<dt class="field-even">Outputs</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>cohort</strong> (<em>a string</em>) – A cohort specifier.</p></li>
+<li><p><strong>density</strong> (<em>a string</em>) – A density specifier.</p></li>
+<li><p><strong>resolution</strong> (<em>a string</em>) – A resolution specifier.</p></li>
+<li><p><strong>space</strong> (<em>a string</em>) – The space identifier, after dropping the cohort modifier.</p></li>
+<li><p><strong>uid</strong> (<em>a string</em>) – A unique identifier combining space specifications.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -262,7 +261,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="niworkflows.interfaces.surf.html" class="btn btn-neutral float-right" title="niworkflows.interfaces.surf module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="niworkflows.interfaces.segmentation.html" class="btn btn-neutral float-left" title="niworkflows.interfaces.segmentation module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="niworkflows.interfaces.probmaps.html" class="btn btn-neutral float-left" title="niworkflows.interfaces.probmaps module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

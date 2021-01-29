@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.utils.connections module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.utils.connections module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,9 +200,9 @@
 <p>Utilities for the creation of nipype workflows.</p>
 <p>Because these functions are meant to be inlined in nipype’s <code class="docutils literal notranslate"><span class="pre">connect</span></code> invocations,
 all the imports MUST be done in each function’s context.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.utils.connections.listify">
-<code class="sig-prename descclassname">niworkflows.utils.connections.</code><code class="sig-name descname">listify</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/connections.html#listify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.connections.listify" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.utils.connections.</code><code class="sig-name descname">listify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/connections.html#listify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.connections.listify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert to a list (inspired by bids.utils.listify).</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">listify</span><span class="p">(</span><span class="s1">&#39;some/file.nii.gz&#39;</span><span class="p">)</span>
@@ -216,9 +215,9 @@ all the imports MUST be done in each function’s context.</p>
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.utils.connections.pop_file">
-<code class="sig-prename descclassname">niworkflows.utils.connections.</code><code class="sig-name descname">pop_file</code><span class="sig-paren">(</span><em class="sig-param">in_files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/connections.html#pop_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.connections.pop_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.utils.connections.</code><code class="sig-name descname">pop_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/connections.html#pop_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.connections.pop_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select the first file from a list of filenames.</p>
 <p>Used to grab the first echo’s file when processing
 multi-echo data through workflows that only accept

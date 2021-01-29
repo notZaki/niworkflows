@@ -15,17 +15,17 @@
 <ellipse fill="none" stroke="#000000" cx="322.5783" cy="-306" rx="94.7833" ry="18"/>
 <text text-anchor="middle" x="322.5783" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">inputnode (utility)</text>
 </g>
-<!-- val_bold (images) -->
+<!-- val_bold (header) -->
 <g id="node2" class="node">
-<title>val_bold (images)</title>
-<ellipse fill="none" stroke="#000000" cx="141.5783" cy="-234" rx="92.0841" ry="18"/>
-<text text-anchor="middle" x="141.5783" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">val_bold (images)</text>
+<title>val_bold (header)</title>
+<ellipse fill="none" stroke="#000000" cx="141.5783" cy="-234" rx="90.9839" ry="18"/>
+<text text-anchor="middle" x="141.5783" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">val_bold (header)</text>
 </g>
-<!-- inputnode (utility)&#45;&gt;val_bold (images) -->
+<!-- inputnode (utility)&#45;&gt;val_bold (header) -->
 <g id="edge1" class="edge">
-<title>inputnode (utility)&#45;&gt;val_bold (images)</title>
-<path fill="none" stroke="#000000" d="M281.5066,-289.6621C254.8933,-279.0756 220.0537,-265.2167 191.7965,-253.9763"/>
-<polygon fill="#000000" stroke="#000000" points="193.073,-250.7174 182.4874,-250.2733 190.4856,-257.2217 193.073,-250.7174"/>
+<title>inputnode (utility)&#45;&gt;val_bold (header)</title>
+<path fill="none" stroke="#000000" d="M281.5066,-289.6621C254.7996,-279.0383 219.8082,-265.1191 191.4983,-253.8577"/>
+<polygon fill="#000000" stroke="#000000" points="192.7608,-250.5932 182.1753,-250.1491 190.1734,-257.0975 192.7608,-250.5932"/>
 </g>
 <!-- get_dummy (bold) -->
 <g id="node3" class="node">
@@ -69,10 +69,10 @@
 <ellipse fill="none" stroke="#000000" cx="194.5783" cy="-18" rx="101.2821" ry="18"/>
 <text text-anchor="middle" x="194.5783" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">outputnode (utility)</text>
 </g>
-<!-- val_bold (images)&#45;&gt;outputnode (utility) -->
+<!-- val_bold (header)&#45;&gt;outputnode (utility) -->
 <g id="edge5" class="edge">
-<title>val_bold (images)&#45;&gt;outputnode (utility)</title>
-<path fill="none" stroke="#000000" d="M96.3552,-218.2128C76.9848,-209.515 55.4471,-196.9772 40.5783,-180 7.9801,-142.7796 -15.9864,-111.6728 13.5783,-72 25.9591,-55.3862 70.2211,-42.0163 111.8725,-32.7361"/>
+<title>val_bold (header)&#45;&gt;outputnode (utility)</title>
+<path fill="none" stroke="#000000" d="M96.6111,-218.3276C77.1747,-209.6254 55.5126,-197.052 40.5783,-180 7.9801,-142.7796 -15.9864,-111.6728 13.5783,-72 25.9591,-55.3862 70.2211,-42.0163 111.8725,-32.7361"/>
 <polygon fill="#000000" stroke="#000000" points="112.7881,-36.119 121.8218,-30.5834 111.3078,-29.2773 112.7881,-36.119"/>
 </g>
 <!-- gen_avg (images) -->
@@ -81,9 +81,9 @@
 <ellipse fill="none" stroke="#000000" cx="141.5783" cy="-162" rx="92.0841" ry="18"/>
 <text text-anchor="middle" x="141.5783" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">gen_avg (images)</text>
 </g>
-<!-- val_bold (images)&#45;&gt;gen_avg (images) -->
+<!-- val_bold (header)&#45;&gt;gen_avg (images) -->
 <g id="edge6" class="edge">
-<title>val_bold (images)&#45;&gt;gen_avg (images)</title>
+<title>val_bold (header)&#45;&gt;gen_avg (images)</title>
 <path fill="none" stroke="#000000" d="M141.5783,-215.8314C141.5783,-208.131 141.5783,-198.9743 141.5783,-190.4166"/>
 <polygon fill="#000000" stroke="#000000" points="145.0784,-190.4132 141.5783,-180.4133 138.0784,-190.4133 145.0784,-190.4132"/>
 </g>

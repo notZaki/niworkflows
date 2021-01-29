@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.utils.misc module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.utils.misc module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -198,9 +197,42 @@
 <div class="section" id="module-niworkflows.utils.misc">
 <span id="niworkflows-utils-misc-module"></span><h1>niworkflows.utils.misc module<a class="headerlink" href="#module-niworkflows.utils.misc" title="Permalink to this headline">¶</a></h1>
 <p>Miscellaneous utilities.</p>
-<dl class="function">
+<dl class="py function">
+<dt id="niworkflows.utils.misc.add_suffix">
+<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">add_suffix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_files</span></em>, <em class="sig-param"><span class="n">suffix</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#add_suffix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.add_suffix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap nipype’s fname_presuffix to conveniently just add a prefix</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_suffix</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-test_T1w.nii.gz&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-retest_T1w.nii.gz&#39;</span><span class="p">],</span> <span class="s1">&#39;_test&#39;</span><span class="p">)</span>
+<span class="go">&#39;sub-045_ses-test_T1w_test.nii.gz&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niworkflows.utils.misc.clean_directory">
+<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">clean_directory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#clean_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.clean_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears a directory of all contents.</p>
+<p>Returns <cite>True</cite> if no content remains. If any content cannot be removed, returns <cite>False</cite>.</p>
+<p class="rubric">Notes</p>
+<p>This function is not guaranteed to work across multiple threads or processes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="niworkflows.utils.misc.fix_multi_T1w_source_name">
+<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">fix_multi_T1w_source_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_files</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#fix_multi_T1w_source_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.fix_multi_T1w_source_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make up a generic source name when there are multiple T1s</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fix_multi_T1w_source_name</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-test_T1w.nii.gz&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-retest_T1w.nii.gz&#39;</span><span class="p">])</span>
+<span class="go">&#39;/path/to/sub-045_T1w.nii.gz&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt id="niworkflows.utils.misc.get_template_specs">
-<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">get_template_specs</code><span class="sig-paren">(</span><em class="sig-param">in_template</em>, <em class="sig-param">template_spec=None</em>, <em class="sig-param">default_resolution=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#get_template_specs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.get_template_specs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">get_template_specs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_template</span></em>, <em class="sig-param"><span class="n">template_spec</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">default_resolution</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#get_template_specs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.get_template_specs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse template specifications</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_template_specs</span><span class="p">(</span><span class="s1">&#39;MNI152NLin2009cAsym&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;T1w&#39;</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span>
 <span class="go">{&#39;resolution&#39;: 1}</span>
@@ -231,38 +263,14 @@
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="niworkflows.utils.misc.fix_multi_T1w_source_name">
-<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">fix_multi_T1w_source_name</code><span class="sig-paren">(</span><em class="sig-param">in_files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#fix_multi_T1w_source_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.fix_multi_T1w_source_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make up a generic source name when there are multiple T1s</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fix_multi_T1w_source_name</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-test_T1w.nii.gz&#39;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-retest_T1w.nii.gz&#39;</span><span class="p">])</span>
-<span class="go">&#39;/path/to/sub-045_T1w.nii.gz&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="niworkflows.utils.misc.add_suffix">
-<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">add_suffix</code><span class="sig-paren">(</span><em class="sig-param">in_files</em>, <em class="sig-param">suffix</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#add_suffix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.add_suffix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrap nipype’s fname_presuffix to conveniently just add a prefix</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_suffix</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-test_T1w.nii.gz&#39;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="s1">&#39;/path/to/sub-045_ses-retest_T1w.nii.gz&#39;</span><span class="p">],</span> <span class="s1">&#39;_test&#39;</span><span class="p">)</span>
-<span class="go">&#39;sub-045_ses-test_T1w_test.nii.gz&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.utils.misc.read_crashfile">
-<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">read_crashfile</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#read_crashfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.read_crashfile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">read_crashfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#read_crashfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.read_crashfile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.utils.misc.splitext">
-<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">splitext</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#splitext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.splitext" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">splitext</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fname</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#splitext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.splitext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split filename in name and extension (.gz safe).</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">splitext</span><span class="p">(</span><span class="s1">&#39;some/file.nii.gz&#39;</span><span class="p">)</span>
@@ -281,15 +289,6 @@
 <span class="go">(&#39;sub-01_bold.func&#39;, &#39;.gii&#39;)</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="function">
-<dt id="niworkflows.utils.misc.clean_directory">
-<code class="sig-prename descclassname">niworkflows.utils.misc.</code><code class="sig-name descname">clean_directory</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/utils/misc.html#clean_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.utils.misc.clean_directory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clears a directory of all contents.</p>
-<p>Returns <cite>True</cite> if no content remains. If any content cannot be removed, returns <cite>False</cite>.</p>
-<p class="rubric">Notes</p>
-<p>This function is not guaranteed to work across multiple threads or processes.</p>
 </dd></dl>
 
 </div>

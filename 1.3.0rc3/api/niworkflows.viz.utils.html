@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.viz.utils module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.viz.utils module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -197,27 +196,27 @@
 <div class="section" id="module-niworkflows.viz.utils">
 <span id="niworkflows-viz-utils-module"></span><h1>niworkflows.viz.utils module<a class="headerlink" href="#module-niworkflows.viz.utils" title="Permalink to this headline">¶</a></h1>
 <p>Helper tools for visualization purposes.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.compose_view">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">compose_view</code><span class="sig-paren">(</span><em class="sig-param">bg_svgs</em>, <em class="sig-param">fg_svgs</em>, <em class="sig-param">ref=0</em>, <em class="sig-param">out_file='report.svg'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#compose_view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.compose_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">compose_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bg_svgs</span></em>, <em class="sig-param"><span class="n">fg_svgs</span></em>, <em class="sig-param"><span class="n">ref</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">'report.svg'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#compose_view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.compose_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compose the input svgs into one standalone svg with CSS flickering animation.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.cuts_from_bbox">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">cuts_from_bbox</code><span class="sig-paren">(</span><em class="sig-param">mask_nii</em>, <em class="sig-param">cuts=3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#cuts_from_bbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.cuts_from_bbox" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">cuts_from_bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mask_nii</span></em>, <em class="sig-param"><span class="n">cuts</span><span class="o">=</span><span class="default_value">3</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#cuts_from_bbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.cuts_from_bbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find equi-spaced cuts for presenting images.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.extract_svg">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">extract_svg</code><span class="sig-paren">(</span><em class="sig-param">display_object</em>, <em class="sig-param">dpi=300</em>, <em class="sig-param">compress='auto'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#extract_svg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.extract_svg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">extract_svg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">display_object</span></em>, <em class="sig-param"><span class="n">dpi</span><span class="o">=</span><span class="default_value">300</span></em>, <em class="sig-param"><span class="n">compress</span><span class="o">=</span><span class="default_value">'auto'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#extract_svg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.extract_svg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the preamble of the svg files generated with nilearn.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.plot_melodic_components">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">plot_melodic_components</code><span class="sig-paren">(</span><em class="sig-param">melodic_dir</em>, <em class="sig-param">in_file</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">out_file='melodic_reportlet.svg'</em>, <em class="sig-param">compress='auto'</em>, <em class="sig-param">report_mask=None</em>, <em class="sig-param">noise_components_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#plot_melodic_components"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.plot_melodic_components" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">plot_melodic_components</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">melodic_dir</span></em>, <em class="sig-param"><span class="n">in_file</span></em>, <em class="sig-param"><span class="n">tr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">'melodic_reportlet.svg'</span></em>, <em class="sig-param"><span class="n">compress</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="n">report_mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">noise_components_file</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#plot_melodic_components"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.plot_melodic_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the spatiotemporal components extracted by FSL MELODIC
 from functional MRI data.</p>
 <dl class="field-list simple">
@@ -245,16 +244,16 @@ is printed at the top.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.plot_registration">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">plot_registration</code><span class="sig-paren">(</span><em class="sig-param">anat_nii</em>, <em class="sig-param">div_id</em>, <em class="sig-param">plot_params=None</em>, <em class="sig-param">order=('z'</em>, <em class="sig-param">'x'</em>, <em class="sig-param">'y')</em>, <em class="sig-param">cuts=None</em>, <em class="sig-param">estimate_brightness=False</em>, <em class="sig-param">label=None</em>, <em class="sig-param">contour=None</em>, <em class="sig-param">compress='auto'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#plot_registration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.plot_registration" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">plot_registration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">anat_nii</span></em>, <em class="sig-param"><span class="n">div_id</span></em>, <em class="sig-param"><span class="n">plot_params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">order</span><span class="o">=</span><span class="default_value">('z', 'x', 'y')</span></em>, <em class="sig-param"><span class="n">cuts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">estimate_brightness</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">contour</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compress</span><span class="o">=</span><span class="default_value">'auto'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#plot_registration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.plot_registration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the foreground and background views
 Default order is: axial, coronal, sagittal</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.plot_segs">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">plot_segs</code><span class="sig-paren">(</span><em class="sig-param">image_nii</em>, <em class="sig-param">seg_niis</em>, <em class="sig-param">out_file</em>, <em class="sig-param">bbox_nii=None</em>, <em class="sig-param">masked=False</em>, <em class="sig-param">colors=None</em>, <em class="sig-param">compress='auto'</em>, <em class="sig-param">**plot_params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#plot_segs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.plot_segs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">plot_segs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_nii</span></em>, <em class="sig-param"><span class="n">seg_niis</span></em>, <em class="sig-param"><span class="n">out_file</span></em>, <em class="sig-param"><span class="n">bbox_nii</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">masked</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">colors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compress</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">plot_params</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#plot_segs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.plot_segs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a static mosaic with ROIs represented by their delimiting contour.</p>
 <p>Plot segmentation as contours over the image (e.g. anatomical).
 seg_niis should be a list of files. mask_nii helps determine the cut
@@ -262,27 +261,27 @@ coordinates. plot_params will be passed on to nilearn plot_* functions. If
 seg_niis is a list of size one, it behaves as if it was plotting the mask.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.robust_set_limits">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">robust_set_limits</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">plot_params</em>, <em class="sig-param">percentiles=(15</em>, <em class="sig-param">99.8)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#robust_set_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.robust_set_limits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">robust_set_limits</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">plot_params</span></em>, <em class="sig-param"><span class="n">percentiles</span><span class="o">=</span><span class="default_value">(15, 99.8)</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#robust_set_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.robust_set_limits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set (vmax, vmin) based on percentiles of the data.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.svg2str">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">svg2str</code><span class="sig-paren">(</span><em class="sig-param">display_object</em>, <em class="sig-param">dpi=300</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#svg2str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.svg2str" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">svg2str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">display_object</span></em>, <em class="sig-param"><span class="n">dpi</span><span class="o">=</span><span class="default_value">300</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#svg2str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.svg2str" title="Permalink to this definition">¶</a></dt>
 <dd><p>Serialize a nilearn display object to string.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.svg_compress">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">svg_compress</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">compress='auto'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#svg_compress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.svg_compress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">svg_compress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">compress</span><span class="o">=</span><span class="default_value">'auto'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#svg_compress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.svg_compress" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a blob SVG from a matplotlib figure, may perform compression.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.utils.transform_to_2d">
-<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">transform_to_2d</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">max_axis</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#transform_to_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.transform_to_2d" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.utils.</code><code class="sig-name descname">transform_to_2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">max_axis</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/utils.html#transform_to_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.utils.transform_to_2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects 3d data cube along one axis using maximum intensity with
 preservation of the signs. Adapted from nilearn.</p>
 </dd></dl>

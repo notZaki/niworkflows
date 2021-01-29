@@ -10,6 +10,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 1
 
    niworkflows.utils.bids
    niworkflows.utils.images

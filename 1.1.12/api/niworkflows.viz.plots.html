@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.viz.plots module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.viz.plots module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -195,9 +194,9 @@
 <div class="section" id="module-niworkflows.viz.plots">
 <span id="niworkflows-viz-plots-module"></span><h1>niworkflows.viz.plots module<a class="headerlink" href="#module-niworkflows.viz.plots" title="Permalink to this headline">¶</a></h1>
 <p>Plotting tools shared across MRIQC and FMRIPREP.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.plots.compcor_variance_plot">
-<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">compcor_variance_plot</code><span class="sig-paren">(</span><em class="sig-param">metadata_files</em>, <em class="sig-param">metadata_sources=None</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">varexp_thresh=(0.5</em>, <em class="sig-param">0.7</em>, <em class="sig-param">0.9)</em>, <em class="sig-param">fig=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#compcor_variance_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.compcor_variance_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">compcor_variance_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">metadata_files</span></em>, <em class="sig-param"><span class="n">metadata_sources</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">varexp_thresh</span><span class="o">=</span><span class="default_value">(0.5, 0.7, 0.9)</span></em>, <em class="sig-param"><span class="n">fig</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#compcor_variance_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.compcor_variance_plot" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -226,14 +225,14 @@ path.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.plots.confoundplot">
-<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">confoundplot</code><span class="sig-paren">(</span><em class="sig-param">tseries</em>, <em class="sig-param">gs_ts</em>, <em class="sig-param">gs_dist=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">units=None</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">hide_x=True</em>, <em class="sig-param">color='b'</em>, <em class="sig-param">nskip=0</em>, <em class="sig-param">cutoff=None</em>, <em class="sig-param">ylims=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#confoundplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.confoundplot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">confoundplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tseries</span></em>, <em class="sig-param"><span class="n">gs_ts</span></em>, <em class="sig-param"><span class="n">gs_dist</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">units</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">hide_x</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">color</span><span class="o">=</span><span class="default_value">'b'</span></em>, <em class="sig-param"><span class="n">nskip</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">cutoff</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ylims</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#confoundplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.confoundplot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.plots.confounds_correlation_plot">
-<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">confounds_correlation_plot</code><span class="sig-paren">(</span><em class="sig-param">confounds_file</em>, <em class="sig-param">columns=None</em>, <em class="sig-param">figure=None</em>, <em class="sig-param">max_dim=20</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">reference='global_signal'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#confounds_correlation_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.confounds_correlation_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">confounds_correlation_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confounds_file</span></em>, <em class="sig-param"><span class="n">columns</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">figure</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_dim</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">output_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference</span><span class="o">=</span><span class="default_value">'global_signal'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#confounds_correlation_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.confounds_correlation_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a bar plot with the correlation of confounds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -266,52 +265,52 @@ can readily be assessed).</p></li>
 </dl>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.viz.plots.fMRIPlot">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">fMRIPlot</code><span class="sig-paren">(</span><em class="sig-param">func_file</em>, <em class="sig-param">mask_file=None</em>, <em class="sig-param">data=None</em>, <em class="sig-param">conf_file=None</em>, <em class="sig-param">seg_file=None</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">usecols=None</em>, <em class="sig-param">units=None</em>, <em class="sig-param">vlines=None</em>, <em class="sig-param">spikes_files=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#fMRIPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">fMRIPlot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func_file</span></em>, <em class="sig-param"><span class="n">mask_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">conf_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seg_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">usecols</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">units</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vlines</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">spikes_files</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#fMRIPlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Generates the fMRI Summary Plot.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.viz.plots.fMRIPlot.confounds">
 <code class="sig-name descname">confounds</code><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot.confounds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.viz.plots.fMRIPlot.func_file">
 <code class="sig-name descname">func_file</code><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot.func_file" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.viz.plots.fMRIPlot.mask_data">
 <code class="sig-name descname">mask_data</code><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot.mask_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="niworkflows.viz.plots.fMRIPlot.plot">
-<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">figure=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#fMRIPlot.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">figure</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#fMRIPlot.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main plotter</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.viz.plots.fMRIPlot.seg_data">
 <code class="sig-name descname">seg_data</code><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot.seg_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.viz.plots.fMRIPlot.spikes">
 <code class="sig-name descname">spikes</code><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot.spikes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.viz.plots.fMRIPlot.tr">
 <code class="sig-name descname">tr</code><a class="headerlink" href="#niworkflows.viz.plots.fMRIPlot.tr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.plots.plot_carpet">
-<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">plot_carpet</code><span class="sig-paren">(</span><em class="sig-param">func</em>, <em class="sig-param">atlaslabels=None</em>, <em class="sig-param">detrend=True</em>, <em class="sig-param">nskip=0</em>, <em class="sig-param">size=(950</em>, <em class="sig-param">800)</em>, <em class="sig-param">subplot=None</em>, <em class="sig-param">title=None</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">legend=False</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">lut=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#plot_carpet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.plot_carpet" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">plot_carpet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">atlaslabels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">detrend</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nskip</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">(950, 800)</span></em>, <em class="sig-param"><span class="n">subplot</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">legend</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lut</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#plot_carpet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.plot_carpet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot an image representation of voxel intensities across time also know
 as the “carpet plot” or “Power plot”. See Jonathan Power Neuroimage
 2017 Jul 1; 154:150-158.</p>
@@ -340,15 +339,15 @@ overlay.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.plots.spikesplot">
-<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">spikesplot</code><span class="sig-paren">(</span><em class="sig-param">ts_z</em>, <em class="sig-param">outer_gs=None</em>, <em class="sig-param">tr=None</em>, <em class="sig-param">zscored=True</em>, <em class="sig-param">spike_thresh=6.0</em>, <em class="sig-param">title='Spike plot'</em>, <em class="sig-param">ax=None</em>, <em class="sig-param">cmap='viridis'</em>, <em class="sig-param">hide_x=True</em>, <em class="sig-param">nskip=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#spikesplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.spikesplot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">spikesplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ts_z</span></em>, <em class="sig-param"><span class="n">outer_gs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zscored</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">spike_thresh</span><span class="o">=</span><span class="default_value">6.0</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">'Spike plot'</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'viridis'</span></em>, <em class="sig-param"><span class="n">hide_x</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">nskip</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#spikesplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.spikesplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>A spikes plot. Thanks to Bob Dogherty (this docstring needs be improved with proper ack)</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.viz.plots.spikesplot_cb">
-<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">spikesplot_cb</code><span class="sig-paren">(</span><em class="sig-param">position</em>, <em class="sig-param">cmap='viridis'</em>, <em class="sig-param">fig=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#spikesplot_cb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.spikesplot_cb" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.viz.plots.</code><code class="sig-name descname">spikesplot_cb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">position</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'viridis'</span></em>, <em class="sig-param"><span class="n">fig</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/viz/plots.html#spikesplot_cb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.viz.plots.spikesplot_cb" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

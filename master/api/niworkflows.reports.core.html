@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.reports.core module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.reports.core module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -193,16 +192,16 @@
 <span id="niworkflows-reports-core-module"></span><h1>niworkflows.reports.core module<a class="headerlink" href="#module-niworkflows.reports.core" title="Permalink to this headline">¶</a></h1>
 <p>Reports builder for BIDS-Apps.</p>
 <p>Generalizes report generation across BIDS-Apps</p>
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.reports.core.Element">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">Element</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">title=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Element" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">Element</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Just a basic component of a report</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.reports.core.Report">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">Report</code><span class="sig-paren">(</span><em class="sig-param">out_dir</em>, <em class="sig-param">run_uuid</em>, <em class="sig-param">config=None</em>, <em class="sig-param">out_filename='report.html'</em>, <em class="sig-param">packagename=None</em>, <em class="sig-param">reportlets_dir=None</em>, <em class="sig-param">subject_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Report"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Report" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">Report</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span></em>, <em class="sig-param"><span class="n">run_uuid</span></em>, <em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out_filename</span><span class="o">=</span><span class="default_value">'report.html'</span></em>, <em class="sig-param"><span class="n">packagename</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reportlets_dir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subject_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Report"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Report" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>The full report object. This object maintains a BIDSLayout to index
 all reportlets.</p>
@@ -237,29 +236,29 @@ all reportlets.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="niworkflows.reports.core.Report.generate_report">
 <code class="sig-name descname">generate_report</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Report.generate_report"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Report.generate_report" title="Permalink to this definition">¶</a></dt>
 <dd><p>Once the Report has been indexed, the final HTML can be generated</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="niworkflows.reports.core.Report.index">
-<code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Report.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Report.index" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Report.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Report.index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Traverse the reports config definition and instantiate reportlets.</p>
 <p>This method also places figures in their final location.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="niworkflows.reports.core.Report.init_layout">
 <code class="sig-name descname">init_layout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Report.init_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Report.init_layout" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.reports.core.Reportlet">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">Reportlet</code><span class="sig-paren">(</span><em class="sig-param">layout</em>, <em class="sig-param">out_dir</em>, <em class="sig-param">config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Reportlet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Reportlet" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">Reportlet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layout</span></em>, <em class="sig-param"><span class="n">out_dir</span></em>, <em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Reportlet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Reportlet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#niworkflows.reports.core.Element" title="niworkflows.reports.core.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.reports.core.Element</span></code></a></p>
 <p>A reportlet has title, description and a list of components with either an
 HTML fragment or a path to an SVG file, and possibly a caption. This is a
@@ -349,29 +348,29 @@ object.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="niworkflows.reports.core.Reportlet.is_empty">
 <code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#Reportlet.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.Reportlet.is_empty" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.reports.core.SubReport">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">SubReport</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">isnested=False</em>, <em class="sig-param">reportlets=None</em>, <em class="sig-param">title=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#SubReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.SubReport" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">SubReport</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">isnested</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reportlets</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#SubReport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.SubReport" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#niworkflows.reports.core.Element" title="niworkflows.reports.core.Element"><code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.reports.core.Element</span></code></a></p>
 <p>SubReports are sections within a Report.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.reports.core.generate_reports">
-<code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">generate_reports</code><span class="sig-paren">(</span><em class="sig-param">subject_list</em>, <em class="sig-param">output_dir</em>, <em class="sig-param">run_uuid</em>, <em class="sig-param">config=None</em>, <em class="sig-param">work_dir=None</em>, <em class="sig-param">packagename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#generate_reports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.generate_reports" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">generate_reports</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subject_list</span></em>, <em class="sig-param"><span class="n">output_dir</span></em>, <em class="sig-param"><span class="n">run_uuid</span></em>, <em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">work_dir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">packagename</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#generate_reports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.generate_reports" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute run_reports on a list of subjects.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.reports.core.run_reports">
-<code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">run_reports</code><span class="sig-paren">(</span><em class="sig-param">out_dir</em>, <em class="sig-param">subject_label</em>, <em class="sig-param">run_uuid</em>, <em class="sig-param">config=None</em>, <em class="sig-param">reportlets_dir=None</em>, <em class="sig-param">packagename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#run_reports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.run_reports" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.reports.core.</code><code class="sig-name descname">run_reports</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_dir</span></em>, <em class="sig-param"><span class="n">subject_label</span></em>, <em class="sig-param"><span class="n">run_uuid</span></em>, <em class="sig-param"><span class="n">config</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reportlets_dir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">packagename</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/reports/core.html#run_reports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.reports.core.run_reports" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the reports.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>

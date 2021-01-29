@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.nitransforms module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.interfaces.nitransforms module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,15 +33,14 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="niworkflows.interfaces.patches module" href="niworkflows.interfaces.patches.html" />
+    <link rel="next" title="niworkflows.interfaces.norm module" href="niworkflows.interfaces.norm.html" />
     <link rel="prev" title="niworkflows.interfaces.nilearn module" href="niworkflows.interfaces.nilearn.html" /> 
 </head>
 
@@ -100,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="niworkflows.engine.html">niworkflows.engine package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="niworkflows.func.html">niworkflows.func package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="niworkflows.interfaces.html">niworkflows.interfaces package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="niworkflows.interfaces.html#subpackages">Subpackages</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="niworkflows.interfaces.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.bids.html">niworkflows.interfaces.bids module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.bold.html">niworkflows.interfaces.bold module</a></li>
@@ -107,22 +107,19 @@
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.confounds.html">niworkflows.interfaces.confounds module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.fixes.html">niworkflows.interfaces.fixes module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.freesurfer.html">niworkflows.interfaces.freesurfer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.header.html">niworkflows.interfaces.header module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.images.html">niworkflows.interfaces.images module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.itk.html">niworkflows.interfaces.itk module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.masks.html">niworkflows.interfaces.masks module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.mni.html">niworkflows.interfaces.mni module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.nibabel.html">niworkflows.interfaces.nibabel module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.nilearn.html">niworkflows.interfaces.nilearn module</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">niworkflows.interfaces.nitransforms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.norm.html">niworkflows.interfaces.norm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.patches.html">niworkflows.interfaces.patches module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.plotting.html">niworkflows.interfaces.plotting module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.registration.html">niworkflows.interfaces.registration module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.report_base.html">niworkflows.interfaces.report_base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.segmentation.html">niworkflows.interfaces.segmentation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.probmaps.html">niworkflows.interfaces.probmaps module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.space.html">niworkflows.interfaces.space module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.surf.html">niworkflows.interfaces.surf module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.utility.html">niworkflows.interfaces.utility module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="niworkflows.interfaces.utils.html">niworkflows.interfaces.utils module</a></li>
 </ul>
 </li>
 </ul>
@@ -213,28 +210,35 @@
 <div class="section" id="module-niworkflows.interfaces.nitransforms">
 <span id="niworkflows-interfaces-nitransforms-module"></span><h1>niworkflows.interfaces.nitransforms module<a class="headerlink" href="#module-niworkflows.interfaces.nitransforms" title="Permalink to this headline">¶</a></h1>
 <p>Wrappers of NiTransforms.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.interfaces.nitransforms.ConcatenateXFMs">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nitransforms.</code><code class="sig-name descname">ConcatenateXFMs</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nitransforms.html#ConcatenateXFMs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nitransforms.ConcatenateXFMs" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nitransforms.</code><code class="sig-name descname">ConcatenateXFMs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nitransforms.html#ConcatenateXFMs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nitransforms.ConcatenateXFMs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Write a single, flattened transform file.</p>
-<dl class="attribute">
-<dt id="niworkflows.interfaces.nitransforms.ConcatenateXFMs.input_spec">
-<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nitransforms.ConcatenateXFMs.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_ConcatenateXFMsInputSpec</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Optional Inputs</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_xfms</strong> (<em>a list of items which are a pathlike object or string representing an existing file</em>) – Input transform piles.</p></li>
+<li><p><strong>inverse</strong> (<em>a boolean</em>) – Generate inverse.
+(Nipype <strong>default</strong> value: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
+<li><p><strong>moving</strong> (<em>a pathlike object or string representing an existing file</em>) – Moving file (only for writing LTA format, if not concatenating another LTA).</p></li>
+<li><p><strong>out_fmt</strong> (<em>‘itk’ or ‘fs’</em>) – Output format.
+(Nipype <strong>default</strong> value: <code class="docutils literal notranslate"><span class="pre">itk</span></code>)</p></li>
+<li><p><strong>reference</strong> (<em>a pathlike object or string representing an existing file</em>) – Reference file (only for writing LTA format, if not concatenating another LTA).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Outputs</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>out_inv</strong> (<em>a pathlike object or string representing a file</em>) – Output, combined transform.</p></li>
+<li><p><strong>out_xfm</strong> (<em>a pathlike object or string representing an existing file</em>) – Output, combined transform.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="niworkflows.interfaces.nitransforms.ConcatenateXFMs.output_spec">
-<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nitransforms.ConcatenateXFMs.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_ConcatenateXFMsOutputSpec</span></code></p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
+<dl class="py function">
 <dt id="niworkflows.interfaces.nitransforms.concatenate_xfms">
-<code class="sig-prename descclassname">niworkflows.interfaces.nitransforms.</code><code class="sig-name descname">concatenate_xfms</code><span class="sig-paren">(</span><em class="sig-param">in_files</em>, <em class="sig-param">out_file</em>, <em class="sig-param">out_inv=None</em>, <em class="sig-param">reference=None</em>, <em class="sig-param">moving=None</em>, <em class="sig-param">fmt='itk'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nitransforms.html#concatenate_xfms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nitransforms.concatenate_xfms" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">niworkflows.interfaces.nitransforms.</code><code class="sig-name descname">concatenate_xfms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_files</span></em>, <em class="sig-param"><span class="n">out_file</span></em>, <em class="sig-param"><span class="n">out_inv</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">moving</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fmt</span><span class="o">=</span><span class="default_value">'itk'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nitransforms.html#concatenate_xfms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nitransforms.concatenate_xfms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Concatenate linear transforms.</p>
 </dd></dl>
 
@@ -246,7 +250,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="niworkflows.interfaces.patches.html" class="btn btn-neutral float-right" title="niworkflows.interfaces.patches module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="niworkflows.interfaces.norm.html" class="btn btn-neutral float-right" title="niworkflows.interfaces.norm module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="niworkflows.interfaces.nilearn.html" class="btn btn-neutral float-left" title="niworkflows.interfaces.nilearn module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

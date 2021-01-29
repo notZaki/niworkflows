@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.nilearn module &mdash; niworkflows 1.4.0rc2+22.gd69dd648e1 documentation</title>
+  <title>niworkflows.interfaces.nilearn module &mdash; niworkflows 1.4.0rc2+47.ge21adc9c00 documentation</title>
   
 
   
@@ -33,8 +33,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -216,45 +215,58 @@
 <div class="section" id="module-niworkflows.interfaces.nilearn">
 <span id="niworkflows-interfaces-nilearn-module"></span><h1>niworkflows.interfaces.nilearn module<a class="headerlink" href="#module-niworkflows.interfaces.nilearn" title="Permalink to this headline">¶</a></h1>
 <p>Utilities based on nilearn.</p>
-<dl class="attribute">
-<dt id="niworkflows.interfaces.nilearn.NILEARN_VERSION">
-<code class="sig-prename descclassname">niworkflows.interfaces.nilearn.</code><code class="sig-name descname">NILEARN_VERSION</code><a class="headerlink" href="#niworkflows.interfaces.nilearn.NILEARN_VERSION" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py class">
+<dt id="niworkflows.interfaces.nilearn.ComputeEPIMask">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nilearn.</code><code class="sig-name descname">ComputeEPIMask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">generate_report</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nilearn.html#ComputeEPIMask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nilearn.ComputeEPIMask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.reportlets.base.SegmentationRC</span></code></p>
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nilearn.ComputeEPIMask.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nilearn.ComputeEPIMask.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nilearn._ComputeEPIMaskInputSpec</span></code></p>
+</dd></dl>
 
-<dl class="class">
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nilearn.ComputeEPIMask.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nilearn.ComputeEPIMask.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nilearn._ComputeEPIMaskOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="niworkflows.interfaces.nilearn.MaskEPI">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nilearn.</code><code class="sig-name descname">MaskEPI</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nilearn.html#MaskEPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nilearn.MaskEPI" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nilearn.</code><code class="sig-name descname">MaskEPI</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nilearn.html#MaskEPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nilearn.MaskEPI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Run Nilearn’s compute_epi_mask.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nilearn.MaskEPI.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nilearn.MaskEPI.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MaskEPIInputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nilearn._MaskEPIInputSpec</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nilearn.MaskEPI.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nilearn.MaskEPI.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MaskEPIOutputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nilearn._MaskEPIOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="niworkflows.interfaces.nilearn.Merge">
-<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nilearn.</code><code class="sig-name descname">Merge</code><span class="sig-paren">(</span><em class="sig-param">from_file=None</em>, <em class="sig-param">resource_monitor=None</em>, <em class="sig-param">**inputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nilearn.html#Merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nilearn.Merge" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nilearn.</code><code class="sig-name descname">Merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nilearn.html#Merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nilearn.Merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
 <p>Run Nilearn’s concat_imgs.</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nilearn.Merge.input_spec">
 <code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nilearn.Merge.input_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MergeInputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nilearn._MergeInputSpec</span></code></p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="niworkflows.interfaces.nilearn.Merge.output_spec">
 <code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nilearn.Merge.output_spec" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_MergeOutputSpec</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nilearn._MergeOutputSpec</span></code></p>
 </dd></dl>
 
 </dd></dl>
