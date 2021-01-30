@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.images &mdash; niworkflows 1.4.0rc2+50.g7f1283b738 documentation</title>
+  <title>niworkflows.interfaces.images &mdash; niworkflows 1.4.0rc2+52.g1adb83fa05 documentation</title>
   
 
   
@@ -361,9 +361,9 @@
     <span class="p">)</span>
     <span class="n">t_mask</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;List of selected timepoints to be averaged&quot;</span><span class="p">)</span>
     <span class="n">mc_method</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span>
-        <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;AFNI&quot;</span><span class="p">,</span>
         <span class="s2">&quot;FSL&quot;</span><span class="p">,</span>
+        <span class="kc">None</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Which software to use to perform motion correction&quot;</span><span class="p">,</span>
     <span class="p">)</span>
@@ -423,7 +423,7 @@
                 <span class="sa">f</span><span class="s2">&quot;Image length (</span><span class="si">{</span><span class="n">img_len</span><span class="si">}</span><span class="s2"> timepoints) unmatched by mask (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">t_mask</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">n_volumes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">t_mask</span><span class="p">)</span>
+        <span class="n">n_volumes</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">t_mask</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">n_volumes</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least one volume should be selected for slicing&quot;</span><span class="p">)</span>
 
@@ -433,7 +433,28 @@
         <span class="n">sliced</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">concat_images</span><span class="p">(</span>
             <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">four_to_three</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">t_mask</span><span class="p">)</span> <span class="k">if</span> <span class="n">t</span>
         <span class="p">)</span>
-        <span class="n">sliced</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_volumes&quot;</span><span class="p">])</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">sliced</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+        <span class="c1"># Data can come with outliers showing very high numbers - preemptively prune</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">a_min</span><span class="o">=</span><span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">nonnegative</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="n">a_max</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mf">99.8</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">gs_drift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">gs_drift</span> <span class="o">/=</span> <span class="n">gs_drift</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_drift&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gs_drift</span><span class="p">]</span>
+
+        <span class="n">data</span> <span class="o">/=</span> <span class="n">gs_drift</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">a_min</span><span class="o">=</span><span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">nonnegative</span> <span class="k">else</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+            <span class="n">a_max</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="n">sliced</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sliced</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="n">sliced</span><span class="o">.</span><span class="n">header</span><span class="p">)</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_volumes&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">n_volumes</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">nb</span><span class="o">.</span><span class="n">squeeze_image</span><span class="p">(</span><span class="n">sliced</span><span class="p">)</span><span class="o">.</span><span class="n">to_filename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_file&quot;</span><span class="p">])</span>
@@ -446,11 +467,10 @@
             <span class="n">res</span> <span class="o">=</span> <span class="n">Volreg</span><span class="p">(</span>
                 <span class="n">in_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_volumes&quot;</span><span class="p">],</span>
                 <span class="n">args</span><span class="o">=</span><span class="s2">&quot;-Fourier -twopass&quot;</span><span class="p">,</span>
-                <span class="n">oned_matrix_save</span><span class="o">=</span><span class="s2">&quot;afni-oned-matrix.xfm&quot;</span><span class="p">,</span>
                 <span class="n">zpad</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="n">outputtype</span><span class="o">=</span><span class="s2">&quot;NIFTI_GZ&quot;</span><span class="p">,</span>
             <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_hmc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">oned_matrix_save</span>
+            <span class="c1"># self._results[&quot;out_hmc&quot;] = res.outputs.oned_matrix_save</span>
 
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mc_method</span> <span class="o">==</span> <span class="s2">&quot;FSL&quot;</span><span class="p">:</span>
             <span class="kn">from</span> <span class="nn">nipype.interfaces.fsl</span> <span class="kn">import</span> <span class="n">MCFLIRT</span>
@@ -463,14 +483,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_hmc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">mat_file</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">mc_method</span><span class="p">:</span>
-            <span class="n">sliced</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">out_file</span><span class="p">)</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">sliced</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
-        <span class="n">gs_drift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-        <span class="n">gs_drift</span> <span class="o">/=</span> <span class="n">gs_drift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;out_drift&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gs_drift</span><span class="p">]</span>
-
-        <span class="n">data</span> <span class="o">/=</span> <span class="n">gs_drift</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
             <span class="n">data</span><span class="p">,</span>
             <span class="n">a_min</span><span class="o">=</span><span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">nonnegative</span> <span class="k">else</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>

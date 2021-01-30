@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.bold module &mdash; niworkflows 1.4.0rc2+50.g7f1283b738 documentation</title>
+  <title>niworkflows.interfaces.bold module &mdash; niworkflows 1.4.0rc2+52.g1adb83fa05 documentation</title>
   
 
   
@@ -220,8 +220,14 @@
 <dd class="field-odd"><p><strong>in_file</strong> (<em>a pathlike object or string representing an existing file</em>) – BOLD fMRI timeseries.</p>
 </dd>
 <dt class="field-even">Optional Inputs</dt>
-<dd class="field-even"><p><strong>n_volumes</strong> (<em>10 &lt;= an integer &lt;= 200</em>) – Drop volumes in 4D image beyond this timepoint.
-(Nipype <strong>default</strong> value: <code class="docutils literal notranslate"><span class="pre">50</span></code>)</p>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>n_volumes</strong> (<em>10 &lt;= an integer &lt;= 200</em>) – Drop volumes in 4D image beyond this timepoint.
+(Nipype <strong>default</strong> value: <code class="docutils literal notranslate"><span class="pre">40</span></code>)</p></li>
+<li><p><strong>nonnegative</strong> (<em>a boolean</em>) – Whether image voxels must be nonnegative.
+(Nipype <strong>default</strong> value: <code class="docutils literal notranslate"><span class="pre">True</span></code>)</p></li>
+<li><p><strong>zero_dummy_masked</strong> (<em>2 &lt;= an integer &lt;= 40</em>) – Number of timepoints to average when the number of dummies is zero.
+(Nipype <strong>default</strong> value: <code class="docutils literal notranslate"><span class="pre">20</span></code>)</p></li>
+</ul>
 </dd>
 <dt class="field-odd">Outputs</dt>
 <dd class="field-odd"><ul class="simple">

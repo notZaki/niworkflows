@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.bold &mdash; niworkflows 1.4.0rc2+50.g7f1283b738 documentation</title>
+  <title>niworkflows.interfaces.bold &mdash; niworkflows 1.4.0rc2+52.g1adb83fa05 documentation</title>
   
 
   
@@ -183,12 +183,21 @@
 
 <span class="k">class</span> <span class="nc">_NonsteadyStatesDetectorInputSpec</span><span class="p">(</span><span class="n">BaseInterfaceInputSpec</span><span class="p">):</span>
     <span class="n">in_file</span> <span class="o">=</span> <span class="n">File</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mandatory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;BOLD fMRI timeseries&quot;</span><span class="p">)</span>
+    <span class="n">nonnegative</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Bool</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                              <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;whether image voxels must be nonnegative&quot;</span><span class="p">)</span>
     <span class="n">n_volumes</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span>
-        <span class="n">value</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">value</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
         <span class="n">low</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
         <span class="n">high</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
         <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;drop volumes in 4D image beyond this timepoint&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">zero_dummy_masked</span> <span class="o">=</span> <span class="n">traits</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span>
+        <span class="n">value</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">low</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">high</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+        <span class="n">usedefault</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;number of timepoints to average when the number of dummies is zero&quot;</span>
     <span class="p">)</span>
 
 
@@ -209,8 +218,7 @@
         <span class="n">img</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">in_file</span><span class="p">)</span>
 
         <span class="n">ntotal</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">dataobj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="mi">1</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;t_mask&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">ntotal</span>
+        <span class="n">t_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">ntotal</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">ntotal</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;t_mask&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span>
@@ -219,14 +227,23 @@
 
         <span class="kn">from</span> <span class="nn">nipype.algorithms.confounds</span> <span class="kn">import</span> <span class="n">is_outlier</span>
 
-        <span class="n">global_signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">dataobj</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">n_volumes</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">n_volumes</span><span class="p">]</span>
+        <span class="c1"># Data can come with outliers showing very high numbers - preemptively prune</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">a_min</span><span class="o">=</span><span class="mf">0.0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">nonnegative</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+            <span class="n">a_max</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mf">99.8</span><span class="p">),</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;n_dummy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">is_outlier</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
 
-        <span class="n">ndiscard</span> <span class="o">=</span> <span class="n">is_outlier</span><span class="p">(</span><span class="n">global_signal</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;n_dummy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ndiscard</span>
-        <span class="n">ndiscard</span> <span class="o">=</span> <span class="n">ndiscard</span> <span class="ow">or</span> <span class="n">ntotal</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;t_mask&quot;</span><span class="p">][:</span><span class="n">ndiscard</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">*</span> <span class="n">ndiscard</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;n_dummy&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">stop</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ntotal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">n_volumes</span><span class="p">)</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">zero_dummy_masked</span><span class="p">)</span>
+
+        <span class="n">t_mask</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;t_mask&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_mask</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">runtime</span></div>
 </pre></div>
