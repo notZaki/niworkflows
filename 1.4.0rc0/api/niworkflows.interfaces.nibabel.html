@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>niworkflows.interfaces.nibabel module &mdash; niworkflows 1.4.0rc2+69.ge2a86a43bd documentation</title>
+  <title>niworkflows.interfaces.nibabel module &mdash; niworkflows 1.4.0rc2+84.gc2d7fade51 documentation</title>
   
 
   
@@ -315,6 +315,25 @@ to that bounding box.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="niworkflows.interfaces.nibabel.IntensityClip">
+<em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">IntensityClip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#IntensityClip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.IntensityClip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
+<p>Clip the intensity range as prescribed by the percentiles.</p>
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.IntensityClip.input_spec">
+<code class="sig-name descname">input_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.IntensityClip.input_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._IntensityClipInputSpec</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="niworkflows.interfaces.nibabel.IntensityClip.output_spec">
+<code class="sig-name descname">output_spec</code><a class="headerlink" href="#niworkflows.interfaces.nibabel.IntensityClip.output_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">niworkflows.interfaces.nibabel._IntensityClipOutputSpec</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="niworkflows.interfaces.nibabel.MergeSeries">
 <em class="property">class </em><code class="sig-prename descclassname">niworkflows.interfaces.nibabel.</code><code class="sig-name descname">MergeSeries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">from_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource_monitor</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">inputs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/niworkflows/interfaces/nibabel.html#MergeSeries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#niworkflows.interfaces.nibabel.MergeSeries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">nipype.interfaces.base.core.SimpleInterface</span></code></p>
@@ -465,7 +484,6 @@ to that bounding box.</p>
         </dl>
         <dl>
             <dt>Branches</dt>
-            <dd><a href="../../enh_epi-reference-wf-issue-601/api/niworkflows.interfaces.nibabel.html">enh/epi-reference-wf-issue-601</a></dd>
             <dd><a href="../../maint_1.0.x/api/niworkflows.interfaces.nibabel.html">maint/1.0.x</a></dd>
             <dd><a href="../../maint_1.1.x/api/niworkflows.interfaces.nibabel.html">maint/1.1.x</a></dd>
             <dd><a href="../../maint_1.2.x/api/niworkflows.interfaces.nibabel.html">maint/1.2.x</a></dd>
